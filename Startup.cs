@@ -24,6 +24,10 @@ namespace KampongTalk
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddSession(options =>
+            {
+                // options.IdleTimeout = TimeSpan.FromMinutes(60);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +50,8 @@ namespace KampongTalk
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
