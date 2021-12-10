@@ -1,0 +1,63 @@
+﻿@page
+@model KampongTalk.Pages.Events.CreateModel
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+
+    <script>
+        SetMinDate = () => {
+            var now = new Date();
+
+            var day = ("0" + now.getDate()).slice(-2);
+            var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+            var today = now.getFullYear() + "-" + (month) + "-" + (day);
+
+            $('#eventDate').val(today);
+            $('#eventDate').attr('min', today);
+        }
+
+        SetMinDate()
+        console.log("DONE!")
+    </script>
+
+}
+
+    <div asp-validation-summary="All" class="text-danger">
+
+    </div>
+
+
+    <form method="post" asp-action="Create">
+
+        <label class="col-sm-2 col-form-label">Event Name: </label>
+        <input type="text" asp-for="myEvent.Name" />
+        <br />
+
+        <label class="col-sm-2 col-form-label">Event Description: </label>
+        <input type="text" asp-for="myEvent.Description" />
+        <br />
+
+        <label class="col-sm-2 col-form-label">Event Date: </label>
+        <input type="date" id="eventDate" asp-for="myEvent.Date" />
+        <br />
+
+        <label class="col-sm-2 col-form-label">Event Time: </label>
+        <select asp-for="myEvent.Time" asp-items="Model.ListOfTimeIntervals" class="form-control"></select>
+        <br />
+
+        <label class="col-sm-2 col-form-label">Event Duration: </label>
+        <select asp-for="myEvent.Duration">
+            <option value="1">1 Hour</option>
+            <option value="1.5">1.5 Hour</option>
+            <option value="2">2 Hour</option>
+        </select>
+        <br />
+
+        <label class="col-sm-2 col-form-label">Event Location: </label>
+        <input type="text" asp-for="myEvent.Location" />
+        <br />
+
+        <input type="submit" value="Create Event" />
+
+    </form>

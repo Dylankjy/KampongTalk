@@ -24,6 +24,9 @@ namespace KampongTalk.Models
         public DateTime Date { get; set; }
 
         [Required]
+        public String Time { get; set; }
+
+        [Required]
         public string Duration { get; set; }
 
         [Required]
@@ -32,8 +35,7 @@ namespace KampongTalk.Models
         [Required]
         public string Description { get; set; }
 
-        [Required]
-        public string img { get; set; }
+        public string img { get; set; } = "default.jpg";
 
 
     }

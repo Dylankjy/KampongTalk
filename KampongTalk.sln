@@ -1,6 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KampongTalk", "KampongTalk.csproj", "{50728554-30DB-4E5A-840F-1003A1829260}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KampongTalk", "KampongTalk.csproj", "{50728554-30DB-4E5A-840F-1003A1829260}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +15,11 @@ Global
 		{50728554-30DB-4E5A-840F-1003A1829260}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50728554-30DB-4E5A-840F-1003A1829260}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50728554-30DB-4E5A-840F-1003A1829260}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BECF436F-456B-4DE8-BD65-7CB221FBEB26}
 	EndGlobalSection
 EndGlobal
