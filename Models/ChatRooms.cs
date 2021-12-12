@@ -9,9 +9,8 @@ namespace KampongTalk.Models
 {
     public class ChatRooms
     {
-        public static IdGenerator generator = new IdGenerator(0);
+        public long ChatId { get; set; } = new IdGenerator(0).CreateId();
 
-        public string ChatId { get; set; }
 
         //uid of authorised chat users
         public string UsersId { get; set; }
