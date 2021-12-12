@@ -7,21 +7,20 @@ namespace KampongTalk.Models
 {
 	public class Post
 	{
-		public static IdGenerator generator = new IdGenerator(0);
-		public long Pid { get; set; } = generator.CreateId();
+		public long Pid { get; set; } = new IdGenerator(1).CreateId();
 
 		public long Author { get; set; }
 		
 		public String Content { get; set; }
 
-		public String Attachment_img { get; set; }
+		public String AttachmentImg { get; set; }
 
-		public int Count_upvote { get; set; }
+		public int CountUpvote { get; set; }
 
 		// List of user ids 
-		public String Liked_by { get; set; }
+		public String LikedBy { get; set; }
 		
-		public int Count_reshare { get; set; }
+		public int CountReShare { get; set; }
 
 		public DateTime Timestamp { get; set; }
 
@@ -29,11 +28,11 @@ namespace KampongTalk.Models
 		public String Relevancy { get; set; }
 
 		// List of Community FKeys
-		public String In_community { get; set; }
+		public String InCommunity { get; set; }
 
 		// If obj is post, leave as empty string
         // Else if obj is a comment, set as Pid
-		public String Is_comment { get; set; }
+		public String IsComment { get; set; }
 
 	}
 }
