@@ -9,9 +9,7 @@ namespace KampongTalk.Models
 {
     public class Event
     {
-        public static IdGenerator generator = new IdGenerator(0);
-
-        public long Eid { get; set; } = generator.CreateId();
+        public long Eid { get; set; } = new IdGenerator(2).CreateId();
 
         public long CreatorId { get; set; }
 
@@ -35,7 +33,7 @@ namespace KampongTalk.Models
         [Required]
         public string Description { get; set; }
 
-        public string img { get; set; } = "default.jpg";
+        public string Img { get; set; } = "default.jpg";
 
 
     }

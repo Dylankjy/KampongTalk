@@ -8,9 +8,7 @@ namespace KampongTalk.Models
 {
     public class Challenges
     {
-        public static IdGenerator generator = new IdGenerator(0);
-
-        public long Cid { get; set; } = generator.CreateId();
+        public long Cid { get; set; } = new IdGenerator(3).CreateId();
 
         public DateTime Date { get; set; }
 
