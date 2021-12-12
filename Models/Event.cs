@@ -1,9 +1,6 @@
-﻿using IdGen;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+using IdGen;
 
 namespace KampongTalk.Models
 {
@@ -15,26 +12,18 @@ namespace KampongTalk.Models
 
         public string Attendees { get; set; }
 
-        [Required]
-        public string Name { get; set; }
+        [Required] public string Name { get; set; }
 
-        [Required]
-        public DateTime Date { get; set; }
+        [Required] public DateTime Date { get; set; }
 
-        [Required]
-        public String Time { get; set; }
+        [Required] public string Time { get; set; }
 
-        [Required]
-        public string Duration { get; set; }
+        [Required] public string Duration { get; set; }
 
-        [Required]
-        public string Location { get; set; }
+        [Required] public string Location { get; set; }
 
-        [Required]
-        public string Description { get; set; }
+        [Required] public string Description { get; set; }
 
         public string Img { get; set; } = "default.jpg";
-
-
     }
 }

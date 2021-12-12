@@ -1,8 +1,5 @@
-﻿using IdGen;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System;
+using IdGen;
 
 namespace KampongTalk.Models
 {

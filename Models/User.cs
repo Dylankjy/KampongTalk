@@ -1,5 +1,4 @@
-﻿using System;
-using IdGen;
+﻿using IdGen;
 
 namespace KampongTalk.Models
 {
