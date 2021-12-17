@@ -12,5 +12,7 @@ namespace KampongTalk.Models
         public string ChallengePool { get; set; }
 
         public string SelectedChallenge { get; set; }
+        
+        public DateTime Timestamp { get; set; } = DateTime.Now;
     }
 }

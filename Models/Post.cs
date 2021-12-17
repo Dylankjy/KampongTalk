@@ -22,14 +22,11 @@ namespace KampongTalk.Models
 
         public DateTime Timestamp { get; set; }
 
-        // Will contain keywords from the content in the array
-        public string Relevancy { get; set; }
-
         // List of Community FKeys
         public string InCommunity { get; set; }
 
         // If obj is post, leave as empty string
         // Else if obj is a comment, set as Pid
-        public string IsComment { get; set; }
+        public bool IsComment { get; set; }
     }
 }
