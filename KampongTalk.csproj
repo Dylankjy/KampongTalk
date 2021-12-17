@@ -1,7 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <ApplicationIcon />
+        <Win32Resource />
     </PropertyGroup>
 
     <ItemGroup>
@@ -12,7 +14,13 @@
       <PackageReference Include="IdGen" Version="3.0.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.21" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.21" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.21">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
       <PackageReference Include="Mighty" Version="3.2.0" />
+      <PackageReference Include="MySql.Data" Version="8.0.27" />
+      <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
     </ItemGroup>
 
 </Project>
