@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -8,11 +9,13 @@ using Microsoft.Extensions.Logging;
 using Mighty;
 using KampongTalk.Models;
 using IdGen;
+using Microsoft.Extensions.Configuration;
 
 namespace KampongTalk.Pages
 {
     public class IndexModel : PageModel
     {
+        // Use dynamic here, not User. Because MightyORM does not return a User object
         public dynamic user { get; set; }
 
         private readonly ILogger<IndexModel> _logger;
@@ -46,11 +49,9 @@ namespace KampongTalk.Pages
             // p.Name = "Barry";
             // db.Update(p);
 
-
-            var connectionString = "ProviderName=MySql.Data.MySqlClient;Server=175.156.158.50;Port=50000;Database=kampongtalk;Uid=kamponguser;Pwd=HelloWorld!!1";
-            var db = new MightyOrm(connectionString, "Users", "Uid");
-            // db.Insert(user);
+            var db = new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"], "Users");
             user = db.Single(921304464873226240);
+            //var p = db.New();
         }
     }
 }
