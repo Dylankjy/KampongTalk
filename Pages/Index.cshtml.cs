@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Mighty;
 using KampongTalk.Models;
 using IdGen;
+using Microsoft.Extensions.Configuration;
 
 namespace KampongTalk.Pages
 {
@@ -34,10 +36,7 @@ namespace KampongTalk.Pages
                 Challenges = "e"
             };
 
-            var connectionString = "ProviderName=MySql.Data.MySqlClient;Server=175.156.158.50;Port=50000;Database=kampongtalk;Uid=kamponguser;Pwd=HelloWorld!!1";
-            // var connectionString = "ProviderName=System.Data.SqlClient;data source =175.156.158.50:50000;database =kampongtalk;user id =kamponguser;password = HelloWorld!!1;persist security info = false;";
-            // var connectionString = "ProviderName=System.Data.SqlClient;Data Source=175.156.158.50:50000;Initial Catalog = kampongtalk; User ID = kamponguser; Password = HelloWorld!!1";
-            var db = new MightyOrm(connectionString, "Users", "Uid");
+            var db = new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"], "Users");
             db.Insert(user);
             //var p = db.New();
         }
