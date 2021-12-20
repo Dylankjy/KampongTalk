@@ -2,11 +2,37 @@
 @model KampongTalk.Pages.Events.IndexModel
 @{
 }
+<link rel='stylesheet' href='~/css/event.css'>
 
 <p>
-    @foreach (var myEvent in Model.allEvents)
-            {
-                <div>@myEvent.Name</div>
-                <div>@myEvent.Eid</div>
-            }
+    <div class="field is-grouped is-grouped-centered search-bar">
+        <div class="control has-icons-left">
+            <input class="input" size="50" type="text" id="searchText" placeholder="Find your ideal Event" />
+            <span class="icon is-left">
+                <i class="fas fa-search" aria-hidden="true">
+            </span> 
+        </div>
+    </div>
+
+    <main id="index-section" class="section">
+        <div class="container market-listing-container">
+            <div class="columns is-multiline is-variable is-5" id='displayedListings'>
+                @foreach (var myEvent in Model.allEvents)
+                {
+                    <div class="column is-one-quarter">
+                        <a class="listing-clickable" href='/Events/View/@myEvent.Eid'>
+                            <div class="box listing-image" style='background-image: url("imgs/@myEvent.Img")'>
+                                <div>
+                                    <p class="content has-text-white">
+                                        @myEvent.Description
+                                    </p>
+                                </div>
+                            </div>
+                            <h3 class="title">@myEvent.Name</h3>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </main>
 </p>
