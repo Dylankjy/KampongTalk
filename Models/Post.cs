@@ -27,6 +27,6 @@ namespace KampongTalk.Models
 
         // If obj is post, leave as empty string
         // Else if obj is a comment, set as Pid
-        public bool IsComment { get; set; }
+        public long IsComment { get; set; }
     }
 }
