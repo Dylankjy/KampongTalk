@@ -27,7 +27,7 @@ namespace KampongTalk.Pages
 
         public void OnGet()
         {
-            // Create User here (DONT SPECIFY Uid here)
+            // Create User here (DONT SPECIFY Uid in MightyOrm Constructor here)
             // user = new User()
             // {
             //     PhoneNumber = "91223198",
@@ -50,8 +50,11 @@ namespace KampongTalk.Pages
             // db.Update(p);
 
             var db = new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"], "Users");
-            user = db.Single(921304464873226240);
+            user = db.Single("Uid=921304464873226240");
             //var p = db.New();
         }
     }
 }
+
+
+

@@ -1,0 +1,12 @@
+﻿@page
+@model KampongTalk.Pages.Events.IndexModel
+@{
+}
+
+<p>
+    @foreach (var myEvent in Model.allEvents)
+            {
+                <div>@myEvent.Name</div>
+                <div>@myEvent.Eid</div>
+            }
+</p>

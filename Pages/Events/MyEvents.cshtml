@@ -1,0 +1,10 @@
+﻿@page
+@model KampongTalk.Pages.Events.MyEventsModel
+@{
+}
+
+@foreach(var myEvent in Model.myCreatedEvents)
+            {
+                <p>@myEvent.Name</p>
+                <a href="/Events/View/@myEvent.Eid">View Event</a>
+            }

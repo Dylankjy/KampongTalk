@@ -8,16 +8,18 @@ using Mighty;
 
 namespace KampongTalk.Pages.Events
 {
-    public class ViewModel : PageModel
+    public class MyEventsModel : PageModel
     {
-        public long Eid { get; set; }
+        public static long userId { get; set; } = 7;
         public static MightyOrm eventDb { get; set; } = new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"], "Events");
-        public dynamic myEvent { get; set; }
+        
+        public IEnumerable<dynamic> myCreatedEvents { get; set; } = eventDb.All($"CreatorId = {userId}");
+        public IEnumerable<dynamic> mySignedUpEvents { get; set; } = eventDb.All();
+        public IEnumerable<dynamic> myPastEvents { get; set; } = eventDb.All();
 
-        public void OnGet(string eid)
+        public void OnGet()
         {
-            Eid = Convert.ToInt64(eid);
-            myEvent = eventDb.Single($"Eid = {Eid}");
+
         }
     }
 }
