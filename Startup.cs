@@ -28,6 +28,11 @@ namespace KampongTalk
             {
                 // options.IdleTimeout = TimeSpan.FromMinutes(60);
             });
+            services.AddMvc().AddRazorOptions(options =>
+            {
+                options.PageViewLocationFormats
+                 .Add("/Pages/Partials/{0}.cshtml");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

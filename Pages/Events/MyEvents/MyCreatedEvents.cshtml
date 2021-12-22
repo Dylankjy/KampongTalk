@@ -1,0 +1,38 @@
+﻿@page
+@model KampongTalk.Pages.Events.MyEvents.MyCreatedEventsModel
+@{
+}
+
+@functions {
+    public string GetDateString(DateTime dt)
+    {
+        string renderedDateStr = dt.ToLongDateString();
+        return renderedDateStr;
+    }
+}
+
+<div class="tabs is-large">
+    <ul>
+        <li>
+            <a href="/Events/MyEvents">Upcoming Events</a>
+        </li>
+        <li>
+            <a href="/Events/MyEvents/PastEvents">Past Events</a>
+        </li>
+        <li class="is-active">
+            <a href="/Events/MyEvents/MyCreatedEvents">My Events</a>
+        </li>
+    </ul>
+</div>
+
+@foreach (var myEvent in Model.myCreatedEvents)
+{
+    <a href="/Events/View/@myEvent.Eid">
+        <div class="card" style="margin:1% 5% 1%;">
+            <div class="card-content">
+                <p class="title is-4">@myEvent.Name</p>
+                <p class="subtitle is-6">@GetDateString(myEvent.Date)<br> @myEvent.StartTime - @myEvent.EndTime</p>
+            </div>
+        </div>
+    </a>
+}

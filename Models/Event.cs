@@ -16,9 +16,11 @@ namespace KampongTalk.Models
 
         [Required] public DateTime Date { get; set; }
 
-        [Required] public string Time { get; set; }
+        [Required] public string StartTime { get; set; }
 
-        [Required] public string Duration { get; set; }
+        [Required] public string EndTime { get; set; }
+
+        public string Duration { get; set; }
 
         [Required] public string Location { get; set; }
 

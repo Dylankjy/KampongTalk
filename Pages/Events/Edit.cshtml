@@ -1,9 +1,10 @@
-﻿@page
-@model KampongTalk.Pages.Events.CreateModel
+﻿@page "{eid}"
+@model KampongTalk.Pages.Events.EditModel
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial"); 
 }
+
 <link rel='stylesheet' href='~/css/eventForm.css'>
 
 <script>
@@ -15,21 +16,27 @@
 
         var today = now.getFullYear() + "-" + (month) + "-" + (day);
 
-        $('#eventDate').val(today);
         $('#eventDate').attr('min', today);
     }
 
     SetMinDate()
+
+    $('#eventDate').val('@Model.eventDate');
+    $('#startTime').val('@Model.savedEvent.StartTime');
+    $('#endTime').val('@Model.savedEvent.EndTime');
+    $('#eventDesc').val('@Model.savedEvent.Description');
+
     console.log("DONE!")
 </script>
 
 }
+
 <div class="container">
     <form method="post">
         <div class="field">
             <label class="label">Event Name</label>
             <div class="control">
-                <input class="input form-input-50" type="text" asp-for="myEvent.Name">
+                <input class="input form-input-50" type="text" value="@Model.savedEvent.Name" asp-for="myEvent.Name">
             </div>
         </div>
 
@@ -43,7 +50,7 @@
         <div class="field">
             <label class="label">Event Date</label>
             <div class="control">
-                <input class="input form-input-50" id="eventDate" type="date" id="eventDate" asp-for="myEvent.Date" />
+                <input class="input form-input-50" id="eventDate" type="date" value="@Model.eventDate" id="eventDate" asp-for="myEvent.Date" />
             </div>
         </div>
 
@@ -52,7 +59,7 @@
                 <label class="label">Start Time</label>
                 <div class="control">
                     <div class="select">
-                        <select id="startTime" asp-for="myEvent.StartTime" asp-items="Model.ListOfStartTimeIntervals" class="form-control"></select>
+                        <select id="startTime" value="@Model.savedEvent.StartTime" asp-for="myEvent.StartTime" asp-items="Model.ListOfStartTimeIntervals" class="form-control"></select>
                     </div>
                 </div>
             </div>
@@ -61,24 +68,26 @@
                 <label class="label">End Time</label>
                 <div class="control">
                     <div class="select">
-                        <select id="endTime" asp-for="myEvent.EndTime" asp-items="Model.ListOfEndTimeIntervals" class="form-control"></select>
+                        <select id="endTime" value="@Model.savedEvent.EndTime" asp-for="myEvent.EndTime" asp-items="Model.ListOfEndTimeIntervals" class="form-control"></select>
                     </div>
                 </div>
                 <p class="help is-danger">@Model.timeErrMsg</p>
             </div>
         </div>
-
+        
 
         <div class="field">
             <label class="label">Event Location</label>
             <div class="control">
-                <input class="input form-input-50" asp-for="myEvent.Location"></input>
+                <input class="input form-input-50" value="@Model.savedEvent.Location" asp-for="myEvent.Location"></input>
             </div>
         </div>
 
+        <input type="hidden" value="@Model.Eid" />
+
         <div class="field">
             <div class="control">
-                <button class="button is-warning is-light">Create Event</button>
+                <button class="button is-warning is-light">Update Event</button>
             </div>
         </div>
 
