@@ -1,0 +1,41 @@
+﻿@page
+@model KampongTalk.Pages.TranslationModel
+@{
+}
+
+@section Scripts {
+    <script>
+        var translateText = () => {
+            // Use the TranslateAPIController.cs, and run the Translate() function
+            var url = '@Url.Action("Translate", "TranslateAPI")'
+
+            console.log(url)
+            // Pass in the parameters as {"text": blahblah, "language": blahblah}
+            $.get(url, { text: $('#originalText').val(), language: $("#language").val() })
+            .done((data) => {
+                $("#translatedText").val(data)
+            })
+        }
+
+        $("#language").val("@Model.userPrefLang");
+        translateText()
+
+        $("#language").change(() => {
+            translateText()
+        })
+    </script>
+}
+
+<div class="section">
+    <textarea id="originalText">China</textarea>
+
+    <select id="language">
+        <option value="en">English</option>
+        <option value="zh">Chinese</option>
+        <option value="ta">Tamil</option>
+        <option value="ms">Malay</option>
+    </select>
+
+    <textarea id="translatedText"></textarea>
+</div>
+

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KampongTalk.Tools;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +29,8 @@ namespace KampongTalk
             {
                 // options.IdleTimeout = TimeSpan.FromMinutes(60);
             });
+            services.AddSingleton<ITranslator, Translator>();
+
             services.AddMvc().AddRazorOptions(options =>
             {
                 options.PageViewLocationFormats
@@ -61,6 +64,7 @@ namespace KampongTalk
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapControllers();
             });
         }
     }
