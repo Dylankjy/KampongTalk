@@ -1,0 +1,73 @@
+﻿@page
+@model KampongTalk.Pages.SpeechModel
+@{
+}
+
+@section Scripts {
+    <script>
+        // Keep a list of all the generated filenames, so we can delete them once the user does not need thems
+        var filenames = []
+        var deleteFile = (filename) => {
+            // "Delete" refers to the function name, not the route name as specified in [Route] within your API controller
+            var deleteUrl = '@Url.Action("Delete", "SpeechAPI")'
+            console.log(deleteUrl)
+            $.get(deleteUrl, { filename: filename })
+            .done((data) => {
+                console.log(data)
+            })
+        }
+
+        var synthesizeSpeech = () => {
+            // Use the TranslateAPIController.cs, and run the Translate() function
+            var url = '@Url.Action("Synthesize", "SpeechAPI")'
+
+            console.log(url)
+            // Pass in the parameters as {"text": blahblah, "language": blahblah}
+            $.get(url, { text: $('#text').val(), language: $("#language").val(), gender: $('#gender').val() })
+                .done((data) => {
+                    var filename = `speech/${data}`
+                    filenames.push(filename)
+                    $("#speech").attr("src", filename)
+                    document.getElementById("audio").load()
+            })
+        }
+
+        $(window).on("load", () => {
+            console.log("Loaded")
+            $("#synthBtn").click(() => {
+                synthesizeSpeech()
+            })
+        })
+
+        // Delete all the synthesized files when the user navigates to another page
+        $(window).bind('beforeunload', () => {
+            filenames.forEach((filename) => {
+                deleteFile(filename)
+            })
+        })
+    </script>
+}
+
+<div class="section">
+    <textarea id="text">China</textarea>
+
+    <select id="language">
+        <option value="en-US">English</option>
+        <option value="cmn-CN">Chinese</option>
+        <option value="ta">Tamil</option>
+        <option value="ms">Malay</option>
+    </select>
+
+    <select id="gender">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+    </select>
+
+    <audio id="audio" controls>
+        <source id="speech" type="audio/mp3">
+    </audio>
+
+
+    <button id="synthBtn">Transcribe</button>
+</div>
+

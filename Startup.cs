@@ -30,6 +30,7 @@ namespace KampongTalk
                 // options.IdleTimeout = TimeSpan.FromMinutes(60);
             });
             services.AddSingleton<ITranslator, Translator>();
+            services.AddSingleton<ISpeech, SpeechSythesizer>();
 
             services.AddMvc().AddRazorOptions(options =>
             {

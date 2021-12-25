@@ -19,6 +19,7 @@ namespace KampongTalk.Tools
 
         [HttpGet]
         [Route("Translate")]
+        // Called using https://localhost:44351/api/TranslateAPI/Translate?text=No longer wok&language=zh
         public ActionResult Translate(string text, string language)
         {
             var translatedText = _translator.TranslateText(text, language);

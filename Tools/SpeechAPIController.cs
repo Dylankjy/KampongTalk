@@ -1,0 +1,36 @@
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace KampongTalk.Tools
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class SpeechAPIController : ControllerBase
+    {
+        private readonly ISpeech _speech;
+        public SpeechAPIController(ISpeech speech)
+        {
+            _speech = speech;
+        }
+
+        [HttpGet]
+        [Route("Synthesize")]
+        public ActionResult Synthesize(string text, string language, string gender)
+        {
+            var filename = _speech.SynthesizeSpeech(text, language, gender);
+            return Ok(filename);
+        }
+
+        [HttpGet]
+        [Route("Delete")]
+        public ActionResult Delete(string filename)
+        {
+            var resp = _speech.DeleteSpeechFile(filename);
+            return Ok(resp);
+        }
+    }
+}
