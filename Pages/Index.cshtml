@@ -4,35 +4,10 @@
     ViewData["Title"] = "Home page";
 }
 
+<link rel='stylesheet' href='~/css/navMap.css'>
 
-<style>
-    .iconDiv {
-        position: absolute;
-        z-index: 2;
-        padding:0px;
-    }
-
-    .iconLabelEnt {
-        font-weight:bold;
-        color:#FF6E17;
-    }
-
-    .iconLabelSoc {
-        font-weight: bold;
-        color: #5AADF7;
-    }
-
-    .iconLabelHelp {
-        font-weight: bold;
-        color: #086D54;
-    }
-
-    .iconLabelMe {
-        font-weight: bold;
-        color: #880837;
-    }
-
-</style>
+<audio preload="auto" id="chime" src="/audio/navMapChime.mp3"
+       style="width: 100%;"></audio>
 
 <section class="section">
     <div class="columns">
@@ -69,8 +44,13 @@
                 <div class="iconDiv" style="top:35vh; left:10vw;">
                     <!--InboxLink-->
                     <a href="">
+<<<<<<< Updated upstream
                         <img src="~/imgs/NavMap_InboxIcon.png" style="height:11vh;"/>
                         <p class="iconLabelSoc is-size-4">Inbox</p>
+=======
+                        <img src="~/imgs/NavMap_InboxIcon.png" style="height:10vh;" />
+                        <p class="iconLabelSoc is-size-5">Inbox</p>
+>>>>>>> Stashed changes
                     </a>
                 </div>
 
@@ -85,7 +65,7 @@
 
 
                 <!-- BoardIcon -->
-                <div class="iconDiv" style="top:31vh; left:22vw;">
+                <div class="iconDiv" style="top:31vh; left:20vw;">
                     <!--BoardLink-->
                     <a href="">
                         <img src="~/imgs/NavMap_BoardIcon.png" style="height:22vh;"/>
@@ -134,7 +114,6 @@
 
         </div>
         <!-- END: Main Column -->
-
         <!-- START: Notification bar -->
         <div class="column has-background-white-bis">
             <p>Notifications Go Here</p>
@@ -142,4 +121,35 @@
         </div>
         <!-- END: Notification bar -->
     </div>
+<<<<<<< Updated upstream
 </section>
+=======
+</section>
+
+<script>
+
+    window.addEventListener('load', function () {
+        var iconDiv = document.getElementsByClassName('iconDiv');
+        var chime = document.getElementById('chime');
+        chime.volume = 0.5;
+        var audios = document.querySelectorAll('audio');
+
+        var playAudio = function () {
+            [].forEach.call(audios, function (audio) {
+                audio.play();
+            });
+        }
+
+        var stopAudio = function () {
+            chime.pause();
+            chime.currentTime = 0;
+        }
+
+        for (var i = 0; i < iconDiv.length; i++) {
+            iconDiv[i].addEventListener('mouseover', playAudio, false);
+            iconDiv[i].addEventListener('mouseleave', stopAudio, false);
+        }
+    })
+
+</script>
+>>>>>>> Stashed changes
