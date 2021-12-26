@@ -8,7 +8,7 @@ namespace KampongTalk.Models
         public long ActionId { get; set; } = new IdGenerator(0).CreateId();
 
         // Set as the user who performed or relates to the action. If the system performed it, it will be 0
-        public long UserId { get; set; } = 0;
+        public long Uid { get; set; } = 0;
 
         // Set as the action performed
         public string ActionExecuted { get; set; }
