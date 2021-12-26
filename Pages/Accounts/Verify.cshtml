@@ -1,0 +1,56 @@
+﻿@page
+@model KampongTalk.Pages.Accounts.Verify
+
+@{
+    ViewData["Title"] = "Verify your phone number";
+}
+
+<style>
+    #registerSection {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+</style>
+
+<section id="registerSection" class="section is-medium">
+    <div class="has-text-centered">
+        <h1 class="title">Almost there!</h1>
+        <p class="subtitle">Verify your mobile number</p>
+    </div>
+    <br/>
+    
+    <form method="post" class="mt-5">
+        <input value="ResendMessageAction" asp-for="FormName"/>
+        <div>
+            <p class="title is-2 has-text-centered">
+                <i class="fas fa-mobile-alt"></i>
+            </p>
+            <p class="subtitle is-6 has-text-centered"><strong class="has-text-weight-bold">Please check messages on your phone.</strong><br/>We have sent you a 6 digit code to @Model.CurrentUser.PhoneNumber.</p>
+            @* <small>Didn't receive? <button type="submit">Resend</button></small> *@
+        </div>
+
+        <div class="has-text-centered is-size-1 mt-4 mb-4 has-text-grey-light">
+            <i class="fas fa-arrow-down"></i>
+        </div>
+    </form>
+
+    <form method="post">
+        <input value="VerifyOTP" asp-for="FormName"/>
+        <div class="box">
+            <div class="field">
+                <label class="label">Enter code:</label>
+                <div class="control has-icons-left">
+                    <input class="input @Model.OtpInputClass" type="text" placeholder="000000" asp-for="IncomingOtpCode" maxlength="6" minlength="6" required>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-comment-dots"></i>
+                    </span>
+                </div>
+                <small class="has-text-danger">@Html.Raw(Model.OtpCodeWarn)</small>
+            </div>
+        </div>
+        <br/>
+        <div class="has-text-centered">
+            <button class="button is-primary" type="submit"><i class="fas fa-arrow-right"></i>&ensp;Continue</button>
+        </div>
+    </form>
+</section>
