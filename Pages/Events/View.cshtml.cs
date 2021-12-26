@@ -26,9 +26,9 @@ namespace KampongTalk.Pages.Events
         [BindProperty]
         public IFormFile eventImage { get; set; }
 
-        private IHostingEnvironment _environment;
+        private IWebHostEnvironment _environment;
 
-        public ViewModel(IHostingEnvironment environment)
+        public ViewModel(IWebHostEnvironment environment)
         {
             _environment = environment;
         }

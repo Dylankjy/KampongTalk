@@ -24,7 +24,7 @@
     <div class="columns is-vcentered">
         @if (Model.UserId == Model.myEvent.CreatorId)
         {
-            @Html.Partial("_EditableImg");
+            <partial name="_EditableImg" />
         }
         else
         {
@@ -45,7 +45,7 @@
                 <p>Date: @Model.eventDate</p>
                 <p>Duration: @Model.myEvent.Duration Hours</p>
                 <p>Time: @Model.myEvent.StartTime - @Model.myEvent.EndTime</p>
-                <p>Held At: @Model.myEvent.Location</p>
+                <p>Held At: <a target="_blank" href='@Model.myEvent.Location'>@Model.myEvent.Location</a></p>
                 <p>@Model.myEvent.Description</p>
             </div>
 

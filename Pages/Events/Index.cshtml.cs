@@ -11,7 +11,10 @@ namespace KampongTalk.Pages.Events
     public class IndexModel : PageModel
     {
         public static MightyOrm eventDb { get; set; } = new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"], "Events");
-        public IEnumerable<dynamic> allEvents { get; set; } = eventDb.All();
+        public static DateTime nowDt = DateTime.Now;
+        public static string nowDtString = nowDt.ToString("yyyy-MM-dd HH:mm:ss");
+        public IEnumerable<dynamic> allEvents { get; set; } = eventDb.All($"Date > '{nowDtString}'");
+
 
         public void OnGet()
         {
