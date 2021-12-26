@@ -13,39 +13,35 @@ namespace KampongTalk.Pages.Accounts
     {
         // Other stuff
         private static readonly Random Rnd = new Random();
-        
+
         // Current user prop
         public User CurrentUser { get; set; }
-        
+
         // Prop declarations
         [BindProperty] public User NewUserAccount { get; set; }
         [BindProperty] public string NewUserPassword { get; set; }
+
         public string PasswordWarn { get; set; }
             = "<i class='fas fa-info-circle'></i>" +
               "&ensp;Your password needs to contain at least 8 characters and a number.";
-        public string PasswordInputClass { get; set; } = String.Empty;
+
+        public string PasswordInputClass { get; set; } = string.Empty;
         public string PhoneWarn { get; set; }
         public string PhoneInputClass { get; set; }
-        
+
         // --------------------------------------
-        
+
         public IActionResult OnGet()
         {
             // Get current user
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
-            
+
             // If the current user is verified, naturally, the object is present, so just redirect them.
-            if (CurrentUser is {IsVerified: true})
-            {
-                return RedirectToPage("Index");
-            }
-            
+            if (CurrentUser is {IsVerified: true}) return RedirectToPage("Index");
+
             // If the user has not OTP verified
-            if (CurrentUser is {IsVerified: false})
-            {
-                return RedirectToPage("Verify");
-            }
-            
+            if (CurrentUser is {IsVerified: false}) return RedirectToPage("Verify");
+
             // And then show them the page
             // If verification is not yet done, the verification screen will show up
             // else the registration form is shown.
@@ -61,15 +57,12 @@ namespace KampongTalk.Pages.Accounts
             var dbUsers =
                 new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
                     "Users");
-            
+
             // Block OnPost if user is verified and already authenticated
             var currentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
-            if (currentUser is {IsVerified: true})
-            {
-                return RedirectToPage("Index");
-            }
-            
-            bool abortFormSubmission = false;
+            if (currentUser is {IsVerified: true}) return RedirectToPage("Index");
+
+            var abortFormSubmission = false;
             // If the password is not of expected strength
             // Incredibly stupid work around to allow passwords with special characters
             if (!Regex.IsMatch(NewUserPassword, @"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$") &&
@@ -84,7 +77,8 @@ namespace KampongTalk.Pages.Accounts
             }
 
             // If phone number is invalid 
-            if (NewUserAccount.PhoneNumber.Length != 8 || NewUserAccount.PhoneNumber[0] != '8' && NewUserAccount.PhoneNumber[0] != '9')
+            if (NewUserAccount.PhoneNumber.Length != 8 ||
+                NewUserAccount.PhoneNumber[0] != '8' && NewUserAccount.PhoneNumber[0] != '9')
             {
                 PhoneInputClass = "is-danger";
                 PhoneWarn =
@@ -93,9 +87,9 @@ namespace KampongTalk.Pages.Accounts
 
                 abortFormSubmission = true;
             }
-            
+
             // Check whether phone number has already been used
-            if (dbUsers.All(new {PhoneNumber = NewUserAccount.PhoneNumber}).ToList().Count == 1)
+            if (dbUsers.All(new {NewUserAccount.PhoneNumber}).ToList().Count == 1)
             {
                 PhoneInputClass = "is-danger";
                 PhoneWarn =
@@ -105,14 +99,11 @@ namespace KampongTalk.Pages.Accounts
                 abortFormSubmission = true;
             }
 
-            if (abortFormSubmission)
-            {
-                return Page();
-            }
+            if (abortFormSubmission) return Page();
 
             // If all is well, set the password
             NewUserAccount.SetPassword(NewUserPassword);
-            
+
             // Push user object to database
             dbUsers.Insert(NewUserAccount);
 
@@ -125,13 +116,13 @@ namespace KampongTalk.Pages.Accounts
                 Info = "This is a system action for account verification."
             };
             dbActionLogs.Insert(otpRecord);
-            
+
             // Send SMS
             NewUserAccount.SendSms(
                 "You are almost done creating your KampongTalk account." +
                 "We need you to verify this phone number in order to complete the creation of your account.\n" +
                 $"Please enter {otpRecord.Metadata} into the website."
-                );
+            );
 
             // Set the session
             HttpContext.Session.SetString("CurrentUser", NewUserAccount.ToJson());
@@ -140,6 +131,5 @@ namespace KampongTalk.Pages.Accounts
             // Redirect to OTP page
             return RedirectToPage("Verify");
         }
-            
     }
 }

@@ -9,17 +9,15 @@ namespace KampongTalk.Models
     [DatabaseTable("Users")]
     public class User
     {
-        [DatabasePrimaryKey, DatabaseColumn]
-        public long Uid { get; set; } = new IdGenerator(0).CreateId();
-        
-        [DatabaseColumn, Required]
-        public string PhoneNumber { get; set; }
-        [DatabaseColumn, Required]
-        public string Name { get; set; }
-        [DatabaseColumn, Required]
-        public string Password { get; set; }
-        
-        
+        [DatabasePrimaryKey] [DatabaseColumn] public long Uid { get; set; } = new IdGenerator(0).CreateId();
+
+        [DatabaseColumn] [Required] public string PhoneNumber { get; set; }
+
+        [DatabaseColumn] [Required] public string Name { get; set; }
+
+        [DatabaseColumn] [Required] public string Password { get; set; }
+
+
         [DatabaseColumn] public string Bio { get; set; }
         [DatabaseColumn] public string AvatarImg { get; set; } = "default.jpg";
         [DatabaseColumn] public string Interests { get; set; }
@@ -52,7 +50,7 @@ namespace KampongTalk.Models
         {
             return JsonConvert.SerializeObject(this);
         }
-        
+
         public User FromJson(string jsonString)
         {
             try

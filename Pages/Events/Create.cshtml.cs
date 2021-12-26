@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
 using KampongTalk.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -13,12 +11,13 @@ namespace KampongTalk.Pages.Events
 {
     public class CreateModel : PageModel
     {
-        [BindProperty]
-        public Event myEvent { get; set; } = new Event();
+        [BindProperty] public Event myEvent { get; set; } = new Event();
 
         public string timeErrMsg { get; set; }
 
-        public MightyOrm eventDb { get; set; } = new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"], "Events");
+        public MightyOrm eventDb { get; set; } =
+            new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"], "Events");
+
         // public IEnumerable<SelectListItem> ListOfTimeIntervals = TimeEnum.getListOfTimeIntervals();
         public IEnumerable<SelectListItem> ListOfStartTimeIntervals { get; set; } = TimeEnum.getListOfTimeIntervals();
         public IEnumerable<SelectListItem> ListOfEndTimeIntervals { get; set; } = GetEndTimeEnum("06:00 AM");
@@ -36,18 +35,17 @@ namespace KampongTalk.Pages.Events
         {
             if (ModelState.IsValid)
             {
-
-                DateTime startDateTime = DateTime.ParseExact(myEvent.StartTime, "hh:mm tt", CultureInfo.InvariantCulture);
-                DateTime endDateTime = DateTime.ParseExact(myEvent.EndTime, "hh:mm tt", CultureInfo.InvariantCulture);
+                var startDateTime = DateTime.ParseExact(myEvent.StartTime, "hh:mm tt", CultureInfo.InvariantCulture);
+                var endDateTime = DateTime.ParseExact(myEvent.EndTime, "hh:mm tt", CultureInfo.InvariantCulture);
                 if (endDateTime > startDateTime)
                 {
-                    TimeSpan startTimeSpan = startDateTime.TimeOfDay;
-                    TimeSpan endTimeSpan = endDateTime.TimeOfDay;
+                    var startTimeSpan = startDateTime.TimeOfDay;
+                    var endTimeSpan = endDateTime.TimeOfDay;
 
                     // TO render the correct DateTime & save in DB (Take the end time as the timing)
-                    DateTime dtDate = Convert.ToDateTime(myEvent.Date);
-                    string renderedDate = dtDate.ToString("yyyy-MM-dd");
-                    DateTime dt = Convert.ToDateTime(renderedDate + " " + myEvent.EndTime);
+                    var dtDate = Convert.ToDateTime(myEvent.Date);
+                    var renderedDate = dtDate.ToString("yyyy-MM-dd");
+                    var dt = Convert.ToDateTime(renderedDate + " " + myEvent.EndTime);
 
                     myEvent.Date = dt;
                     myEvent.CreatorId = 8;
@@ -56,12 +54,11 @@ namespace KampongTalk.Pages.Events
                     eventDb.Insert(myEvent);
                     return Redirect("/Events/MyEvents");
                 }
-                else
-                {
-                    timeErrMsg = "End Time must be later than Start time";
-                    return Page();
-                }
+
+                timeErrMsg = "End Time must be later than Start time";
+                return Page();
             }
+
             return Page();
         }
     }

@@ -1,14 +1,16 @@
 ﻿@page
 @model KampongTalk.Pages.Events.MyEvents.IndexModel
-@{ 
+@{
 }
 
 @functions {
+
     public string GetDateString(DateTime dt)
     {
-        string renderedDateStr = dt.ToLongDateString();
+        var renderedDateStr = dt.ToLongDateString();
         return renderedDateStr;
     }
+
 }
 
 <div class="tabs is-large">

@@ -12,7 +12,7 @@ namespace KampongTalk.Models
 
         // Set as the action performed
         public string ActionExecuted { get; set; }
-        
+
         // Additional metadata (Hidden from user)
         public string Metadata { get; set; }
 

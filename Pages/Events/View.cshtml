@@ -24,13 +24,13 @@
     <div class="columns is-vcentered">
         @if (Model.UserId == Model.myEvent.CreatorId)
         {
-            <partial name="_EditableImg" />
+            <partial name="_EditableImg"/>
         }
         else
         {
             <div class="column is-8">
                 <figure class="has-text-centered">
-                    <img src="~/imgs/@Model.myEvent.Img" />
+                    <img src="~/imgs/@Model.myEvent.Img"/>
                 </figure>
             </div>
         }
@@ -40,12 +40,12 @@
             <div class="content">
                 <h1 class="title is-size-3">@Model.myEvent.Name</h1>
                 <p class="subtitle is-size-7">Organized By: <a href="/User/@Model.myEvent.CreatorId">BestElderlySG</a></p>
-                <br />
+                <br/>
 
                 <p>Date: @Model.eventDate</p>
                 <p>Duration: @Model.myEvent.Duration Hours</p>
                 <p>Time: @Model.myEvent.StartTime - @Model.myEvent.EndTime</p>
-                <p>Held At: <a target="_blank" href='@Model.myEvent.Location'>@Model.myEvent.Location</a></p>
+                <p>Held At: <a target="_blank" href="@Model.myEvent.Location">@Model.myEvent.Location</a></p>
                 <p>@Model.myEvent.Description</p>
             </div>
 

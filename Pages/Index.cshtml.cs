@@ -1,29 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Mighty;
-using KampongTalk.Models;
-using IdGen;
-using Microsoft.Extensions.Configuration;
 
 namespace KampongTalk.Pages
 {
     public class IndexModel : PageModel
     {
-        // Use dynamic here, not User. Because MightyORM does not return a User object
-        public dynamic user { get; set; }
-
         private readonly ILogger<IndexModel> _logger;
 
         public IndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
         }
+
+        // Use dynamic here, not User. Because MightyORM does not return a User object
+        public dynamic user { get; set; }
 
         public void OnGet()
         {
@@ -41,7 +32,6 @@ namespace KampongTalk.Pages
             // db.Insert(user);
 
 
-
             // Retrieving & Updating User (SPECIFY Uid here)
             // var db = new MightyOrm(connectionString, "Users", "Uid");
             // db.Insert(user);
@@ -49,12 +39,10 @@ namespace KampongTalk.Pages
             // p.Name = "Barry";
             // db.Update(p);
 
-            var db = new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"], "Users");
+            var db = new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
+                "Users");
             user = db.Single("Uid=921304464873226240");
             //var p = db.New();
         }
     }
 }
-
-
-

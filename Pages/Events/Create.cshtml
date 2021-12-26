@@ -2,11 +2,10 @@
 @model KampongTalk.Pages.Events.CreateModel
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial"); 
-}
-<link rel='stylesheet' href='~/css/eventForm.css'>
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    <link rel="stylesheet" href="~/css/eventForm.css">
 
-<script>
+    <script>
     SetMinDate = () => {
         var now = new Date();
 
@@ -24,6 +23,7 @@
 </script>
 
 }
+
 <div class="container">
     <form method="post">
         <div class="field">
@@ -43,7 +43,7 @@
         <div class="field">
             <label class="label">Event Date</label>
             <div class="control">
-                <input class="input form-input-50" id="eventDate" type="date" id="eventDate" asp-for="myEvent.Date" />
+                <input class="input form-input-50" id="eventDate" type="date" id="eventDate" asp-for="myEvent.Date"/>
             </div>
         </div>
 
@@ -73,7 +73,7 @@
             <label class="label">Event Location</label>
             <div class="control">
                 <input class="input form-input-50" asp-for="myEvent.Location"></input>
-                <br />
+                <br/>
                 <a class="has-text-success" href="https://www.skype.com/en/free-conference-call/" target="_blank">Create meeting link here</a>
             </div>
         </div>

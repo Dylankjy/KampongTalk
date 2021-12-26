@@ -1,15 +1,10 @@
-﻿using IdGen;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
+using IdGen;
 
 namespace KampongTalk.Models
 {
     public class ChatMessage
     {
-        
         public long MessageId { get; set; } = new IdGenerator(0).CreateId();
 
         //message type
