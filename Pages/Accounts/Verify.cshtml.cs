@@ -70,8 +70,8 @@ namespace KampongTalk.Pages.Accounts
                 dbActionLogs.Delete($"Uid = {CurrentUser.Uid} AND ActionExecuted = 'account_otp_verify_sent'");
 
                 // Set account info to verified
-                
-                var selectedDbCurrentUser = dbUsers.Single(new { Uid = CurrentUser.Uid });
+
+                var selectedDbCurrentUser = dbUsers.Single(new {CurrentUser.Uid});
                 selectedDbCurrentUser.IsVerified = true;
                 dbUsers.Update(selectedDbCurrentUser);
 

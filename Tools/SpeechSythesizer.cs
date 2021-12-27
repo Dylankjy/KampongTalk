@@ -1,10 +1,6 @@
-﻿using Google.Cloud.TextToSpeech.V1;
+﻿using System.IO;
+using Google.Cloud.TextToSpeech.V1;
 using IdGen;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace KampongTalk.Tools
 {
@@ -14,7 +10,7 @@ namespace KampongTalk.Tools
         string DeleteSpeechFile(string filename);
     }
 
-    public class SpeechSythesizer: ISpeech
+    public class SpeechSythesizer : ISpeech
     {
         private readonly TextToSpeechClient client;
 
@@ -27,7 +23,7 @@ namespace KampongTalk.Tools
         {
             var filename = new IdGenerator(2).CreateId().ToString();
             filename += ".mp3";
-            
+
             var input = new SynthesisInput
             {
                 Text = text
@@ -35,10 +31,7 @@ namespace KampongTalk.Tools
 
             var voiceGender = SsmlVoiceGender.Male;
 
-            if (gender == "Female")
-            {
-                voiceGender = SsmlVoiceGender.Female;
-            }
+            if (gender == "Female") voiceGender = SsmlVoiceGender.Female;
 
             var voiceSelection = new VoiceSelectionParams
             {
@@ -63,7 +56,7 @@ namespace KampongTalk.Tools
 
         public string DeleteSpeechFile(string filename)
         {
-            System.IO.File.Delete($"wwwroot/{filename}");
+            File.Delete($"wwwroot/{filename}");
             return "Deleted";
         }
     }

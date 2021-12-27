@@ -23,7 +23,7 @@ namespace KampongTalk.Models
         [DatabaseColumn] public string Interests { get; set; }
         [DatabaseColumn] public string Challenges { get; set; }
         [DatabaseColumn] public DateTime DateOfBirth { get; set; }
-        [DatabaseColumn] public bool IsVerified { get; set; } = false;
+        [DatabaseColumn] public bool IsVerified { get; set; }
 
         public void SendSms(string messageContent)
         {

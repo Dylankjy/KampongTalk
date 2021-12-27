@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using IdGen;
+﻿using IdGen;
 using KampongTalk.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +11,7 @@ namespace KampongTalk.Pages.Accounts
     {
         // Current user prop
         private User CurrentUser { get; set; }
-        
+
         // Prop declarations
         [BindProperty] public string LoginPhoneNumber { get; set; }
         [BindProperty] public string LoginPassword { get; set; }
@@ -76,12 +74,9 @@ namespace KampongTalk.Pages.Accounts
             // If all is well, set the user into session
             // Set the session
             HttpContext.Session.SetString("CurrentUser", selectedUser.ToJson());
-            
+
             // Redirect to verification page if unverified
-            if (!selectedUser.IsVerified)
-            {
-                return RedirectToPage("Verify");
-            }
+            if (!selectedUser.IsVerified) return RedirectToPage("Verify");
 
             // Else, go to index
             return RedirectToPage("/Index");
