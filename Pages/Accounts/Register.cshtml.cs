@@ -126,7 +126,7 @@ namespace KampongTalk.Pages.Accounts
 
             // Set the session
             HttpContext.Session.SetString("CurrentUser", NewUserAccount.ToJson());
-            HttpContext.Session.SetString("OTPPending", "true");
+            // HttpContext.Session.SetString("OTPPending", "true");
 
             // Redirect to OTP page
             return RedirectToPage("Verify");
