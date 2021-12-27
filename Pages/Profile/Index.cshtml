@@ -1,0 +1,100 @@
+﻿@page
+@model KampongTalk.Pages.Profile.Index
+
+@{
+    ViewData["Title"] = "";
+}
+
+<style>
+    .pfp {
+        height: 12rem;
+        width: 12rem;
+        background: grey; 
+        border: .7rem solid white;
+        border-radius: 9999rem;
+        position: absolute;
+    }
+        
+</style>
+
+<section class="hero is-medium has-background-grey is-dark">
+    <div class="hero-body">
+        <div class="container">
+            <div class="pfp"></div>
+        </div>
+    </div>
+</section>
+
+
+@{
+    if (!Model.ShowUserNotFoundError) {
+        <section class="section">
+            <div class="container">
+                <div class="columns mt-5">
+                    <div class="column is-one-quarter">
+                        <div>
+                            <h1 class="title is-1">@Model.ViewingUser.Name</h1>
+                            <p class="subtitle">&#64;FriendFromRome</p>
+                            <br/>
+                            <div class="level">
+                                <div class="level-item-left has-text-centered">
+                                    <div>
+                                        <p class="heading">Friends</p>
+                                        <p class="title">69</p>
+                                    </div>
+                                </div>
+                                <div class="level-item has-text-centered">
+                                    <div>
+                                        <p class="heading">Likes</p>
+                                        <p class="title">420</p>
+                                    </div>
+                                </div>
+                                <div class="level-item-right has-text-centered">
+                                    <div>
+                                        <a class="button is-black is-outlined"><i class="far fa-edit"></i>&ensp;Edit Profile</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="has-text-grey"><i class="fas fa-arrow-right"></i>&ensp;View all friends</a>
+                        </div>
+                        <hr/>
+                        <div>
+                            <h3 class="title is-5">About me</h3>
+                            <p>@Model.ViewingUser.Bio</p>
+                        </div>
+                        <hr/>
+                        <div>
+                            <div class="level">
+                                <div class="level-item-left has-text-centered">
+                                    <div>
+                                        <h3 class="title is-5">Joined</h3>
+                                    </div>
+                                </div>
+                                <div class="level-item-right has-text-centered">
+                                    <div>
+                                        <p class="is-size-6">@Model.JoinDate</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <h2 class="title is-5">Recent posts by this user</h2>
+                        <p>Posts here</p>
+                        @* TODO: Add posts *@
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+    else
+    {
+        <section class="section is-medium">
+            <div class="container has-text-centered">
+                <p class="title"><i class="fas fa-question-circle"></i></p>
+                <h1 class="subtitle is-4 has-text-weight-bold">We searched high and low, but we weren't able to find this account.</h1>
+                <p>The user may have changed their user tag, deleted their account, or the user simply didn't exist to begin with.<br/>Please ensure that you did not make any typing mistakes.</p>
+            </div>
+        </section>
+    }
+}
