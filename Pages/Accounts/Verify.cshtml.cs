@@ -27,7 +27,10 @@ namespace KampongTalk.Pages.Accounts
             // Get current user
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
 
-            return Page();
+            // If the user has not OTP verified
+            if (CurrentUser is {IsVerified: false}) return Page();
+
+            return RedirectToPage("Index");
         }
 
         public IActionResult OnPost()
@@ -38,10 +41,10 @@ namespace KampongTalk.Pages.Accounts
             // Database declarations
             var dbActionLogs =
                 new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
-                    "ActionLogs");
+                    "ActionLogs", "ActionId");
             var dbUsers =
                 new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
-                    "Users");
+                    "Users", "Uid");
 
             if (FormName == "VerifyOTP")
             {
@@ -63,20 +66,17 @@ namespace KampongTalk.Pages.Accounts
                     return Page();
                 }
 
-                // If all is well, delete the OTP record
-                dbActionLogs.Delete(new
-                {
-                    UserId = CurrentUser.Uid,
-                    ActionExecuted = "account_otp_verify_sent",
-                    Metadata = IncomingOtpCode
-                });
+                // Clear all OTP records for user.
+                dbActionLogs.Delete($"Uid = {CurrentUser.Uid} AND ActionExecuted = 'account_otp_verify_sent'");
 
                 // Set account info to verified
-                CurrentUser.IsVerified = true;
-                dbUsers.Update(CurrentUser);
+                
+                var selectedDbCurrentUser = dbUsers.Single(new { Uid = CurrentUser.Uid });
+                selectedDbCurrentUser.IsVerified = true;
+                dbUsers.Update(selectedDbCurrentUser);
 
                 // And then, return the user to the main index page.
-                return RedirectToPage("Index");
+                return RedirectToPage("/Index");
             }
 
             // if (FormName == "ResendMessageAction")
