@@ -37,7 +37,7 @@ namespace KampongTalk.Models
 
         public bool ComparePassword(string incomingText)
         {
-            var isPasswordMatching = BCrypt.Net.BCrypt.Verify(incomingText, Password);
+            var isPasswordMatching = BCrypt.Net.BCrypt.EnhancedVerify(incomingText, Password);
             return isPasswordMatching;
         }
 
