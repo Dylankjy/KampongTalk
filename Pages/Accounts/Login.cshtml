@@ -1,0 +1,55 @@
+﻿@page
+@model KampongTalk.Pages.Accounts.Login
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<style>
+    #authSection {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+</style>
+<section id="authSection" class="section">
+    <div class="container">
+        <div class="has-text-centered">
+            <h1 class="title">KampongTalk Account</h1>
+            <p class="subtitle">Login to your account</p>
+        </div>
+        <br/>
+
+        <form method="post">
+            <div class="field">
+                <label class="label">Phone Number</label>
+                <div class="control has-icons-left">
+                    <input class="input @Model.FieldClass" type="tel" placeholder="91234567" maxlength="8" asp-for="LoginPhoneNumber" required>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-mobile-alt"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Password</label>
+                <div class="control has-icons-left">
+                    <input class="input @Model.FieldClass" type="password" placeholder="••••••••" asp-for="LoginPassword" required>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-key"></i>
+                    </span>
+                </div>
+            </div>
+            
+            @{
+                if (Model.ShowErrorMessage)
+                {
+                    <div class="notification is-danger is-light">
+                        <button class="delete"></button>
+                        Your phone number or password is incorrect.<br/>
+                        <a href="">Forgotten your password?</a>
+                    </div>
+                }
+            }
+            <button class="button is-primary" type="submit"><i class="fas fa-arrow-right"></i>&ensp;Login</button>
+        </form>
+    </div>
+</section>
