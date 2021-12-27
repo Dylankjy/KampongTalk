@@ -30,7 +30,7 @@ namespace KampongTalk.Pages.Accounts
             // If the user has not OTP verified
             if (CurrentUser is {IsVerified: false}) return Page();
 
-            return RedirectToPage("Index");
+            return RedirectToPage("/Index");
         }
 
         public IActionResult OnPost()
