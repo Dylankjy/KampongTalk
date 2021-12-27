@@ -41,6 +41,23 @@ namespace KampongTalk.Models
             return isPasswordMatching;
         }
 
+        public User ToUser(dynamic obj)
+        {
+            return new User
+            {
+                Uid = obj.Uid,
+                PhoneNumber = obj.PhoneNumber,
+                Name = obj.Name,
+                Password = obj.Password,
+                Bio = obj.Bio,
+                AvatarImg = obj.AvatarImg,
+                Interests = obj.Interests,
+                Challenges = obj.Challenges,
+                DateOfBirth = obj.DateOfBirth,
+                IsVerified = obj.IsVerified
+            };
+        }
+
         // Usage for ToJson and FromJSON
         // To retrieve the data from session:
         // CurrentUser = new User().FromJson(HttpContext.Session.GetString("user"));
