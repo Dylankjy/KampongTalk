@@ -127,6 +127,15 @@ namespace KampongTalk.Pages.Accounts
             // Set the session
             HttpContext.Session.SetString("CurrentUser", NewUserAccount.ToJson());
             // HttpContext.Session.SetString("OTPPending", "true");
+            
+            // Add action to logs
+            dbActionLogs.Insert(new ActionLog()
+            {
+                Uid = NewUserAccount.Uid,
+                ActionExecuted = "account_create",
+                Metadata = null,
+                Info = "Your account was created and this record documents this."
+            });
 
             // Redirect to OTP page
             return RedirectToPage("Verify");
