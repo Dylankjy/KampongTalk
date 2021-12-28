@@ -13,17 +13,13 @@ namespace KampongTalk.Models
 
         public string AttachmentImg { get; set; }
 
-        public int CountUpvote { get; set; }
-
-        // List of user ids 
-        public string LikedBy { get; set; }
-
-        public int CountReShare { get; set; }
-
         public DateTime Timestamp { get; set; }
+        
+        // This is plural.
+        public string TaggedUsers { get; set; }
 
-        // List of Community FKeys
-        public string InCommunity { get; set; }
+        // Community Id
+        public long InCommunity { get; set; }
 
         // If obj is post, leave as empty string
         // Else if obj is a comment, set as Pid
