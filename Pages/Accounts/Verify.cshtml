@@ -2,7 +2,7 @@
 @model KampongTalk.Pages.Accounts.Verify
 
 @{
-    ViewData["Title"] = "Verify your phone number";
+    ViewData["Title"] = Model.LangData.accounts.verify.verifyYourPhone;
 }
 
 <style>
@@ -14,8 +14,8 @@
 
 <section id="registerSection" class="section is-medium">
     <div class="has-text-centered">
-        <h1 class="title">Almost there!</h1>
-        <p class="subtitle">Verify your mobile number</p>
+        <h1 class="title">@Model.LangData.accounts.verify.almostThere</h1>
+        <p class="subtitle">@Model.LangData.accounts.verify.verifyYourPhone</p>
     </div>
     <br/>
 
@@ -25,7 +25,7 @@
             <p class="title is-2 has-text-centered">
                 <i class="fas fa-mobile-alt"></i>
             </p>
-            <p class="subtitle is-6 has-text-centered"><strong class="has-text-weight-bold">Please check messages on your phone.</strong><br/>We have sent you a 6 digit code to @Model.CurrentUser.PhoneNumber.</p>
+            <p class="subtitle is-6 has-text-centered"><strong class="has-text-weight-bold">@Model.LangData.accounts.verify.checkPhone</strong><br/>@Model.LangData.accounts.verify.sentCode@Model.CurrentUser.PhoneNumber.</p>
             @* <small>Didn't receive? <button type="submit">Resend</button></small> *@
         </div>
 
@@ -38,7 +38,7 @@
         <input value="VerifyOTP" type="hidden" asp-for="FormName"/>
         <div class="box">
             <div class="field">
-                <label class="label">Enter code:</label>
+                <label class="label">@Model.LangData.accounts.otp</label>
                 <div class="control has-icons-left">
                     <input class="input @Model.OtpInputClass" type="text" placeholder="000000" asp-for="IncomingOtpCode" maxlength="6" minlength="6" required>
                     <span class="icon is-small is-left">
@@ -50,7 +50,7 @@
         </div>
         <br/>
         <div class="has-text-centered">
-            <button class="button is-primary" type="submit"><i class="fas fa-arrow-right"></i>&ensp;Continue</button>
+            <button class="button is-primary" type="submit"><i class="fas fa-arrow-right"></i>&ensp;@Model.LangData.next</button>
         </div>
     </form>
 </section>

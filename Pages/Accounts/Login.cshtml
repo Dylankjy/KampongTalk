@@ -14,14 +14,14 @@
 <section id="authSection" class="section">
     <div class="container">
         <div class="has-text-centered">
-            <h1 class="title">KampongTalk Account</h1>
-            <p class="subtitle">Login to your account</p>
+            <h1 class="title">@Model.LangData.accounts.login.kampongTalkAccount</h1>
+            <p class="subtitle">@Model.LangData.accounts.login.loginToAccount</p>
         </div>
         <br/>
 
         <form method="post">
             <div class="field">
-                <label class="label">Phone Number</label>
+                <label class="label">@Model.LangData.accounts.phoneNumber</label>
                 <div class="control has-icons-left">
                     <input class="input @Model.FieldClass" type="tel" placeholder="91234567" maxlength="8" asp-for="LoginPhoneNumber" required>
                     <span class="icon is-small is-left">
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="field">
-                <label class="label">Password</label>
+                <label class="label">@Model.LangData.accounts.password</label>
                 <div class="control has-icons-left">
                     <input class="input @Model.FieldClass" type="password" placeholder="••••••••" asp-for="LoginPassword" required>
                     <span class="icon is-small is-left">
@@ -44,12 +44,12 @@
                 {
                     <div class="notification is-danger is-light">
                         <button class="delete"></button>
-                        Your phone number or password is incorrect.<br/>
-                        <a href="">Forgotten your password?</a>
+                        @Model.LangData.accounts.login.wrongPassword<br/>
+                        <a href="">@Model.LangData.accounts.login.forgottenPasswordLink</a>
                     </div>
                 }
             }
-            <button class="button is-primary" type="submit"><i class="fas fa-arrow-right"></i>&ensp;Login</button>
+            <button class="button is-primary" type="submit"><i class="fas fa-arrow-right"></i>&ensp;@Model.LangData.login</button>
         </form>
     </div>
 </section>

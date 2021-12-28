@@ -1,0 +1,49 @@
+﻿{
+  "kampongTalk": "カンポントーク",
+  
+  "back": "戻す",
+  "next": "次へ",
+  "login": "ログイン",
+  "register": "アカウントを作成",
+
+  "your": "あなたの",
+  "you": "あなた",
+
+  "accounts": {
+
+    "fullName": "名前",
+    "phoneNumber": "携帯番号",
+    "password": "パスワード",
+    "otp": "SMSコード",
+
+    "login": {
+      "kampongTalkAccount": "カンポントークアカウント",
+      "loginToAccount": "アカウントをログイン",
+      "wrongPassword": "携帯番号、またパスワードが正しくありません",
+      "forgottenPasswordLink": "パスワードを忘れた"
+    },
+    "register": {
+      "createYourAccount": "新しいカンポントークアカウントを作りましょう",
+      "brandingSlogan": "仲良しと身近な人とつながれる",
+      "passwordHint": "<i class='fas fa-info-circle'></i>&ensp;パスワードは8文字以上と数字が必要です。",
+      "passwordNotSufficient": "<span class='has-text-danger'><i class='fas fa-exclamation-triangle'></i>&ensp;パスワードは8文字以上と数字が必要です。</span>",
+      "whyPhoneNumber": "パスワードを忘れた場合は電話番号を使ってアカウントのリカバリーをされます。",
+      "phoneInvalid": "<i class='fas fa-exclamation-triangle'></i>&ensp;入力された電話番号が有効ではありません.<br>",
+      "phoneAlreadyInUse": "<i class='fas fa-exclamation-triangle'></i>&ensp;この携帯番号はアカウントがあります。 <a href='/Accounts/Login'>代わりにログインする?</a><br>",
+      "phoneVerifyHint": "次でこの番号に確認SMSを送られます。",
+      "placeholders": {
+        "fullName": "山田　太郎"
+      }
+    },
+    "verify": {
+      "almostThere": "もう少しだけで終わり！",
+      "verifyYourPhone": "携帯番号を確認",
+      "checkPhone": "携帯でSMSをチェックしていただいて",
+      "sentCode": "SMSコードを送られました。携帯番号： "
+    }
+  },
+
+  "smsMessages": {
+    "verifyPhone": "もう少しだけで完了です。この携帯番号を確認が必ずです。\n以下のSMSコードはサイトで入力してください。"
+  }
+}

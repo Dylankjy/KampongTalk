@@ -1,4 +1,6 @@
-﻿using IdGen;
+﻿using System;
+using IdGen;
+using KampongTalk.i18n;
 using KampongTalk.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +19,8 @@ namespace KampongTalk.Pages.Accounts
         [BindProperty] public string LoginPassword { get; set; }
         public string FieldClass { get; set; }
         public bool ShowErrorMessage { get; set; }
+
+        public dynamic LangData { get; } = Internationalisation.LoadLanguage("jp");
 
         public IActionResult OnGet()
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using KampongTalk.i18n;
 using KampongTalk.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,14 +17,17 @@ namespace KampongTalk.Pages.Accounts
 
         // Current user prop
         public User CurrentUser { get; set; }
+        
+        // Language prop
+        public dynamic LangData { get; } = Internationalisation.LoadLanguage("jp");
+        private static dynamic LangDataStatic { get; } = Internationalisation.LoadLanguage("jp");
 
         // Prop declarations
         [BindProperty] public User NewUserAccount { get; set; }
         [BindProperty] public string NewUserPassword { get; set; }
 
         public string PasswordWarn { get; set; }
-            = "<i class='fas fa-info-circle'></i>" +
-              "&ensp;Your password needs to contain at least 8 characters and a number.";
+            = LangDataStatic.accounts.register.passwordHint ;
 
         public string PasswordInputClass { get; set; } = string.Empty;
         public string PhoneWarn { get; set; }
@@ -69,22 +73,17 @@ namespace KampongTalk.Pages.Accounts
                 !Regex.IsMatch(NewUserPassword, @"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"))
             {
                 PasswordInputClass = "is-danger";
-                PasswordWarn =
-                    "<span class='has-text-danger'><i class='fas fa-exclamation-triangle'></i>" +
-                    "&ensp;Your password needs to contain at least 8 characters with a number.</span>";
-
+                PasswordWarn = LangDataStatic.accounts.register.passwordNotSufficient;
                 abortFormSubmission = true;
             }
 
             // If phone number is invalid 
-            if (NewUserAccount.PhoneNumber.Length != 8 ||
+            if (NewUserAccount.PhoneNumber.Length != 8 || !NewUserAccount.PhoneNumber.All(char.IsDigit) ||
                 NewUserAccount.PhoneNumber[0] != '8' && NewUserAccount.PhoneNumber[0] != '9')
             {
                 PhoneInputClass = "is-danger";
-                PhoneWarn =
-                    "<i class='fas fa-exclamation-triangle'></i>" +
-                    "&ensp;The phone number you provided is not valid.<br>";
-
+                PhoneWarn = LangDataStatic.accounts.register.phoneInvalid;
+                
                 abortFormSubmission = true;
             }
 
@@ -92,10 +91,8 @@ namespace KampongTalk.Pages.Accounts
             if (dbUsers.All(new {NewUserAccount.PhoneNumber}).ToList().Count == 1)
             {
                 PhoneInputClass = "is-danger";
-                PhoneWarn =
-                    "<i class='fas fa-exclamation-triangle'></i>" +
-                    "&ensp;This phone number is already linked to an account. <a href='/Accounts/Login'>Login instead?</a><br>";
-
+                PhoneWarn = LangDataStatic.accounts.register.phoneAlreadyInUse;
+                    
                 abortFormSubmission = true;
             }
 
@@ -118,11 +115,7 @@ namespace KampongTalk.Pages.Accounts
             dbActionLogs.Insert(otpRecord);
 
             // Send SMS
-            NewUserAccount.SendSms(
-                "You are almost done creating your KampongTalk account." +
-                "We need you to verify this phone number in order to complete the creation of your account.\n" +
-                $"Please enter {otpRecord.Metadata} into the website."
-            );
+            NewUserAccount.SendSms($"{LangDataStatic.smsMessages.verifyPhone}\n{otpRecord.Metadata}");
 
             // Set the session
             HttpContext.Session.SetString("CurrentUser", NewUserAccount.ToJson());

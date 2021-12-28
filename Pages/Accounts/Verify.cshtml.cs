@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using KampongTalk.i18n;
 using KampongTalk.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,8 +21,10 @@ namespace KampongTalk.Pages.Accounts
         [BindProperty] public string IncomingOtpCode { get; set; }
         public string OtpCodeWarn { get; set; }
         public string OtpInputClass { get; set; }
-
-
+        
+        // Language prop
+        public dynamic LangData { get; } = Internationalisation.LoadLanguage("jp");
+        
         public IActionResult OnGet()
         {
             // Get current user

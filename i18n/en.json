@@ -1,0 +1,49 @@
+﻿{
+  "kampongTalk": "KampongTalk",
+
+  "back": "Back",
+  "next": "Continue",
+  "login": "Login",
+  "register": "Register",
+  
+  "your": "Your",
+  "you": "You",
+  
+  "accounts": {
+    
+    "fullName": "Full name",
+    "phoneNumber": "Phone number",
+    "password": "Password",
+    "otp": "6 Digit Code",
+    
+    "login": {
+      "kampongTalkAccount": "KampongTalk Account",
+      "loginToAccount": "Login to your account",
+      "wrongPassword": "Your phone number or password is incorrect",
+      "forgottenPasswordLink": "Forgotten your password?"
+    },
+    "register": {
+      "createYourAccount": "Create your KampongTalk Account",
+      "brandingSlogan": "Connect with your close friends and those close to heart.",
+      "passwordHint": "<i class='fas fa-info-circle'></i>&ensp;Your password needs to contain at least 8 characters and a number.",
+      "passwordNotSufficient": "<span class='has-text-danger'><i class='fas fa-exclamation-triangle'></i>&ensp;Your password needs to contain at least 8 characters with a number.</span>",
+      "whyPhoneNumber": "We will use your phone number to recover your account in the event you forget your password.",
+      "phoneInvalid": "<i class='fas fa-exclamation-triangle'></i>&ensp;The phone number you provided is not valid.<br>",
+      "phoneAlreadyInUse": "<i class='fas fa-exclamation-triangle'></i>&ensp;This phone number is already linked to an account. <a href='/Accounts/Login'>Login instead?</a><br>",
+      "phoneVerifyHint": "We will verify the number via SMS in the next step.",
+      "placeholders": {
+        "fullName": "John Doe"
+      }
+    },
+    "verify": {
+      "almostThere": "Almost there!",
+      "verifyYourPhone": "Verify your phone number",
+      "checkPhone": "Please check messages on your phone.",
+      "sentCode": "We have sent a 6 digit code to "
+    }
+  },
+
+  "smsMessages": {
+    "verifyPhone": "You are almost done creating your KampongTalk account. We need you to verify this phone number in order to complete the creation of your account.\nPlease enter the code below into the website."
+  }
+}

@@ -14,8 +14,8 @@
 <section id="authSection" class="section">
     <div class="container">
         <div class="has-text-centered">
-            <h1 class="title">Create your KampongTalk Account</h1>
-            <p class="subtitle">Connect with your close friends and those close to heart.</p>
+            <h1 class="title">@Model.LangData.accounts.register.createYourAccount</h1>
+            <p class="subtitle">@Model.LangData.accounts.register.brandingSlogan</p>
         </div>
         <br/>
 
@@ -23,16 +23,16 @@
             @* <section id="signup-step1"> *@
             @* <h3 class="title is-5">About you</h3> *@
             <div class="field">
-                <label class="label">Full name</label>
+                <label class="label">@Model.LangData.accounts.fullName</label>
                 <div class="control has-icons-left">
-                    <input class="input" type="text" placeholder="Biggus Dickus" asp-for="NewUserAccount.Name" required>
+                    <input class="input" type="text" placeholder="@Model.LangData.accounts.register.placeholders.fullName" asp-for="NewUserAccount.Name" required>
                     <span class="icon is-small is-left">
                         <i class="fas fa-user"></i>
                     </span>
                 </div>
             </div>
             <div class="field">
-                <label class="label">Password</label>
+                <label class="label">@Model.LangData.accounts.password</label>
                 <div class="control has-icons-left">
                     <input class="input @Model.PasswordInputClass" type="password" placeholder="••••••••" asp-for="NewUserPassword" required>
                     <span class="icon is-small is-left">
@@ -48,10 +48,10 @@
 
             <hr/>
             @* <h3 class="title is-5">Contact information</h3> *@
-            <p>We will use your phone number to recover your account in the event you forget your password.</p>
+            <p>@Model.LangData.accounts.register.whyPhoneNumber</p>
             <br/>
             <div class="field">
-                <label class="label">Mobile Number</label>
+                <label class="label">@Model.LangData.accounts.phoneNumber</label>
                 <div class="control has-icons-left">
                     <input class="input @Model.PhoneInputClass" type="tel" placeholder="91234567" asp-for="NewUserAccount.PhoneNumber" maxlength="8" minlength="8" required>
                     <span class="icon is-small is-left">
@@ -59,12 +59,12 @@
                     </span>
                 </div>
                 <small class="has-text-danger">@Html.Raw(Model.PhoneWarn)</small>
-                <small class="has-text-grey">We will verify the number via SMS in the next step.</small>
+                <small class="has-text-grey">@Model.LangData.accounts.register.phoneVerifyHint</small>
             </div>
             @* <a class="button is-light" onclick="changeStepBackward(1)">Back</a> *@
             @* </section> *@
 
-            <button class="button is-primary" type="submit"><i class="fas fa-arrow-right"></i>&ensp;Create account</button>
+            <button class="button is-primary" type="submit"><i class="fas fa-arrow-right"></i>&ensp;@Model.LangData.next</button>
         </form>
     </div>
 </section>
