@@ -11,6 +11,14 @@
         return renderedDateStr;
     }
 
+    public Boolean isOwner(dynamic myEvent)
+    {
+        if (Model.userId == myEvent.CreatorId)
+        {
+            return true;
+        }
+        return false;
+    }
 }
 
 <div class="tabs is-large">
@@ -30,11 +38,23 @@
 @foreach (var myEvent in Model.myUpcomingEvents)
 {
     <a href="/Events/View/@myEvent.Eid">
-        <div class="card" style="margin:1% 5% 1%;">
-            <div class="card-content">
-                <p class="title is-4">@myEvent.Name</p>
-                <p class="subtitle is-6">@GetDateString(myEvent.Date)<br> @myEvent.StartTime - @myEvent.EndTime</p>
+        @if (isOwner(myEvent))
+        {
+            <div class="card" style="margin: 1% 5% 1%; background-color: rgba(95, 233, 148, 0.55);">
+                <div class="card-content">
+                    <p class="title is-4">@myEvent.Name</p>
+                    <p class="subtitle is-6">@GetDateString(myEvent.Date)<br> @myEvent.StartTime - @myEvent.EndTime</p>
+                </div>
             </div>
-        </div>
+        }
+        else
+        {
+            <div class="card" style="margin:1% 5% 1%;">
+                <div class="card-content">
+                    <p class="title is-4">@myEvent.Name</p>
+                    <p class="subtitle is-6">@GetDateString(myEvent.Date)<br> @myEvent.StartTime - @myEvent.EndTime</p>
+                </div>
+            </div>
+        }
     </a>
 }

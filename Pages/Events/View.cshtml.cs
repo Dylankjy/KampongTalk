@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using IdGen;
+using KampongTalk.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,10 +19,11 @@ namespace KampongTalk.Pages.Events
         {
             _environment = environment;
         }
+ 
+        [BindProperty]
+        public long Eid { get; set; }
 
-        [BindProperty] public long Eid { get; set; }
-
-        [BindProperty] public long UserId { get; set; } = 8;
+        private User CurrentUser { get; set; }
 
         public static MightyOrm eventDb { get; set; } =
             new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"], "Events",
@@ -30,23 +32,53 @@ namespace KampongTalk.Pages.Events
         public dynamic myEvent { get; set; }
         public string eventDate { get; set; }
 
+        // IS the current user the owner of the listing
+        public bool amOwner { get; set; } = false;
+        
+        // Has the current user added the listing to their list
+        public bool hasAdded { get; set; } = false;
+
+        // Has the event ended?
+        public bool isOver { get; set; } = false;
+
 
         [BindProperty] public IFormFile eventImage { get; set; }
 
-        public void OnGet(string eid)
+        public IActionResult OnGet(string eid)
         {
+            CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
+
             // TO retrieve the savedEvent object from db
             Eid = Convert.ToInt64(eid);
             myEvent = eventDb.Single($"Eid = {Eid}");
             var eventDateTime = Convert.ToDateTime(myEvent.Date);
             eventDate = eventDateTime.ToLongDateString();
+
+            if (DateTime.Now >= myEvent.Date)
+            {
+                isOver = true;
+            }
+
+            if (CurrentUser != null)
+            {
+                if (myEvent.Attendees.Contains(CurrentUser.Uid.ToString()))
+                {
+                    hasAdded = true;
+                }
+                if (myEvent.CreatorId == CurrentUser.Uid)
+                {
+                    amOwner = true;
+                }
+            }
+            return Page();
         }
 
 
         public IActionResult OnPost(IFormFile eventImage)
         {
+            CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
             var savedEvent = eventDb.Single($"Eid = {Eid}");
-            if (savedEvent.CreatorId == UserId)
+            if (savedEvent.CreatorId == CurrentUser.Uid)
             {
                 var imgExt = eventImage.FileName.Split('.').Last();
                 var genImgNum = new IdGenerator(2).CreateId();
@@ -70,6 +102,38 @@ namespace KampongTalk.Pages.Events
             }
 
             return Page();
+        }
+
+        public IActionResult OnPostAddOrRemove()
+        {
+            CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
+            Eid = Convert.ToInt64(Eid);
+            myEvent = eventDb.Single($"Eid = {Eid}");
+
+            if (CurrentUser != null)
+            {
+                // Don't allow creator to remove his own listing
+                if (myEvent.CreatorId != CurrentUser.Uid)
+                {
+                    var currentUid = CurrentUser.Uid.ToString();
+                    // If user has already added the event, we will remove it
+                    if (myEvent.Attendees.Contains(currentUid))
+                    {
+                        myEvent.Attendees = myEvent.Attendees.Replace($"{currentUid};", "");
+                    }
+                    // If user hasn't added the event, we will add it
+                    else
+                    {
+                        myEvent.Attendees = myEvent.Attendees + $"{currentUid};";
+                    }
+                    eventDb.Update(myEvent);
+                }
+                return Redirect($"/Events/View/{Eid}");
+            }
+            else
+            {
+                return Redirect("/Accounts/Login");
+            }
         }
     }
 }

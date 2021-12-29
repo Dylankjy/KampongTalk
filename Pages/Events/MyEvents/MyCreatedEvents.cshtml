@@ -11,6 +11,16 @@
         return renderedDateStr;
     }
 
+    // Returns true if the event is over
+    public Boolean EventPassed(DateTime dt)
+    {
+        if (DateTime.Now >= dt)
+        {
+            return true;
+        }
+        return false;
+    }
+
 }
 
 <div class="tabs is-large">
@@ -30,11 +40,23 @@
 @foreach (var myEvent in Model.myCreatedEvents)
 {
     <a href="/Events/View/@myEvent.Eid">
-        <div class="card" style="margin:1% 5% 1%;">
-            <div class="card-content">
-                <p class="title is-4">@myEvent.Name</p>
-                <p class="subtitle is-6">@GetDateString(myEvent.Date)<br> @myEvent.StartTime - @myEvent.EndTime</p>
+        @if (EventPassed(myEvent.Date))
+        {
+            <div class="card" style="margin:1% 5% 1%;opacity:0.5;">
+                <div class="card-content">
+                    <p class="title is-4">@myEvent.Name</p>
+                    <p class="subtitle is-6">@GetDateString(myEvent.Date)<br> @myEvent.StartTime - @myEvent.EndTime</p>
+                </div>
             </div>
-        </div>
+        }
+        else
+        {
+            <div class="card" style="margin:1% 5% 1%;">
+                <div class="card-content">
+                    <p class="title is-4">@myEvent.Name</p>
+                    <p class="subtitle is-6">@GetDateString(myEvent.Date)<br> @myEvent.StartTime - @myEvent.EndTime</p>
+                </div>
+            </div>
+        }
     </a>
-}
+ }

@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using KampongTalk.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Mighty;
 
@@ -9,15 +12,21 @@ namespace KampongTalk.Pages.Events.MyEvents
     {
         public static DateTime nowDt = DateTime.Now;
         public static string nowDtString = nowDt.ToString("yyyy-MM-dd HH:mm:ss");
-        public static long userId { get; set; } = 8;
+        private User CurrentUser { get; set; }
 
         public static MightyOrm eventDb { get; set; } =
             new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"], "Events");
 
-        public IEnumerable<dynamic> myCreatedEvents { get; set; } = eventDb.All($"CreatorId = {userId}");
+        public IEnumerable<dynamic> myCreatedEvents { get; set; }
 
-        public void OnGet()
+
+        public IActionResult OnGet()
         {
+            CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
+            if (CurrentUser == null) return Redirect("/Accounts/Login");
+
+            myCreatedEvents = eventDb.All($"CreatorId = {CurrentUser.Uid}");
+            return Page();
         }
     }
 }

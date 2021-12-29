@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using KampongTalk.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -25,25 +26,49 @@ namespace KampongTalk.Pages.Events
             new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"], "Events",
                 "Eid");
 
+        private User CurrentUser { get; set; }
+
         // public IEnumerable<SelectListItem> ListOfTimeIntervals = TimeEnum.getListOfTimeIntervals();
         public IEnumerable<SelectListItem> ListOfStartTimeIntervals { get; set; } = TimeEnum.getListOfTimeIntervals();
         public IEnumerable<SelectListItem> ListOfEndTimeIntervals { get; set; } = GetEndTimeEnum("06:00 AM");
-
-        public void OnGet(string eid)
-        {
-            Eid = Convert.ToInt64(eid);
-            savedEvent = eventDb.Single($"Eid = {Eid}");
-            DateTime dt = Convert.ToDateTime(savedEvent.Date);
-            eventDate = dt.ToString("yyyy-MM-dd");
-        }
 
         public static IEnumerable<SelectListItem> GetEndTimeEnum(string startTime)
         {
             return TimeEnum.getListOfTimeIntervalsAfter(startTime);
         }
 
+        public IActionResult OnGet(string eid)
+        {
+            CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
+            if (CurrentUser == null) return Redirect("/Accounts/Login");
+
+            Eid = Convert.ToInt64(eid);
+            savedEvent = eventDb.Single($"Eid = {Eid}");
+
+            if (savedEvent.CreatorId == CurrentUser.Uid)
+            {
+                // Don't allow users to edit events that are already over
+                if (DateTime.Now >= savedEvent.Date)
+                {
+                    return Redirect($"/Events/View/{eid}");
+                }
+
+                DateTime dt = Convert.ToDateTime(savedEvent.Date);
+                eventDate = dt.ToString("yyyy-MM-dd");
+                return Page();
+            }
+            return Redirect($"/Events/View/{eid}");
+        }
+
         public IActionResult OnPost()
         {
+            // Ensure user is authorized to edit
+            CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
+            if (CurrentUser == null) return Redirect("/Accounts/Login");
+            Eid = Convert.ToInt64(Eid);
+            savedEvent = eventDb.Single($"Eid = {Eid}");
+            if (savedEvent.CreatorId != CurrentUser.Uid) return Redirect("/Accounts/Login");
+
             if (ModelState.IsValid)
             {
                 var startDateTime = DateTime.ParseExact(myEvent.StartTime, "hh:mm tt", CultureInfo.InvariantCulture);

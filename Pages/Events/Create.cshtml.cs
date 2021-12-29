@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using KampongTalk.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,7 +12,11 @@ namespace KampongTalk.Pages.Events
 {
     public class CreateModel : PageModel
     {
-        [BindProperty] public Event myEvent { get; set; } = new Event();
+        [BindProperty] 
+        public Event myEvent { get; set; } = new Event();
+
+        private User CurrentUser { get; set; }
+
 
         public string timeErrMsg { get; set; }
 
@@ -22,8 +27,13 @@ namespace KampongTalk.Pages.Events
         public IEnumerable<SelectListItem> ListOfStartTimeIntervals { get; set; } = TimeEnum.getListOfTimeIntervals();
         public IEnumerable<SelectListItem> ListOfEndTimeIntervals { get; set; } = GetEndTimeEnum("06:00 AM");
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            // Get current user
+            CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
+            if (CurrentUser == null) return Redirect("/Accounts/Login");
+
+            return Page();
         }
 
         public static IEnumerable<SelectListItem> GetEndTimeEnum(string startTime)
@@ -35,6 +45,7 @@ namespace KampongTalk.Pages.Events
         {
             if (ModelState.IsValid)
             {
+                CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
                 var startDateTime = DateTime.ParseExact(myEvent.StartTime, "hh:mm tt", CultureInfo.InvariantCulture);
                 var endDateTime = DateTime.ParseExact(myEvent.EndTime, "hh:mm tt", CultureInfo.InvariantCulture);
                 if (endDateTime > startDateTime)
@@ -48,8 +59,8 @@ namespace KampongTalk.Pages.Events
                     var dt = Convert.ToDateTime(renderedDate + " " + myEvent.EndTime);
 
                     myEvent.Date = dt;
-                    myEvent.CreatorId = 8;
-                    myEvent.Attendees = "";
+                    myEvent.CreatorId = CurrentUser.Uid;
+                    myEvent.Attendees = $"{myEvent.CreatorId};";
                     myEvent.Duration = Convert.ToString(endTimeSpan.TotalHours - startTimeSpan.TotalHours);
                     eventDb.Insert(myEvent);
                     return Redirect("/Events/MyEvents");

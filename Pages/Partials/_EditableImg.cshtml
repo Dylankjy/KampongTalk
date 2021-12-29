@@ -10,8 +10,7 @@
     </figure>
 </div>
 
-<form enctype="multipart/form-data" method="POST" id="editImageForm" asp-action="View">
+<form enctype="multipart/form-data" method="POST" id="editImageForm" asp-page-handler="OnPost">
     <input name="eventImage" type="file" accept="image/*" hidden>
     <input type="hidden" asp-for="@Model.Eid" value="@Model.Eid"/>
-    <input type="hidden" asp-for="@Model.UserId" value="@Model.UserId"/>
 </form>
