@@ -1,0 +1,38 @@
+﻿/* Hide scrollbar for Chrome, Safari and Opera */
+.example::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.example {
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+.userPFP {
+    border-radius: 50%;
+    height: 3rem;
+    width: 3rem;
+    background-size: cover;
+    background-position: center;
+    display: inline-block;
+}
+
+/* Post's primary info includes: Author, Community, Tagged People*/
+.postPriInfo {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 1rem;
+}
+
+.minorInfo {
+    font-size: 0.85rem;
+}
+
+.postImg {
+    display: block;
+    max-height: 50vh;
+    width: auto;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
