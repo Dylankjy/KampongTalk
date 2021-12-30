@@ -43,8 +43,11 @@
                             @newPost.Content
                         </p>
                             <br />
-                            @*<img id="attachmentImg" class="postImg has-text-centered" src="~/imgs/@newPost.attachmentImg" />*@
 
+                        @if (newPost.AttachmentImg != "")
+                        {
+                            <img id="attachmentImg" class="postImg has-text-centered" src="~/imgs/@newPost.AttachmentImg" />
+                        }
                         <br />
                         <div class="has-text-grey-light minorInfo"><span>@newPost.Timestamp</span> <span id="fromWhere">&bull; From Your Friends' Likes</span></div>
                         <hr />
