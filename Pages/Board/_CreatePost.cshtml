@@ -1,0 +1,205 @@
+﻿@model KampongTalk.Pages.Board.IndexModel
+@{
+}
+
+<div class="modal is-active" id="CreatePostModal" style="display: none;">
+    <div class="modal-background" onclick="$('#CreatePostModal').fadeOut('fast');toMainSect();"></div>
+    <div class="modal-content">
+        <div class="box">
+
+            <form enctype="multipart/form-data" id="createPostForm" method="post">
+
+                <!--START: Main Section-->
+                <div id="mainSect">
+                    <div class="has-text-right is-size-4 mt-0 p-0">
+                        <i class="fas fa-times-circle" onclick="$('#CreatePostModal').fadeOut('fast');toMainSect();" style="cursor: pointer;"></i>
+                    </div>
+                    <p class="has-text-centered is-size-4 has-text-weight-bold">Write A New Post</p>
+
+                    <!--Content field-->
+                    <div class="field">
+                        <input class="textarea" placeholder="What's on your mind?" type="text" asp-for="newPost.Content">
+                    </div>
+
+                    <!--Image preview-->
+                    <div id="imgPreviewDiv" class="has-text-centered" style="position: relative; display: none;">
+                        <button class="button is-rounded is-danger" type="button" style="right:0; position:absolute;" onclick="removeImg()">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                        <img id="imgPreview" src="#" />
+                    </div>
+
+                    <!--Buttons-->
+                    <div class="field is-grouped">
+                        <p class="control">
+                            <button id="addImgButton" class="button" type="button" onclick="document.getElementById('postImg').click();">
+                                <span class="icon">
+                                    <i class="fas fa-image"></i>
+                                </span>
+                                <span>Add Image</span>
+                            </button>
+                            <input id="postImg" class="file-input" type="file" accept="image/x-png,image/jpeg" asp-for="postImg" hidden>
+                        </p>
+                        <p class="control">
+                            <button class="button" type="button" onclick="showSect('addCommunitySect')">
+                                <span class="icon">
+                                    <i class="fas fa-building"></i>
+                                </span>
+                                <span>Choose A Community</span>
+                            </button>
+                        </p>
+                        <p class="control">
+                            <button class="button" type="button" onclick="showSect('tagSect')">
+                                <span class="icon">
+                                    <i class="fas fa-user-friends"></i>
+                                </span>
+                                <span>Tag Users</span>
+                            </button>
+                        </p>
+                    </div>
+
+                    <div class="field is-grouped is-grouped-centered mt-5 mb-5">
+                        <button class="button is-fullwidth is-info" id="post_submit" type="submit" value="submit">Post</button>
+                    </div>
+                </div>
+                <!-- END: Main Section -->
+
+                <!-- START: Add Communities Section -->
+                <div id="addCommunitySect" style="display: none;">
+
+                    <div class="has-text-left is-size-4 mt-0 p-0">
+                        <i class="fas fa-arrow-left" onclick="toMainSect()" style="cursor: pointer;"></i>
+                    </div>
+
+                    <p class="has-text-centered is-size-4 has-text-weight-bold">Choose A Community</p>
+                    <div id="chosenComm" class="has-text-centered">
+                        Chosen Community: <span class="tag is-success is-medium">
+                            Oldies into Cheese
+                            <i class="fas fa-times-circle ml-3" style="cursor: pointer;"></i>
+                        </span>
+                    </div>
+                    <br />
+                    <!--Add info tooltip-->
+                    <!--Search-->
+
+                    <div class="field has-addons has-addons-centered">
+                        <div class="control has-icons-left">
+                            <input class="input" type="text" placeholder="Find a community">
+                            <span class="icon is-left">
+                                <i class="fas fa-search" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        <div class="control">
+                            <a class="button is-info">
+                                Search
+                            </a>
+                        </div>
+                    </div>
+
+                    <br />
+                    <div id="commSearchResults" >
+
+                    </div>
+                    <div id="followedComms">
+                        <p class="has-text-centered">FOLLOWED COMMUNITIES</p>
+                        <div style="overflow-y: auto; height: 40vh;" class="pl-2 pr-2">
+                            <ul>
+                                <!--Foreach-->
+                                <hr />
+                                <li>Community 1 <button class="button is-link is-outlined is-pulled-right" type="button">Select</button></li>
+
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- END: Add Communities Section -->
+                <!-- START: Tag Users Section -->
+                <div id="tagSect" style="display: none;">
+
+                    <div class="has-text-left is-size-4 mt-0 p-0">
+                        <i class="fas fa-arrow-left" onclick="toMainSect()" style="cursor: pointer;"></i>
+                    </div>
+
+                    <p class="has-text-centered is-size-4 has-text-weight-bold">Tag Users</p>
+                    <div id="chosenUsers" class="has-text-centered">
+                        Tagged: <span class="tag is-success is-medium">
+                            John Doe
+                            <i class="fas fa-times-circle ml-3" style="cursor: pointer;"></i>
+                        </span>
+                    </div>
+                    <br />
+                    <!--Tag up to 5 users-->
+                    <!--Search-->
+
+                    <div class="field has-addons has-addons-centered">
+                        <div class="control has-icons-left">
+                            <input class="input" type="text" placeholder="Find users">
+                            <span class="icon is-left">
+                                <i class="fas fa-search" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        <div class="control">
+                            <a class="button is-info">
+                                Search
+                            </a>
+                        </div>
+                    </div>
+
+                    <br />
+                    <div id="userSearchResults">
+
+                    </div>
+                    <div id="friends">
+                        <p class="has-text-centered">FRIENDS</p>
+                        <div style="overflow-y: auto; height: 40vh;" class="pl-2 pr-2">
+                            <ul>
+                                <!--Foreach-->
+                                <hr />
+                                <li>Friend 1 <button class="button is-link is-outlined is-pulled-right" type="button">Tag</button></li>
+
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- END: Tag Users Section -->
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    console.log("Hello!");
+
+    postImg.onchange = evt => {
+        document.getElementById("imgPreviewDiv").style.display = "block";
+        document.getElementById("addImgButton").classList.add("is-link", "is-focused")
+        const [file] = postImg.files
+        if (file) {
+            imgPreview.src = URL.createObjectURL(file)
+        }
+    }
+
+    function removeImg() {
+        document.getElementById("postImg").value = null;
+        imgPreview.src = "#"
+        document.getElementById("addImgButton").classList.remove("is-link", "is-focused")
+        document.getElementById("imgPreviewDiv").style.display = "none";
+    }
+
+    function showSect(newSect) {
+        console.log("Show new sect")
+        document.getElementById("mainSect").style.display = "none";
+        document.getElementById(newSect).style.display = "block";
+    }
+
+    function toMainSect() {
+        document.getElementById("mainSect").style.display = "block";
+        document.getElementById("addCommunitySect").style.display = "none"
+        document.getElementById("tagSect").style.display = "none";
+    }
+</script>
+
