@@ -34,7 +34,7 @@
                     <div class="column is-one-quarter">
                         <div>
                             <h1 class="title is-1">@Model.ViewingUser.Name</h1>
-                            <p class="subtitle">&#64;FriendFromRome</p>
+                            <p class="subtitle">&#64;@Model.ViewingUser.Uid2</p>
                             <br/>
                             <div class="level">
                                 <div class="level-item-left has-text-centered">
@@ -58,11 +58,16 @@
                             <a class="has-text-grey"><i class="fas fa-arrow-right"></i>&ensp;View all friends</a>
                         </div>
                         <hr/>
-                        <div>
-                            <h3 class="title is-5">About me</h3>
-                            <p>@Model.ViewingUser.Bio</p>
-                        </div>
-                        <hr/>
+                        @{
+                            if (Model.ViewingUser.Bio != null)
+                            {
+                                <div>
+                                    <h3 class="title is-5">About me</h3>
+                                    <p>@Model.ViewingUser.Bio</p>
+                                </div>
+                                <hr/>
+                            }
+                        }
                         <div>
                             <div class="level">
                                 <div class="level-item-left has-text-centered">

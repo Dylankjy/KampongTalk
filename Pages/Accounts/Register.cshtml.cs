@@ -100,6 +100,7 @@ namespace KampongTalk.Pages.Accounts
 
             // If all is well, set the password
             NewUserAccount.SetPassword(NewUserPassword);
+            NewUserAccount.SetNewUid2(NewUserAccount.Name);
 
             // Push user object to database
             dbUsers.Insert(NewUserAccount);

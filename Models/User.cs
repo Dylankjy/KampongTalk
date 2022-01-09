@@ -10,6 +10,7 @@ namespace KampongTalk.Models
     public class User
     {
         [DatabasePrimaryKey] [DatabaseColumn] public long Uid { get; set; } = new IdGenerator(0).CreateId();
+        [DatabasePrimaryKey] [DatabaseColumn] public string Uid2 { get; set; }
 
         [DatabaseColumn] [Required] public string PhoneNumber { get; set; }
 
@@ -28,6 +29,25 @@ namespace KampongTalk.Models
         public void SendSms(string messageContent)
         {
             // TODO: Add Twilio API
+        }
+
+        public void SetNewUid2(string name)
+        {
+            // Check which variable to use, afterwards, trim spaces.
+            name = name.Replace(" ", String.Empty);
+
+            // Shorten names that are longer than 5 characters
+            string part1 = name;
+            if (name.Length > 5)
+            {
+                part1 = name[..5];
+            }
+            
+            // Generate discriminator
+            Random Rnd = new Random();
+            string part2 = Rnd.Next(1000, 9999).ToString();
+
+            Uid2 = $"{part1}_{part2}";
         }
 
         public void SetPassword(string plainText)

@@ -28,7 +28,7 @@ namespace KampongTalk.Pages.Profile
             // Get user by PhoneNumber
             ViewingUser = dbUsers.Single(new
             {
-                Uid = u
+                Uid2 = u
             });
 
             // If User doesn't exist, show error page
@@ -40,7 +40,7 @@ namespace KampongTalk.Pages.Profile
 
             DateTime JoinDateRaw = dbActionLogs.Single(new
             {
-                Uid = u,
+                Uid = ViewingUser.Uid,
                 ActionExecuted = "account_create"
             }).Timestamp;
 
