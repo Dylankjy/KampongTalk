@@ -1,0 +1,184 @@
+﻿@page
+@model KampongTalk.Pages.Settings.Index
+
+@{
+    ViewData["Title"] = "Account Settings";
+}
+
+<style>
+    .pfp.small {
+        height: 5rem;
+        width: 5rem;
+        background: grey; 
+        border: .4rem solid white;
+        border-radius: 9999rem;
+    }
+    .account-detail-field {
+        margin-bottom: 0.3rem
+    }
+</style>
+
+<section class="section">
+    <div class="container">
+        <div class="level is-mobile">
+            <div class="level-left">
+                <div class="level-item mr-5">
+                    <div>
+                        <div class="pfp small"></div>
+                    </div>
+                </div>
+                <div class="level-item">
+                    <div>
+                        <p class="title">Dylan Kok</p>
+                        <p>&#64;Test</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column">
+                <div class="card">
+                    <div class="card-content">
+                        <p class="title is-5"><i class="fas fa-user"></i>&ensp;Your profile</p>
+                        <p class="subtitle is-6">This information is used to personalise your experience<br/>and may be visible to others.</p>
+
+                        <div class="account-detail-field">
+                            <small class="has-text-weight-bold">KampongID</small>
+                            <p class="is-size-4">&#64;{{user.name}}</p>
+                            <small class="has-text-grey has-text-weight-normal"><i class="fas fa-info-circle"></i>&ensp;Your KampongID is unique to you and it makes it easy for people to discover you.</small>
+                            <br/>
+                            <a class="button is-dark mt-4"><i class="fas fa-arrow-right"></i>&ensp;Change KampongID</a>
+                        </div>
+                        <hr/>
+                        <div class="account-detail-field">
+                            <small class="has-text-weight-bold">Name</small>
+                            <p>{{user.name}}</p>
+                        </div>
+                        <div class="account-detail-field">
+                            <small class="has-text-weight-bold">Bio</small>
+                            <p>{{user.bio}}</p>
+                        </div>
+                        <a class="button is-dark mt-4"><i class="fas fa-arrow-right"></i>&ensp;Edit profile</a>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="card">
+                    <div class="card-content">
+                        <p class="title is-5">
+                            <i class="fas fa-shield-alt"></i>&ensp;Account Privacy &amp; Security
+                        </p>
+                        <p class="subtitle is-6">Keep your account secured and control it's visibility.</p>
+
+                        <div class="account-detail-field">
+                            <small class="has-text-weight-bold">Password</small>
+                            <p>Your password was last changed on {{}}</p>
+                        </div>
+                        <div class="account-detail-field">
+                            <small class="has-text-weight-bold">Preferred Login Method</small>
+                            <p>Password-less Login</p>
+                        </div>
+                        <a class="button is-dark mt-4"><i class="fas fa-arrow-right"></i>&ensp;Change security settings</a>
+                        <hr/>
+                        <div class="account-detail-field">
+                            <small class="has-text-weight-bold">Profile Visibility</small>
+                            <p>Your account is private</p>
+                            <small class="has-text-grey has-text-weight-normal">Your profile page can only be viewed by your friends.</small>
+                        </div>
+                        <a class="button is-dark mt-4"><i class="fas fa-arrow-right"></i>&ensp;Toggle profile privacy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-content">
+                <p class="title is-5"><i class="fas fa-universal-access"></i>&ensp;Accessibility &amp; Language</p>
+                <p class="subtitle is-6">Change the way KampongTalk looks for your comfort.</p>
+
+                <div class="account-detail-field">
+                    <small class="has-text-weight-bold">Display Language</small>
+                    <p>English (Singapore)</p>
+                </div>
+
+                <hr/>
+
+                <div class="account-detail-field">
+                    <p class="has-text-weight-bold">Text-to-speech — <span class="has-text-weight-normal">On</span></p>
+                    <small>Read texts and content on KampongTalk.</small>
+                </div>
+                <div class="account-detail-field">
+                    <p class="has-text-weight-bold">Enable sounds — <span class="has-text-weight-normal">On</span></p>
+                    <small>Sounds effects will be used when interacting with KampongTalk.</small>
+                </div>
+                <div class="account-detail-field">
+                    <p class="has-text-weight-bold">Text size — <span class="has-text-weight-normal">16</span></p>
+                    <small>Text size can be increased or decreased. Applied across the entire website.</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-5">
+            <div class="card-content">
+                <p class="title is-5"><i class="fas fa-bell"></i>&ensp;Notification preferences</p>
+                <p class="subtitle is-6">Control when and what KampongTalk notifies you about.</p>
+
+                <div class="account-detail-field">
+                    <p class="has-text-weight-bold"><i class="fas fa-thumbs-up"></i>&ensp;Likes — <span class="has-text-weight-normal">On</span></p>
+                </div>
+                <div class="account-detail-field">
+                    <p class="has-text-weight-bold"><i class="fas fa-user-friends"></i>&ensp;Friend Requests — <span class="has-text-weight-normal">On</span></p>
+                </div>
+                <div class="account-detail-field">
+                    <p class="has-text-weight-bold"><i class="fas fa-comments"></i>&ensp;Private Messages — <span class="has-text-weight-normal">On</span></p>
+                </div>
+                <div class="account-detail-field">
+                    <p class="has-text-weight-bold"><i class="fas fa-comment-dots"></i>&ensp;Tagged and Replies — <span class="has-text-weight-normal">On</span></p>
+                </div>
+            </div>
+        </div>
+
+        @* <div class="card mt-5"> *@
+        @*             <div class="card-content"> *@
+        @*                 <p class="title is-5"><i class="fas fa-cog"></i>&ensp;Other options</p> *@
+        @*                 <p class="subtitle is-6">Manage miscellaneous account settings</p> *@
+        @*                  *@
+        @*                 <div class="account-detail-field"> *@
+        @*                     <p class="has-text-weight-bold">Make  — <span class="has-text-weight-normal">On</span></p> *@
+        @*                     <small>Read texts and content on KampongTalk.</small> *@
+        @*                 </div> *@
+        @*             </div> *@
+        @*         </div> *@
+
+        <a>
+            <div class="card mt-5">
+                <div class="card-content">
+                    <div class="columns is-vcentered">
+                        <div class="column is-four-fifths">
+                            <p class="title is-5"><i class="fas fa-hourglass-half"></i>&ensp;Make a plan for your digital legacy</p>
+                            <p class="subtitle is-6">Tell KampongTalk what to do when you can't use your KampongTalk account anymore</p>
+                        </div>
+                        <div class="column has-text-right has-text-grey-light">
+                            <i class="fas fa-arrow-right is-size-2"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <a>
+            <div class="card mt-5">
+                <div class="card-content">
+                    <div class="columns is-vcentered">
+                        <div class="column is-four-fifths">
+                            <p class="title is-5"><i class="fas fa-trash-alt"></i>&ensp;Delete your KampongTalk account</p>
+                            <p class="subtitle is-6">Delete your entire account and purge all personal data</p>
+                        </div>
+                        <div class="column has-text-right has-text-grey-light">
+                            <i class="fas fa-arrow-right is-size-2"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</section>
