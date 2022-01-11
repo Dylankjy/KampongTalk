@@ -1,104 +1,151 @@
-﻿<!DOCTYPE html>
+﻿@inject Tools.IUserAttributes UserAttributes
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - KampongTalk</title>
-    <link rel="stylesheet" href="~/lib/bulma/css/bulma.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="~/lib/bulma/css/bulma.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     @* <link rel="stylesheet" href="~/css/site.css" /> *@
 
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Noto+Sans+Tamil:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Noto+Sans+Tamil:wght@400;700&display=swap" rel="stylesheet">
     <style>
         *, .button, a, input {
             font-family: 'Atkinson Hyperlegible', 'Noto Sans JP', 'Noto Sans SC', 'Noto Sans Tamil', 'Helvetica Neue', sans-serif;
         }
     </style>
+
+    @{
+        switch (UserAttributes.getTextSize())
+        {
+            case "large":
+                <style>
+                    * {
+                        font-size: 100%
+                    }
+                </style>
+                break;
+            case "larger":
+                <style>
+                    * {
+                        font-size: 105%
+                    }
+                </style>
+                break;
+            case "largest":
+                <style>
+                    * {
+                        font-size: 110%
+                    }
+                </style>
+                break;
+            default:
+                <style>
+                    * {
+                        font-size: 100%
+                    }
+                </style>
+                break;
+        }
+    }
+
 </head>
 <body>
-<nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="container">
-        <div class="navbar-brand">
-            <a class="navbar-item has-text-weight-bold" asp-page="Index">
-                KampongTalk
-            </a>
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-            </a>
-        </div>
-
-        <div id="navbarBasicExample" class="navbar-menu">
-            <div class="navbar-start">
-                <a class="navbar-item">
-                    Home
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="navbar-item has-text-weight-bold" asp-page="Index">
+                    KampongTalk
                 </a>
-                <a class="navbar-item" href="/Events">
-                    Events
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
                 </a>
-                <a class="navbar-item" href="/Events/MyEvents">
-                    My Events
-                </a>
-
-
-                @* <div class="navbar-item has-dropdown is-hoverable"> *@
-                @*     <a class="navbar-link"> *@
-                @*         More *@
-                @*     </a> *@
-                @* *@
-                @*     <div class="navbar-dropdown"> *@
-                @*         <a class="navbar-item"> *@
-                @*             About *@
-                @*         </a> *@
-                @*         <a class="navbar-item"> *@
-                @*             Jobs *@
-                @*         </a> *@
-                @*         <a class="navbar-item"> *@
-                @*             Contact *@
-                @*         </a> *@
-                @*         <hr class="navbar-divider"> *@
-                @*         <a class="navbar-item"> *@
-                @*             Report an issue *@
-                @*         </a> *@
-                @*     </div> *@
-                @* </div> *@
             </div>
 
-            <div class="navbar-end">
-                <div class="navbar-item">
-                    <div class="buttons">
-                        <a class="button is-primary">
-                            <strong>Sign up</strong>
-                        </a>
-                        <a class="button is-light">
-                            Log in
-                        </a>
+            <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item">
+                        Home
+                    </a>
+                    <a class="navbar-item" href="/Events">
+                        Events
+                    </a>
+                    <a class="navbar-item" href="/Events/MyEvents">
+                        My Events
+                    </a>
+
+
+                    @* <div class="navbar-item has-dropdown is-hoverable"> *@
+                    @*     <a class="navbar-link"> *@
+                    @*         More *@
+                    @*     </a> *@
+                    @* *@
+                    @*     <div class="navbar-dropdown"> *@
+                    @*         <a class="navbar-item"> *@
+                    @*             About *@
+                    @*         </a> *@
+                    @*         <a class="navbar-item"> *@
+                    @*             Jobs *@
+                    @*         </a> *@
+                    @*         <a class="navbar-item"> *@
+                    @*             Contact *@
+                    @*         </a> *@
+                    @*         <hr class="navbar-divider"> *@
+                    @*         <a class="navbar-item"> *@
+                    @*             Report an issue *@
+                    @*         </a> *@
+                    @*     </div> *@
+                    @* </div> *@
+                </div>
+
+                <div class="navbar-end">
+                    @*<div class="navbar-item">
+                            <span class="icon" id="textSizeIncrease">
+                                <i class="fas fa-search-plus"></i>
+                            </span>
+
+                            <span class="icon" id="textSizeDecrease">
+                                <i class="fas fa-search-minus"></i>
+                            </span>
+                        </div>*@
+
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <a class="button is-primary">
+                                <strong>Sign up</strong>
+                            </a>
+                            <a class="button is-light">
+                                Log in
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
-<main>
-    @RenderBody()
-</main>
+    <main>
+        @RenderBody()
+    </main>
 
-<footer class="footer">
-    <div class="content has-text-centered">
-        <p>
-            &copy; 2022 - KampongTalk - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </p>
-    </div>
-</footer>
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                &copy; 2022 - KampongTalk - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            </p>
+        </div>
+    </footer>
 
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-@* <script src="~/js/site.js" asp-append-version="true"></script> *@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @* <script src="~/js/site.js" asp-append-version="true"></script> *@
 
-@await RenderSectionAsync("Scripts", false)
+    @await RenderSectionAsync("Scripts", false)
 </body>
 </html>

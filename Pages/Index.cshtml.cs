@@ -15,6 +15,7 @@ namespace KampongTalk.Pages
 
         // Use dynamic here, not User. Because MightyORM does not return a User object
         public dynamic user { get; set; }
+        public string textSize { get; set; }
 
         public void OnGet()
         {
@@ -41,8 +42,8 @@ namespace KampongTalk.Pages
 
             var db = new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
                 "Users");
-            user = db.Single("Uid=921304464873226240");
-            //var p = db.New();
+
+            textSize = "larger";
         }
     }
 }

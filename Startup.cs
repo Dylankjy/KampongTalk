@@ -31,6 +31,7 @@ namespace KampongTalk
             });
             services.AddSingleton<ITranslator, Translator>();
             services.AddSingleton<ISpeech, SpeechSythesizer>();
+            services.AddTransient<IUserAttributes, UserAttributes>();
 
             services.AddMvc().AddRazorOptions(options =>
             {
@@ -39,6 +40,7 @@ namespace KampongTalk
             });
             
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddHttpContextAccessor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

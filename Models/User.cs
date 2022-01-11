@@ -25,6 +25,10 @@ namespace KampongTalk.Models
         [DatabaseColumn] public string Challenges { get; set; }
         [DatabaseColumn] public DateTime DateOfBirth { get; set; }
         [DatabaseColumn] public bool IsVerified { get; set; }
+        [DatabaseColumn] public string TextSize { get; set; }
+        [DatabaseColumn] public string Language { get; set; }
+        [DatabaseColumn] public string SpeechGender { get; set; }
+        
 
         public void SendSms(string messageContent)
         {
@@ -74,7 +78,10 @@ namespace KampongTalk.Models
                 Interests = obj.Interests,
                 Challenges = obj.Challenges,
                 DateOfBirth = obj.DateOfBirth,
-                IsVerified = obj.IsVerified
+                IsVerified = obj.IsVerified,
+                TextSize = obj.TextSize,
+                Language = obj.Language,
+                SpeechGender = obj.SpeechGender,
             };
         }
 

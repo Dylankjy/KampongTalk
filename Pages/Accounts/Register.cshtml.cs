@@ -41,7 +41,8 @@ namespace KampongTalk.Pages.Accounts
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
 
             // If the current user is verified, naturally, the object is present, so just redirect them.
-            if (CurrentUser is {IsVerified: true}) return RedirectToPage("Index");
+            // Don't return RedirectToPage("Index"). This will throw an error. Use Redirect("/") instead
+            if (CurrentUser is {IsVerified: true}) return Redirect("/");
 
             // If the user has not OTP verified
             if (CurrentUser is {IsVerified: false}) return RedirectToPage("Verify");
@@ -101,6 +102,11 @@ namespace KampongTalk.Pages.Accounts
             // If all is well, set the password
             NewUserAccount.SetPassword(NewUserPassword);
             NewUserAccount.SetNewUid2(NewUserAccount.Name);
+
+            // Set default value for user account
+            NewUserAccount.TextSize = "large";
+            NewUserAccount.Language = "en";
+            NewUserAccount.SpeechGender = "Male";
 
             // Push user object to database
             dbUsers.Insert(NewUserAccount);
