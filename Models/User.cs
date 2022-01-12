@@ -12,8 +12,8 @@ namespace KampongTalk.Models
     public class User
     {
         [DatabasePrimaryKey] [DatabaseColumn] public long Uid { get; set; } = new IdGenerator(0).CreateId();
-        [DatabasePrimaryKey] [DatabaseColumn] public string Uid2 { get; set; }
-
+        [DatabaseColumn] [Required] public string Uid2 { get; set; }
+        
         [DatabaseColumn] [Required] public string PhoneNumber { get; set; }
 
         [DatabaseColumn] [Required] public string Name { get; set; }
