@@ -19,7 +19,7 @@ namespace KampongTalk.Pages.Events.MyEvents
             new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"], "Events");
 
         public IEnumerable<dynamic> myUpcomingEvents { get; set; }
-            
+
 
         private User CurrentUser { get; set; }
 

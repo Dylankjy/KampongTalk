@@ -14,7 +14,7 @@ namespace KampongTalk.Models
         public string AttachmentImg { get; set; }
 
         public DateTime Timestamp { get; set; }
-        
+
         // This is plural.
         public string TaggedUsers { get; set; }
 

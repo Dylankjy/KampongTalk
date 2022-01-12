@@ -10,7 +10,7 @@ namespace KampongTalk.Pages.Profile
         // Profile props
         public dynamic ViewingUser { get; set; }
         public string JoinDate { get; set; }
-        
+
         // Error handling props
         public bool ShowUserNotFoundError { get; set; }
 
@@ -40,7 +40,7 @@ namespace KampongTalk.Pages.Profile
 
             DateTime JoinDateRaw = dbActionLogs.Single(new
             {
-                Uid = ViewingUser.Uid,
+                ViewingUser.Uid,
                 ActionExecuted = "account_create"
             }).Timestamp;
 
@@ -49,7 +49,7 @@ namespace KampongTalk.Pages.Profile
                 "January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
                 "November", "December"
             };
-            
+
             JoinDate = $"{months[JoinDateRaw.Month - 1]} {JoinDateRaw.Year}";
 
             return Page();

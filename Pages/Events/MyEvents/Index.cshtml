@@ -11,7 +11,7 @@
         return renderedDateStr;
     }
 
-    public Boolean isOwner(dynamic myEvent)
+    public bool isOwner(dynamic myEvent)
     {
         if (Model.userId == myEvent.CreatorId)
         {
@@ -19,6 +19,7 @@
         }
         return false;
     }
+
 }
 
 <div class="tabs is-large">

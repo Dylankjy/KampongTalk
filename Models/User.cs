@@ -5,6 +5,7 @@ using Mighty;
 using Newtonsoft.Json;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
+using Twilio.Types;
 
 namespace KampongTalk.Models
 {
@@ -13,7 +14,7 @@ namespace KampongTalk.Models
     {
         [DatabasePrimaryKey] [DatabaseColumn] public long Uid { get; set; } = new IdGenerator(0).CreateId();
         [DatabaseColumn] [Required] public string Uid2 { get; set; }
-        
+
         [DatabaseColumn] [Required] public string PhoneNumber { get; set; }
 
         [DatabaseColumn] [Required] public string Name { get; set; }
@@ -30,37 +31,35 @@ namespace KampongTalk.Models
         [DatabaseColumn] public string TextSize { get; set; }
         [DatabaseColumn] public string Language { get; set; }
         [DatabaseColumn] public string SpeechGender { get; set; }
-        
+
 
         public void SendSms(string messageContent)
         {
-            string accountSid = ConfigurationManager.AppSetting["APIKeys:Twilio:SID"];
-            string authToken = ConfigurationManager.AppSetting["APIKeys:Twilio:Secret"];
+            var accountSid = ConfigurationManager.AppSetting["APIKeys:Twilio:SID"];
+            var authToken = ConfigurationManager.AppSetting["APIKeys:Twilio:Secret"];
 
-            TwilioClient.Init(accountSid, authToken);
-
-            var message = MessageResource.Create(
-                body: $"[KampongTalk]\n{messageContent}",
-                from: new Twilio.Types.PhoneNumber("+19377876066"),
-                to: new Twilio.Types.PhoneNumber($"+65{PhoneNumber}")
-            );
+            // TODO: Uncomment during production
+            // TwilioClient.Init(accountSid, authToken);
+            //
+            // var message = MessageResource.Create(
+            //     body: $"[KampongTalk]\n{messageContent}",
+            //     from: new PhoneNumber("+19377876066"),
+            //     to: new PhoneNumber($"+65{PhoneNumber}")
+            // );
         }
 
         public void SetNewUid2(string name)
         {
             // Check which variable to use, afterwards, trim spaces.
-            name = name.Replace(" ", String.Empty);
+            name = name.Replace(" ", string.Empty);
 
             // Shorten names that are longer than 5 characters
-            string part1 = name;
-            if (name.Length > 5)
-            {
-                part1 = name[..5];
-            }
-            
+            var part1 = name;
+            if (name.Length > 5) part1 = name[..5];
+
             // Generate discriminator
-            Random Rnd = new Random();
-            string part2 = Rnd.Next(1000, 9999).ToString();
+            var Rnd = new Random();
+            var part2 = Rnd.Next(1000, 9999).ToString();
 
             Uid2 = $"{part1}_{part2}";
         }
@@ -80,11 +79,8 @@ namespace KampongTalk.Models
 
         public User ToUser(dynamic obj)
         {
-            if (obj == null)
-            {
-                return new User{ Uid = -1 };
-            }
-            
+            if (obj == null) return new User {Uid = -1};
+
             return new User
             {
                 Uid = obj.Uid,
@@ -100,7 +96,7 @@ namespace KampongTalk.Models
                 IsVerified = obj.IsVerified,
                 TextSize = obj.TextSize,
                 Language = obj.Language,
-                SpeechGender = obj.SpeechGender,
+                SpeechGender = obj.SpeechGender
             };
         }
 

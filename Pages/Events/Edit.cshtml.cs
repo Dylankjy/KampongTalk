@@ -48,15 +48,13 @@ namespace KampongTalk.Pages.Events
             if (savedEvent.CreatorId == CurrentUser.Uid)
             {
                 // Don't allow users to edit events that are already over
-                if (DateTime.Now >= savedEvent.Date)
-                {
-                    return Redirect($"/Events/View/{eid}");
-                }
+                if (DateTime.Now >= savedEvent.Date) return Redirect($"/Events/View/{eid}");
 
                 DateTime dt = Convert.ToDateTime(savedEvent.Date);
                 eventDate = dt.ToString("yyyy-MM-dd");
                 return Page();
             }
+
             return Redirect($"/Events/View/{eid}");
         }
 

@@ -12,8 +12,7 @@ namespace KampongTalk.Pages.Events
 {
     public class CreateModel : PageModel
     {
-        [BindProperty] 
-        public Event myEvent { get; set; } = new Event();
+        [BindProperty] public Event myEvent { get; set; } = new Event();
 
         private User CurrentUser { get; set; }
 

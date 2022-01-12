@@ -19,9 +19,8 @@ namespace KampongTalk.Pages.Events
         {
             _environment = environment;
         }
- 
-        [BindProperty]
-        public long Eid { get; set; }
+
+        [BindProperty] public long Eid { get; set; }
 
         private User CurrentUser { get; set; }
 
@@ -33,13 +32,13 @@ namespace KampongTalk.Pages.Events
         public string eventDate { get; set; }
 
         // IS the current user the owner of the listing
-        public bool amOwner { get; set; } = false;
-        
+        public bool amOwner { get; set; }
+
         // Has the current user added the listing to their list
-        public bool hasAdded { get; set; } = false;
+        public bool hasAdded { get; set; }
 
         // Has the event ended?
-        public bool isOver { get; set; } = false;
+        public bool isOver { get; set; }
 
 
         [BindProperty] public IFormFile eventImage { get; set; }
@@ -54,22 +53,14 @@ namespace KampongTalk.Pages.Events
             var eventDateTime = Convert.ToDateTime(myEvent.Date);
             eventDate = eventDateTime.ToLongDateString();
 
-            if (DateTime.Now >= myEvent.Date)
-            {
-                isOver = true;
-            }
+            if (DateTime.Now >= myEvent.Date) isOver = true;
 
             if (CurrentUser != null)
             {
-                if (myEvent.Attendees.Contains(CurrentUser.Uid.ToString()))
-                {
-                    hasAdded = true;
-                }
-                if (myEvent.CreatorId == CurrentUser.Uid)
-                {
-                    amOwner = true;
-                }
+                if (myEvent.Attendees.Contains(CurrentUser.Uid.ToString())) hasAdded = true;
+                if (myEvent.CreatorId == CurrentUser.Uid) amOwner = true;
             }
+
             return Page();
         }
 
@@ -118,22 +109,17 @@ namespace KampongTalk.Pages.Events
                     var currentUid = CurrentUser.Uid.ToString();
                     // If user has already added the event, we will remove it
                     if (myEvent.Attendees.Contains(currentUid))
-                    {
                         myEvent.Attendees = myEvent.Attendees.Replace($"{currentUid};", "");
-                    }
                     // If user hasn't added the event, we will add it
                     else
-                    {
                         myEvent.Attendees = myEvent.Attendees + $"{currentUid};";
-                    }
                     eventDb.Update(myEvent);
                 }
+
                 return Redirect($"/Events/View/{Eid}");
             }
-            else
-            {
-                return Redirect("/Accounts/Login");
-            }
+
+            return Redirect("/Accounts/Login");
         }
     }
 }

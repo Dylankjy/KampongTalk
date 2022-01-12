@@ -1,5 +1,4 @@
-﻿using System;
-using IdGen;
+﻿using IdGen;
 using KampongTalk.i18n;
 using KampongTalk.Models;
 using Microsoft.AspNetCore.Http;
@@ -81,7 +80,7 @@ namespace KampongTalk.Pages.Accounts
 
             // Redirect to verification page if unverified
             if (!selectedUser.IsVerified) return RedirectToPage("Verify");
-            
+
             // Generate new OTP code and insert into DB
             var otpRecord = new ActionLog
             {

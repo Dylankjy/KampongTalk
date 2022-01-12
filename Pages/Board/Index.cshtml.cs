@@ -1,29 +1,34 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
+using IdGen;
+using KampongTalk.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using KampongTalk.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Mighty;
-using IdGen;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
 using MoreLinq;
 
 namespace KampongTalk.Pages.Board
 {
     public class IndexModel : PageModel
     {
-        [BindProperty]
-        public Post newPost { get; set; } = new Post();
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        [BindProperty]
-        public Likes newLike { get; set; } = new Likes();
-        [BindProperty]
-        public Post newComment { get; set; } = new Post();
+        public IndexModel(IWebHostEnvironment env)
+        {
+            webHostEnvironment = env;
+        }
+
+        [BindProperty] public Post newPost { get; set; } = new Post();
+
+        [BindProperty] public Likes newLike { get; set; } = new Likes();
+
+        [BindProperty] public Post newComment { get; set; } = new Post();
+
         public User CurrentUser { get; set; }
 
         //public static MightyOrm ktDB { get; set; } =
@@ -38,19 +43,16 @@ namespace KampongTalk.Pages.Board
         public static MightyOrm likesDB { get; set; } =
             new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"], "Likes");
 
-        [BindProperty]
-        public IEnumerable<dynamic> postList { get; set; } = postDB.All();
+        [BindProperty] public IEnumerable<dynamic> postList { get; set; } = postDB.All();
 
-        [BindProperty]
-        public IEnumerable<dynamic> userList { get; set; } = userDB.All();
+        [BindProperty] public IEnumerable<dynamic> userList { get; set; } = userDB.All();
 
         public IEnumerable<dynamic> likesList { get; set; } = likesDB.All();
 
         //[BindProperty]
         //public List<dynamic> pList { get; set; } = new List<dynamic>();
 
-        [BindProperty]
-        public IEnumerable<dynamic> pList { get; set; } = Enumerable.Empty<dynamic>() ;
+        [BindProperty] public IEnumerable<dynamic> pList { get; set; } = Enumerable.Empty<dynamic>();
 
         //    public PagedResults<dynamic> postsList { get; set; } = ktDB.PagedFromSelect(
         //"Post p INNER JOIN Users u ON p.Author = u.Uid LEFT JOIN Likes li ON p.Pid = li.EntityId",
@@ -60,31 +62,19 @@ namespace KampongTalk.Pages.Board
         //currentPage: 1, pageSize: 5 // page specs (defaults are 1 and 20)
         //); // OPTIONAL args for WHERE spec
 
-        [BindProperty]
-        public IFormFile postImg { get; set; }
-
-        private readonly IWebHostEnvironment webHostEnvironment;
-
-        public IndexModel(IWebHostEnvironment env)
-        {
-            webHostEnvironment = env;
-        }
+        [BindProperty] public IFormFile postImg { get; set; }
 
         public IActionResult OnGet()
         {
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
-            if (CurrentUser == null)
-            {
-                return Redirect("/Accounts/Login");
-            };
+            if (CurrentUser == null) return Redirect("/Accounts/Login");
+            ;
             GetPosts();
             return Page();
-
         }
 
         public IEnumerable<dynamic> GetPosts()
         {
-
             // Query:
             // Inner join Posts and Users 
             // Left join Posts and Likes
@@ -95,13 +85,17 @@ namespace KampongTalk.Pages.Board
             // Incl pagination
 
             var query = (from post in postList
-                        join user in userList on post.Author equals user.Uid
-                        join like in likesList on post.Pid equals like.EntityId into likeGrp
-                        from sublike in likeGrp.DefaultIfEmpty()
-                        where post.IsComment == 0
-                        select new PostInfo { Pid = post.Pid, Content = post.Content, AttachmentImg = post.AttachmentImg, 
-                            Timestamp = post.Timestamp, InCommunity = post.InCommunity, IsComment = post.IsComment, TaggedUsers = post.TaggedUsers,
-                            Uid = user.Uid, UserName = user.Name, UserPfp = user.AvatarImg, likeCount = likeGrp.Count()}).DistinctBy(post => post.Pid).AsEnumerable();
+                join user in userList on post.Author equals user.Uid
+                join like in likesList on post.Pid equals like.EntityId into likeGrp
+                from sublike in likeGrp.DefaultIfEmpty()
+                where post.IsComment == 0
+                select new PostInfo
+                {
+                    Pid = post.Pid, Content = post.Content, AttachmentImg = post.AttachmentImg,
+                    Timestamp = post.Timestamp, InCommunity = post.InCommunity, IsComment = post.IsComment,
+                    TaggedUsers = post.TaggedUsers,
+                    Uid = user.Uid, UserName = user.Name, UserPfp = user.AvatarImg, likeCount = likeGrp.Count()
+                }).DistinctBy(post => post.Pid).AsEnumerable();
 
             // likeCount = sublike.Uid.Count()
 
@@ -144,23 +138,26 @@ namespace KampongTalk.Pages.Board
                     {
                         postImg.CopyTo(fileStream);
                     }
+
                     newPost.AttachmentImg = attachmentImg;
                 }
                 else
                 {
                     newPost.AttachmentImg = null;
                 }
+
                 postDB.Insert(newPost);
                 return Page();
             }
+
             return Page();
         }
 
         public IActionResult OnPostLike()
         {
-            System.Diagnostics.Debug.WriteLine("onpostlike");
+            Debug.WriteLine("onpostlike");
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
-            var existLike = likesDB.Single(new { EntityId = newLike.EntityId, Uid = CurrentUser.Uid });
+            var existLike = likesDB.Single(new {newLike.EntityId, CurrentUser.Uid});
             if (existLike != null)
             {
                 likesDB.Delete($"EntityId = '{newLike.EntityId}' && Uid = '{CurrentUser.Uid}'");
@@ -169,8 +166,8 @@ namespace KampongTalk.Pages.Board
             {
                 newLike.Uid = CurrentUser.Uid;
                 likesDB.Insert(newLike);
-
             }
+
             return Redirect("/Board");
         }
 
@@ -192,31 +189,30 @@ namespace KampongTalk.Pages.Board
         public IEnumerable<dynamic> GetComments(long parentPid)
         {
             var query = (from post in postList
-                         join user in userList on post.Author equals user.Uid
-                         join like in likesList on post.Pid equals like.EntityId into likeGrp
-                         from sublike in likeGrp.DefaultIfEmpty()
-                         where post.IsComment == parentPid
-                         select new PostInfo
-                         {
-                             Pid = post.Pid,
-                             Content = post.Content,
-                             AttachmentImg = post.AttachmentImg,
-                             Timestamp = post.Timestamp,
-                             InCommunity = post.InCommunity,
-                             IsComment = post.IsComment,
-                             TaggedUsers = post.TaggedUsers,
-                             Uid = user.Uid,
-                             UserName = user.Name,
-                             UserPfp = user.AvatarImg,
-                             likeCount = likeGrp.Count()
-                         }).DistinctBy(post => post.Pid).AsEnumerable();
+                join user in userList on post.Author equals user.Uid
+                join like in likesList on post.Pid equals like.EntityId into likeGrp
+                from sublike in likeGrp.DefaultIfEmpty()
+                where post.IsComment == parentPid
+                select new PostInfo
+                {
+                    Pid = post.Pid,
+                    Content = post.Content,
+                    AttachmentImg = post.AttachmentImg,
+                    Timestamp = post.Timestamp,
+                    InCommunity = post.InCommunity,
+                    IsComment = post.IsComment,
+                    TaggedUsers = post.TaggedUsers,
+                    Uid = user.Uid,
+                    UserName = user.Name,
+                    UserPfp = user.AvatarImg,
+                    likeCount = likeGrp.Count()
+                }).DistinctBy(post => post.Pid).AsEnumerable();
             return query;
         }
 
         public void OnPostAddlike()
         {
-            System.Diagnostics.Debug.WriteLine("Addlike ajax call successful");
-            return;
+            Debug.WriteLine("Addlike ajax call successful");
         }
     }
 }

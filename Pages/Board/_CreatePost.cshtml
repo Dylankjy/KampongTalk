@@ -1,4 +1,4 @@
-﻿@model KampongTalk.Pages.Board.IndexModel
+﻿@model IndexModel
 @{
 }
 
@@ -26,7 +26,7 @@
                         <button class="button is-rounded is-danger" type="button" style="right:0; position:absolute;" onclick="removeImg()">
                             <i class="fas fa-trash-alt"></i>
                         </button>
-                        <img id="imgPreview" src="#" />
+                        <img id="imgPreview" src="#"/>
                     </div>
 
                     <!--Buttons-->
@@ -73,12 +73,13 @@
 
                     <p class="has-text-centered is-size-4 has-text-weight-bold">Choose A Community</p>
                     <div id="chosenComm" class="has-text-centered">
-                        Chosen Community: <span class="tag is-success is-medium">
+                        Chosen Community:
+                        <span class="tag is-success is-medium">
                             Oldies into Cheese
                             <i class="fas fa-times-circle ml-3" style="cursor: pointer;"></i>
                         </span>
                     </div>
-                    <br />
+                    <br/>
                     <!--Add info tooltip-->
                     <!--Search-->
 
@@ -96,8 +97,8 @@
                         </div>
                     </div>
 
-                    <br />
-                    <div id="commSearchResults" >
+                    <br/>
+                    <div id="commSearchResults">
 
                     </div>
                     <div id="followedComms">
@@ -105,7 +106,7 @@
                         <div style="overflow-y: auto; height: 40vh;" class="pl-2 pr-2">
                             <ul>
                                 <!--Foreach-->
-                                <hr />
+                                <hr/>
                                 <li>Community 1 <button class="button is-link is-outlined is-pulled-right" type="button">Select</button></li>
 
                             </ul>
@@ -123,12 +124,13 @@
 
                     <p class="has-text-centered is-size-4 has-text-weight-bold">Tag Users</p>
                     <div id="chosenUsers" class="has-text-centered">
-                        Tagged: <span class="tag is-success is-medium">
+                        Tagged:
+                        <span class="tag is-success is-medium">
                             John Doe
                             <i class="fas fa-times-circle ml-3" style="cursor: pointer;"></i>
                         </span>
                     </div>
-                    <br />
+                    <br/>
                     <!--Tag up to 5 users-->
                     <!--Search-->
 
@@ -146,7 +148,7 @@
                         </div>
                     </div>
 
-                    <br />
+                    <br/>
                     <div id="userSearchResults">
 
                     </div>
@@ -155,7 +157,7 @@
                         <div style="overflow-y: auto; height: 40vh;" class="pl-2 pr-2">
                             <ul>
                                 <!--Foreach-->
-                                <hr />
+                                <hr/>
                                 <li>Friend 1 <button class="button is-link is-outlined is-pulled-right" type="button">Tag</button></li>
 
                             </ul>
@@ -201,4 +203,3 @@
         document.getElementById("tagSect").style.display = "none";
     }
 </script>
-

@@ -11,8 +11,12 @@
         <h1 class="title has-text-centered">KampongBoard</h1>
         <aside class="menu">
             <ul class="menu-list">
-                <li><a>Friends</a></li>
-                <li><a>Recommended For You</a></li>
+                <li>
+                    <a>Friends</a>
+                </li>
+                <li>
+                    <a>Recommended For You</a>
+                </li>
             </ul>
         </aside>
 
@@ -28,105 +32,110 @@
 
             @foreach (var postInfo in Model.pList)
             {
+                <div class="box mt-3 mr-5 ml-5">
 
-            <div class="box mt-3 mr-5 ml-5">
+                    <div class="userPFP"
+                         style="background-image: url('imgs/@postInfo.UserPfp')">
+                    </div>
+                    <div class="postPriInfo">
+                        <span class="has-text-weight-bold is-size-5">@postInfo.UserName</span>
+                        <p style="line-height: 60%;">
+                            <span class="minorInfo" id="InCommunitySpan"> In <a>Community</a></span>
+                            <span class="minorInfo" id="taggedUsersSpan">&bull; Tagged <a>User1</a>, <a>User2</a></span>
+                        </p>
+                    </div>
 
-                <div class="userPFP"
-                     style="background-image: url('imgs/@postInfo.UserPfp')"></div>
-                <div class="postPriInfo">
-                    <span class="has-text-weight-bold is-size-5">@postInfo.UserName</span>
-                    <p style="line-height: 60%;">
-                        <span class="minorInfo" id="InCommunitySpan"> In <a>Community</a></span>
-                        <span class="minorInfo" id="taggedUsersSpan">&bull; Tagged <a>User1</a>, <a>User2</a></span>
+                    <p class="mt-3 is-size-5">
+                        @postInfo.Content
                     </p>
-                </div>
+                    <br/>
 
-                <p class="mt-3 is-size-5">
-                    @postInfo.Content
-                </p>
-                <br />
+                    @if (postInfo.AttachmentImg != "")
+                    {
+                        <img id="attachmentImg" class="postImg has-text-centered" src="~/imgs/@postInfo.AttachmentImg"/>
+                    }
+                    <div class="has-text-grey-light minorInfo mt-2">
+                        <span>@postInfo.Timestamp</span> <span id="fromWhere">&bull; From Your Friends' Likes</span>
+                    </div>
+                    <hr class="m-1"/>
 
-                @if (postInfo.AttachmentImg != "")
-                {
-                    <img id="attachmentImg" class="postImg has-text-centered" src="~/imgs/@postInfo.AttachmentImg" />
-                }
-                <div class="has-text-grey-light minorInfo mt-2"><span>@postInfo.Timestamp</span> <span id="fromWhere">&bull; From Your Friends' Likes</span></div>
-                <hr class="m-1" />
-
-                @*<span class="is-size-5 has-text-danger ml-3"><i class="far fa-thumbs-up"></i> @postInfo.likeCount</span>
+                    @*<span class="is-size-5 has-text-danger ml-3"><i class="far fa-thumbs-up"></i> @postInfo.likeCount</span>
         <span class="is-size-5 has-text-primary mr-3 is-pulled-right"><i class="fas fa-comment-dots"></i> Show 10 comments </span>
         <br />*@
 
-                <div class="columns mt-2">
-                    <div class="column is-half">
-                        @*<button class="button is-large is-fullwidth is-danger is-outlined" type="button" onclick="likePost(@postInfo.Pid)"><i class="far fa-thumbs-up mr-2"></i>@postInfo.likeCount Likes</button>
+                    <div class="columns mt-2">
+                        <div class="column is-half">
+                            @*<button class="button is-large is-fullwidth is-danger is-outlined" type="button" onclick="likePost(@postInfo.Pid)"><i class="far fa-thumbs-up mr-2"></i>@postInfo.likeCount Likes</button>
                         <form method="post" action="/Board?handler=like">
                             <input type="number" asp-for="newLike.EntityId" value="@postInfo.Pid" class="is-hidden" />
                             <button class="button is-large is-fullwidth is-danger is-outlined" type="submit"><i class="far fa-thumbs-up mr-2"></i>@postInfo.likeCount Likes form action</button>
                         </form>*@
-                        <form asp-page-handler="like" method="post">
-                            <input type="number" asp-for="newLike.EntityId" value="@postInfo.Pid" class="is-hidden" />
-                            <button class="button is-large is-fullwidth is-danger is-outlined" type="submit"><i class="far fa-thumbs-up mr-2"></i>@postInfo.likeCount Likes</button>
-                        </form>
-                        @*<form runat="server">
+                            <form asp-page-handler="like" method="post">
+                                <input type="number" asp-for="newLike.EntityId" value="@postInfo.Pid" class="is-hidden"/>
+                                <button class="button is-large is-fullwidth is-danger is-outlined" type="submit"><i class="far fa-thumbs-up mr-2"></i>@postInfo.likeCount Likes</button>
+                            </form>
+                            @*<form runat="server">
                     <input type="number" asp-for="newLike.EntityId" value="@postInfo.Pid" class="is-hidden" />
                     <asp:Button class="button is-large is-fullwidth is-danger is-outlined" type="button" runat="server" OnClick="likePost()" Text="like me" />
                     <i class="far fa-thumbs-up mr-2"></i>@postInfo.likeCount Likes
                 </form>*@
-                    </div>
-                    <div class="column">
-                        <a class="button is-large is-fullwidth is-primary is-outlined" type="button" onclick="showComments(this)"><i class="fas fa-comment-dots mr-2"></i>10 Comments</a>
-                        @*<a asp-page="/Board/Detail" asp-route-id="@postInfo.Pid" class="button is-large is-fullwidth is-primary is-outlined" type="button"><i class="fas fa-comment-dots mr-2"></i>10 Comments</a>*@
-                    </div>
-                </div>
-
-                <div id="commentDiv" class="is-hidden">
-                    @*<p class="has-text-weight-bold is-size-5 has-text-centered mb-2">Comments</p>*@
-
-                    <!--for every comment-->
-                    <article class="media">
-                        <figure class="media-left">
-                            <div class="userPFP"
-                                 style="background-image: url('imgs/@postInfo.UserPfp')"></div>
-                        </figure>
-                        <div class="media-content">
-                            <div class="content is-size-6">
-                                <p>
-                                    <strong>Barbara Middleton</strong>
-                                    <br>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta eros lacus, nec ultricies elit blandit non. Suspendisse pellentesque mauris sit amet dolor blandit rutrum. Nunc in tempus turpis.
-                                    <br>
-                                    <small class="has-text-grey-light">10 Likes &bull; 1/1/2022</small>
-                                </p>
-                            </div>
                         </div>
-                        <figure class="media-right">
-                            <!--insert form here-->
-                            <button class="button is-medium is-rounded is-danger is-outlined" type="button"><i class="far fa-thumbs-up"></i></button>
-                        </figure>
-                    </article>
-                    <!--for every comment-->
-
-                    <br />
-                    <form asp-page-handler="comment" method="post" enctype="multipart/form-data">
-
-                        <div class="field has-addons">
-                            <div class="control is-expanded has-icons-left">
-                                <input class="input" type="text" asp-for="newComment.Content" placeholder="Leave a comment..." />
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-comment-dots mr-2"></i>
-                                </span>
-                            </div>
-                            <input asp-for="newComment.IsComment" value="@postInfo.Pid" class="is-hidden" />
-                            <div class="control">
-                                <button class="button is-primary" type="submit">Comment</button>
-                            </div>
+                        <div class="column">
+                            <a class="button is-large is-fullwidth is-primary is-outlined" type="button" onclick="showComments(this)"><i class="fas fa-comment-dots mr-2"></i>10 Comments</a>
+                            @*<a asp-page="/Board/Detail" asp-route-id="@postInfo.Pid" class="button is-large is-fullwidth is-primary is-outlined" type="button"><i class="fas fa-comment-dots mr-2"></i>10 Comments</a>*@
                         </div>
-                    </form>
+                    </div>
+
+                    <div id="commentDiv" class="is-hidden">
+                        @*<p class="has-text-weight-bold is-size-5 has-text-centered mb-2">Comments</p>*@
+
+                        <!--for every comment-->
+                        <article class="media">
+                            <figure class="media-left">
+                                <div class="userPFP"
+                                     style="background-image: url('imgs/@postInfo.UserPfp')">
+                                </div>
+                            </figure>
+                            <div class="media-content">
+                                <div class="content is-size-6">
+                                    <p>
+                                        <strong>Barbara Middleton</strong>
+                                        <br>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta eros lacus, nec ultricies elit blandit non. Suspendisse pellentesque mauris sit amet dolor blandit rutrum. Nunc in tempus turpis.
+                                        <br>
+                                        <small class="has-text-grey-light">10 Likes &bull; 1/1/2022</small>
+                                    </p>
+                                </div>
+                            </div>
+                            <figure class="media-right">
+                                <!--insert form here-->
+                                <button class="button is-medium is-rounded is-danger is-outlined" type="button">
+                                    <i class="far fa-thumbs-up"></i>
+                                </button>
+                            </figure>
+                        </article>
+                        <!--for every comment-->
+
+                        <br/>
+                        <form asp-page-handler="comment" method="post" enctype="multipart/form-data">
+
+                            <div class="field has-addons">
+                                <div class="control is-expanded has-icons-left">
+                                    <input class="input" type="text" asp-for="newComment.Content" placeholder="Leave a comment..."/>
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-comment-dots mr-2"></i>
+                                    </span>
+                                </div>
+                                <input asp-for="newComment.IsComment" value="@postInfo.Pid" class="is-hidden"/>
+                                <div class="control">
+                                    <button class="button is-primary" type="submit">Comment</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
 
                 </div>
-
-            </div>
             }
 
 
@@ -136,24 +145,40 @@
         <div class="container m-5">
             <p class="has-text-weight-bold mt-5 is-size-6">Popular Communities</p>
             <ul class="minorInfo">
-                <li><a>Community 1 </a></li>
-                <li><a>Community 2 </a></li>
-                <li><a>Community 3 </a></li>
-                <li class="mt-3"><a>View more Communities </a></li>
+                <li>
+                    <a>Community 1 </a>
+                </li>
+                <li>
+                    <a>Community 2 </a>
+                </li>
+                <li>
+                    <a>Community 3 </a>
+                </li>
+                <li class="mt-3">
+                    <a>View more Communities </a>
+                </li>
             </ul>
 
             <p class="has-text-weight-bold mt-5 is-size-6">Popular Events</p>
             <ul class="minorInfo">
-                <li><a>Event 1 </a></li>
-                <li><a>Event 2 </a></li>
-                <li><a>Event 3 </a></li>
-                <li class="mt-3"><a>View more Events </a></li>
+                <li>
+                    <a>Event 1 </a>
+                </li>
+                <li>
+                    <a>Event 2 </a>
+                </li>
+                <li>
+                    <a>Event 3 </a>
+                </li>
+                <li class="mt-3">
+                    <a>View more Events </a>
+                </li>
             </ul>
         </div>
     </div>
 </div>
 
-<partial name="_CreatePost" />
+<partial name="_CreatePost"/>
 
 <script type="text/javascript">
 
