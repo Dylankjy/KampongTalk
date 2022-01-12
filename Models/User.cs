@@ -78,9 +78,15 @@ namespace KampongTalk.Models
 
         public User ToUser(dynamic obj)
         {
+            if (obj == null)
+            {
+                return new User{ Uid = -1 };
+            }
+            
             return new User
             {
                 Uid = obj.Uid,
+                Uid2 = obj.Uid2,
                 PhoneNumber = obj.PhoneNumber,
                 Name = obj.Name,
                 Password = obj.Password,
