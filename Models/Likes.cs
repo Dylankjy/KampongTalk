@@ -1,6 +1,6 @@
 ﻿namespace KampongTalk.Models
 {
-    public class Like
+    public class Likes
     {
         public long EntityId { get; set; }
         public long Uid { get; set; }
