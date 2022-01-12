@@ -1,5 +1,4 @@
 ﻿using System;
-using IdGen;
 using KampongTalk.i18n;
 using KampongTalk.Models;
 using Microsoft.AspNetCore.Http;
@@ -9,19 +8,23 @@ using Mighty;
 
 namespace KampongTalk.Pages.Accounts
 {
-    public class Login : PageModel
+    public class Recover : PageModel
     {
+        // Other stuff
+        private static readonly Random Rnd = new Random();
+        
         // Current user prop
         private User CurrentUser { get; set; }
 
         // Prop declarations
         [BindProperty] public string LoginPhoneNumber { get; set; }
-        [BindProperty] public string LoginPassword { get; set; }
-        public string FieldClass { get; set; }
-        public bool ShowErrorMessage { get; set; }
-
+        
         public dynamic LangData { get; } = Internationalisation.LoadLanguage("jp");
-
+        public string FieldClass { get; set; }
+        
+        // For invalid account resets
+        public bool ShowErrorMessage { get; set; }
+        
         public IActionResult OnGet()
         {
             // Get current user
@@ -33,7 +36,7 @@ namespace KampongTalk.Pages.Accounts
             // If the user has not OTP verified
             if (CurrentUser is {IsVerified: false}) return RedirectToPage("Verify");
 
-            // Show login page if not logged in already.
+            // Show recovery page if not logged in already.
             return Page();
         }
 
@@ -46,54 +49,50 @@ namespace KampongTalk.Pages.Accounts
             var dbUsers =
                 new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
                     "Users");
-
+            
             // Block OnPost if user is verified and already authenticated
             var currentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
-            if (currentUser is {IsVerified: true}) return RedirectToPage("Index");
-
+            if (currentUser != null) return RedirectToPage("Index");
+            
             // Get user by PhoneNumber
             var selectedUserFromDb = dbUsers.Single(new
             {
                 PhoneNumber = LoginPhoneNumber
             });
 
-            // If user doesn't exist, initialise new user to prevent timing attacks
             if (selectedUserFromDb == null)
-            {
-                selectedUserFromDb = new User();
-                selectedUserFromDb.SetPassword(new IdGenerator(0).CreateId().ToString());
-            }
-
-            // Convert dynamic to user object
-            User selectedUser = new User().ToUser(selectedUserFromDb);
-
-            // Compare password
-            if (!selectedUser.ComparePassword(LoginPassword))
             {
                 ShowErrorMessage = true;
                 FieldClass = "is-danger";
                 return Page();
             }
-
-            // If all is well, set the user into session
-            // Set the session
-            HttpContext.Session.SetString("CurrentUser", selectedUser.ToJson());
-
-            // Redirect to verification page if unverified
-            if (!selectedUser.IsVerified) return RedirectToPage("Verify");
+            
+            // Convert dynamic to user object
+            User selectedUser = new User().ToUser(selectedUserFromDb);
             
             // Generate new OTP code and insert into DB
             var otpRecord = new ActionLog
             {
                 Uid = selectedUser.Uid,
-                ActionExecuted = "account_login_success",
-                Metadata = null,
-                Info = "Successful login attempt performed on your account."
+                ActionExecuted = "account_passwd_reset_sent",
+                Metadata = Rnd.Next(100000, 999999).ToString(),
+                Info = "A password reset was requested and reset SMS was sent. This is a system action."
             };
             dbActionLogs.Insert(otpRecord);
 
-            // Else, go to index
-            return RedirectToPage("/Index");
+            // selectedUser.SendSms($"Hello {selectedUser.Name} (@{selectedUser.Uid2}). A password reset was requested for your KampongTalk account." +
+            //                      "\n" +
+            //                      "\n" +
+            //                      "If this action is done by you, please enter the following into KampongTalk:" +
+            //                      $"\n{otpRecord.Metadata} (Valid for 10mins)" +
+            //                      "\n" +
+            //                      "\n" +
+            //                      "If you did not request for this, ignore and delete this message. DO NOT GIVE this code to anyone, including KampongTalk staff.");
+            
+            // Set session attribute
+            HttpContext.Session.SetString("PasswordResetNumber", selectedUser.PhoneNumber);
+
+            return RedirectToPage("./VerifyReset");
         }
     }
 }
