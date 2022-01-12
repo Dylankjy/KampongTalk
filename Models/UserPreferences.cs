@@ -8,6 +8,9 @@
         public bool IsPublic { get; set; } = true;
         public bool UseTts { get; set; } = false;
         public bool UseAudioCues { get; set; } = false;
+        
+        // Login preference
+        public bool UsePasswordLess { get; set; } = false;
 
         // Use 2-letter iso code for this field
         public string Language { get; set; } = "en";
