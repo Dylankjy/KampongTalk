@@ -65,9 +65,11 @@ namespace KampongTalk.Models
             Uid2 = $"{part1}_{part2}";
         }
 
-        public void SetPassword(string plainText)
+        public string SetPassword(string plainText)
         {
             Password = BCrypt.Net.BCrypt.HashPassword(plainText, 12, true);
+
+            return Password;
         }
 
         public bool ComparePassword(string incomingText)
