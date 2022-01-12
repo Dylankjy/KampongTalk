@@ -1,6 +1,6 @@
 ﻿{
   "kampongTalk": "カンポントーク",
-  
+
   "back": "戻す",
   "next": "次へ",
   "login": "ログイン",
@@ -39,11 +39,21 @@
       "almostThere": "もう少しだけで終わり！",
       "verifyYourPhone": "携帯番号を確認",
       "checkPhone": "携帯でSMSをチェックしていただいて",
-      "sentCode": "SMSコードを送られました。携帯番号："
+      "sentCode": "SMSコードを送られました。携帯番号：",
+      "otpInvalid": "<i class='fas fa-exclamation-triangle'></i>&ensp;このSMSコードは無効です。もう一度リクエストしてください。"
+    },
+    "recover": {
+      "recoverAccount": "アカウントのリカバリー",
+      "subtitle": "携帯番号でパスワードをリセット",
+      "setNewPasswordSubtitle": "新しいパスワードを設定",
+      "phoneNumberNoExist": "携帯番号はアカウントがありません",
+      "newPassword": "新しいパスワード",
+      "otpInvalid": "<i class='fas fa-exclamation-triangle'></i>&ensp;このSMSコードは無効です。もう一度リクエストしてください。"
     }
   },
 
   "smsMessages": {
-    "verifyPhone": "もう少しだけで完了です。この携帯番号を確認が必ずです。\n以下のSMSコードはサイトで入力してください。"
+    "verifyPhone": "こんにちは{selectedUser.Name}さん。もう少しだけで！\n\nアカウントの作成を完了するために、携帯番号の確認が必要です。\n\n下記のコードをサイトで入力してください：\n{otpRecord.Metadata}",
+    "recoverAccount": "こんにちは{selectedUser.Name}さん（@{selectedUser.Uid2}）。 パスワードのリセットを要求されました。\n\n自分がリクエストをされたほうは下記のコードをサイトで入力してください:\n{otpRecord.Metadata} (１０分有効)\n\nただし、そのようなリクエストがない場合は、このメッセージを削除してください。このコードを求めてくる人がいても、渡さないでください。"
   }
 }
