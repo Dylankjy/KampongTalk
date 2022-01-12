@@ -2,7 +2,7 @@
 @model KampongTalk.Pages.Accounts.Recover
 
 @{
-    ViewData["Title"] = "Recover Account";
+    ViewData["Title"] = Model.LangData.accounts.recover.recoverAccount;
 }
 
 <style>
@@ -14,8 +14,8 @@
 <section id="authSection" class="section">
     <div class="container">
         <div class="has-text-centered">
-            <h1 class="title">Recover Account</h1>
-            <p class="subtitle">Reset your password using your linked phone number.</p>
+            <h1 class="title">@Model.LangData.accounts.recover.recoverAccount</h1>
+            <p class="subtitle">@Model.LangData.accounts.recover.subtitle</p>
         </div>
         <br/>
 
@@ -34,7 +34,7 @@
                 {
                     <div id="errormessage" class="notification is-danger is-light">
                         <a class="delete" onclick="$('#errormessage').slideUp()"></a>
-                        This phone number doesn't seem to be linked with any KampongTalk account.<br/>
+                        @Model.LangData.accounts.recover.phoneNumberNoExist<br/>
                     </div>
                 }
             }

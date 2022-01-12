@@ -17,7 +17,7 @@ namespace KampongTalk.Pages.Accounts
 
         // Current user prop
         public User CurrentUser { get; set; }
-        
+
         // Language prop
         public dynamic LangData { get; } = Internationalisation.LoadLanguage("jp");
         private static dynamic LangDataStatic { get; } = Internationalisation.LoadLanguage("jp");
@@ -27,7 +27,7 @@ namespace KampongTalk.Pages.Accounts
         [BindProperty] public string NewUserPassword { get; set; }
 
         public string PasswordWarn { get; set; }
-            = LangDataStatic.accounts.register.passwordHint ;
+            = LangDataStatic.accounts.register.passwordHint;
 
         public string PasswordInputClass { get; set; } = string.Empty;
         public string PhoneWarn { get; set; }
@@ -84,7 +84,7 @@ namespace KampongTalk.Pages.Accounts
             {
                 PhoneInputClass = "is-danger";
                 PhoneWarn = LangDataStatic.accounts.register.phoneInvalid;
-                
+
                 abortFormSubmission = true;
             }
 
@@ -93,7 +93,7 @@ namespace KampongTalk.Pages.Accounts
             {
                 PhoneInputClass = "is-danger";
                 PhoneWarn = LangDataStatic.accounts.register.phoneAlreadyInUse;
-                    
+
                 abortFormSubmission = true;
             }
 
@@ -122,14 +122,18 @@ namespace KampongTalk.Pages.Accounts
             dbActionLogs.Insert(otpRecord);
 
             // Send SMS
-            NewUserAccount.SendSms($"{LangDataStatic.smsMessages.verifyPhone}\n{otpRecord.Metadata}");
+            string i18nVerifyPhone = LangDataStatic.smsMessages.verifyPhone;
+            NewUserAccount.SendSms(i18nVerifyPhone
+                .Replace("{selectedUser.Name}", NewUserAccount.Name)
+                .Replace("{otpRecord.Metadata}", otpRecord.Metadata)
+            );
 
             // Set the session
             HttpContext.Session.SetString("CurrentUser", NewUserAccount.ToJson());
             // HttpContext.Session.SetString("OTPPending", "true");
-            
+
             // Add action to logs
-            dbActionLogs.Insert(new ActionLog()
+            dbActionLogs.Insert(new ActionLog
             {
                 Uid = NewUserAccount.Uid,
                 ActionExecuted = "account_create",

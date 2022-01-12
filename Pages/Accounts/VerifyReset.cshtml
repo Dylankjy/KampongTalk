@@ -2,7 +2,7 @@
 @model KampongTalk.Pages.Accounts.VerifyReset
 
 @{
-    ViewData["Title"] = "Recover Account";
+    ViewData["Title"] = Model.LangData.accounts.recover.recoverAccount;
 }
 
 <style>
@@ -14,11 +14,11 @@
 
 <section id="registerSection" class="section is-medium">
     <div class="has-text-centered">
-        <h1 class="title">Recover your account</h1>
-        <p class="subtitle">Reset your forgotten password</p>
+        <h1 class="title">@Model.LangData.accounts.recover.recoverAccount</h1>
+        <p class="subtitle">@Model.LangData.accounts.recover.setNewPasswordSubtitle</p>
     </div>
     <br/>
-    
+
     <div>
         <p class="title is-2 has-text-centered">
             <i class="fas fa-mobile-alt"></i>
@@ -34,7 +34,7 @@
         <input value="VerifyOTP" type="hidden"/>
         <div class="box">
             <div class="field">
-                <label class="label">New Password</label>
+                <label class="label">@Model.LangData.accounts.recover.newPassword</label>
                 <div class="control has-icons-left">
                     <input class="input @Model.PasswordInputClass" type="password" placeholder="••••••••" asp-for="NewUserPassword" required>
                     <span class="icon is-small is-left">
@@ -43,7 +43,7 @@
                 </div>
                 <small class="has-text-grey">@Html.Raw(Model.PasswordWarn)</small>
             </div>
-            
+
             <div class="field">
                 <label class="label">@Model.LangData.accounts.otp</label>
                 <div class="control has-icons-left">

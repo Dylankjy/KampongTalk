@@ -21,10 +21,10 @@ namespace KampongTalk.Pages.Accounts
         [BindProperty] public string IncomingOtpCode { get; set; }
         public string OtpCodeWarn { get; set; }
         public string OtpInputClass { get; set; }
-        
+
         // Language prop
         public dynamic LangData { get; } = Internationalisation.LoadLanguage("jp");
-        
+
         public IActionResult OnGet()
         {
             // Get current user
@@ -63,8 +63,7 @@ namespace KampongTalk.Pages.Accounts
                 if (selectedOtpVerification.ToList().Count == 0)
                 {
                     OtpInputClass = "is-danger";
-                    OtpCodeWarn = "<i class='fas fa-exclamation-triangle'></i>" +
-                                  "&ensp;This OTP has either expired or is invalid. Please request for a new one.";
+                    OtpCodeWarn = LangData.accounts.verify.otpInvalid;
 
                     return Page();
                 }

@@ -12,19 +12,20 @@ namespace KampongTalk.Pages.Accounts
     {
         // Other stuff
         private static readonly Random Rnd = new Random();
-        
+
         // Current user prop
         private User CurrentUser { get; set; }
 
         // Prop declarations
         [BindProperty] public string LoginPhoneNumber { get; set; }
-        
+
         public dynamic LangData { get; } = Internationalisation.LoadLanguage("jp");
+        private static dynamic LangDataStatic { get; } = Internationalisation.LoadLanguage("jp");
         public string FieldClass { get; set; }
-        
+
         // For invalid account resets
         public bool ShowErrorMessage { get; set; }
-        
+
         public IActionResult OnGet()
         {
             // Get current user
@@ -49,11 +50,11 @@ namespace KampongTalk.Pages.Accounts
             var dbUsers =
                 new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
                     "Users");
-            
+
             // Block OnPost if user is verified and already authenticated
             var currentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
             if (currentUser != null) return RedirectToPage("Index");
-            
+
             // Get user by PhoneNumber
             var selectedUserFromDb = dbUsers.Single(new
             {
@@ -66,10 +67,10 @@ namespace KampongTalk.Pages.Accounts
                 FieldClass = "is-danger";
                 return Page();
             }
-            
+
             // Convert dynamic to user object
             User selectedUser = new User().ToUser(selectedUserFromDb);
-            
+
             // Generate new OTP code and insert into DB
             var otpRecord = new ActionLog
             {
@@ -80,15 +81,13 @@ namespace KampongTalk.Pages.Accounts
             };
             dbActionLogs.Insert(otpRecord);
 
-            // selectedUser.SendSms($"Hello {selectedUser.Name} (@{selectedUser.Uid2}). A password reset was requested for your KampongTalk account." +
-            //                      "\n" +
-            //                      "\n" +
-            //                      "If this action is done by you, please enter the following into KampongTalk:" +
-            //                      $"\n{otpRecord.Metadata} (Valid for 10mins)" +
-            //                      "\n" +
-            //                      "\n" +
-            //                      "If you did not request for this, ignore and delete this message. DO NOT GIVE this code to anyone, including KampongTalk staff.");
-            
+            string i18nRecoverAccount = LangData.smsMessages.recoverAccount;
+            selectedUser.SendSms(i18nRecoverAccount
+                .Replace("{selectedUser.Name}", selectedUser.Name)
+                .Replace("{selectedUser.Uid2}", selectedUser.Uid2)
+                .Replace("{otpRecord.Metadata}", otpRecord.Metadata)
+            );
+
             // Set session attribute
             HttpContext.Session.SetString("PasswordResetNumber", selectedUser.PhoneNumber);
 

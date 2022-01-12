@@ -17,28 +17,28 @@ namespace KampongTalk.Pages.Accounts
 
         public dynamic LangData { get; } = Internationalisation.LoadLanguage("jp");
         private static dynamic LangDataStatic { get; } = Internationalisation.LoadLanguage("jp");
-        
+
         // Retrieve phone number
         public string PhoneNumber { get; set; }
-        
+
         // OTP prop
         [BindProperty] public string NewUserPassword { get; set; }
         public string PasswordWarn { get; set; } = LangDataStatic.accounts.register.passwordHint;
 
         public string PasswordInputClass { get; set; } = string.Empty;
-        
+
         [BindProperty] public string IncomingOtpCode { get; set; }
         public string OtpCodeWarn { get; set; }
         public string OtpInputClass { get; set; }
-        
-        
+
+
         public IActionResult OnGet()
         {
             // Get current user
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
             // Get phone number attribute
             PhoneNumber = HttpContext.Session.GetString("PasswordResetNumber");
-            
+
             // If current user is already logged in or phone number missing, clear the session. This session is malformed.
             if (CurrentUser != null || PhoneNumber == null)
             {
@@ -56,27 +56,27 @@ namespace KampongTalk.Pages.Accounts
             // Get phone number attribute
             PhoneNumber = HttpContext.Session.GetString("PasswordResetNumber");
 
-            
+
             // If current user is already logged in or phone number missing, clear the session. This session is malformed.
             if (CurrentUser != null || PhoneNumber == null)
             {
                 HttpContext.Session.Clear();
                 return RedirectToPage("./Recover");
             }
-            
+
             // Database declarations
             var dbActionLogs =
                 new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
                     "ActionLogs");
             var dbUsers =
                 new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
-                    "Users");
-            
+                    "Users", "Uid");
+
             // Get user with phone number
             var selectedUserFromDb = dbUsers.Single(new {PhoneNumber});
-            
+
             // Form abortion flag
-            bool abortFormSubmission = false;
+            var abortFormSubmission = false;
 
             // If the password is not of expected strength
             // Incredibly stupid work around to allow passwords with special characters
@@ -103,27 +103,23 @@ namespace KampongTalk.Pages.Accounts
             if (selectedOtpVerification.ToList().Count == 0 || selectedUser.Uid == -1)
             {
                 OtpInputClass = "is-danger";
-                OtpCodeWarn = "<i class='fas fa-exclamation-triangle'></i>" +
-                              "&ensp;This OTP has either expired or is invalid. Please request for a new one.";
+                OtpCodeWarn = LangData.accounts.recover.otpInvalid;
 
                 abortFormSubmission = true;
             }
-            
+
             // Check whether to abort the form
-            if (abortFormSubmission)
-            {
-                return Page();
-            }
+            if (abortFormSubmission) return Page();
 
             // Clear all OTP records for user.
             dbActionLogs.Delete($"Uid = {selectedUser.Uid} AND ActionExecuted = 'account_passwd_reset_sent'");
-            
+
             // Set the new password
             selectedUserFromDb.Password = selectedUser.SetPassword(NewUserPassword);
-            
+
             // Commit update to database
             dbUsers.Update(selectedUserFromDb);
-            
+
             // Audit log the password reset
             // Add action to logs
             dbActionLogs.Insert(new ActionLog
@@ -133,9 +129,8 @@ namespace KampongTalk.Pages.Accounts
                 Metadata = null,
                 Info = "Your account's password was successfully reset."
             });
-            
+
             return RedirectToPage("/Index");
         }
-        
     }
 }
