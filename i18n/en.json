@@ -39,11 +39,21 @@
       "almostThere": "Almost there!",
       "verifyYourPhone": "Verify your phone number",
       "checkPhone": "Please check messages on your phone.",
-      "sentCode": "We have sent a 6 digit code to "
+      "sentCode": "We have sent a 6 digit code to ",
+      "otpInvalid": "<i class='fas fa-exclamation-triangle'></i>&ensp;This OTP has either expired or is invalid. Please request for a new one."
+    },
+    "recover": {
+      "recoverAccount": "Recover Account",
+      "subtitle": "Reset your password using your linked phone number.",
+      "setNewPasswordSubtitle": "Set a new password for your account.",
+      "phoneNumberNoExist": "This phone number doesn't match any existing account.",
+      "newPassword": "New Password",
+      "otpInvalid": "<i class='fas fa-exclamation-triangle'></i>&ensp;This recovery code has either expired or is invalid. Please request for a new one."
     }
   },
 
   "smsMessages": {
-    "verifyPhone": "You are almost done creating your KampongTalk account. We need you to verify this phone number in order to complete the creation of your account.\nPlease enter the code below into the website."
+    "verifyPhone": "Hello {selectedUser.Name}. You are almost done creating your KampongTalk account.\n\nWe need you to verify this phone number in order to complete the creation of your account.\n\nPlease enter the code below into KampongTalk:\n{otpRecord.Metadata}",
+    "recoverAccount": "Hello {selectedUser.Name} (@{selectedUser.Uid2}). A password reset was requested for your KampongTalk account.\n\nIf this action is done by you, please enter the following into KampongTalk:\n{otpRecord.Metadata} (Valid for 10mins)\n\nIf you did not request for this, ignore and delete this message. DO NOT GIVE this code to anyone, including KampongTalk staff."
   }
 }
