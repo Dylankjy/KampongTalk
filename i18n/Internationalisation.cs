@@ -25,7 +25,7 @@ namespace KampongTalk.i18n
             {
                 languageData = JObject.Parse(json);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new Exception("Language file cannot be properly parsed. Check for JSON errors.");
             }
