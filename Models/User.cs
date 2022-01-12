@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations;
 using IdGen;
 using Mighty;
 using Newtonsoft.Json;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
 
 namespace KampongTalk.Models
 {
@@ -32,7 +34,16 @@ namespace KampongTalk.Models
 
         public void SendSms(string messageContent)
         {
-            // TODO: Add Twilio API
+            string accountSid = ConfigurationManager.AppSetting["APIKeys:Twilio:SID"];
+            string authToken = ConfigurationManager.AppSetting["APIKeys:Twilio:Secret"];
+
+            TwilioClient.Init(accountSid, authToken);
+
+            var message = MessageResource.Create(
+                body: $"[KampongTalk]\n{messageContent}",
+                from: new Twilio.Types.PhoneNumber("+19377876066"),
+                to: new Twilio.Types.PhoneNumber($"+65{PhoneNumber}")
+            );
         }
 
         public void SetNewUid2(string name)
