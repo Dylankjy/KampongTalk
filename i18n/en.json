@@ -53,7 +53,7 @@
   },
 
   "smsMessages": {
-    "verifyPhone": "Hello {selectedUser.Name}. You are almost done creating your KampongTalk account.\n\nWe need you to verify this phone number in order to complete the creation of your account.\n\nPlease enter the code below into KampongTalk:\n{otpRecord.Metadata}",
+    "verifyPhone": "Hello {selectedUser.Name}. You are almost done creating your KampongTalk account.\n\nWe need you to verify this phone number in order to complete the creation of your account.\n\nPlease enter the code below into KampongTalk:\n{otpRecord.Metadata} (Valid for 10mins)",
     "recoverAccount": "Hello {selectedUser.Name} (@{selectedUser.Uid2}). A password reset was requested for your KampongTalk account.\n\nIf this action is done by you, please enter the following into KampongTalk:\n{otpRecord.Metadata} (Valid for 10mins)\n\nIf you did not request for this, ignore and delete this message. DO NOT GIVE this code to anyone, including KampongTalk staff."
   }
 }
