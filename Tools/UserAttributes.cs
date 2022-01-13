@@ -23,11 +23,13 @@ namespace KampongTalk.Tools
         public static MightyOrm dbUsers =
                 new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
                     "Users");
+        public static MightyOrm dbPrefs =
+                new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
+                    "UserPreferences");
 
         public UserAttributes(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
-
             CurrentUser = new User().FromJson(_httpContextAccessor.HttpContext.Session.GetString("CurrentUser"));
         }
 
@@ -37,12 +39,12 @@ namespace KampongTalk.Tools
             if (CurrentUser != null)
             {
                 var uid = CurrentUser.Uid;
-                dynamic loggedInUser = dbUsers.Single($"Uid = {uid}");
-                return loggedInUser.TextSize;
+                dynamic loggedInUserPrefs = dbPrefs.Single($"Uid = {uid}");
+                return loggedInUserPrefs.TextSize;
             }
             else
             {
-                return "largee";
+                return "large";
             }
         }
 
@@ -51,8 +53,8 @@ namespace KampongTalk.Tools
             if (CurrentUser != null)
             {
                 var uid = CurrentUser.Language;
-                dynamic loggedInUser = dbUsers.Single($"Uid = {uid}");
-                return loggedInUser.Language;
+                dynamic loggedInUserPrefs = dbPrefs.Single($"Uid = {uid}");
+                return loggedInUserPrefs.Language;
             }
             else
             {
@@ -66,8 +68,8 @@ namespace KampongTalk.Tools
             if (CurrentUser != null)
             {
                 var uid = CurrentUser.Language;
-                dynamic loggedInUser = dbUsers.Single($"Uid = {uid}");
-                switch (loggedInUser.Language)
+                dynamic loggedInUserPrefs = dbPrefs.Single($"Uid = {uid}");
+                switch (loggedInUserPrefs.Language)
                 {
                     case "en":
                         return "en-US";
@@ -92,8 +94,8 @@ namespace KampongTalk.Tools
             if (CurrentUser != null)
             {
                 var uid = CurrentUser.Language;
-                dynamic loggedInUser = dbUsers.Single($"Uid = {uid}");
-                return loggedInUser.SpeechGender;
+                dynamic loggedInUserPrefs = dbPrefs.Single($"Uid = {uid}");
+                return loggedInUserPrefs.SpeechGender;
             }
             else
             {

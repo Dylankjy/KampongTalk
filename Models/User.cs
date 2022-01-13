@@ -93,10 +93,7 @@ namespace KampongTalk.Models
                 Interests = obj.Interests,
                 Challenges = obj.Challenges,
                 DateOfBirth = obj.DateOfBirth,
-                IsVerified = obj.IsVerified,
-                TextSize = obj.TextSize,
-                Language = obj.Language,
-                SpeechGender = obj.SpeechGender
+                IsVerified = obj.IsVerified
             };
         }
 

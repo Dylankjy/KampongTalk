@@ -62,6 +62,9 @@ namespace KampongTalk.Pages.Accounts
             var dbUsers =
                 new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
                     "Users");
+            var dbPrefs =
+                new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
+                    "UserPreferences");
 
             // Block OnPost if user is verified and already authenticated
             var currentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
@@ -108,8 +111,16 @@ namespace KampongTalk.Pages.Accounts
             NewUserAccount.Language = "en";
             NewUserAccount.SpeechGender = "Male";
 
+            var userPrefs = new UserPreferences
+            {
+                Uid = NewUserAccount.Uid,
+            };
+
             // Push user object to database
             dbUsers.Insert(NewUserAccount);
+            dbPrefs.Insert(userPrefs);
+
+
 
             // Generate new OTP code and insert into DB
             var otpRecord = new ActionLog
