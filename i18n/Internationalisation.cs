@@ -13,7 +13,7 @@ namespace KampongTalk.i18n
 
             try
             {
-                jsonData = File.ReadAllText(@$"{Environment.CurrentDirectory}\i18n\{langCode}.json");
+                jsonData = File.ReadAllText(@$"{Environment.CurrentDirectory}/i18n/{langCode}.json");
             }
             catch (Exception)
             {
