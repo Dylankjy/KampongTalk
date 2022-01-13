@@ -54,5 +54,6 @@
 
   "smsMessages": {
     "verifyPhone": "こんにちは{selectedUser.Name}さん。もう少しだけです！\n\nアカウントの作成を完了するために、携帯番号の確認が必要です。\n\n下記のコードをサイトで入力してください：\n{otpRecord.Metadata}（１０分有効）",
+    "recoverAccount": "こんにちは{selectedUser.Name}さん（@{selectedUser.Uid2}）。 パスワードのリセットを要求されました。\n\n自分がリクエストをされたほうは下記のコードをサイトで入力してください：\n{otpRecord.Metadata} (１０分有効)\n\nただし、そのようなリクエストがない場合は、このメッセージを削除してください。このコードを求めてくる人がいても、渡さないでください。"
   }
 }
