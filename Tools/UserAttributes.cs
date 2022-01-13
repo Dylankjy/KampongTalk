@@ -52,7 +52,7 @@ namespace KampongTalk.Tools
         {
             if (CurrentUser != null)
             {
-                var uid = CurrentUser.Language;
+                var uid = CurrentUser.Uid;
                 dynamic loggedInUserPrefs = dbPrefs.Single($"Uid = {uid}");
                 return loggedInUserPrefs.Language;
             }
@@ -67,7 +67,7 @@ namespace KampongTalk.Tools
         {
             if (CurrentUser != null)
             {
-                var uid = CurrentUser.Language;
+                var uid = CurrentUser.Uid;
                 dynamic loggedInUserPrefs = dbPrefs.Single($"Uid = {uid}");
                 switch (loggedInUserPrefs.Language)
                 {
@@ -93,7 +93,7 @@ namespace KampongTalk.Tools
         {
             if (CurrentUser != null)
             {
-                var uid = CurrentUser.Language;
+                var uid = CurrentUser.Uid;
                 dynamic loggedInUserPrefs = dbPrefs.Single($"Uid = {uid}");
                 return loggedInUserPrefs.SpeechGender;
             }

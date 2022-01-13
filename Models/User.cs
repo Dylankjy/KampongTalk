@@ -28,9 +28,6 @@ namespace KampongTalk.Models
         [DatabaseColumn] public string Challenges { get; set; }
         [DatabaseColumn] public DateTime DateOfBirth { get; set; }
         [DatabaseColumn] public bool IsVerified { get; set; }
-        [DatabaseColumn] public string TextSize { get; set; }
-        [DatabaseColumn] public string Language { get; set; }
-        [DatabaseColumn] public string SpeechGender { get; set; }
 
 
         public void SendSms(string messageContent)
@@ -39,13 +36,13 @@ namespace KampongTalk.Models
             var authToken = ConfigurationManager.AppSetting["APIKeys:Twilio:Secret"];
 
             // TODO: Uncomment during production
-            // TwilioClient.Init(accountSid, authToken);
-            //
-            // var message = MessageResource.Create(
-            //     body: $"[KampongTalk]\n{messageContent}",
-            //     from: new PhoneNumber("+19377876066"),
-            //     to: new PhoneNumber($"+65{PhoneNumber}")
-            // );
+            //TwilioClient.Init(accountSid, authToken);
+
+            //var message = MessageResource.Create(
+            //    body: $"[KampongTalk]\n{messageContent}",
+            //    from: new PhoneNumber("+19377876066"),
+            //    to: new PhoneNumber($"+65{PhoneNumber}")
+            //);
         }
 
         public void SetNewUid2(string name)

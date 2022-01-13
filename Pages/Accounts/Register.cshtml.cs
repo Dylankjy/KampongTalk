@@ -106,11 +106,6 @@ namespace KampongTalk.Pages.Accounts
             NewUserAccount.SetPassword(NewUserPassword);
             NewUserAccount.SetNewUid2(NewUserAccount.Name);
 
-            // Set default value for user account
-            NewUserAccount.TextSize = "large";
-            NewUserAccount.Language = "en";
-            NewUserAccount.SpeechGender = "Male";
-
             var userPrefs = new UserPreferences
             {
                 Uid = NewUserAccount.Uid,
