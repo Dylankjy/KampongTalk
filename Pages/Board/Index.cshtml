@@ -241,39 +241,45 @@
             })
     }
 
-        // Keep a list of all the generated filenames, so we can delete them once the user does not need thems
-        var filenames = []
-        var deleteFile = (filename) => {
-            // "Delete" refers to the function name, not the route name as specified in [Route] within your API controller
-            var deleteUrl = '@Url.Action("Delete", "SpeechAPI")'
-            console.log(deleteUrl)
-            $.get(deleteUrl, { filename: filename })
+    // Keep a list of all the generated filenames, so we can delete them once the user does not need thems
+    var filenames = []
+
+    var deleteFile = (filename) => {
+        // "Delete" refers to the function name, not the route name as specified in [Route] within your API controller
+        var deleteUrl = '@Url.Action("Delete", "SpeechAPI")'
+        console.log(deleteUrl)
+        $.get(deleteUrl, { filename: filename })
+        .done((data) => {
+            console.log(data)
+        })
+    }
+
+    var synthesizeSpeech = (obj) => {
+        // Use the TranslateAPIController.cs, and run the Translate() function
+        var url = '@Url.Action("AutoSynthesize", "SpeechAPI")'
+        var ttsText = $(obj).prev().prev().text()
+
+        // Pass in the parameters as {"text": blahblah, "language": blahblah}
+        $.get(url, { text: ttsText, gender: "@UserAttributes.getSpeechGender()" })
             .done((data) => {
-                console.log(data)
+                var filename = `speech/${data}`
+                filenames.push(filename)
+                $(obj).next().attr("src", filename)
+                $(obj).next()[0].play()
             })
-        }
 
-        var synthesizeSpeech = (obj) => {
-            // Use the TranslateAPIController.cs, and run the Translate() function
-            var url = '@Url.Action("AutoSynthesize", "SpeechAPI")'
-            console.log(this)
-            console.log(url)
-            var ttsText = $(obj).prev().prev().text()
-
-            // Pass in the parameters as {"text": blahblah, "language": blahblah}
-            $.get(url, { text: ttsText, gender: "@UserAttributes.getSpeechGender()" })
-                .done((data) => {
-                    var filename = `speech/${data}`
-                    filenames.push(filename)
-                    $(obj).next().attr("src", filename)
-                    $(obj).next()[0].play()
-            })
-        }
-
-        // Delete all the synthesized files when the user navigates to another page
         $(window).bind('beforeunload', () => {
             filenames.forEach((filename) => {
                 deleteFile(filename)
             })
         })
+    }
+
+    // Delete all the synthesized files when the user navigates to another page
+    console.log("This has ran")
+    $(window).bind('beforeunload', () => {
+        filenames.forEach((filename) => {
+            deleteFile(filename)
+        })
+    })
 </script>
