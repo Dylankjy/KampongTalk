@@ -20,6 +20,14 @@ namespace KampongTalk.Tools
             var filename = _speech.SynthesizeSpeech(text, language, gender);
             return Ok(filename);
         }
+        
+        [HttpGet]
+        [Route("AutoSynthesize")]
+        public ActionResult AutoSynthesize(string text, string gender)
+        {
+            var res = _speech.AutoSynthesizeSpeech(text, gender);
+            return Ok(res);
+        }
 
         [HttpGet]
         [Route("Delete")]

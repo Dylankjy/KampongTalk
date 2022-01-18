@@ -19,11 +19,13 @@
 
         var synthesizeSpeech = () => {
             // Use the TranslateAPIController.cs, and run the Translate() function
-            var url = '@Url.Action("Synthesize", "SpeechAPI")'
+            // var url = '@Url.Action("Synthesize", "SpeechAPI")'
+            var url = '@Url.Action("AutoSynthesize", "SpeechAPI")'
 
             console.log(url)
             // Pass in the parameters as {"text": blahblah, "language": blahblah}
-            $.get(url, { text: $('#text').val(), language: $("#language").val(), gender: $('#gender').val() })
+            @*$.get(url, { text: $('#text').val(), language: $("#language").val(), gender: $('#gender').val() })*@
+            $.get(url, { text: $('#text').val(), gender: $('#gender').val() })
                 .done((data) => {
                     var filename = `speech/${data}`
                     filenames.push(filename)
