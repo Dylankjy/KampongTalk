@@ -1,0 +1,60 @@
+﻿.message-box-holder {
+    width: 100%;
+    margin: 0 0 15px;
+    display: flex;
+    flex-flow: column;
+    align-items: flex-end;
+}
+
+.message-sender {
+    font-size: 17px;
+    margin: 0 0 15px;
+    color: #30649c;
+    align-self: flex-start;
+}
+
+    .message-sender a, .message-sender a:link, .message-sender a:visited, .chat-partner-name a, .chat-partner-name a:link, .chat-partner-name a:visited {
+        color: #30649c;
+        text-decoration: none;
+    }
+
+.message-box {
+    padding: 6px 10px;
+    border-radius: 6px 0 6px 0;
+    position: relative;
+    background: rgba(100, 170, 0, .1);
+    border: 2px solid rgba(100, 170, 0, .1);
+    color: #6c6c6c;
+    font-size: 20px;
+}
+
+    .message-box:after {
+        content: "";
+        position: absolute;
+        border: 10px solid transparent;
+        border-top: 10px solid rgba(100, 170, 0, .2);
+        border-right: none;
+        bottom: -22px;
+        right: 20px;
+    }
+
+.message-partner {
+    background: rgba(0, 114, 135, .1);
+    border: 2px solid rgba(0, 114, 135, .1);
+    align-self: flex-start;
+}
+
+    .message-partner:after {
+        right: auto;
+        bottom: auto;
+        top: -22px;
+        left: 9px;
+        border: 10px solid transparent;
+        border-bottom: 10px solid rgba(0, 114, 135, .2);
+        border-left: none;
+    }
+
+
+div.messageinputbox {
+    position: relative;
+}
