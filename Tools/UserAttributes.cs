@@ -15,6 +15,8 @@ namespace KampongTalk.Tools
         public string getSpeechLanguage();
         public string getSpeechGender();
         public bool isLoggedIn();
+
+        public string getUsername();
     }
 
     public class UserAttributes: IUserAttributes
@@ -112,5 +114,15 @@ namespace KampongTalk.Tools
             }
             return false;
         }
+
+        public string getUsername()
+        {
+            if (CurrentUser != null)
+            {
+                return CurrentUser.Name;
+            }
+            return "user has not login";
+        }
+
     }
 }

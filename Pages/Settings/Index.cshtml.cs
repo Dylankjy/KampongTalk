@@ -16,6 +16,16 @@ namespace KampongTalk.Pages.Settings
 
         public string displayLang { get; set; }
 
+        public string displayTextSize { get; set; }
+
+        public string displaySpeechGender { get; set; }
+
+        public string displayAudioCues { get; set; }
+
+        public string displayPasswordLess { get; set; }
+
+
+
         private User CurrentUser { get; set; }
 
         public IActionResult OnGet()
@@ -34,12 +44,59 @@ namespace KampongTalk.Pages.Settings
                     displayLang = "中文 ";
                     break;
                 case "ms":
-                    displayLang = "Malay";
+                    displayLang = "Melayu";
                     break;
                 case "ta":
-                    displayLang = "Tamil";
+                    displayLang = "தமிழ்";
                     break;
             }
+
+            switch (currentUserPreference.TextSize)
+            {
+                case "large":
+                    displayTextSize = "Large";
+                    break;
+                case "larger":
+                    displayTextSize = "Larger ";
+                    break;
+                case "largest":
+                    displayTextSize = "Largest";
+                    break;
+            }
+
+            switch (currentUserPreference.SpeechGender)
+            {
+                case "Male":
+                    displaySpeechGender = "Male";
+                    break;
+                case "Female":
+                    displaySpeechGender = "Female ";
+                    break;
+               
+            }
+
+            switch (currentUserPreference.UseAudioCues)
+            {
+                case true:
+                    displayAudioCues = "On";
+                    break;
+                case false:
+                    displayAudioCues = "Off";
+                    break;
+
+            }
+
+            switch (currentUserPreference.UsePasswordLess)
+            {
+                case true:
+                    displayPasswordLess = "On";
+                    break;
+                case false:
+                    displayPasswordLess = "Off";
+                    break;
+
+            }
+
 
             return Page();
         }
