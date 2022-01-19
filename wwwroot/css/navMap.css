@@ -1,4 +1,17 @@
-﻿.iconDiv {
+﻿/*@media screen and (max-width: 1120px) {
+    #fullview {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 1120px){
+    #halfview {
+        display: none;
+    }
+    
+}*/
+
+.iconDiv {
     position: absolute;
     z-index: 2;
     padding: 0px;

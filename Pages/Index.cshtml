@@ -3,31 +3,31 @@
 @{
     ViewData["Title"] = "Home page";
 }
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="~/css/navMap.css">
 
 <audio preload="auto" id="chime" src="/audio/navMapHover.mp3"
        style="width: 100%;">
 </audio>
 
-<section class="section">
+<section class="section" id="fullview" style="display:block;">
     <div class="columns">
 
         <!-- START: Main Column -->
         <div class="column is-four-fifths-desktop">
-            <div class="container mb-3 has-text-centered">
+            @*<div class="container mb-3 has-text-centered">
                 <h1 class="subtitle has-text-weight-bold">Welcome to Kampong Talk</h1>
-            </div>
+            </div>*@
 
             <!-- START: KT Nav Map-->
             <div class="container has-text-centered" style="position:relative;">
-                <img src="~/imgs/NavMapBG.png" style="height: 80vh; z-index:1; position:relative;"/>
+                <img src="~/imgs/NavMapBG.png" style="height: 80vh; z-index:1; position:relative;" />
 
                 <!-- ChallengesIcon -->
                 <a href="">
                     <div class="iconDiv" style="top:10vh; left:17vw;">
                         <!--ChallengesLink-->
-                        <img src="~/imgs/NavMap_ChallengesIcon.png" style="height:14vh;" class="navMapIcon"/>
+                        <img src="~/imgs/NavMap_ChallengesIcon.png" style="height:14vh;" class="navMapIcon" />
                         <p class="iconLabelEnt is-size-5">Challenges</p>
                     </div>
                 </a>
@@ -36,7 +36,7 @@
                 <a href="/Events">
                     <div class="iconDiv" style="top:4vh; left:30vw;">
                         <!--EventsLink-->
-                        <img src="~/imgs/NavMap_EventsIcon.png" style="height:17vh;" class="navMapIcon"/>
+                        <img src="~/imgs/NavMap_EventsIcon.png" style="height:17vh;" class="navMapIcon" />
                         <p class="iconLabelEnt is-size-4">Events</p>
                     </div>
                 </a>
@@ -45,17 +45,8 @@
                 <a href="">
                     <div class="iconDiv" style="top:35vh; left:10vw;">
                         <!--InboxLink-->
-                        <img src="~/imgs/NavMap_InboxIcon.png" style="height:10vh;" class="navMapIcon"/>
-                        <p class="iconLabelSoc is-size-5">Inbox</p>
-                    </div>
-                </a>
-
-                <!-- VoidDeckIcon -->
-                <a href="">
-                    <div class="iconDiv" style="top:28vh; left:37vw;">
-                        <!--VoidDeckLink-->
-                        <img src="~/imgs/NavMap_VoidDeckIcon.png" style="height:13vh;" class="navMapIcon"/>
-                        <p class="iconLabelSoc is-size-5">Void Deck</p>
+                        <img src="~/imgs/NavMap_InboxIcon.png" style="height:10vh;" class="navMapIcon" />
+                        <p class="iconLabelSoc is-size-5">Chats</p>
                     </div>
                 </a>
 
@@ -63,8 +54,17 @@
                 <a href="/Board">
                     <div class="iconDiv" style="top:31vh; left:20vw;">
                         <!--BoardLink-->
-                        <img src="~/imgs/NavMap_BoardIcon.png" style="height:22vh;" class="navMapIcon"/>
+                        <img src="~/imgs/NavMap_BoardIcon.png" style="height:22vh;" class="navMapIcon" />
                         <p class="iconLabelSoc is-size-4">Board</p>
+                    </div>
+                </a>
+
+                <!-- VoidDeckIcon -->
+                <a href="">
+                    <div class="iconDiv" style="top:28vh; left:37vw;">
+                        <!--VoidDeckLink-->
+                        <img src="~/imgs/NavMap_VoidDeckIcon.png" style="height:13vh;" class="navMapIcon" />
+                        <p class="iconLabelSoc is-size-5">Void Deck</p>
                     </div>
                 </a>
 
@@ -72,17 +72,8 @@
                 <a href="">
                     <div class="iconDiv" style="top:23vh; left:51vw;">
                         <!--ProfileLink-->
-                        <img src="~/imgs/NavMap_ProfileIcon.png" style="height:10vh;" class="navMapIcon"/>
+                        <img src="~/imgs/NavMap_ProfileIcon.png" style="height:10vh;" class="navMapIcon" />
                         <p class="iconLabelMe is-size-5">My Profile</p>
-                    </div>
-                </a>
-
-                <!-- SettingsIcon -->
-                <a href="">
-                    <div class="iconDiv" style="top:41vh; left:55vw;">
-                        <!--SettingsLink-->
-                        <img src="~/imgs/NavMap_SettingsIcon.png" style="height:8vh;" class="navMapIcon"/>
-                        <p class="iconLabelMe is-size-6">Settings</p>
                     </div>
                 </a>
 
@@ -90,7 +81,7 @@
                 <a href="">
                     <div class="iconDiv" style="top:52vh; left:34vw;">
                         <!--GuidesLink-->
-                        <img src="~/imgs/NavMap_GuidesIcon.png" style="height:15vh;" class="navMapIcon"/>
+                        <img src="~/imgs/NavMap_GuidesIcon.png" style="height:15vh;" class="navMapIcon" />
                         <p class="iconLabelHelp is-size-4">Help</p>
                     </div>
                 </a>
@@ -99,8 +90,17 @@
                 <a href="">
                     <div class="iconDiv" style="top:42vh; left:47vw;">
                         <!--SupportLink-->
-                        <img src="~/imgs/NavMap_SupportIcon.png" style="height:12vh;" class="navMapIcon"/>
+                        <img src="~/imgs/NavMap_SupportIcon.png" style="height:12vh;" class="navMapIcon" />
                         <p class="iconLabelHelp is-size-5">Support</p>
+                    </div>
+                </a>
+
+                <!-- SettingsIcon -->
+                <a href="">
+                    <div class="iconDiv" style="top:41vh; left:55vw;">
+                        <!--SettingsLink-->
+                        <img src="~/imgs/NavMap_SettingsIcon.png" style="height:8vh;" class="navMapIcon" />
+                        <p class="iconLabelMe is-size-6">Settings</p>
                     </div>
                 </a>
 
@@ -118,9 +118,77 @@
     </div>
 </section>
 
+<section class="section" id="halfview">
+    <div class="container">
+        <h1 class="is-size-3 iconLabelSoc ">Social</h1>
+        <a href="/Board">
+            <div class="box is-inline-block m-2 has-text-centered" style="width:300px;">
+                <img src="~/imgs/NavMap_BoardIcon.png" style="height:18vh;" class="m-3" />
+                <p class="is-size-4 has-text-centered">Board</p>
+            </div>
+        </a>
+        <a>
+            <div class="box is-inline-block m-2 has-text-centered" style="width:300px;">
+                <img src="~/imgs/NavMap_VoidDeckIcon.png" style="height:18vh;" class="m-3" />
+                <p class="is-size-4">Void Deck</p>
+            </div>
+        </a>
+        <a>
+            <div class="box is-inline-block m-2 has-text-centered" style="width:300px;">
+                <img src="~/imgs/NavMap_InboxIcon.png" style="height:18vh;" class="m-3" />
+                <p class="is-size-4">Inbox</p>
+            </div>
+        </a>
+    </div>
+
+    <div class="container">
+        <h1 class="is-size-3 iconLabelEnt">Entertainment</h1>
+        <a href="/Events">
+            <div class="box is-inline-block m-2 has-text-centered" style="width:300px;">
+                <img src="~/imgs/NavMap_EventsIcon.png" style="height:18vh;" class="m-3" />
+                <p class="is-size-4 has-text-centered">Events</p>
+            </div>
+        </a>
+    </div>
+
+    <div class="container">
+        <h1 class="is-size-3 iconLabelMe ">Me</h1>
+        <a>
+            <div class="box is-inline-block m-2 has-text-centered" style="width:300px;">
+                <img src="~/imgs/NavMap_ProfileIcon.png" style="height:18vh;" class="m-3" />
+                <p class="is-size-4 has-text-centered">Profile</p>
+            </div>
+        </a>
+        <a>
+            <div class="box is-inline-block m-2 has-text-centered" style="width:300px;">
+                <img src="~/imgs/NavMap_SettingsIcon.png" style="height:18vh;" class="m-3" />
+                <p class="is-size-4">Settings</p>
+            </div>
+        </a>
+    </div>
+
+    <div class="container">
+        <h1 class="is-size-3 iconLabelHelp">Help</h1>
+        <a>
+            <div class="box is-inline-block m-2 has-text-centered" style="width:300px;">
+                <img src="~/imgs/NavMap_GuidesIcon.png" style="height:18vh;" class="m-3" />
+                <p class="is-size-4 has-text-centered">Guides</p>
+            </div>
+        </a>
+        <a>
+            <div class="box is-inline-block m-2 has-text-centered" style="width:300px;">
+                <img src="~/imgs/NavMap_SupportIcon.png" style="height:18vh;" class="m-3" />
+                <p class="is-size-4">Support</p>
+            </div>
+        </a>
+    </div>
+
+</section>
+
 <script>
 
     window.addEventListener('load', function () {
+        adjustView()
         var icons = document.getElementsByClassName('navMapIcon');
         var chime = document.getElementById('chime');
         /*chime.volume = 0.5;*/
@@ -142,5 +210,20 @@
             icons[i].addEventListener('mouseleave', stopAudio, false);
         }
     })
+
+    window.addEventListener("resize", adjustView)
+
+    function adjustView() {
+        var map = document.getElementById("fullview")
+        var altview = document.getElementById("halfview")
+        if (!window.matchMedia("(min-width: 1120px)").matches) {
+            map.classList.add("is-hidden")
+            altview.classList.remove("is-hidden")
+        }
+        else {
+            map.classList.remove("is-hidden")
+            altview.classList.add("is-hidden")
+        }
+    }
 
 </script>
