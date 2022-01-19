@@ -24,9 +24,15 @@ namespace KampongTalk.Pages.Events
 
         private User CurrentUser { get; set; }
 
+        public dynamic OwnerUser { get; set; }
+
         public static MightyOrm eventDb { get; set; } =
             new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"], "Events",
                 "Eid");
+
+        public static MightyOrm userDb { get; set; } =
+            new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"], "Users",
+                "Uid");
 
         public dynamic myEvent { get; set; }
         public string eventDate { get; set; }
@@ -50,6 +56,8 @@ namespace KampongTalk.Pages.Events
             // TO retrieve the savedEvent object from db
             Eid = Convert.ToInt64(eid);
             myEvent = eventDb.Single($"Eid = {Eid}");
+            OwnerUser = userDb.Single($"Uid = {myEvent.CreatorId}");
+
             var eventDateTime = Convert.ToDateTime(myEvent.Date);
             eventDate = eventDateTime.ToLongDateString();
 

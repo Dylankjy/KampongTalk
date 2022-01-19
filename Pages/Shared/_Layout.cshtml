@@ -107,26 +107,24 @@
             </div>
 
             <div class="navbar-end">
-                @*<div class="navbar-item">
-                            <span class="icon" id="textSizeIncrease">
-                                <i class="fas fa-search-plus"></i>
-                            </span>
-
-                            <span class="icon" id="textSizeDecrease">
-                                <i class="fas fa-search-minus"></i>
-                            </span>
-                        </div>*@
-
-                <div class="navbar-item">
-                    <div class="buttons">
-                        <a class="button is-primary" href="/Accounts/Register">
-                            <strong>Sign up</strong>
-                        </a>
-                        <a class="button is-light" href="/Accounts/Login">
-                            Log in
-                        </a>
+                @if (!UserAttributes.isLoggedIn())
+                {
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <a class="button is-primary" href="/Accounts/Register">
+                                <strong>Sign up</strong>
+                            </a>
+                            <a class="button is-light" href="/Accounts/Login">
+                                Log in
+                            </a>
+                        </div>
                     </div>
-                </div>
+                }
+                // IF user is logged in, show this
+                else
+                {
+
+                }
             </div>
         </div>
     </div>

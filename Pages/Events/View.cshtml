@@ -44,7 +44,7 @@
             <div class="column is-4">
                 <div class="content">
                     <h1 class="title is-size-3">@Model.myEvent.Name</h1>
-                    <p class="subtitle is-size-7">Organized By: <a href="/User/@Model.myEvent.CreatorId">BestElderlySG</a></p>
+                    <p class="subtitle is-size-7">Organized By: <a href="/Profile?u=@Model.OwnerUser.Uid2">@Model.OwnerUser.Name</a></p>
                     <br/>
 
                     <p>Date: @Model.eventDate</p>
@@ -80,7 +80,7 @@ else
             <div class="column is-4">
                 <div class="content">
                     <h1 class="title is-size-3">@Model.myEvent.Name</h1>
-                    <p class="subtitle is-size-7">Organized By: <a href="/User/@Model.myEvent.CreatorId">BestElderlySG</a></p>
+                    <p class="subtitle is-size-7">Organized By: <a href="/Profile?u=@Model.OwnerUser.Uid2">@Model.OwnerUser.Name</a></p>
                     <br/>
 
                     <p>Date: @Model.eventDate</p>

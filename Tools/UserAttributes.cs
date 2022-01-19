@@ -14,6 +14,7 @@ namespace KampongTalk.Tools
         public string getTranslateLanguage();
         public string getSpeechLanguage();
         public string getSpeechGender();
+        public bool isLoggedIn();
     }
 
     public class UserAttributes: IUserAttributes
@@ -101,6 +102,15 @@ namespace KampongTalk.Tools
             {
                 return "Male";
             }
+        }
+
+        public bool isLoggedIn()
+        {
+            if (CurrentUser != null)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

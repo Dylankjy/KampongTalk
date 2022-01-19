@@ -37,6 +37,8 @@
     </ul>
 </div>
 
+<a class="button is-success is-light mt-4" href="/Events/Create" style="margin-left: 5%"><i class="fas fa-plus"></i>&ensp;Add Event</a>
+
 @foreach (var myEvent in Model.myCreatedEvents)
 {
     <a href="/Events/View/@myEvent.Eid">
