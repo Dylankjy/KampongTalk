@@ -14,7 +14,27 @@
         border-radius: 9999rem;
         position: absolute;
     }
-        
+    
+    .pfp-small {
+            height: 8rem;
+            width: 8rem;
+            background: grey; 
+            border: .5rem solid white;
+            border-radius: 9999rem;
+            margin-top: -5rem;
+    }
+    
+    .card-hero {
+        background: grey;
+        width: 640px;
+        height: 8em;
+        margin-top: -1.5rem;
+        margin-left: -1.5rem;
+        margin-right: -1.5rem;
+        border-top-left-radius: 0.25rem;
+        border-top-right-radius: 0.25rem;
+        margin-bottom: 1.5rem;
+    }
 </style>
 
 <section class="hero is-medium has-background-grey is-dark">
@@ -38,7 +58,7 @@
                             <p class="subtitle">&#64;@Model.ViewingUser.Uid2</p>
                             <br/>
                             <div class="level">
-                                <div class="level-item-left has-text-centered">
+                                <div class="level-item has-text-centered">
                                     <div>
                                         <p class="heading">Friends</p>
                                         <p class="title">69</p>
@@ -50,11 +70,16 @@
                                         <p class="title">420</p>
                                     </div>
                                 </div>
-                                <div class="level-item-right has-text-centered">
-                                    <div>
-                                        <a class="button is-black is-outlined"><i class="far fa-edit"></i>&ensp;Edit Profile</a>
-                                    </div>
-                                </div>
+                                @{
+                                    if (Model.IsCurrentUserOwnPage)
+                                    {
+                                        <div class="level-item has-text-centered">
+                                            <div>
+                                                <a class="button is-black is-outlined" onclick="$('#editProfileModal').fadeIn('fast')">Edit Profile</a>
+                                            </div>
+                                        </div>
+                                    }
+                                }
                             </div>
                             <a class="has-text-grey"><i class="fas fa-arrow-right"></i>&ensp;View all friends</a>
                         </div>
@@ -92,6 +117,70 @@
                 </div>
             </div>
         </section>
+        
+        <div id="editProfileModal" class="modal is-active" style="display: none">
+            <div class="modal-background"></div>
+            <div class="modal-content">
+                <div class="card" style="border-top-right-radius: 0.5rem; border-top-left-radius: 0.5rem">
+                    <div class="card-content">
+                        <div class="has-background-dark card-hero">
+                            <button onclick="$('#editProfileModal').fadeOut('fast')" class="modal-close is-large" aria-label="close"></button>
+                        </div>
+                        <div class="pfp-small"></div>
+                        
+                        <form method="post">
+                            <div class="field">
+                                <label class="label">Name</label>
+                                <div class="control has-icons-left">
+                                    <input class="input" type="text" placeholder="John Doe" value="@Model.ViewingUser.Name" asp-for="EditName" required>
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-user"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        
+                            <div class="field">
+                                <label class="label">KampongID</label>
+                                <div class="control has-icons-left">
+                                    <input class="input" type="text" value="@Model.ViewingUser.Uid2" disabled>
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-at"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <small class="has-text-grey"><i class="fas fa-info-circle"></i>&nbsp;For security reasons, please visit <a>account settings</a> to change your KampongID.</small>
+
+                            <hr/>
+                        
+                            <div class="field">
+                                <label class="label">About me</label>
+                                <div class="control">
+                                    <textarea class="textarea" rows="5" asp-for="EditBio">@Model.ViewingUser.Bio</textarea>
+                                </div>
+                            </div>
+                        
+                            <hr/>
+                        
+                            <div class="field">
+                                <label class="label">Birthday</label>
+                                <div class="control has-icons-left">
+                                    <input class="input" type="date" asp-for="EditBirthday" value="@DateTime.Now">
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-birthday-cake"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <small class="has-text-grey"><i class="fas fa-info-circle"></i>&nbsp;Ensure that your birthday is entered correctly as it cannot be changed.</small>
+                            <br/>
+                            <span class="buttons">
+                                <button class="mt-5 button is-primary" type="submit"><i class="fas fa-save"></i>&ensp;Save changes</button>
+                            </span>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
     }
     else
     {
