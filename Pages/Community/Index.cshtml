@@ -1,0 +1,166 @@
+@page
+@model KampongTalk.Pages.Community.Index
+
+@{
+    ViewData["Title"] = "";
+}
+
+<style>
+    .pfp {
+        height: 10rem;
+        width: 10rem;
+        background: grey; 
+        border: .7rem solid white;
+        border-radius: 3rem;
+        position: absolute;
+    }
+    
+    .pfp-small {
+            height: 8rem;
+            width: 8rem;
+            background: grey; 
+            border: .5rem solid white;
+            border-radius: 2rem;
+            margin-top: -5rem;
+    }
+    
+    .card-hero {
+        background: grey;
+        width: 640px;
+        height: 8em;
+        border-top-left-radius: 0.25rem;
+        border-top-right-radius: 0.25rem;
+        margin: -1.5rem -1.5rem 1.5rem;
+    }
+</style>
+
+<section class="hero has-background-grey is-dark">
+    <div class="hero-body">
+        <div class="container">
+            <div class="pfp"></div>
+        </div>
+    </div>
+</section>
+
+
+@{
+    if (!Model.ShowCommunityNotFoundError)
+    {
+        <section class="section">
+            <div class="container">
+                <div class="columns" style="margin-top: 4rem;">
+                    <div class="column is-one-quarter">
+                        <div>
+                            <h1 class="title is-1">@Model.ViewingCommunity.Name</h1>
+                            <br/>
+                            <div class="level">
+                                <div class="level-item has-text-centered">
+                                    <div>
+                                        <p class="heading">Members</p>
+                                        <p class="title">69</p>
+                                    </div>
+                                </div>
+                                <div class="level-item has-text-centered">
+                                    <div>
+                                        <p class="heading">Posts</p>
+                                        <p class="title">420</p>
+                                    </div>
+                                </div>
+                                @{
+                                    if (Model.IsCurrentUserOwner)
+                                    {
+                                        <div class="level-item has-text-centered">
+                                            <div>
+                                                <a class="button is-black is-outlined" onclick="$('#editCommunityModal').fadeIn('fast')">Edit community</a>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <hr/>
+                        @{
+                            if (Model.ViewingCommunity.Description != null)
+                            {
+                                <div>
+                                    <h3 class="title is-5">About me</h3>
+                                    <p>@Model.ViewingCommunity.Description</p>
+                                </div>
+                                <hr/>
+                            }
+                        }
+                        <div>
+                            <div class="level">
+                                <div class="level-item-left has-text-centered">
+                                    <div>
+                                        <h3 class="title is-5">Created</h3>
+                                    </div>
+                                </div>
+                                <div class="level-item-right has-text-centered">
+                                    <div>
+                                        <p class="is-size-6">@Model.CreateDate</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <h2 class="title is-5">Recent posts by this user</h2>
+                        <p>Posts here</p>
+                        @* TODO: Add posts *@
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div id="editCommunityModal" class="modal is-active" style="display: none">
+            <div class="modal-background"></div>
+            <div class="modal-content">
+                <div class="card" style="border-top-right-radius: 0.5rem; border-top-left-radius: 0.5rem">
+                    <div class="card-content">
+                        <div class="has-background-dark card-hero">
+                            <button onclick="$('#editCommunityModal').fadeOut('fast')" class="modal-close is-large" aria-label="close"></button>
+                        </div>
+                        <div class="pfp-small"></div>
+                        
+                        <form method="post">
+                            <div class="field">
+                                <label class="label">Community Name</label>
+                                <div class="control has-icons-left">
+                                    <input class="input" type="text" value="@Model.ViewingCommunity.Name" disabled>
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-users"></i>
+                                    </span>
+                                </div>
+                                <small class="has-text-grey"><i class="fas fa-info-circle"></i>&nbsp;Community names cannot be changed.</small>
+                            </div>
+
+                            <div class="field">
+                                <label class="label">About this community</label>
+                                <div class="control">
+                                    <textarea class="textarea" rows="5" asp-for="EditDescription" minlength="20">@Model.ViewingCommunity.Description</textarea>
+                                </div>
+                            </div>
+                            
+                            <span class="buttons">
+                                <button class="mt-5 button is-primary" type="submit"><i class="fas fa-save"></i>&ensp;Save changes</button>
+                            </span>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <section class="section is-medium">
+            <div class="container has-text-centered">
+                <p class="title">
+                    <i class="fas fa-question-circle"></i>
+                </p>
+                <h1 class="subtitle is-4 has-text-weight-bold">This isn't a void deck, it's just a void.</h1>
+                <p>This community does not exist. Please ensure that you did not type the name of the community wrongly.</p>
+            </div>
+        </section>
+    }
+}
