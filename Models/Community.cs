@@ -1,15 +1,21 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using IdGen;
 
 namespace KampongTalk.Models
 {
     public class Community
     {
-        public long Cid { get; set; } = new IdGenerator(0).CreateId();
-        public string Name { get; set; }
+        public string Cid { get; set; }
+        [Required] public string Name { get; set; }
         public long CreatorId { get; set; }
-        public string IconImg { get; set; }
-        public string Description { get; set; }
+        public string IconImg { get; set; } = "default_community.png";
+        [Required] public string Description { get; set; }
         public DateTime TimeCreated { get; set; } = DateTime.Now;
+
+        public void SetCid()
+        {
+            Cid = $"{Name.Replace(" ", "").ToLower()}";
+        }
     }
 }
