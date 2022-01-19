@@ -1,0 +1,18 @@
+﻿@page
+@model KampongTalk.Pages.Settings.PreferenceModel
+@{
+}
+
+
+<form method="post">
+    <div class="field">
+        <label class="label">Language</label>
+
+        <div class="control has-icons-left">
+            <select id="endTime" value="@Model.currentUserPreference.Language" asp-for="newUserPreference.Language" asp-items="Model.LangPrefList" class="form-control"></select>
+        </div>
+
+        <span class="buttons">
+            <button class="mt-5 button is-primary" type="submit"><i class="fas fa-save"></i>&ensp;Save changes</button>
+        </span>
+</form>

@@ -76,14 +76,18 @@
 
                 <div class="account-detail-field">
                     <small class="has-text-weight-bold">Display Language</small>
-                    <p>English (Singapore)</p>
+                    <p>@Model.displayLang</p>
                 </div>
 
-                <hr/>
+                <hr />
 
                 <div class="account-detail-field">
                     <p class="has-text-weight-bold">Text-to-speech — <span class="has-text-weight-normal">On</span></p>
                     <small>Read texts and content on KampongTalk.</small>
+                </div>
+                <div class="account-detail-field">
+                    <p class="has-text-weight-bold">Text-to-speech Gender — <span class="has-text-weight-normal">Male</span></p>
+                    <small>Text-to-speech speaker can be Male or Female</small>
                 </div>
                 <div class="account-detail-field">
                     <p class="has-text-weight-bold">Enable sounds — <span class="has-text-weight-normal">On</span></p>
@@ -93,6 +97,7 @@
                     <p class="has-text-weight-bold">Text size — <span class="has-text-weight-normal">16</span></p>
                     <small>Text size can be increased or decreased. Applied across the entire website.</small>
                 </div>
+                <a class="button is-dark mt-4" href="/Settings/Preference"><i class="fas fa-arrow-right"></i>&ensp;Toggle profile preferences</a>
             </div>
         </div>
 

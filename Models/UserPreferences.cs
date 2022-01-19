@@ -25,5 +25,27 @@
         public string TextSize { get; set; } = "large";
         public string Language { get; set; } = "en";
         public string SpeechGender { get; set; } = "Male";
+
+        public UserPreferences ToUserPreferences(dynamic obj)
+        {
+            if (obj == null) return new UserPreferences { Uid = -1 };
+
+            return new UserPreferences
+            {
+                Uid = obj.Uid,
+                IsPublic = obj.IsPublic,
+                UseAudioCues = obj.UseAudioCues,
+                UsePasswordLess = obj.UsePasswordLess,
+                NotifyTaggedAndReplies = obj.NotifyTaggedAndReplies,
+                NotifyLikes = obj.NotifyLikes,
+                NotifyFriendRequest = obj.NotifyFriendRequest,
+                NotifyChat = obj.NotifyChat,
+                DoWhenInactive = obj.DoWhenInactive,
+                DurationBeforeInactive = obj.DurationBeforeInactive,
+                TextSize = obj.TextSize,
+                Language = obj.Language,
+                SpeechGender = obj.SpeechGender
+            };
+        }
     }
 }
