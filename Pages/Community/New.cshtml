@@ -1,0 +1,104 @@
+@page
+@model KampongTalk.Pages.Community.New
+
+@{
+    //Layout = null;
+}
+
+<style>
+    .pfp {
+        height: 10rem;
+        width: 10rem;
+        background: grey; 
+        border: .7rem solid white;
+        border-radius: 3rem;
+        position: absolute;
+    }
+    
+    .pfp-small {
+            height: 8rem;
+            width: 8rem;
+            background: grey; 
+            border: .5rem solid white;
+            border-radius: 3rem;
+            margin-top: -3.5rem;
+            margin-bottom: 1rem;
+    }
+    
+    .card-hero {
+        background: grey;
+        width: 640px;
+        height: 4em;
+        border-top-left-radius: 0.25rem;
+        border-top-right-radius: 0.25rem;
+        margin: -1.5rem -1.5rem 1.5rem;
+    }
+    
+    .card-new-community {
+        width: 640px;
+        margin: 0 auto;
+        }
+</style>
+
+<section class="section">
+    <div class="container">
+        <div class="has-text-centered">
+            <h1 class="title">Create a new community</h1>
+            <p class="subtitle">Start a space where people of similar interests can enjoy</p>
+        </div>
+
+        <form method="post">
+            <div class="card card-new-community mt-6" style="border-top-right-radius: 0.5rem; border-top-left-radius: 0.5rem">
+                <div class="card-content">
+                    <div class="has-background-dark card-hero">
+                        <button onclick="$('#editProfileModal').fadeOut('fast')" class="modal-close is-large" aria-label="close"></button>
+                    </div>
+                    <div class="pfp-small"></div>
+                    <div class="field">
+                        <label class="label">Community Name</label>
+                        <div class="control has-icons-left">
+                            <input class="input @Model.CommunityNameClass" type="text" placeholder="The Flower Garden" asp-for="NewCommunity.Name">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-users"></i>
+                            </span>
+                        </div>
+                        @{
+                            if (Model.ShowDuplicateError)
+                            {
+                                <small class="has-text-danger"><i class="fas fa-exclamation-triangle"></i>&nbsp;There is already a community with the same or similar name.</small>
+                            }
+                        }
+                        <small class="has-text-grey"><i class="fas fa-info-circle"></i>&nbsp;Choose carefully! This cannot be changed after creation.</small>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">About this community</label>
+                        <div class="control">
+                            <textarea class="textarea" rows="5" placeholder="A community where flower lovers can interact. Share pictures of your garden or flowers!" asp-for="NewCommunity.Description" required minlength="20"></textarea>
+                        </div>
+                        <small class="has-text-grey">Be descriptive as possible so that more people can find your community.</small>
+                    </div>
+                </div>
+            </div>
+            <div style="width: 640px; margin: 0 auto;">
+                <hr/>
+                <div class="field content">
+                    <label class="label">Things to take note</label>
+                    <div class="control">
+                        <ul>
+                            <li>Your community and it's contents cannot contain anything inappropriate</li>
+                            <li>Don't do anything illegal on KampongTalk</li>
+                            <li>You are responsible for the posts on your community</li>
+                            <li>You cannot delete your community after it has been created</li>
+                            <li>Your account cannot create any new communities in the future</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <span class="buttons">
+                    <button class="mt-5 button is-primary" type="submit"><i class="fas fa-arrow-right"></i>&ensp;Create community</button>
+                </span>
+            </div>
+        </form>
+    </div>
+</section>
