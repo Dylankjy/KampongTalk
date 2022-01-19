@@ -65,14 +65,14 @@ namespace KampongTalk.Pages.Board
             return Page();
         }
 
-        public IActionResult OnPostComment()
+        public IActionResult OnPostComment(string Pid)
         {
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
             newComment.Author = CurrentUser.Uid;
             newComment.Timestamp = DateTime.Now;
             newComment.AttachmentImg = null;
             postDB.Insert(newComment);
-            return Redirect("/Board/Detail/" + Postid);
+            return Redirect("/Board/Detail/" + Pid);
         }
 
         public IEnumerable<dynamic> GetComments(long parentPid)
