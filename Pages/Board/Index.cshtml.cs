@@ -147,10 +147,10 @@ namespace KampongTalk.Pages.Board
                 }
 
                 postDB.Insert(newPost);
-                return Page();
+                return Redirect("/Board");
             }
 
-            return Page();
+            return Redirect("/Board");
         }
 
         public IActionResult OnPostLike()
@@ -167,7 +167,7 @@ namespace KampongTalk.Pages.Board
                 newLike.Uid = CurrentUser.Uid;
                 likesDB.Insert(newLike);
             }
-
+            //return Page();
             return Redirect("/Board");
         }
 
@@ -180,11 +180,6 @@ namespace KampongTalk.Pages.Board
             postDB.Insert(newComment);
             return Redirect("/Board");
         }
-
-        //public void likePost(object sender, EventArgs e)
-        //{
-        //    System.Diagnostics.Debug.WriteLine("deceased");
-        //}
 
         public IEnumerable<dynamic> GetComments(long parentPid)
         {

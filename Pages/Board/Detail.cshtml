@@ -1,0 +1,120 @@
+﻿@page "{pid}"
+@model KampongTalk.Pages.Board.DetailModel
+@{
+}
+
+<link rel="stylesheet" href="~/css/board.css">
+
+<div class="hero is-fullheight-with-navbar has-background-white-ter" style="overflow-y: auto; height:80vh;">
+
+    <div class="columns is-centered">
+        <div class="column is-one-fifth has-text-centered">
+            @*<button class="button is-medium is-fullwidth is-primary" type="button"><i class="fas fa-arrow-left mr-2"></i>back</button>*@
+            <a href="/Board" class="button is-medium is-fullwidth is-light m-5">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Board
+            </a>
+        </div>
+        <div class="column is-three-fifths">
+
+            <div class="box mt-3">
+
+                <div class="userPFP"
+                     style="background-image: url('imgs/@Model.author.AvatarImg')">
+                </div>
+                <div class="postPriInfo">
+                    <span class="has-text-weight-bold is-size-5">@Model.author.Name</span>
+                    <p style="line-height: 60%;">
+                        <span class="minorInfo" id="InCommunitySpan"> In <a>Community</a></span>
+                        <span class="minorInfo" id="taggedUsersSpan">&bull; Tagged <a>User1</a>, <a>User2</a></span>
+                    </p>
+                </div>
+
+                <p class="mt-3 is-size-5">
+                    @Model.thisPost.Content
+                </p>
+
+                <button class="button" onclick="translateText(this)">
+                    <i class="fas fa-language"></i>
+                </button>
+
+                <button class="button" onclick="synthesizeSpeech(this)">
+                    <i class="fas fa-volume-up"></i>
+                </button>
+
+                <audio id="audio" controls hidden>
+                    <source type="audio/mp3">
+                </audio>
+
+                <br />
+
+                @if (Model.thisPost.AttachmentImg != null)
+                {
+                    <img id="attachmentImg" class="postImg has-text-centered" src="~/imgs/@Model.thisPost.AttachmentImg" />
+                }
+                <div class="has-text-grey-light minorInfo mt-2">
+                    <span>@Model.thisPost.Timestamp</span> <span id="fromWhere">&bull; From Your Friends' Likes</span>
+                </div>
+
+            </div>
+
+            <div class="box">
+                <p class="has-text-weight-bold is-size-4">Comments</p>
+
+                <form asp-page-handler="comment" method="post" enctype="multipart/form-data">
+
+                    <div class="field has-addons">
+                        <div class="control is-expanded has-icons-left">
+                            <input class="input" type="text" asp-for="newComment.Content" placeholder="Leave a comment..." />
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-comment-dots mr-2"></i>
+                            </span>
+                        </div>
+                        <input asp-for="newComment.IsComment" value="@Model.thisPost.Pid" class="is-hidden" />
+                        <div class="control">
+                            <button class="button is-primary" type="submit">Comment</button>
+                        </div>
+                    </div>
+                </form>
+
+                @foreach (var comment in Model.commentList)
+                {
+                    <hr class="m-1" />
+                    <article class="media p-2">
+                        <figure class="media-left">
+                            <div class="userPFP"
+                                 style="background-image: url('imgs/@comment.UserPfp')">
+                            </div>
+                        </figure>
+                        <div class="media-content">
+                            <div class="content is-size-6">
+                                <p>
+                                    <strong>@comment.UserName</strong>
+                                    <br>
+                                    @comment.Content
+                                    <br>
+                                    <small class="has-text-grey-light">@comment.likeCount Likes&bull; @comment.Timestamp</small>
+                                </p>
+                            </div>
+                        </div>
+                        <figure class="media-right">
+                            <!--insert form here-->
+                            <button class="button is-medium is-rounded is-danger is-outlined" type="button">
+                                <i class="far fa-thumbs-up"></i>
+                            </button>
+                        </figure>
+                    </article>
+                }
+
+                @if (!Model.commentList.Any())
+                {
+                    <p class="has-text-centered">No comments have been left on this post.</p>
+                }
+                </div>
+
+            <br />
+        </div>
+            <div class="column is-one-fifth"></div>
+        </div>
+
+    </div>
+

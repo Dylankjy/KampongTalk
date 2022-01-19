@@ -23,12 +23,6 @@
             </ul>
         </aside>
 
-        <div class="has-text-centered mt-6">
-            <button class="button is-primary is-rounded is-large"
-                    onclick="$('#CreatePostModal').fadeIn('fast');">
-                <i class="fas fa-pen mr-2"></i>Write Post
-            </button>
-        </div>
     </div>
     <div class="column is-three-fifths">
         <div class="hero is-fullheight-with-navbar has-background-white-ter" style="overflow-y: auto; height:80vh;">
@@ -66,7 +60,7 @@
 
                 <br />
 
-                @if (postInfo.AttachmentImg != "")
+                @if (postInfo.AttachmentImg != null)
                 {
                     <img id="attachmentImg" class="postImg has-text-centered" src="~/imgs/@postInfo.AttachmentImg" />
                 }
@@ -97,58 +91,9 @@
                 </form>*@
                     </div>
                     <div class="column">
-                        <a class="button is-large is-fullwidth is-primary is-outlined" type="button" onclick="showComments(this)"><i class="fas fa-comment-dots mr-2"></i>10 Comments</a>
+                        <a class="button is-large is-fullwidth is-primary is-outlined" href="/Board/Detail/@postInfo.Pid"><i class="fas fa-comment-dots mr-2"></i>Comments</a>
                         @*<a asp-page="/Board/Detail" asp-route-id="@postInfo.Pid" class="button is-large is-fullwidth is-primary is-outlined" type="button"><i class="fas fa-comment-dots mr-2"></i>10 Comments</a>*@
                     </div>
-                </div>
-
-                <div id="commentDiv" class="is-hidden">
-                    @*<p class="has-text-weight-bold is-size-5 has-text-centered mb-2">Comments</p>*@
-
-                    <!--for every comment-->
-                    <article class="media">
-                        <figure class="media-left">
-                            <div class="userPFP"
-                                 style="background-image: url('imgs/@postInfo.UserPfp')">
-                            </div>
-                        </figure>
-                        <div class="media-content">
-                            <div class="content is-size-6">
-                                <p>
-                                    <strong>Barbara Middleton</strong>
-                                    <br>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta eros lacus, nec ultricies elit blandit non. Suspendisse pellentesque mauris sit amet dolor blandit rutrum. Nunc in tempus turpis.
-                                    <br>
-                                    <small class="has-text-grey-light">10 Likes &bull; 1/1/2022</small>
-                                </p>
-                            </div>
-                        </div>
-                        <figure class="media-right">
-                            <!--insert form here-->
-                            <button class="button is-medium is-rounded is-danger is-outlined" type="button">
-                                <i class="far fa-thumbs-up"></i>
-                            </button>
-                        </figure>
-                    </article>
-                    <!--for every comment-->
-
-                    <br />
-                    <form asp-page-handler="comment" method="post" enctype="multipart/form-data">
-
-                        <div class="field has-addons">
-                            <div class="control is-expanded has-icons-left">
-                                <input class="input" type="text" asp-for="newComment.Content" placeholder="Leave a comment..." />
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-comment-dots mr-2"></i>
-                                </span>
-                            </div>
-                            <input asp-for="newComment.IsComment" value="@postInfo.Pid" class="is-hidden" />
-                            <div class="control">
-                                <button class="button is-primary" type="submit">Comment</button>
-                            </div>
-                        </div>
-                    </form>
-
                 </div>
 
             </div>
@@ -159,6 +104,16 @@
     </div>
     <div class="column">
         <div class="container m-5">
+    @*<div class="has-text-centered mt-6">
+                <a href="/">
+                    <button class="button is-info is-large">
+                        <i class="fas fa-map-signs mr-2"></i>Map
+                    </button>
+                </a>
+                <p>Explore the rest of KampongTalk</p>
+            </div>
+            <br />*@
+            
             <p class="has-text-weight-bold mt-5 is-size-6">Popular Communities</p>
             <ul class="minorInfo">
                 <li>
@@ -190,6 +145,13 @@
                     <a>View more Events </a>
                 </li>
             </ul>
+
+            <div class="has-text-centered mt-6">
+                <button class="button is-primary is-rounded is-large"
+                        onclick="$('#CreatePostModal').fadeIn('fast');">
+                    <i class="fas fa-pen mr-2"></i>Write Post
+                </button>
+            </div>
         </div>
     </div>
 </div>
@@ -225,6 +187,7 @@
             commentDiv.classList.add('is-hidden')
         }
     }
+
 </script>
 
 <script>
