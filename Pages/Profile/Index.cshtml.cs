@@ -131,7 +131,7 @@ namespace KampongTalk.Pages.Profile
             // Commit profile changes
             dbUsers.Update(currentUserFromDb);
 
-            return RedirectToPage("./Index");
+            return Redirect($"/Profile?u={currentUserFromDb.Uid2}");
         }
     }
 }

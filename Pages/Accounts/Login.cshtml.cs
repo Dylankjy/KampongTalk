@@ -27,10 +27,10 @@ namespace KampongTalk.Pages.Accounts
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
 
             // If the current user is verified, naturally, the object is present, so just redirect them.
-            if (CurrentUser is {IsVerified: true}) return RedirectToPage("Index");
+            if (CurrentUser is {IsVerified: true}) return RedirectToPage("/Index");
 
             // If the user has not OTP verified
-            if (CurrentUser is {IsVerified: false}) return RedirectToPage("Verify");
+            if (CurrentUser is {IsVerified: false}) return RedirectToPage("/Verify");
 
             // Show login page if not logged in already.
             return Page();

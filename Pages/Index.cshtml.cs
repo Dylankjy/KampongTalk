@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using KampongTalk.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Mighty;
 
@@ -14,7 +16,8 @@ namespace KampongTalk.Pages
         }
 
         // Use dynamic here, not User. Because MightyORM does not return a User object
-        public dynamic user { get; set; }
+        public User CurrentUser { get; set; }
+
         public string textSize { get; set; }
 
         public void OnGet()
@@ -42,6 +45,13 @@ namespace KampongTalk.Pages
 
             var db = new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
                 "Users");
+
+            CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
+            if (CurrentUser == null)
+            {
+                CurrentUser = new User();
+            }
+         
 
             textSize = "larger";
         }
