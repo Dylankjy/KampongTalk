@@ -24,16 +24,31 @@
             margin-top: -5rem;
     }
     
+    .pfp-post {
+        height: 3rem;
+        width: 3rem;
+        border: .2rem solid white;
+        border-radius: 9999rem;
+        margin-top: -.5rem;
+        margin-bottom: -.75rem;
+    }
+    
     .card-hero {
         background: grey;
         width: 640px;
         height: 8em;
-        margin-top: -1.5rem;
-        margin-left: -1.5rem;
-        margin-right: -1.5rem;
         border-top-left-radius: 0.25rem;
         border-top-right-radius: 0.25rem;
-        margin-bottom: 1.5rem;
+        margin: -1.5rem -1.5rem 1.5rem;
+    }
+    
+    .card-top > * {
+        vertical-align:middle;
+        display: inline-block;
+    }
+    
+    .card-top {
+        padding: 0.8rem 1.5rem;
     }
 </style>
 
@@ -111,13 +126,76 @@
                     </div>
                     <div class="column">
                         <h2 class="title is-5">Recent posts by this user</h2>
-                        <p>Posts here</p>
-                        @* TODO: Add posts *@
+                        @* <div class="box"> *@
+                        @*     <article class="media"> *@
+                        @*         <figure class="media-left"> *@
+                        @*             <p class="image is-64x64"> *@
+                        @*                 <img src="https://bulma.io/images/placeholders/128x128.png"> *@
+                        @*             </p> *@
+                        @*         </figure> *@
+                        @*         <div class="media-content"> *@
+                        @*             <div class="content"> *@
+                        @*                 <p> *@
+                        @*                     <strong>John Smith</strong> <small>johnsmith</small> <small>31m</small> *@
+                        @*                     <br> *@
+                        @*                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis. *@
+                        @*                 </p> *@
+                        @*             </div> *@
+                        @*             <nav class="level is-mobile"> *@
+                        @*                 <div class="level-left"> *@
+                        @*                     <a class="level-item"> *@
+                        @*                         <div class="tags has-addons"> *@
+                        @*                             <span class="tag is-primary"><i class="fas fa-thumbs-up"></i>&ensp; Like</span> *@
+                        @*                             <span class="tag is-dark">100</span> *@
+                        @*                         </div> *@
+                        @*                     </a> *@
+                        @*                     <a class="level-item"> *@
+                        @*                         <div class="tags has-addons"> *@
+                        @*                           <span class="tag is-info"><i class="fas fa-comments"></i>&ensp; Reply</span> *@
+                        @*                           <span class="tag is-dark">69</span> *@
+                        @*                         </div> *@
+                        @*                     </a> *@
+                        @*                 </div> *@
+                        @*             </nav> *@
+                        @*         </div> *@
+                        @*     </article> *@
+                        @* </div> *@
+
+                        <div class="card">
+                            <div class="card-content card-top has-background-dark has-text-white">
+                                <div class="pfp-post"></div>
+                                <div class="ml-3 mt-1">
+                                    <p class="title has-text-white is-4">Dylan Kok</p>
+                                    <p class="subtitle is-6 has-text-light" style="margin-top: -1.5rem">&#64;@Model.ViewingUser.Uid2</p>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <p>Glasses are really versatile. First, you can have glasses-wearing girls take them off and suddenly become beautiful, or have girls wearing glasses flashing those cute grins, or have girls stealing the protagonist's glasses and putting them on like, "Haha, got your glasses!' That's just way too cute! Also, boys with glasses! I really like when their glasses have that suspicious looking gleam, and it's amazing how it can look really cool or just be a joke. I really like how it can fulfill all those abstract needs. Being able to switch up the styles and colors of glasses based on your mood is a lot of fun too! It's actually so much fun! You have those half rim glasses, or the thick frame glasses, everything! It's like you're enjoying all these kinds of glasses at a buffet.</p>
+                            </div>
+                            <div class="card-content has-background-light">
+                                                        <nav class="level is-mobile">
+                                                            <div class="level-left">
+                                                                <a class="level-item">
+                                                                    <div class="tags has-addons">
+                                                                        <span class="tag is-primary"><i class="fas fa-thumbs-up"></i>&ensp; Like</span>
+                                                                        <span class="tag is-dark">100</span>
+                                                                    </div>
+                                                                </a>
+                                                                <a class="level-item">
+                                                                    <div class="tags has-addons">
+                                                                      <span class="tag is-info"><i class="fas fa-comments"></i>&ensp; Reply</span>
+                                                                      <span class="tag is-dark">69</span>
+                                                                    </div>
+                                                                </a>
+                                                            </div>
+                                                        </nav>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-        
+
         <div id="editProfileModal" class="modal is-active" style="display: none">
             <div class="modal-background"></div>
             <div class="modal-content">
@@ -127,7 +205,7 @@
                             <button onclick="$('#editProfileModal').fadeOut('fast')" class="modal-close is-large" aria-label="close"></button>
                         </div>
                         <div class="pfp-small"></div>
-                        
+
                         <form method="post">
                             <div class="field">
                                 <label class="label">Name</label>
@@ -138,7 +216,7 @@
                                     </span>
                                 </div>
                             </div>
-                        
+
                             <div class="field">
                                 <label class="label">KampongID</label>
                                 <div class="control has-icons-left">
@@ -151,32 +229,30 @@
                             <small class="has-text-grey"><i class="fas fa-info-circle"></i>&nbsp;For security reasons, please visit <a>account settings</a> to change your KampongID.</small>
 
                             <hr/>
-                        
+
                             <div class="field">
                                 <label class="label">About me</label>
                                 <div class="control">
                                     <textarea class="textarea" rows="5" asp-for="EditBio">@Model.ViewingUser.Bio</textarea>
                                 </div>
                             </div>
-                        
+
                             <hr/>
-                        
+
                             <div class="field">
                                 <label class="label">Birthday</label>
                                 <div class="control has-icons-left">
-                                    <input class="input" type="date" asp-for="EditBirthday" value="@DateTime.Now">
+                                    <input class="input" type="date" asp-for="EditBirthday">
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-birthday-cake"></i>
                                     </span>
                                 </div>
                             </div>
-                            <small class="has-text-grey"><i class="fas fa-info-circle"></i>&nbsp;Ensure that your birthday is entered correctly as it cannot be changed.</small>
-                            <br/>
                             <span class="buttons">
                                 <button class="mt-5 button is-primary" type="submit"><i class="fas fa-save"></i>&ensp;Save changes</button>
                             </span>
                         </form>
-                        
+
                     </div>
                 </div>
             </div>

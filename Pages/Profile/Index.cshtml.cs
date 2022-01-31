@@ -4,7 +4,6 @@ using KampongTalk.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore.Query.Internal;
 using Mighty;
 
 namespace KampongTalk.Pages.Profile
@@ -13,14 +12,14 @@ namespace KampongTalk.Pages.Profile
     {
         // Current user prop
         private User CurrentUser { get; set; }
-        
+
         // Profile props
         public dynamic ViewingUser { get; set; }
         public string JoinDate { get; set; }
         public bool IsCurrentUserOwnPage { get; set; }
-        
+
         // Profile edit props
-        [BindProperty, Required] public string EditName { get; set; }
+        [BindProperty] [Required] public string EditName { get; set; }
         [BindProperty] public string EditBio { get; set; }
         [BindProperty] public string EditBirthday { get; set; }
 
@@ -54,7 +53,7 @@ namespace KampongTalk.Pages.Profile
                 return Page();
             }
 
-            DateTime JoinDateRaw = dbActionLogs.Single(new
+            DateTime joinDateRaw = dbActionLogs.Single(new
             {
                 ViewingUser.Uid,
                 ActionExecuted = "account_create"
@@ -66,13 +65,11 @@ namespace KampongTalk.Pages.Profile
                 "November", "December"
             };
 
-            JoinDate = $"{months[JoinDateRaw.Month - 1]} {JoinDateRaw.Year}";
-            
+            JoinDate = $"{months[joinDateRaw.Month - 1]} {joinDateRaw.Year}";
+
             // Set owner flag
             if (CurrentUser != null && CurrentUser.Uid.ToString() == ViewingUser.Uid.ToString())
-            {
                 IsCurrentUserOwnPage = true;
-            }
 
             return Page();
         }
@@ -81,14 +78,11 @@ namespace KampongTalk.Pages.Profile
         {
             // Get current user
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
-            
+
             // If current user null, don't bother
             // Check account existence
-            if (CurrentUser == null)
-            {
-                return RedirectToPage("/Accounts/Login");
-            }
-            
+            if (CurrentUser == null) return RedirectToPage("/Accounts/Login");
+
             // Database declarations
             var dbActionLogs =
                 new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
@@ -98,26 +92,20 @@ namespace KampongTalk.Pages.Profile
                     "Users", "Uid");
 
             // Get current user dynamic object from database
-            var currentUserFromDb = dbUsers.Single(new { Uid = CurrentUser.Uid, Uid2 = CurrentUser.Uid2 });
-            
+            var currentUserFromDb = dbUsers.Single(new {CurrentUser.Uid, CurrentUser.Uid2});
+
             // Check account existence
-            if (currentUserFromDb == null)
-            {
-                return RedirectToPage("/Accounts/Login");
-            }
-            
+            if (currentUserFromDb == null) return RedirectToPage("/Accounts/Login");
+
             // Modify user
             // ReSharper disable once PossibleNullReferenceException
             // Linting suggestion addressed above.
             currentUserFromDb.Name = EditName;
             currentUserFromDb.Bio = EditBio;
-            
+
             // Check if birthday is already set, if it hasn't set it
-            if (currentUserFromDb.DateOfBirth == null)
-            {
-                currentUserFromDb.DateOfBirth = EditBirthday;
-            }
-            
+            if (currentUserFromDb.DateOfBirth == null) currentUserFromDb.DateOfBirth = EditBirthday;
+
             // Add audit log
             var editLog = new ActionLog
             {
@@ -127,7 +115,7 @@ namespace KampongTalk.Pages.Profile
                 Info = "Your profile page was edited."
             };
             dbActionLogs.Insert(editLog);
-            
+
             // Commit profile changes
             dbUsers.Update(currentUserFromDb);
 
