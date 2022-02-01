@@ -42,8 +42,8 @@
             @{
                 if (Model.ShowErrorMessage)
                 {
-                    <div class="notification is-danger is-light">
-                        <button class="delete"></button>
+                    <div id="wrongPassError" class="notification is-danger is-light">
+                        <button onclick="$('#wrongPassError').slideUp()" class="delete"></button>
                         @Model.LangData.accounts.login.wrongPassword<br/>
                         <a href="/Accounts/Recover">@Model.LangData.accounts.login.forgottenPasswordLink</a>
                     </div>

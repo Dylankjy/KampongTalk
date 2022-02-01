@@ -1,8 +1,16 @@
 ﻿@page
+@using KampongTalk.Models
 @model KampongTalk.Pages.Profile.Index
 
 @{
-    ViewData["Title"] = "";
+    if (Model.ViewingUser != null)
+    {
+        ViewData["Title"] = Model.ViewingUser.Name;
+    }
+    else
+    {
+        ViewData["Title"] = "404: User not found";
+    }
 }
 
 <style>
@@ -42,13 +50,13 @@
         margin: -1.5rem -1.5rem 1.5rem;
     }
     
-    .card-top > * {
-        vertical-align:middle;
-        display: inline-block;
-    }
-    
     .card-top {
-        padding: 0.8rem 1.5rem;
+        padding-top: 1.5rem;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        padding-bottom: 0;
+        background: linear-gradient(180deg, rgba(72,136,149,0.4) 0%, rgba(255,255,255,0.4) 100%);
+
     }
 </style>
 
@@ -81,22 +89,21 @@
                                 </div>
                                 <div class="level-item has-text-centered">
                                     <div>
-                                        <p class="heading">Likes</p>
-                                        <p class="title">420</p>
+                                        <p class="heading">Posts</p>
+                                        <p class="title">@Model.PostCount</p>
                                     </div>
                                 </div>
+                            </div>
+                            <p class="has-text-centered">
+                                <a class="has-text-grey"><i class="fas fa-users"></i>&ensp;View all friends</a>
                                 @{
                                     if (Model.IsCurrentUserOwnPage)
                                     {
-                                        <div class="level-item has-text-centered">
-                                            <div>
-                                                <a class="button is-black is-outlined" onclick="$('#editProfileModal').fadeIn('fast')">Edit Profile</a>
-                                            </div>
-                                        </div>
+                                        <span class="has-text-grey-light">&ensp;&bull;&ensp;</span>
+                                        <a class="has-text-grey" onclick="$('#editProfileModal').fadeIn('fast')"><i class="fas fa-user-edit"></i>&ensp;Edit Profile</a>
                                     }
                                 }
-                            </div>
-                            <a class="has-text-grey"><i class="fas fa-arrow-right"></i>&ensp;View all friends</a>
+                            </p>
                         </div>
                         <hr/>
                         @{
@@ -125,72 +132,70 @@
                         </div>
                     </div>
                     <div class="column">
-                        <h2 class="title is-5">Recent posts by this user</h2>
-                        @* <div class="box"> *@
-                        @*     <article class="media"> *@
-                        @*         <figure class="media-left"> *@
-                        @*             <p class="image is-64x64"> *@
-                        @*                 <img src="https://bulma.io/images/placeholders/128x128.png"> *@
-                        @*             </p> *@
-                        @*         </figure> *@
-                        @*         <div class="media-content"> *@
-                        @*             <div class="content"> *@
-                        @*                 <p> *@
-                        @*                     <strong>John Smith</strong> <small>johnsmith</small> <small>31m</small> *@
-                        @*                     <br> *@
-                        @*                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis. *@
-                        @*                 </p> *@
-                        @*             </div> *@
-                        @*             <nav class="level is-mobile"> *@
-                        @*                 <div class="level-left"> *@
-                        @*                     <a class="level-item"> *@
-                        @*                         <div class="tags has-addons"> *@
-                        @*                             <span class="tag is-primary"><i class="fas fa-thumbs-up"></i>&ensp; Like</span> *@
-                        @*                             <span class="tag is-dark">100</span> *@
-                        @*                         </div> *@
-                        @*                     </a> *@
-                        @*                     <a class="level-item"> *@
-                        @*                         <div class="tags has-addons"> *@
-                        @*                           <span class="tag is-info"><i class="fas fa-comments"></i>&ensp; Reply</span> *@
-                        @*                           <span class="tag is-dark">69</span> *@
-                        @*                         </div> *@
-                        @*                     </a> *@
-                        @*                 </div> *@
-                        @*             </nav> *@
-                        @*         </div> *@
-                        @*     </article> *@
-                        @* </div> *@
+                        @{
+                            if (!Model.PostsToDisplay.Any())
+                            {
+                                <section class="section is-medium">
+                                    <div class="container has-text-centered">
+                                        <p class="title">
+                                            <i class="fas fa-feather-alt"></i>
+                                        </p>
+                                        <h1 class="subtitle is-4 has-text-weight-bold">Hmm, there's nothing here</h1>
+                                        <p>This user has not created any posts</p>
+                                    </div>
+                                </section>
+                            }
+                            else
+                            {
+                                <h2 class="title is-5">Recent posts by this user</h2>
+                            }
 
-                        <div class="card">
-                            <div class="card-content card-top has-background-dark has-text-white">
-                                <div class="pfp-post"></div>
-                                <div class="ml-3 mt-1">
-                                    <p class="title has-text-white is-4">Dylan Kok</p>
-                                    <p class="subtitle is-6 has-text-light" style="margin-top: -1.5rem">&#64;@Model.ViewingUser.Uid2</p>
+                            foreach (var post in Model.PostsToDisplay)
+                            {
+                                <div class="card mt-4">
+                                    <div class="card-content card-top">
+                                        <a href="/Profile?u=@UserApi.GetUserById(post.Author).Uid2">
+                                            <div class="level">
+                                                <div class="level-left">
+                                                    <div class="level-item">
+                                                        <div class="pfp-post"></div>
+                                                    </div>
+                                                    <div class="level-item">
+                                                        <div>
+                                                            <p class="title has-text-black is-5">
+                                                                @UserApi.GetUserById(post.Author).Name
+                                                                <span class="is-size-6 has-text-dark" style="margin-top: -1.5rem">&#64;@UserApi.GetUserById(post.Author).Uid2</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="card-content">
+                                        <p>@post.Content</p>
+                                    </div>
+                                    <div class="card-content has-background-light">
+                                        <div class="level is-mobile">
+                                            <div class="level-left">
+                                                <a class="level-item">
+                                                    <div class="tags has-addons">
+                                                        <span class="tag is-primary"><i class="fas fa-thumbs-up"></i>&ensp; Like</span>
+                                                        <span class="tag is-dark">100</span>
+                                                    </div>
+                                                </a>
+                                                <a class="level-item">
+                                                    <div class="tags has-addons">
+                                                        <span class="tag is-info"><i class="fas fa-comments"></i>&ensp; Reply</span>
+                                                        <span class="tag is-dark">69</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="card-content">
-                                <p>Glasses are really versatile. First, you can have glasses-wearing girls take them off and suddenly become beautiful, or have girls wearing glasses flashing those cute grins, or have girls stealing the protagonist's glasses and putting them on like, "Haha, got your glasses!' That's just way too cute! Also, boys with glasses! I really like when their glasses have that suspicious looking gleam, and it's amazing how it can look really cool or just be a joke. I really like how it can fulfill all those abstract needs. Being able to switch up the styles and colors of glasses based on your mood is a lot of fun too! It's actually so much fun! You have those half rim glasses, or the thick frame glasses, everything! It's like you're enjoying all these kinds of glasses at a buffet.</p>
-                            </div>
-                            <div class="card-content has-background-light">
-                                                        <nav class="level is-mobile">
-                                                            <div class="level-left">
-                                                                <a class="level-item">
-                                                                    <div class="tags has-addons">
-                                                                        <span class="tag is-primary"><i class="fas fa-thumbs-up"></i>&ensp; Like</span>
-                                                                        <span class="tag is-dark">100</span>
-                                                                    </div>
-                                                                </a>
-                                                                <a class="level-item">
-                                                                    <div class="tags has-addons">
-                                                                      <span class="tag is-info"><i class="fas fa-comments"></i>&ensp; Reply</span>
-                                                                      <span class="tag is-dark">69</span>
-                                                                    </div>
-                                                                </a>
-                                                            </div>
-                                                        </nav>
-                            </div>
-                        </div>
+                            }
+                        }
                     </div>
                 </div>
             </div>

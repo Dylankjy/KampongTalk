@@ -116,4 +116,20 @@ namespace KampongTalk.Models
             }
         }
     }
+
+    public static class UserApi
+    {
+        public static dynamic GetUserById(long id)
+        {
+            // Database declarations
+            var dbUsers =
+                new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
+                    "Users");
+
+            return dbUsers.Single(new
+            {
+                Uid = id
+            });
+        }
+    }
 }
