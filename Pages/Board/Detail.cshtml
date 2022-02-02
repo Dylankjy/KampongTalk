@@ -19,7 +19,7 @@
             <div class="box mt-3">
 
                 <div class="userPFP"
-                     style="background-image: url('imgs/@Model.author.AvatarImg')">
+                     style="background-image: url('/imgs/@Model.author.AvatarImg')">
                 </div>
                 <div class="postPriInfo">
                     <span class="has-text-weight-bold is-size-5">@Model.author.Name</span>
@@ -52,7 +52,7 @@
                     <img id="attachmentImg" class="postImg has-text-centered" src="~/imgs/@Model.thisPost.AttachmentImg" />
                 }
                 <div class="has-text-grey-light minorInfo mt-2">
-                    <span>@Model.thisPost.Timestamp</span> <span id="fromWhere">&bull; From Your Friends' Likes</span>
+                    <span>@Model.thisPost.Timestamp</span>
                 </div>
 
             </div>
@@ -76,13 +76,13 @@
                     </div>
                 </form>
 
-                @foreach (var comment in Model.commentList)
+                @foreach (var comment in Model.commentList.Reverse())
                 {
                     <hr class="m-1" />
                     <article class="media p-2">
                         <figure class="media-left">
                             <div class="userPFP"
-                                 style="background-image: url('imgs/@comment.UserPfp')">
+                                 style="background-image: url('/imgs/@comment.UserPfp')">
                             </div>
                         </figure>
                         <div class="media-content">
@@ -92,16 +92,17 @@
                                     <br>
                                     @comment.Content
                                     <br>
-                                    <small class="has-text-grey-light">@comment.likeCount Likes&bull; @comment.Timestamp</small>
+                                    @*<small class="has-text-grey-light">@comment.likeCount Likes&bull; @comment.Timestamp</small>*@
+                                    <small class="has-text-grey-light">@comment.Timestamp</small>
                                 </p>
                             </div>
                         </div>
-                        <figure class="media-right">
+                        <!--<figure class="media-right">-->
                             <!--insert form here-->
-                            <button class="button is-medium is-rounded is-danger is-outlined" type="button">
+                            <!--<button class="button is-medium is-rounded is-danger is-outlined" type="button">
                                 <i class="far fa-thumbs-up"></i>
                             </button>
-                        </figure>
+                        </figure>-->
                     </article>
                 }
 

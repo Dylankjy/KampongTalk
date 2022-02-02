@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using KampongTalk.Models;
 using Microsoft.AspNetCore.Http;
 using MoreLinq;
+using System.Diagnostics;
 
 namespace KampongTalk.Pages.Board
 {

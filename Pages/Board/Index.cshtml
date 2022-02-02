@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{handler?}"
 @inject Tools.IUserAttributes UserAttributes
 
 @model KampongTalk.Pages.Board.IndexModel
@@ -37,7 +37,10 @@
                 <div class="postPriInfo">
                     <span class="has-text-weight-bold is-size-5">@postInfo.UserName</span>
                     <p style="line-height: 60%;">
-                        <span class="minorInfo" id="InCommunitySpan"> In <a>Community</a></span>
+                        @if (postInfo.CommunityName != null)
+                        {
+                            <span class="minorInfo" id="InCommunitySpan"> In <a href="/Community/@postInfo.InCommunity">@postInfo.CommunityName</a></span>
+                        }
                         <span class="minorInfo" id="taggedUsersSpan">&bull; Tagged <a>User1</a>, <a>User2</a></span>
                     </p>
                 </div>
@@ -69,30 +72,16 @@
                 </div>
                 <hr class="m-1" />
 
-                @*<span class="is-size-5 has-text-danger ml-3"><i class="far fa-thumbs-up"></i> @postInfo.likeCount</span>
-        <span class="is-size-5 has-text-primary mr-3 is-pulled-right"><i class="fas fa-comment-dots"></i> Show 10 comments </span>
-        <br />*@
-
                 <div class="columns mt-2">
                     <div class="column is-half">
-                        @*<button class="button is-large is-fullwidth is-danger is-outlined" type="button" onclick="likePost(@postInfo.Pid)"><i class="far fa-thumbs-up mr-2"></i>@postInfo.likeCount Likes</button>
-                <form method="post" action="/Board?handler=like">
-                    <input type="number" asp-for="newLike.EntityId" value="@postInfo.Pid" class="is-hidden" />
-                    <button class="button is-large is-fullwidth is-danger is-outlined" type="submit"><i class="far fa-thumbs-up mr-2"></i>@postInfo.likeCount Likes form action</button>
-                </form>*@
-                        <form asp-page-handler="like" method="post">
-                            <input type="number" asp-for="newLike.EntityId" value="@postInfo.Pid" class="is-hidden" />
-                            <button class="button is-large is-fullwidth is-danger is-outlined" type="submit"><i class="far fa-thumbs-up mr-2"></i>@postInfo.likeCount Likes</button>
+                        <form>
+                            <button class="button is-large is-fullwidth is-danger is-outlined" type="button" onclick="likePost(@postInfo.Pid, this)"><i class="far fa-thumbs-up mr-2"></i>@postInfo.likeCount Likes</button>
                         </form>
-                        @*<form runat="server">
-                    <input type="number" asp-for="newLike.EntityId" value="@postInfo.Pid" class="is-hidden" />
-                    <asp:Button class="button is-large is-fullwidth is-danger is-outlined" type="button" runat="server" OnClick="likePost()" Text="like me" />
-                    <i class="far fa-thumbs-up mr-2"></i>@postInfo.likeCount Likes
-                </form>*@
+                        
+
                     </div>
                     <div class="column">
                         <a class="button is-large is-fullwidth is-primary is-outlined" href="/Board/Detail/@postInfo.Pid"><i class="fas fa-comment-dots mr-2"></i>Comments</a>
-                        @*<a asp-page="/Board/Detail" asp-route-id="@postInfo.Pid" class="button is-large is-fullwidth is-primary is-outlined" type="button"><i class="fas fa-comment-dots mr-2"></i>10 Comments</a>*@
                     </div>
                 </div>
 
@@ -160,13 +149,30 @@
 
 <script type="text/javascript">
 
-    function likePost(Pid) {
-        console.log("like post button call")
+    function likePost(Pid, likeBtn) {
         $.ajax({
             type: "POST",
-            url: "/Board?handler=like",
-            success: function (msg) {
-                alert(msg);
+            url: "/Board/like",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("XSRF-TOKEN",
+                    $('input:hidden[name="__RequestVerificationToken"]').val());
+            },
+            data: JSON.stringify({
+                EntityId: Pid,
+                Uid: @Model.CurrentUser.Uid
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (likeResp) {
+                var likeRespArr = likeResp.toString().split(",")
+                if (likeRespArr[0] == '1') {
+                    likeBtn.classList.remove('is-outlined')
+                }
+                else {
+                    likeBtn.classList.add('is-outlined')
+                }
+                likeBtn.innerHTML = '<i class="far fa-thumbs-up mr-2"></i>' + likeRespArr[1] + " Likes"
+
             },
             error: function () {
                 return "error";
@@ -176,7 +182,6 @@
     }
 
     function showComments(commentBtn) {
-        console.log(commentBtn)
         const commentBtnPDiv = commentBtn.parentNode.parentNode
         const commentDiv = commentBtnPDiv.nextElementSibling
         if (commentDiv.classList.contains('is-hidden')) {

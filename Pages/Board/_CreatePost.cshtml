@@ -26,11 +26,16 @@
                         <button class="button is-rounded is-danger" type="button" style="right:0; position:absolute;" onclick="removeImg()">
                             <i class="fas fa-trash-alt"></i>
                         </button>
-                        <img id="imgPreview" src="#"/>
+                        <img id="imgPreview" src="#" />
                     </div>
+
+                    <!--hidden inputs-->
+                    <input id="communityInput" type="text" asp-for="newPost.InCommunity" hidden>
 
                     <!--Buttons-->
                     <div class="field is-grouped">
+
+                        <!--Add image button-->
                         <p class="control">
                             <button id="addImgButton" class="button" type="button" onclick="document.getElementById('postImg').click();">
                                 <span class="icon">
@@ -40,14 +45,23 @@
                             </button>
                             <input id="postImg" class="file-input" type="file" accept="image/x-png,image/jpeg" asp-for="postImg" hidden>
                         </p>
+
+                        <!--Community button-->
                         <p class="control">
-                            <button class="button" type="button" onclick="showSect('addCommunitySect')">
+
+                            <span class="tag is-success is-medium is-hidden" id="chosenCommTagMain">
+                                <i class="fas fa-times-circle ml-3" style="cursor: pointer;" onclick="removeComm()"></i>
+                            </span>
+
+                            <button class="button" type="button" id="getCommsBtn" onclick="showSect('addCommunitySect'); fetchComms()">
                                 <span class="icon">
                                     <i class="fas fa-building"></i>
                                 </span>
                                 <span>Choose A Community</span>
                             </button>
                         </p>
+
+                        <!--Tag users-->
                         <p class="control">
                             <button class="button" type="button" onclick="showSect('tagSect')">
                                 <span class="icon">
@@ -64,6 +78,7 @@
                 </div>
                 <!-- END: Main Section -->
 
+
                 <!-- START: Add Communities Section -->
                 <div id="addCommunitySect" style="display: none;">
 
@@ -72,14 +87,13 @@
                     </div>
 
                     <p class="has-text-centered is-size-4 has-text-weight-bold">Choose A Community</p>
-                    <div id="chosenComm" class="has-text-centered">
+                    <div id="chosenCommTag" class="has-text-centered is-hidden">
                         Chosen Community:
-                        <span class="tag is-success is-medium">
-                            Oldies into Cheese
-                            <i class="fas fa-times-circle ml-3" style="cursor: pointer;"></i>
+                        <span class="tag is-success is-medium" id="chosenCommTagText">
+                            <i class="fas fa-times-circle ml-3" style="cursor: pointer;" onclick="removeComm()"></i>
                         </span>
                     </div>
-                    <br/>
+                    <br />
                     <!--Add info tooltip-->
                     <!--Search-->
 
@@ -97,18 +111,17 @@
                         </div>
                     </div>
 
-                    <br/>
+                    <br />
                     <div id="commSearchResults">
 
                     </div>
-                    <div id="followedComms">
-                        <p class="has-text-centered">FOLLOWED COMMUNITIES</p>
+                    <div id="suggestedCommsSect">
+                        <p class="has-text-centered">SUGGESTED COMMUNITIES</p>
                         <div style="overflow-y: auto; height: 40vh;" class="pl-2 pr-2">
-                            <ul>
+                            <ul id="suggestedComms">
                                 <!--Foreach-->
-                                <hr/>
-                                <li>Community 1 <button class="button is-link is-outlined is-pulled-right" type="button">Select</button></li>
-
+                                @*<hr/>*@
+                                <li><hr />There are no communities to display.</li>
                             </ul>
                         </div>
                     </div>
@@ -130,7 +143,7 @@
                             <i class="fas fa-times-circle ml-3" style="cursor: pointer;"></i>
                         </span>
                     </div>
-                    <br/>
+                    <br />
                     <!--Tag up to 5 users-->
                     <!--Search-->
 
@@ -148,7 +161,7 @@
                         </div>
                     </div>
 
-                    <br/>
+                    <br />
                     <div id="userSearchResults">
 
                     </div>
@@ -157,7 +170,7 @@
                         <div style="overflow-y: auto; height: 40vh;" class="pl-2 pr-2">
                             <ul>
                                 <!--Foreach-->
-                                <hr/>
+                                <hr />
                                 <li>Friend 1 <button class="button is-link is-outlined is-pulled-right" type="button">Tag</button></li>
 
                             </ul>
@@ -174,7 +187,6 @@
 </div>
 
 <script type="text/javascript">
-    console.log("Hello!");
 
     postImg.onchange = evt => {
         document.getElementById("imgPreviewDiv").style.display = "block";
@@ -183,6 +195,65 @@
         if (file) {
             imgPreview.src = URL.createObjectURL(file)
         }
+    }
+
+    function fetchComms() {
+        // fetch 5-6 communities
+        $.ajax({
+            type: "GET",
+            url: "/Board/communitylist",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                var suggestedCommsUL = $("#suggestedComms")
+                suggestedCommsUL.empty();
+                $.each(response, function (i, item) {
+                    $("#suggestedComms").append("<li><hr />" + item + '<button class="button is-link is-outlined is-pulled-right commButton" type="button" onclick="selectComms(this)">Select</button></li>')
+                })
+
+
+                    //< ul id = "suggestedComms" >
+                    //            <li><hr />Community 1 <button class="button is-link is-outlined is-pulled-right" type="button">Select</button></li>
+                    //        </ul >
+            },
+            failure: function (response) {
+                alert('failed lmao')
+
+            }
+        })
+    }
+
+    function selectComms(commLi) {
+        commLi.innerText = "Selected"
+        commLi.classList.remove("is-outlined")
+        var commName = commLi.parentElement.innerText
+        commName = commName.substring(0, commName.length - 9)
+
+        $("#chosenCommTag").removeClass("is-hidden")
+        document.getElementById("chosenCommTagText").innerHTML = commName + '<i class="fas fa-times-circle ml-3" style="cursor: pointer;" onclick="removeComm()"></i>'
+        document.getElementById("communityInput").value = commName
+
+        $("#chosenCommTagMain").removeClass("is-hidden")
+        document.getElementById("chosenCommTagMain").innerHTML = commName + '<i class="fas fa-times-circle ml-3" style="cursor: pointer;" onclick="removeComm()"></i>'
+        $("#getCommsBtn").addClass("is-hidden")
+    }
+
+    function removeComm() {
+        $("#chosenCommTag").addClass("is-hidden")
+        $("#chosenCommTagName").innerText = ""
+
+        $(".commButton").each(function (i, item) {
+            item.innerText = "Select"
+            item.classList.add("is-outlined")
+        })
+
+        $("#communityInput").value = null
+        document.getElementById("communityInput").value = null
+
+        $("#chosenCommTagMain").addClass("is-hidden")
+        document.getElementById("chosenCommTagMain").innerHTML = ""
+        $("#getCommsBtn").removeClass("is-hidden")
+
     }
 
     function removeImg() {
