@@ -110,6 +110,18 @@
                             <div class="level">
                                 <div class="level-item-left has-text-centered">
                                     <div>
+                                        <h3 class="title is-5">Owner</h3>
+                                    </div>
+                                </div>
+                                <div class="level-item-right has-text-centered">
+                                    <div>
+                                        <a href="/Profile?u=@UserApi.GetUserById(Model.ViewingCommunity.CreatorId).Uid2" class="is-size-6">@UserApi.GetUserById(Model.ViewingCommunity.CreatorId).Name <small>(&#64;@UserApi.GetUserById(Model.ViewingCommunity.CreatorId).Uid2)</small></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="level">
+                                <div class="level-item-left has-text-centered">
+                                    <div>
                                         <h3 class="title is-5">Created</h3>
                                     </div>
                                 </div>
