@@ -19,7 +19,7 @@ namespace KampongTalk.Models
         public string TaggedUsers { get; set; }
 
         // Community Id
-        public long InCommunity { get; set; }
+        public string InCommunity { get; set; }
 
         // If obj is post, leave as empty string
         // Else if obj is a comment, set as Pid

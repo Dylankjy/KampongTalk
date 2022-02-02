@@ -8,7 +8,7 @@ namespace KampongTalk.Models
         public string Content { get; set; }
         public string AttachmentImg { get; set; }
         public DateTime Timestamp { get; set; }
-        public long InCommunity { get; set; }
+        public string InCommunity { get; set; }
         public string CommunityName { get; set; }
         public long IsComment { get; set; }
         public string TaggedUsers { get; set; }
@@ -17,7 +17,9 @@ namespace KampongTalk.Models
         public string UserPfp { get; set; }
         public int likeCount { get; set; } = 0;
 
+        // IsLiked by the current user
+        public bool IsLiked { get; set; } = false;
+
         public string likeString { get; set; }
-        // IsLiked
     }
 }
