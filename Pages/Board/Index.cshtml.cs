@@ -58,6 +58,9 @@ namespace KampongTalk.Pages.Board
         [BindProperty] public IEnumerable<dynamic> pList { get; set; } = Enumerable.Empty<dynamic>();
 
         [BindProperty] public IFormFile postImg { get; set; }
+        
+        // Posts to display on board
+        public dynamic PostsToDisplay { get; set; }
 
         public IActionResult OnGet()
         {
@@ -66,113 +69,18 @@ namespace KampongTalk.Pages.Board
             {
                 return Redirect("/Accounts/Login");
             }
-            GetPosts(CurrentUser);
+            GetPosts();
+
             return Page();
         }
 
-        public IEnumerable<dynamic> GetPosts(User currUser)
+        public void GetPosts()
         {
-            // Query:
-            // Inner join Posts and Users 
-            // Left join Posts and Likes
-            // Fetch count of likes per post
-            // Fetch "isLiked" 
-            // Left join Posts and Communities
-            // "Filter" by requirements (e.g. friends /recc)
-            // Incl pagination
-
-            // Old one that worked but stopped working 
-            //var query = (from post in postList
-            //             join user in userList on post.Author equals user.Uid
-            //             join like in likesList on post.Pid equals like.EntityId into likeGrp
-            //             //from sublike in likeGrp.DefaultIfEmpty()
-            //             where post.IsComment == 0
-            //             select new PostInfo
-            //             {
-            //                 Pid = post.Pid,
-            //                 Content = post.Content,
-            //                 AttachmentImg = post.AttachmentImg,
-            //                 Timestamp = post.Timestamp,
-            //                 InCommunity = post.InCommunity,
-            //                 IsComment = post.IsComment,
-            //                 TaggedUsers = post.TaggedUsers,
-            //                 Uid = user.Uid,
-            //                 UserName = user.Name,
-            //                 UserPfp = user.AvatarImg,
-            //                 likeCount = likeGrp.Count()
-            //             }).DistinctBy(post => post.Pid).AsEnumerable();
-
-            Debug.WriteLine("total likes in db: " + likesList.Count());
-
-            // V 2
-            var query = (from post in postList
-                         join user in userList on post.Author equals user.Uid
-                         where post.IsComment == 0
-                         select new PostInfo
-                         {
-                             Pid = post.Pid,
-                             Content = post.Content,
-                             AttachmentImg = post.AttachmentImg,
-                             Timestamp = post.Timestamp,
-                             InCommunity = post.InCommunity,
-                             IsComment = post.IsComment,
-                             TaggedUsers = post.TaggedUsers,
-                             Uid = user.Uid,
-                             UserName = user.Name,
-                             UserPfp = user.AvatarImg,
-                             likeCount = (from like in likesList
-                                          where like.EntityId == post.Pid
-                                          select new { like.Uid }).Count(),
-                             IsLiked = (from like in likesList
-                                        where like.EntityId == post.Pid && like.Uid == currUser
-                                        select new { like.EntityId }).Any()
-                         }).DistinctBy(post => post.Pid).AsEnumerable();
-
-            var testQuery = (from like in likesList
-                             where like.EntityId == 933535030863466500
-                             select new { like.Uid }).Count();
-
-            Debug.WriteLine("manually inputted id " + testQuery);
-
-            foreach (var p in query)
-            {
-                //Debug.WriteLine(p.Pid + " : " + p.Content + " pid of type " + p.Pid.GetType());
-                testQuery = (from like in likesList
-                                 where like.EntityId == p.Pid
-                                 select new { like.Uid }).Count();
-                Debug.WriteLine(p.Pid + " : " + p.Content + "has likes " + testQuery);
-                //Debug.WriteLine(p.likeCount);
-                //Debug.WriteLine(p.IsLiked);
-            }
-            // ISSUE: When manually input id, likeCount works. But when it iterates through the entries, it returns wrong value, even if ID and ID type is correct :(
-
-            pList = query;
-
-            //if (pList != null && pList.Any())
-            //{
-            //    foreach (var post in pList)
-            //    {
-            //        //Debug.WriteLine(post.Pid);
-            //        //Debug.WriteLine(post.likeCount);
-            //        var likeCount = likesDB.Count($"EntityId = '{post.Pid}'", "Uid");
-            //        Debug.WriteLine("like count of post "+ likeCount);
-            //        post.likeCount = (int)(long)likeCount;
-            //        // Debug.WriteLine("like count of post " + post.likeCount);
-            //        //var isLiked = (long)likesDB.Count($"EntityId = '{newLike.EntityId}' && Uid = '{newLike.Uid}'");
-            //        //if (isLiked == 1)
-            //        //{
-            //        //    post.IsLiked = true;
-            //        //}
-            //        //else
-            //        //{
-            //        //    post.IsLiked = false;
-            //        //}
-
-            //    }
-
-            //}
-
-            return pList;
+            // Kinda feel your pain, so I fixed this mess for you.
+            // You might need to fix the like button back again, I broke it when I changed it to the new post template
+            // :D
+            var allPosts = postDB.All(new { IsComment = 0 });
+            PostsToDisplay = allPosts;
         }
 
         public IActionResult OnPost()

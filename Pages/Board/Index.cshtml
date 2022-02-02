@@ -1,11 +1,37 @@
 ﻿@page "{handler?}"
 @inject Tools.IUserAttributes UserAttributes
 
+@using KampongTalk.Models
 @model KampongTalk.Pages.Board.IndexModel
 @{
     ViewData["Title"] = "KampongBoard";
 }
 
+<style>
+        .card-top {
+            padding: 1.5rem 1.5rem 0;
+            background: linear-gradient(180deg, rgba(72,136,149,0.4) 15%, rgba(255,255,255,0.4) 100%);
+        }
+        
+        .card-meta {
+            padding: 1rem 1.5rem 0;
+            background:rgba(72,136,149,0.4)
+        }
+        
+        .card-meta + .card-top {
+            padding-top: 1.5rem;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+            .pfp-post {
+                height: 3rem;
+                width: 3rem;
+                border: .2rem solid white;
+                border-radius: 9999rem;
+                margin-top: -.5rem;
+                margin-bottom: -.75rem;
+            }
+</style>
 
 <link rel="stylesheet" href="~/css/board.css">
 
@@ -25,70 +51,63 @@
 
     </div>
     <div class="column is-three-fifths">
-        <div class="hero is-fullheight-with-navbar has-background-white-ter" style="overflow-y: auto; height:80vh;">
+        <div class="hero is-fullheight-with-navbar has-background-white-ter" style="overflow-y: auto; height:80vh; padding-left: 1em; padding-right:  1rem">
 
-            @foreach (var postInfo in Model.pList.Reverse())
-            {
-            <div class="box mt-3 mr-5 ml-5">
-
-                <div class="userPFP"
-                     style="background-image: url('imgs/@postInfo.UserPfp')">
-                </div>
-                <div class="postPriInfo">
-                    <span class="has-text-weight-bold is-size-5">@postInfo.UserName</span>
-                    <p style="line-height: 60%;">
-                        @if (postInfo.CommunityName != null)
-                        {
-                            <span class="minorInfo" id="InCommunitySpan"> In <a href="/Community/@postInfo.InCommunity">@postInfo.CommunityName</a></span>
-                        }
-                        <span class="minorInfo" id="taggedUsersSpan">&bull; Tagged <a>User1</a>, <a>User2</a></span>
-                    </p>
-                </div>
-
-                <p class="mt-3 is-size-5">
-                    @postInfo.Content
-                </p>
-
-                <button class="button" onclick="translateText(this)">
-                    <i class="fas fa-language"></i>
-                </button>
-
-                <button class="button" onclick="synthesizeSpeech(this)">
-                    <i class="fas fa-volume-up"></i>
-                </button>
-
-                <audio id="audio" controls hidden>
-                    <source type="audio/mp3">
-                </audio>
-
-                <br />
-
-                @if (postInfo.AttachmentImg != null)
+            @{
+                foreach (var post in Model.PostsToDisplay)
                 {
-                    <img id="attachmentImg" class="postImg has-text-centered" src="~/imgs/@postInfo.AttachmentImg" />
+                    <div class="card mt-4">
+                        @{
+                            if (post.InCommunity != null)
+                            {
+                                <div class="card-content card-meta">
+                                    <p class="has-text-weight-medium"><i class="fas fa-arrow-right"></i>&ensp;Posted in <a href="/Community?c=@post.InCommunity" class="has-text-weight-bold has-text-black">@CommunityApi.GetCommunityById(post.InCommunity).Name</a></p>
+                                </div>
+                            }
+                        }
+                        <div class="card-content card-top">
+                            <a href="/Profile?u=@UserApi.GetUserById(post.Author).Uid2">
+                                <div class="level">
+                                    <div class="level-left">
+                                        <div class="level-item">
+                                            <div class="pfp-post"></div>
+                                        </div>
+                                        <div class="level-item">
+                                            <div>
+                                                <p class="title is-5">
+                                                    @UserApi.GetUserById(post.Author).Name
+                                                    <span class="is-size-6 has-text-grey" style="margin-top: -1.5rem">&#64;@UserApi.GetUserById(post.Author).Uid2</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card-content">
+                            <p class="is-size-5">@post.Content</p>
+                        </div>
+                        <div class="card-content has-background-light">
+                            <div class="level is-mobile">
+                                <div class="level-left">
+                                    <a class="level-item">
+                                        <div class="tags has-addons">
+                                            <span class="tag is-primary"><i class="fas fa-thumbs-up"></i>&ensp; Like</span>
+                                            <span class="tag is-dark">@LikesApi.GetLikesByPid(post.Pid)</span>
+                                        </div>
+                                    </a>
+                                    <a class="level-item">
+                                        <div class="tags has-addons">
+                                            <span class="tag is-info"><i class="fas fa-comments"></i>&ensp; Reply</span>
+                                            <span class="tag is-dark">@PostApi.GetCommentCountByPid(post.Pid)</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 }
-                <div class="has-text-grey-light minorInfo mt-2">
-                    <span>@postInfo.Timestamp</span> <span id="fromWhere">&bull; From Your Friends' Likes</span>
-                </div>
-                <hr class="m-1" />
-
-                <div class="columns mt-2">
-                    <div class="column is-half">
-                        <form>
-                            <button class="button is-large is-fullwidth is-danger is-outlined" type="button" onclick="likePost(@postInfo.Pid, this)"><i class="far fa-thumbs-up mr-2"></i>@postInfo.likeCount Likes</button>
-                        </form>
-                        
-
-                    </div>
-                    <div class="column">
-                        <a class="button is-large is-fullwidth is-primary is-outlined" href="/Board/Detail/@postInfo.Pid"><i class="fas fa-comment-dots mr-2"></i>Comments</a>
-                    </div>
-                </div>
-
-            </div>
             }
-
-
         </div>
     </div>
     <div class="column">

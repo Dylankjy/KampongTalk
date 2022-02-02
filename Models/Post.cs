@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using IdGen;
+using Mighty;
 
 namespace KampongTalk.Models
 {
@@ -24,5 +26,14 @@ namespace KampongTalk.Models
         // If obj is post, leave as empty string
         // Else if obj is a comment, set as Pid
         public long IsComment { get; set; }
+    }
+
+    public static class PostApi
+    {
+        public static int GetCommentCountByPid(long pid)
+        {
+            var dbPosts = new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"], "Post");
+            return dbPosts.All(new { IsComment = pid}).ToList().Count;
+        }
     }
 }
