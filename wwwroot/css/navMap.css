@@ -1,15 +1,24 @@
-﻿/*@media screen and (max-width: 1120px) {
+﻿/*@media all and (max-width: 1120px) {
     #fullview {
         display: none;
     }
+    #halfview {
+        display: block;
+    }
 }
 
-@media only screen and (min-width: 1120px){
+@media all and (min-width: 1121px) {
     #halfview {
         display: none;
     }
-    
+    #fullview {
+        display:block;
+    }
 }*/
+
+body{
+    min-width: 450px;
+}
 
 .iconDiv {
     position: absolute;
@@ -17,11 +26,11 @@
     padding: 0px;
 }
 
-.iconDiv:hover {
+.expandDiv:hover {
     transform: scale(1.1);
-    filter: brightness(85%);
+    filter: brightness(80%);
 }
-
+/*
 .iconLabelEnt {
     font-weight: bold;
     color: #FF6E17;
@@ -41,3 +50,4 @@
     font-weight: bold;
     color: #880837;
 }
+*/

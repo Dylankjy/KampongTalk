@@ -16,91 +16,61 @@
         <!-- START: Main Column -->
         <div class="column is-four-fifths-desktop">
             @*<div class="container mb-3 has-text-centered">
-                <h1 class="subtitle has-text-weight-bold">Welcome to Kampong Talk</h1>
-            </div>*@
+            <h1 class="subtitle has-text-weight-bold">Welcome to Kampong Talk</h1>
+        </div>*@
 
             <!-- START: KT Nav Map-->
             <div class="container has-text-centered" style="position:relative;">
-                <img src="~/imgs/NavMapBG.png" style="height: 80vh; z-index:1; position:relative;" />
+                <img src="~/imgs/NavMap/KT_MapBG.png" style="top: 5vh; height: 80vh; z-index: 1; position: relative;" />
 
-                <!-- ChallengesIcon -->
+                <!-- ChatIcon -->
                 <a href="">
-                    <div class="iconDiv" style="top:10vh; left:17vw;">
-                        <!--ChallengesLink-->
-                        <img src="~/imgs/NavMap_ChallengesIcon.png" style="height:14vh;" class="navMapIcon" />
-                        <p class="iconLabelEnt is-size-5">Challenges</p>
+                    <div class="iconDiv expandDiv" style="top: 0vh; left: 14vw;">
+                        <img src="~/imgs/NavMap/Chat_Icon.png" class="navMapIcon" />
+                        <p><span class="tag is-dark is-large has-text-weight-bold">Chats</span></p>
                     </div>
                 </a>
 
-                <!-- EventsIcon -->
-                <a href="/Events">
-                    <div class="iconDiv" style="top:4vh; left:30vw;">
-                        <!--EventsLink-->
-                        <img src="~/imgs/NavMap_EventsIcon.png" style="height:17vh;" class="navMapIcon" />
-                        <p class="iconLabelEnt is-size-4">Events</p>
-                    </div>
-                </a>
-
-                <!-- InboxIcon -->
+                <!-- CommunitiesIcon -->
                 <a href="">
-                    <div class="iconDiv" style="top:35vh; left:10vw;">
-                        <!--InboxLink-->
-                        <img src="~/imgs/NavMap_InboxIcon.png" style="height:10vh;" class="navMapIcon" />
-                        <p class="iconLabelSoc is-size-5">Chats</p>
-                    </div>
-                </a>
+                    <div class="iconDiv expandDiv" style="top:0vh; left:38vw;">
+                        <img src="~/imgs/NavMap/Communities_Icon.png" class="navMapIcon" style="height:25vh;" />
+                        <p><span class="tag is-dark is-large has-text-weight-bold">Communities</span></p>
 
-                <!-- BoardIcon -->
-                <a href="/Board">
-                    <div class="iconDiv" style="top:31vh; left:20vw;">
-                        <!--BoardLink-->
-                        <img src="~/imgs/NavMap_BoardIcon.png" style="height:22vh;" class="navMapIcon" />
-                        <p class="iconLabelSoc is-size-4">Board</p>
                     </div>
                 </a>
 
                 <!-- VoidDeckIcon -->
                 <a href="/DigitalVoidDeck/Lobby">
-                    <div class="iconDiv" style="top:28vh; left:37vw;">
-                        <!--VoidDeckLink-->
-                        <img src="~/imgs/NavMap_VoidDeckIcon.png" style="height:13vh;" class="navMapIcon" />
-                        <p class="iconLabelSoc is-size-5">Void Deck</p>
+                    <div class="iconDiv expandDiv" style="top:0vh; left:51vw;">
+                        <img src="~/imgs/NavMap/Void_Deck.png" class="navMapIcon" />
+                        <p><span class="tag is-dark is-large has-text-weight-bold">Void Deck</span></p>
                     </div>
                 </a>
 
-                <!-- ProfileIcon -->
-                <a href="/Profile?u=@Model.CurrentUser.Uid2">
-                    <div class="iconDiv" style="top:23vh; left:51vw;">
-                        <!--ProfileLink-->
-                        <img src="~/imgs/NavMap_ProfileIcon.png" style="height:10vh;" class="navMapIcon" />
-                        <p class="iconLabelMe is-size-5">My Profile</p>
-                    </div>
-                </a>
-
-                <!-- GuidesIcon -->
-                <a href="">
-                    <div class="iconDiv" style="top:52vh; left:34vw;">
-                        <!--GuidesLink-->
-                        <img src="~/imgs/NavMap_GuidesIcon.png" style="height:15vh;" class="navMapIcon" />
-                        <p class="iconLabelHelp is-size-4">Help</p>
+                <!-- BoardIcon -->
+                <a href="/Board">
+                    <div class="iconDiv expandDiv" style="top:21vh; left:25vw;">
+                        <img src="~/imgs/NavMap/Board_Icon.png" class="navMapIcon" />
+                        <p><span class="tag is-dark is-large has-text-weight-bold">Board</span></p>
                     </div>
                 </a>
 
                 <!-- SupportIcon -->
                 <a href="">
-                    <div class="iconDiv" style="top:42vh; left:47vw;">
+                    <div class="iconDiv expandDiv" style="top:47vh; left:14vw;">
                         <!--SupportLink-->
-                        <img src="~/imgs/NavMap_SupportIcon.png" style="height:12vh;" class="navMapIcon" />
-                        <p class="iconLabelHelp is-size-5">Support</p>
+                        <img src="~/imgs/NavMap/Support_Icon.png" class="navMapIcon" />
+                        <p><span class="tag is-dark is-large has-text-weight-bold">Support</span></p>
                     </div>
                 </a>
 
-                <!-- SettingsIcon -->
-                <a href="/Settings">
-                    <div class="iconDiv" style="top:41vh; left:55vw;">
-                        <!--SettingsLink-->
-                        <img src="~/imgs/NavMap_SettingsIcon.png" style="height:8vh;" class="navMapIcon" />
-                        <p class="iconLabelMe is-size-6">Settings</p>
+                <!-- EventsIcon -->
+                <a href="/Events">
+                    <div class="iconDiv expandDiv" style="top:38vh; left:40vw;">
+                        <img src="~/imgs/NavMap/Events_Icon.png" class="navMapIcon" style="height:25vh;" />
+                        <p><span class="tag is-dark is-large has-text-weight-bold">Events</span></p>
+
                     </div>
                 </a>
 
@@ -109,80 +79,123 @@
 
         </div>
         <!-- END: Main Column -->
-        <!-- START: Notification bar -->
-        <div class="column has-background-white-bis">
-            <p>Notifications Go Here</p>
-            <!-- I'll make the notif partial later-->
+
+        <div class="column">
+
+            <p><button class="button is-light"><i class="fas fa-times"></i>&ensp;Close Map</button></p>
+            <br />
+
+            <div class="is-pulled-left">
+
+                <div class="has-text-centered expandDiv">
+                    <a href="">
+                        <button class="button is-large is-primary">
+                            <span class="icon is-medium">
+                                <i class="fas fa-user-friends"></i>
+                            </span>
+                        </button>
+                    </a>
+                    <p class="has-text-weight-bold">Friends</p>
+                </div>
+                <br />
+
+                <div class="has-text-centered expandDiv">
+                    <a href="/Profile?u=@Model.CurrentUser.Uid2">
+                        <button class="button is-large is-primary">
+                            <span class="icon is-medium">
+                                <i class="fas fa-user"></i>
+                            </span>
+                        </button>
+                    </a>
+                    <p class="has-text-weight-bold">Profile</p>
+                </div>
+                <br />
+
+                <div class="has-text-centered expandDiv">
+                    <a href="/Settings">
+                        <button class="button is-large is-primary">
+                            <span class="icon is-medium">
+                                <i class="fas fa-cog"></i>
+                            </span>
+                        </button>
+                    </a>
+                    <p class="has-text-weight-bold">Settings</p>
+                </div>
+            </div>
         </div>
-        <!-- END: Notification bar -->
-    </div>
+        </div>
 </section>
 
 <section class="section" id="halfview">
+
     <div class="container">
-        <h1 class="is-size-3 iconLabelSoc ">Social</h1>
         <a href="/Board">
-            <div class="box is-inline-block m-2 has-text-centered" style="width:300px;">
-                <img src="~/imgs/NavMap_BoardIcon.png" style="height:18vh;" class="m-3" />
+            <div class="box is-inline-block m-2 has-text-centered" style="width:40vw;">
+                <img src="~/imgs/NavMap/Board_Icon.png" style="height:15vh;" class="mt-3" />
                 <p class="is-size-4 has-text-centered">Board</p>
             </div>
         </a>
-        <a>
-            <div class="box is-inline-block m-2 has-text-centered" style="width:300px;">
-                <img src="~/imgs/NavMap_VoidDeckIcon.png" style="height:18vh;" class="m-3" />
-                <p class="is-size-4">Void Deck</p>
+        <a href="">
+            <div class="box is-inline-block m-2 has-text-centered" style="width: 40vw;">
+                <img src="~/imgs/NavMap/Communities_Icon.png" style="height:15vh;" class="mt-3" />
+                <p class="is-size-4 has-text-centered">Communities</p>
             </div>
         </a>
-        <a>
-            <div class="box is-inline-block m-2 has-text-centered" style="width:300px;">
-                <img src="~/imgs/NavMap_InboxIcon.png" style="height:18vh;" class="m-3" />
-                <p class="is-size-4">Inbox</p>
+        <a href="/DigitalVoidDeck/Lobby">
+            <div class="box is-inline-block m-2 has-text-centered" style="width: 40vw;">
+                <img src="~/imgs/NavMap/Void_Deck.png" style="height:15vh;" class="mt-3" />
+                <p class="is-size-4 has-text-centered">Void Deck</p>
             </div>
         </a>
-    </div>
-
-    <div class="container">
-        <h1 class="is-size-3 iconLabelEnt">Entertainment</h1>
         <a href="/Events">
-            <div class="box is-inline-block m-2 has-text-centered" style="width:300px;">
-                <img src="~/imgs/NavMap_EventsIcon.png" style="height:18vh;" class="m-3" />
+            <div class="box is-inline-block m-2 has-text-centered" style="width: 40vw;">
+                <img src="~/imgs/NavMap/Events_Icon.png" style="height:15vh;" class="mt-3" />
                 <p class="is-size-4 has-text-centered">Events</p>
             </div>
         </a>
-    </div>
 
-    <div class="container">
-        <h1 class="is-size-3 iconLabelMe ">Me</h1>
-        <a>
-            <div class="box is-inline-block m-2 has-text-centered" style="width:300px;">
-                <img src="~/imgs/NavMap_ProfileIcon.png" style="height:18vh;" class="m-3" />
-                <p class="is-size-4 has-text-centered">Profile</p>
-            </div>
-        </a>
-        <a>
-            <div class="box is-inline-block m-2 has-text-centered" style="width:300px;">
-                <img src="~/imgs/NavMap_SettingsIcon.png" style="height:18vh;" class="m-3" />
-                <p class="is-size-4">Settings</p>
-            </div>
-        </a>
     </div>
+    <br />
 
-    <div class="container">
-        <h1 class="is-size-3 iconLabelHelp">Help</h1>
-        <a>
-            <div class="box is-inline-block m-2 has-text-centered" style="width:300px;">
-                <img src="~/imgs/NavMap_GuidesIcon.png" style="height:18vh;" class="m-3" />
-                <p class="is-size-4 has-text-centered">Guides</p>
-            </div>
-        </a>
-        <a>
-            <div class="box is-inline-block m-2 has-text-centered" style="width:300px;">
-                <img src="~/imgs/NavMap_SupportIcon.png" style="height:18vh;" class="m-3" />
-                <p class="is-size-4">Support</p>
-            </div>
-        </a>
-    </div>
+    <aside class="menu">
 
+        @*<p class="menu-label">
+            Community
+        </p>
+        <ul class="menu-list">
+            <li><a>Board</a></li>
+            <li><a>Communities</a></li>
+            <li><a>Void Deck</a></li>
+            <li><a>Events</a></li>
+        </ul>
+        <br />*@
+
+        <p class="menu-label">
+            Social
+        </p>
+        <ul class="menu-list">
+            <li><a><i class="fas fa-comment"></i>&ensp;Chats</a></li>
+            <li><a><i class="fas fa-user-friends"></i>&ensp;Friends</a></li>
+        </ul>
+        <br />
+
+        <p class="menu-label">
+            My Account
+        </p>
+        <ul class="menu-list">
+            <li><a><i class="fas fa-user-circle"></i>&ensp;Profile</a></li>
+            <li><a><i class="fas fa-cog"></i>&ensp;Settings</a></li>
+        </ul>
+        <br />
+
+        <p class="menu-label">
+            Help
+        </p>
+        <ul class="menu-list">
+            <li><a><i class="fas fa-headset"></i>&ensp;Support</a></li>
+        </ul>
+
+    </aside>
 </section>
 
 <script>
