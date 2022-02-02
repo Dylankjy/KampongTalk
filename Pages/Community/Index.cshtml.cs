@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Google.Type;
 using KampongTalk.Models;
 using Microsoft.AspNetCore.Http;
@@ -20,24 +22,28 @@ namespace KampongTalk.Pages.Community
         public string CreateDate { get; set; }
         public bool IsCurrentUserOwner { get; set; }
         
+        // Posts
+        public IEnumerable<dynamic> PostsToDisplay { get; set; }
+        public int PostCount { get; set; }
+
         // Profile edit props
         [BindProperty, Required] public string EditDescription { get; set; }
 
         // Error handling props
         public bool ShowCommunityNotFoundError { get; set; }
         
-        public IActionResult OnGet(string c)
+        public IActionResult OnGet(string c, int p)
         {
             // Get current user
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
 
             // Database declarations
-            var dbUsers =
-                new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
-                    "Users");
             var dbCommunities =
                 new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
                     "Communities");
+            var dbPost =
+                new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
+                    "Post");
             
             // Get user by PhoneNumber
             ViewingCommunity = dbCommunities.Single(new
@@ -70,6 +76,14 @@ namespace KampongTalk.Pages.Community
             {
                 IsCurrentUserOwner = true;
             }
+            
+            // Get posts in this community from database
+            var postsInThisCommunity = dbPost.All(new { InCommunity = ViewingCommunity.Cid});
+
+            var numberOfObjectsPerPage = 10;
+            PostsToDisplay = postsInThisCommunity.ToList().Skip(numberOfObjectsPerPage * p)
+                .Take(numberOfObjectsPerPage);
+            PostCount = PostsToDisplay.Count();
 
             return Page();
         }

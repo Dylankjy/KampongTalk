@@ -1,8 +1,16 @@
 @page
+@using KampongTalk.Models
 @model KampongTalk.Pages.Community.Index
 
 @{
-    ViewData["Title"] = "";
+    if (Model.ViewingCommunity != null)
+    {
+        ViewData["Title"] = Model.ViewingCommunity.Name;
+    }
+    else
+    {
+        ViewData["Title"] = "404: Community not found";
+    }
 }
 
 <style>
@@ -24,6 +32,15 @@
             margin-top: -5rem;
     }
     
+    .pfp-post {
+            height: 3rem;
+            width: 3rem;
+            border: .2rem solid white;
+            border-radius: 9999rem;
+            margin-top: -.5rem;
+            margin-bottom: -.75rem;
+        }
+    
     .card-hero {
         background: grey;
         width: 640px;
@@ -32,6 +49,12 @@
         border-top-right-radius: 0.25rem;
         margin: -1.5rem -1.5rem 1.5rem;
     }
+    
+    .card-top {
+        padding: 1.5rem 1.5rem 0;
+        background: linear-gradient(180deg, rgba(72,136,149,0.4) 15%, rgba(255,255,255,0.4) 100%);
+    }
+   
 </style>
 
 <section class="hero has-background-grey is-dark">
@@ -56,14 +79,8 @@
                             <div class="level">
                                 <div class="level-item has-text-centered">
                                     <div>
-                                        <p class="heading">Members</p>
-                                        <p class="title">69</p>
-                                    </div>
-                                </div>
-                                <div class="level-item has-text-centered">
-                                    <div>
                                         <p class="heading">Posts</p>
-                                        <p class="title">420</p>
+                                        <p class="title">@Model.PostCount</p>
                                     </div>
                                 </div>
                                 @{
@@ -83,7 +100,7 @@
                             if (Model.ViewingCommunity.Description != null)
                             {
                                 <div>
-                                    <h3 class="title is-5">About me</h3>
+                                    <h3 class="title is-5">About this community</h3>
                                     <p>@Model.ViewingCommunity.Description</p>
                                 </div>
                                 <hr/>
@@ -105,9 +122,53 @@
                         </div>
                     </div>
                     <div class="column">
-                        <h2 class="title is-5">Recent posts by this user</h2>
-                        <p>Posts here</p>
-                        @* TODO: Add posts *@
+                        <h2 class="title is-5">Posts in this community</h2>
+                        @{foreach (var post in Model.PostsToDisplay)
+                            {
+                                <div class="card mt-4">
+                                    <div class="card-content card-top">
+                                        <a href="/Profile?u=@UserApi.GetUserById(post.Author).Uid2">
+                                            <div class="level">
+                                                <div class="level-left">
+                                                    <div class="level-item">
+                                                        <div class="pfp-post"></div>
+                                                    </div>
+                                                    <div class="level-item">
+                                                        <div>
+                                                            <p class="title is-5">
+                                                                @UserApi.GetUserById(post.Author).Name
+                                                                <span class="is-size-6 has-text-grey" style="margin-top: -1.5rem">&#64;@UserApi.GetUserById(post.Author).Uid2</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="card-content">
+                                        <p class="is-size-5">@post.Content</p>
+                                    </div>
+                                    <div class="card-content has-background-light">
+                                        <div class="level is-mobile">
+                                            <div class="level-left">
+                                                <a class="level-item">
+                                                    <div class="tags has-addons">
+                                                        <span class="tag is-primary"><i class="fas fa-thumbs-up"></i>&ensp; Like</span>
+                                                        <span class="tag is-dark">100</span>
+                                                    </div>
+                                                </a>
+                                                <a class="level-item">
+                                                    <div class="tags has-addons">
+                                                        <span class="tag is-info"><i class="fas fa-comments"></i>&ensp; Reply</span>
+                                                        <span class="tag is-dark">69</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
                     </div>
                 </div>
             </div>
