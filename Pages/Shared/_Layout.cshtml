@@ -22,6 +22,8 @@
     </style>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.0.0/turbolinks.min.js" integrity="sha512-ifx27fvbS52NmHNCt7sffYPtKIvIzYo38dILIVHQ9am5XGDQ2QjSXGfUZ54Bs3AXdVi7HaItdhAtdhKz8fOFrA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <meta name="turbolinks-cache-control" content="no-cache">
+    
     <script>
         Turbolinks.start()
     </script>
@@ -29,11 +31,17 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script>
         $(document).on('turbolinks:click', function () {
-            Turbolinks.clearCache()
-            return $('main').fadeOut('fast');
+            
+            $('#main').fadeOut(250, () => {
+                // return $('#loading-skeleton-section').fadeOut(100);
+            });
         });
         $(document).on('turbolinks:load', function () {
-            return $('main').fadeIn('fast');
+            setTimeout(() => {
+                // $('#loading-skeleton-section').fadeOut(100, () => {
+                    return $('main').fadeIn(250);
+                // });
+            }, 0)
         });
     </script>
 
@@ -146,17 +154,63 @@
     </div>
 </nav>
 
+@* <style> *@
+@*     .skeleton-block { *@
+@*         width: 100%; *@
+@*         height: 5rem; *@
+@*         background: #e6e6e6; *@
+@*         border-radius: 6px; *@
+@*         margin-bottom: 1rem; *@
+@*         position: relative; *@
+@*         overflow: hidden; *@
+@*     } *@
+@*      *@
+@*     .skeleton-block::before { *@
+@*         content: ''; *@
+@*         display: block; *@
+@*         position: absolute; *@
+@*         left: -150px; *@
+@*         top: 0; *@
+@*         height: 100%; *@
+@*         width: 150px; *@
+@*         background: linear-gradient(to right, transparent 0%, #F3F5F7 50%, transparent 100%); *@
+@*         animation: load 1.2s ease-in-out infinite; *@
+@*         /* cubic-bezier(0.4, 0.0, 0.2, 1) */ *@
+@*     } *@
+@*      *@
+@*     @@keyframes load { *@
+@*         from { *@
+@*             left: -150px; *@
+@*         } *@
+@*         to { *@
+@*             left: 100%; *@
+@*         } *@
+@*     } *@
+@* *@
+@* </style> *@
+@* *@
+@* <div id="loading-skeleton-section" class="section" style="display: block"> *@
+@*     <div class="container"> *@
+@*         <div class="skeleton-block"></div> *@
+@*         <div class="skeleton-block" style="opacity: 0.8"></div> *@
+@*         <div class="skeleton-block" style="opacity: 0.6"></div> *@
+@*         <div class="skeleton-block" style="opacity: 0.4"></div> *@
+@*         <div class="skeleton-block" style="opacity: 0.2"></div> *@
+@*         <div class="skeleton-block" style="opacity: 0.1"></div> *@
+@*     </div> *@
+@* </div> *@
+
 <main style="display: none">
     @RenderBody()
+    
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                &copy; 2022 - KampongTalk - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            </p>
+        </div>
+    </footer>
 </main>
-
-<footer class="footer">
-    <div class="content has-text-centered">
-        <p>
-            &copy; 2022 - KampongTalk - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </p>
-    </div>
-</footer>
 @* <script src="~/js/site.js" asp-append-version="true"></script> *@
 
 @await RenderSectionAsync("Scripts", false)
