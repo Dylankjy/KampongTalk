@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using IdGen;
+using Mighty;
 
 namespace KampongTalk.Models
 {
@@ -16,6 +17,22 @@ namespace KampongTalk.Models
         public void SetCid()
         {
             Cid = $"{Name.Replace(" ", "").ToLower()}";
+        }
+    }
+
+    public static class CommunityApi
+    {
+        public static dynamic GetCommunityById(string cid)
+        {
+            // Database declarations
+            var dbCommunities =
+                new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
+                    "Communities");
+
+            return dbCommunities.Single(new
+            {
+                Cid = cid
+            });
         }
     }
 }
