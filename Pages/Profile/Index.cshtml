@@ -51,13 +51,21 @@
     }
     
     .card-top {
+        padding: 1.5rem 1.5rem 0;
+        background: linear-gradient(180deg, rgba(72,136,149,0.4) 15%, rgba(255,255,255,0.4) 100%);
+    }
+    
+    .card-meta {
+        padding: 1rem 1.5rem 0;
+        background:rgba(72,136,149,0.4)
+    }
+    
+    .card-meta + .card-top {
         padding-top: 1.5rem;
         padding-left: 1.5rem;
         padding-right: 1.5rem;
-        padding-bottom: 0;
-        background: linear-gradient(180deg, rgba(72,136,149,0.4) 0%, rgba(255,255,255,0.4) 100%);
-
     }
+    
 </style>
 
 <section class="hero is-medium has-background-grey is-dark">
@@ -153,6 +161,14 @@
                             foreach (var post in Model.PostsToDisplay)
                             {
                                 <div class="card mt-4">
+                                    @{
+                                        if (post.InCommunity != null)
+                                        {
+                                            <div class="card-content card-meta">
+                                                <p class="has-text-weight-medium"><i class="fas fa-arrow-right"></i>&ensp;Posted in <a href="/Community?c=@post.InCommunity" class="has-text-weight-bold has-text-black">@CommunityApi.GetCommunityById(post.InCommunity).Name</a></p>
+                                            </div> 
+                                        }
+                                    }
                                     <div class="card-content card-top">
                                         <a href="/Profile?u=@UserApi.GetUserById(post.Author).Uid2">
                                             <div class="level">
@@ -162,9 +178,9 @@
                                                     </div>
                                                     <div class="level-item">
                                                         <div>
-                                                            <p class="title has-text-black is-5">
+                                                            <p class="title is-5">
                                                                 @UserApi.GetUserById(post.Author).Name
-                                                                <span class="is-size-6 has-text-dark" style="margin-top: -1.5rem">&#64;@UserApi.GetUserById(post.Author).Uid2</span>
+                                                                <span class="is-size-6 has-text-grey" style="margin-top: -1.5rem">&#64;@UserApi.GetUserById(post.Author).Uid2</span>
                                                             </p>
                                                         </div>
                                                     </div>
@@ -173,7 +189,7 @@
                                         </a>
                                     </div>
                                     <div class="card-content">
-                                        <p>@post.Content</p>
+                                        <p class="is-size-5">@post.Content</p>
                                     </div>
                                     <div class="card-content has-background-light">
                                         <div class="level is-mobile">
