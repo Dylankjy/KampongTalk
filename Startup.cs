@@ -43,6 +43,11 @@ namespace KampongTalk
             
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddHttpContextAccessor();
+            services.AddControllers();
+
+            services.AddMvc();
+            services.AddAntiforgery(options => options.HeaderName = "XSRF-TOKEN");
+            services.Configure<IISServerOptions>(options => { options.AllowSynchronousIO = true; });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
