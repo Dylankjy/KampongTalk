@@ -20,6 +20,22 @@
             font-family: 'Atkinson Hyperlegible', 'Noto Sans JP', 'Noto Sans SC', 'Noto Sans Tamil', 'Helvetica Neue', sans-serif;
         }
     </style>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.0.0/turbolinks.min.js" integrity="sha512-ifx27fvbS52NmHNCt7sffYPtKIvIzYo38dILIVHQ9am5XGDQ2QjSXGfUZ54Bs3AXdVi7HaItdhAtdhKz8fOFrA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        Turbolinks.start()
+    </script>
+    
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script>
+        $(document).on('turbolinks:click', function () {
+            Turbolinks.clearCache()
+            return $('main').fadeOut('fast');
+        });
+        $(document).on('turbolinks:load', function () {
+            return $('main').fadeIn('fast');
+        });
+    </script>
 
     @{
         switch (UserAttributes.getTextSize())
@@ -130,7 +146,7 @@
     </div>
 </nav>
 
-<main>
+<main style="display: none">
     @RenderBody()
 </main>
 
@@ -141,8 +157,6 @@
         </p>
     </div>
 </footer>
-
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
 @* <script src="~/js/site.js" asp-append-version="true"></script> *@
 
 @await RenderSectionAsync("Scripts", false)
