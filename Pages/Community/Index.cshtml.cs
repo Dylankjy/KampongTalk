@@ -92,6 +92,13 @@ namespace KampongTalk.Pages.Community
 
         public IActionResult OnPost(string c)
         {
+            var dbActionLogs =
+                new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
+                    "ActionLogs");
+            var dbPost =
+                new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
+                    "Post");
+
             // Get current user
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
             
@@ -122,6 +129,15 @@ namespace KampongTalk.Pages.Community
             
             // Commit changes
             dbCommunities.Update(selectedCommunity);
+            
+            // Add to user audit log
+            dbActionLogs.Insert(new ActionLog
+            {
+                Uid = CurrentUser.Uid,
+                ActionExecuted = "community_edit",
+                Metadata = null,
+                Info = $"{selectedCommunity.Name}'s description was changed."
+            });
 
             return Redirect($"/Community?c={selectedCommunity.Cid}");
         }
