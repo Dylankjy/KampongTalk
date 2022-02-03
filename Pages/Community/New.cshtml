@@ -2,7 +2,7 @@
 @model KampongTalk.Pages.Community.New
 
 @{
-    //Layout = null;
+    ViewData["Title"] = "Create new community";
 }
 
 <style>
@@ -46,8 +46,17 @@
             <h1 class="title">Create a new community</h1>
             <p class="subtitle">Start a space where people of similar interests can enjoy</p>
         </div>
+        
+        @{
+            if (Model.ShowAlreadyHaveCommunityError)
+            {
+                <div class="notification is-danger is-light">
+                    <p class="has-text-weight-bold">No new communities can be created</p>
+                    <p>This account has created the community, <a href="/Community?u=@Model.ExistingCommunity.Cid">@Model.ExistingCommunity.Name</a>, and can no longer create any new communities.</p>
+                </div>
+            } else {
 
-        <form method="post">
+            <form method="post">
             <div class="card card-new-community mt-6" style="border-top-right-radius: 0.5rem; border-top-left-radius: 0.5rem">
                 <div class="card-content">
                     <div class="has-background-dark card-hero">
@@ -100,5 +109,9 @@
                 </span>
             </div>
         </form>
+            }
+        }
+        
+        <p class="has-text-centered"><b>Changed your mind?</b><br/><a href="/">Return to homepage</a></p>
     </div>
 </section>

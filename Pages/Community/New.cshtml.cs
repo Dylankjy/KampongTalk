@@ -16,6 +16,8 @@ namespace KampongTalk.Pages.Community
         
         // Error flag prop
         public bool ShowDuplicateError { get; set; }
+        public bool ShowAlreadyHaveCommunityError { get; set; }
+        public dynamic ExistingCommunity { get; set; }
         public string CommunityNameClass { get; set; }
         
         public IActionResult OnGet()
@@ -23,13 +25,26 @@ namespace KampongTalk.Pages.Community
             // Get current user
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
 
-            // If the current user is verified, naturally, the object is present, so just redirect them.
-            if (CurrentUser is {IsVerified: true}) return RedirectToPage("/Index");
-
             // If the user has not OTP verified
             if (CurrentUser is {IsVerified: false}) return RedirectToPage("/Verify");
+            
+            // Database declarations
+            var dbCommunities =
+                new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
+                    "Communities");
+            
+            // Check whether user already has a community created
+            // If so, show error message
+            var selectedCommunityByUser = dbCommunities.Single(new { CreatorId = CurrentUser.Uid });
 
-            // Show login page if not logged in already.
+            if (selectedCommunityByUser != null)
+            {
+                ShowAlreadyHaveCommunityError = true;
+                ExistingCommunity = selectedCommunityByUser;
+                return Page();
+            }
+
+            // Show page if not logged in already.
             return Page();
         }
 
@@ -47,11 +62,7 @@ namespace KampongTalk.Pages.Community
             var dbCommunities =
                 new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
                     "Communities");
-            
-            // Call method to process Name and set Cid.
-            NewCommunity.SetCid();
-            NewCommunity.CreatorId = CurrentUser.Uid;
-            
+
             // Check whether a community with same Cid exists
             var selectedConflictCommunity = dbCommunities.Single(new { Cid = NewCommunity.Cid });
 
@@ -62,6 +73,18 @@ namespace KampongTalk.Pages.Community
                 CommunityNameClass = "has-text-danger";
                 return Page();
             }
+            
+            // Check whether user already has a community created
+            var selectedCommunityByUser = dbCommunities.Single(new { CreatorId = CurrentUser.Uid });
+
+            if (selectedCommunityByUser != null)
+            {
+                return Page();
+            }
+            
+            // Call method to process Name and set Cid.
+            NewCommunity.SetCid();
+            NewCommunity.CreatorId = CurrentUser.Uid;
 
             // Insert community object
             dbCommunities.Insert(NewCommunity);
