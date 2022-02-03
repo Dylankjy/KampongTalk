@@ -20,8 +20,13 @@ namespace KampongTalk.Pages.Search
             
             return res;
         }
+
+        public static void PutRelevancy(string text, long entityId)
+        {
+            PutRelevancy(text, entityId.ToString());
+        }
         
-        public static async void PutRelevancy(string text, long entityId)
+        public static async void PutRelevancy(string text, string entityId)
         {
             // Database declarations
             var dbRel =
