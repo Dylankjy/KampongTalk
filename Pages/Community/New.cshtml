@@ -50,7 +50,7 @@
         @{
             if (Model.ShowAlreadyHaveCommunityError)
             {
-                <div class="notification is-danger is-light">
+                <div class="notification is-danger is-light mt-5 mb-5">
                     <p class="has-text-weight-bold">No new communities can be created</p>
                     <p>This account has created the community, <a href="/Community?c=@Model.ExistingCommunity.Cid">@Model.ExistingCommunity.Name</a>, and can no longer create any new communities.</p>
                 </div>
@@ -83,7 +83,7 @@
                     <div class="field">
                         <label class="label">About this community</label>
                         <div class="control">
-                            <textarea class="textarea" rows="5" placeholder="A community where flower lovers can interact. Share pictures of your garden or flowers!" asp-for="NewCommunity.Description" required minlength="20"></textarea>
+                            <textarea class="textarea" rows="5" placeholder="A community where flower lovers can interact. Share pictures of your garden or flowers!" asp-for="NewCommunity.Description" required minlength="20" maxlength="254"></textarea>
                         </div>
                         <small class="has-text-grey">Be descriptive as possible so that more people can find your community.</small>
                     </div>
@@ -111,7 +111,7 @@
         </form>
             }
         }
-        
+        <hr/>
         <p class="has-text-centered"><b>Changed your mind?</b><br/><a href="/">Return to homepage</a></p>
     </div>
 </section>
