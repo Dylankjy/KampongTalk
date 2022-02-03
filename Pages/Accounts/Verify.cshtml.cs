@@ -76,6 +76,10 @@ namespace KampongTalk.Pages.Accounts
                 var selectedDbCurrentUser = dbUsers.Single(new {CurrentUser.Uid});
                 selectedDbCurrentUser.IsVerified = true;
                 dbUsers.Update(selectedDbCurrentUser);
+                
+                // Update session to reflect IsVerified to true.
+                CurrentUser.IsVerified = true;
+                HttpContext.Session.SetString("CurrentUser", CurrentUser.ToJson());
 
                 // And then, return the user to the main index page.
                 return RedirectToPage("/Index");
