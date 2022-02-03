@@ -24,9 +24,12 @@ namespace KampongTalk.Pages.Community
         {
             // Get current user
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
-
+            
+            // If the current user is verified, naturally, the object is present, so just redirect them.
+            if (CurrentUser is null) return RedirectToPage("/Accounts/Login");
+            
             // If the user has not OTP verified
-            if (CurrentUser is {IsVerified: false}) return RedirectToPage("/Verify");
+            if (CurrentUser is {IsVerified: false}) return RedirectToPage("/Accounts/Verify");
             
             // Database declarations
             var dbCommunities =
