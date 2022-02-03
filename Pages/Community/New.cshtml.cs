@@ -1,4 +1,7 @@
+using System;
+using System.Linq;
 using KampongTalk.Models;
+using KampongTalk.Pages.Search;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -91,6 +94,9 @@ namespace KampongTalk.Pages.Community
 
             // Insert community object
             dbCommunities.Insert(NewCommunity);
+            
+            // Update relevancy
+            SearchApi.PutRelevancy($"{NewCommunity.Name} - {NewCommunity.Description}", NewCommunity.Cid);
 
             return Redirect($"/Community?c={NewCommunity.Cid}");
         }
