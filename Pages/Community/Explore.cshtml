@@ -1,0 +1,47 @@
+﻿@page
+@model KampongTalk.Pages.Community.Explore
+
+@{
+    ViewData["Title"] = "Explore communities";
+}
+
+<style>
+    .community-icon {
+        height: 8rem;
+        width: 8rem;
+        background: grey; 
+        /*border: .5rem solid white;*/
+        border-radius: 2rem;
+    }
+</style>
+
+<section class="section">
+    <div class="container">
+        <h1 class="title">Explore community</h1>
+        <h2 class="title is-5">Popular communities</h2>
+        @{
+            foreach (var community in Model.CommToDisplayByPopularity)
+            {
+                <a href="/Community?c=@community.Cid">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="level">
+                                <div class="level-left">
+                                    <div class="level-item has-text-centered">
+                                        <div class="community-icon"></div>
+                                    </div>
+                                    <div class="level-item">
+                                        <div class="ml-3 is-relative">
+                                            <h2 class="title">@community.Name</h2>
+                                            <p class="subtitle mt-0">@community.Description</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            }
+        }
+    </div>
+</section>
