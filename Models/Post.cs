@@ -35,5 +35,11 @@ namespace KampongTalk.Models
             var dbPosts = new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"], "Post");
             return dbPosts.All(new { IsComment = pid}).ToList().Count;
         }
+
+        public static dynamic GetPostByPid(long pid)
+        {
+            var dbPosts = new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"], "Post");
+            return dbPosts.Single(new { Pid = pid });
+        }
     }
 }
