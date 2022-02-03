@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Google.Type;
 using KampongTalk.Models;
+using KampongTalk.Pages.Search;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -147,6 +149,9 @@ namespace KampongTalk.Pages.Community
                 InCommunity = selectedCommunity.Cid,
                 Timestamp = DateTime.Now
             });
+            
+            // Update relevancy
+            SearchApi.PutRelevancy($"{selectedCommunity.Name} - {selectedCommunity.Description}", selectedCommunity.Cid);
 
             return Redirect($"/Community?c={selectedCommunity.Cid}");
         }
