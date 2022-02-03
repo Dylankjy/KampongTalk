@@ -211,7 +211,7 @@
                             <div class="field">
                                 <label class="label">About this community</label>
                                 <div class="control">
-                                    <textarea class="textarea" rows="5" asp-for="EditDescription" minlength="20">@Model.ViewingCommunity.Description</textarea>
+                                    <textarea class="textarea" rows="5" asp-for="EditDescription" minlength="20" maxlength="254"></textarea>
                                 </div>
                             </div>
                             

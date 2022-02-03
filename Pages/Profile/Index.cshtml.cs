@@ -88,6 +88,9 @@ namespace KampongTalk.Pages.Profile
             PostsToDisplay = postsByThisUser.ToList().Skip(numberOfObjectsPerPage * p)
                 .Take(numberOfObjectsPerPage);
             PostCount = PostsToDisplay.Count();
+            
+            // Set default value for textarea, Bio
+            EditBio = ViewingUser.Bio;
 
             return Page();
         }

@@ -68,7 +68,8 @@ namespace KampongTalk.Pages.Community
 
             CreateDate = $"{months[createDateRaw.Month - 1]} {createDateRaw.Year}";
             
-            // TODO: The thingy no work for the textarea
+            // Set default value for EditField
+            EditDescription = ViewingCommunity.Description;
             
             // Set owner flag
             long communityOwnerId = ViewingCommunity.CreatorId;
