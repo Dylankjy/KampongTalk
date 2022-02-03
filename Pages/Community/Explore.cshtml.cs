@@ -45,7 +45,7 @@ namespace KampongTalk.Pages.Community
                 });
             }
 
-            CommToDisplayByPopularity = communityByPopularity.OrderBy(i => i.NumberOfPosts).ToList();
+            CommToDisplayByPopularity = communityByPopularity.OrderBy(i => i.NumberOfPosts).Reverse().ToList();
         }
     }
 
