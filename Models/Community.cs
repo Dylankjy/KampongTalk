@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using IdGen;
 using Mighty;
 
@@ -33,6 +34,19 @@ namespace KampongTalk.Models
             {
                 Cid = cid
             });
+        }
+
+        public static int GetPostCountByCid(string cid)
+        {
+            // Database declarations
+            var dbPost =
+                new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
+                    "Post");
+
+            return dbPost.All(new
+            {
+                InCommunity = cid
+            }).ToList().Count;
         }
     }
 }
