@@ -90,5 +90,45 @@ namespace KampongTalk.Pages.Search
                 Console.WriteLine(new Exception("KeywordAPI service responded with an error."));
             }
         }
+
+        public static async Task<dynamic> GetSearchResults(string searchQuery)
+        {
+            // Database declarations
+            var dbRel =
+                new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
+                    "Relevancy");
+
+            // Get keywords from API
+            var keywordResultsRaw = await GetKeyword(searchQuery);
+            List<string> keywordResults = new List<string>();
+            foreach (var noun in keywordResultsRaw.nouns)
+            {
+                keywordResults.Add(noun);
+            }
+
+            foreach (var verb in keywordResultsRaw.verbs)
+            {
+                keywordResults.Add(verb);
+            }
+
+            // Contain search results
+            var search = new List<dynamic>();
+            
+            // Database all
+            // var dbRelAll = dbRel.All();
+
+            foreach (var word in keywordResults)
+            {
+                foreach (var row in dbRel.All())
+                {
+                    if (word.Contains(row.Keyword))
+                    {
+                        search.Add(row);
+                    }
+                }
+            }
+
+            return search;
+        }
     }
 }
