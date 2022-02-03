@@ -138,6 +138,15 @@ namespace KampongTalk.Pages.Community
                 Metadata = null,
                 Info = $"{selectedCommunity.Name}'s description was changed."
             });
+            
+            // Add notification to community as post.
+            dbPost.Insert(new Post
+            {
+                Author = 0,
+                Content = $"The community's description was changed to \"{EditDescription}\".",
+                InCommunity = selectedCommunity.Cid,
+                Timestamp = DateTime.Now
+            });
 
             return Redirect($"/Community?c={selectedCommunity.Cid}");
         }
