@@ -30,7 +30,7 @@ namespace KampongTalk.Pages.Search
                 {
                     SearchResult += $"{i.EntityId} | {i.Keyword} | {PostApi.GetPostByPid(long.Parse(i.EntityId)).Content}<br>";
                 }
-                catch (Exception e)
+                catch
                 {
                     SearchResult += $"{i.EntityId} | {i.Keyword}<br>";
                 }
