@@ -8,10 +8,10 @@
     {
         <script>
             $("#renderImage").on('click', () => {
-                $("input[name=eventImage").click()
+                $("input[name=eventImage]").click()
             })
 
-            $("input[name=eventImage").on('change', () => {
+            $("input[name=eventImage]").on('change', () => {
                 console.log("Changed")
                 $("#editImageForm").submit()
             })
@@ -65,7 +65,7 @@ else
         <div class="columns is-vcentered">
             @if (Model.amOwner)
             {
-                <partial name="_EditableImg"/>
+                <partial name="Partials/_EditableImg"/>
             }
             else
             {
