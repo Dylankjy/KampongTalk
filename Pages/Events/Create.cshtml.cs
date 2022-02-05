@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using KampongTalk.Models;
+using KampongTalk.Pages.Search;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -61,6 +62,7 @@ namespace KampongTalk.Pages.Events
                     myEvent.CreatorId = CurrentUser.Uid;
                     myEvent.Attendees = $"{myEvent.CreatorId};";
                     myEvent.Duration = Convert.ToString(endTimeSpan.TotalHours - startTimeSpan.TotalHours);
+                    SearchApi.PutRelevancy($"{myEvent.Name} {myEvent.Description}", myEvent.Eid);
                     eventDb.Insert(myEvent);
                     return Redirect("/Events/MyEvents");
                 }
