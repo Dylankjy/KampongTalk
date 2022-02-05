@@ -58,5 +58,6 @@ namespace KampongTalk.Pages.Community
         [Required] public string Description { get; set; }
         public DateTime TimeCreated { get; set; }
         public int NumberOfPosts { get; set; }
+        public int Weight { get; set; } = 0;
     } 
 }

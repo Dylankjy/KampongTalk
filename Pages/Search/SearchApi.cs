@@ -21,6 +21,69 @@ namespace KampongTalk.Pages.Search
             return res;
         }
 
+        public static string GetEntityTypeByEid(long eid)
+        {
+            return GetEntityTypeByEid(eid.ToString());
+        }
+
+        public static string GetEntityTypeByEid(string eid)
+        {
+            var dbPost =
+                new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
+                    "Post");
+            var dbEvents =
+                new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
+                    "Events");
+            var dbUsers =
+                new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
+                    "Users");
+            var dbCommunities =
+                new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
+                    "Communities");
+
+            string eidDataType = null;
+            
+            try
+            {
+                long tryConvert = long.Parse(eid);
+                eidDataType = "peu";
+            }
+            catch
+            {
+                eidDataType = "c";
+            }
+
+            if (eidDataType == "peu")
+            {
+                var post = dbPost.Single(new {Pid = eid});
+                var events = dbEvents.Single(new {Eid = eid});
+                var user = dbUsers.Single(new {Uid = eid});
+
+                if (post != null)
+                {
+                    return "post";
+                }
+                if (events != null)
+                {
+                    return "event";
+                }
+                if (user != null)
+                {
+                    return "user";
+                }
+            }
+            else
+            {
+                var community = dbCommunities.Single(new {Cid = eid});
+                if (community != null)
+                {
+                    return "community";
+                }
+            }
+
+            return null;
+        }
+
         public static void PutRelevancy(string text, long entityId)
         {
             PutRelevancy(text, entityId.ToString());
