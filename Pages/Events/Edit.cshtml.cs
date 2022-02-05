@@ -81,16 +81,17 @@ namespace KampongTalk.Pages.Events
                     savedEvent.Location = myEvent.Location;
                     savedEvent.StartTime = myEvent.StartTime;
                     savedEvent.EndTime = myEvent.EndTime;
+                    savedEvent.Description = myEvent.Description;
 
                     // TO render the correct DateTime & save in DB (Take the end time as the timing)
                     var dtDate = Convert.ToDateTime(myEvent.Date);
                     var renderedDate = dtDate.ToString("yyyy-MM-dd");
                     var dt = Convert.ToDateTime(renderedDate + " " + myEvent.EndTime);
-
                     savedEvent.Date = dt;
-
                     savedEvent.Duration = Convert.ToString(endTimeSpan.TotalHours - startTimeSpan.TotalHours);
-                    SearchApi.PutRelevancy($"{savedEvent.Name} {savedEvent.Description}", savedEvent.Eid);
+
+                    
+                    // SearchApi.PutRelevancy($"{savedEvent.Name} {savedEvent.Description}", savedEvent.Eid);
                     eventDb.Update(savedEvent);
                     return Redirect($"/Events/View/{savedEvent.Eid}");
                 }
