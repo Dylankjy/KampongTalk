@@ -36,26 +36,34 @@
     </ul>
 </div>
 
-@foreach (var myEvent in Model.myUpcomingEvents)
+@if (Model.myUpcomingEvents != null)
 {
-    <a href="/Events/View/@myEvent.Eid">
-        @if (isOwner(myEvent))
-        {
-            <div class="card" style="margin: 1% 5% 1%; background-color: rgba(95, 233, 148, 0.55);">
-                <div class="card-content">
-                    <p class="title is-4">@myEvent.Name</p>
-                    <p class="subtitle is-6">@GetDateString(myEvent.Date)<br> @myEvent.StartTime - @myEvent.EndTime</p>
+    @foreach (var myEvent in Model.myUpcomingEvents)
+    {
+        <a href="/Events/View/@myEvent.Eid">
+            @if (isOwner(myEvent))
+            {
+                <div class="card" style="margin: 1% 5% 1%; background-color: rgba(95, 233, 148, 0.55);">
+                    <div class="card-content">
+                        <p class="title is-4">@myEvent.Name</p>
+                        <p class="subtitle is-6">@GetDateString(myEvent.Date)<br> @myEvent.StartTime - @myEvent.EndTime</p>
+                    </div>
                 </div>
-            </div>
-        }
-        else
-        {
-            <div class="card" style="margin:1% 5% 1%;">
-                <div class="card-content">
-                    <p class="title is-4">@myEvent.Name</p>
-                    <p class="subtitle is-6">@GetDateString(myEvent.Date)<br> @myEvent.StartTime - @myEvent.EndTime</p>
+            }
+            else
+            {
+                <div class="card" style="margin:1% 5% 1%;">
+                    <div class="card-content">
+                        <p class="title is-4">@myEvent.Name</p>
+                        <p class="subtitle is-6">@GetDateString(myEvent.Date)<br> @myEvent.StartTime - @myEvent.EndTime</p>
+                    </div>
                 </div>
-            </div>
-        }
-    </a>
+            }
+        </a>
+    }
+}
+
+else
+{
+    <h1>No upcoming events</h1>
 }

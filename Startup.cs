@@ -34,6 +34,7 @@ namespace KampongTalk
             services.AddSingleton<ITranslator, Translator>();
             services.AddSingleton<ISpeech, SpeechSythesizer>();
             services.AddTransient<IUserAttributes, UserAttributes>();
+            services.AddTransient<IEventRecommender, EventRecommender>();
 
             services.AddMvc().AddRazorOptions(options =>
             {
@@ -42,6 +43,9 @@ namespace KampongTalk
             });
             
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
             services.AddHttpContextAccessor();
             services.AddControllers();
 

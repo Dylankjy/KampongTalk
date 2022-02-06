@@ -18,6 +18,7 @@
         </script>
     }
 }
+<link rel="stylesheet" href="~/css/event.css">
 
 @if (Model.isOver)
 {
@@ -71,7 +72,7 @@ else
             {
                 <div class="column is-8">
                     <figure class="has-text-centered">
-                        <img src="~/imgs/@Model.myEvent.Img"/>
+                        <img src="~/imgs/Events/@Model.myEvent.Img"/>
                     </figure>
                 </div>
             }
@@ -124,6 +125,27 @@ else
                     </form>
                 }
             </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <p class="title">Similar Events</p>
+        <div class="columns is-multiline is-variable is-5" id="displayedListings">
+            @foreach (var myEvent in Model.recommendedEvents)
+            {
+                <div class="column is-one-third">
+                    <a class="listing-clickable" href='/Events/View/@myEvent.Eid'>
+                        <div class="box listing-image" style='background-image: url("imgs/Events/@myEvent.Img")'>
+                            <div>
+                                <p class="content has-text-white">
+                                    @myEvent.Description
+                                </p>
+                            </div>
+                        </div>
+                        <h3 class="title">@myEvent.Name</h3>
+                    </a>
+                </div>
+            }
         </div>
     </div>
 }
