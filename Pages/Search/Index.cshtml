@@ -68,37 +68,8 @@
     <div class="container">
         <div class="columns">
             <div class="column is-one-quarter">
-                <h2 class="title is-5"><i class="fas fa-user"></i>&ensp;Users</h2>
-            </div>
-            <div class="column">
+
                 @{
-                            if (Model.SearchResultCommunities.Count == 0)
-                            {
-                                <h2 class="title is-5"><i class="fas fa-users"></i>&ensp;Communities <span class="has-text-weight-normal">— No relevant results</span></h2>
-                            }
-                            else
-                            {
-                                <h2 class="title is-5"><i class="fas fa-users"></i>&ensp;Communities</h2>
-                                <div class="communities-container">
-                                    @foreach (var community in Model.SearchResultCommunities)
-                                    {
-                                        <a href="/Community?c=@community.Cid" class="mr-3 m-4">
-                                            <div class="card card-new-community" style="border-top-right-radius: 0.5rem; border-top-left-radius: 0.5rem; width: 19rem; height: 100%">
-                                                <div class="card-content">
-                                                    <div class="has-background-dark card-hero"></div>
-                                                    <div class="community-icon-search"></div>
-                                                    <div class="field">
-                                                        <p class="title is-4">@community.Name</p>
-                                                        <p class="subtitle is-6">@Index.TrimIfTooLong(community.Description)</p>
-                                                    </div>
-                
-                                                    @* <div class="field"> *@
-                                                    @*     <label class="label">About this community</label> *@
-                                                    @*     <div class="control"> *@
-                                                    @*         <textarea class="textarea" rows="5" placeholder="A community where flower lovers can interact. Share pictures of your garden or flowers!" asp-for="NewCommunity.Description" required minlength="20" maxlength="254"></textarea> *@
-                                                    @*     </div> *@
-                                                    @*     <small class="has-text-grey">Be descriptive as possible so that more people can find your community.</small> *@
-                                                    @* </div> *@
                     var numberOfUsers = Model.SearchResultUsers.Count;
                     if (numberOfUsers == 0)
                     {
@@ -157,78 +128,109 @@
                     }
                 }
                 
-                        @{
-                            if (Model.SearchResultPosts.Count == 0)
+            </div>
+            <div class="column">
+                @{
+                    if (Model.SearchResultCommunities.Count == 0)
+                    {
+                        <h2 class="title is-5"><i class="fas fa-users"></i>&ensp;Communities <span class="has-text-weight-normal">— No relevant results</span></h2>
+                    }
+                    else
+                    {
+                        <h2 class="title is-5"><i class="fas fa-users"></i>&ensp;Communities</h2>
+                        <div class="communities-container">
+                            @foreach (var community in Model.SearchResultCommunities.Take(6))
                             {
-                                <h2 class="title is-5"><i class="fas fa-sticky-note"></i>&ensp;Posts <span class="has-text-weight-normal">— No relevant results</span></h2>
-                            }
-                            else
-                            {
-                                <h2 class="title is-5"><i class="fas fa-sticky-note"></i>&ensp;Posts</h2>
-                                foreach (var post in Model.SearchResultPosts)
-                                {
-                                    <div class="card mt-4">
-                                        @{
-                                            if (post.InCommunity != null)
-                                            {
-                                                <div class="card-content card-meta">
-                                                    <p class="has-text-weight-medium"><i class="fas fa-arrow-right"></i>&ensp;Posted in <a href="/Community?c=@post.InCommunity" class="has-text-weight-bold has-text-black">@CommunityApi.GetCommunityById(post.InCommunity).Name</a></p>
-                                                </div>
-                                            }
-                                        }
-                                        <div class="card-content card-top">
-                                            <a href="/Profile?u=@UserApi.GetUserById(post.Author).Uid2">
-                                                <div class="level">
-                                                    <div class="level-left">
-                                                        <div class="level-item">
-                                                            <div class="pfp-post"></div>
-                                                        </div>
-                                                        <div class="level-item">
-                                                            <div>
-                                                                <p class="title is-5">
-                                                                    @UserApi.GetUserById(post.Author).Name
-                                                                    <span class="is-size-6 has-text-grey" style="margin-top: -1.5rem">&#64;@UserApi.GetUserById(post.Author).Uid2</span>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
+                                <a href="/Community?c=@community.Cid" class="mr-3 m-4">
+                                    <div class="card card-new-community" style="border-top-right-radius: 0.5rem; border-top-left-radius: 0.5rem; width: 19rem; height: 100%">
                                         <div class="card-content">
-                                            <p class="is-size-5">@post.Content</p>
+                                            <div class="has-background-dark card-hero"></div>
+                                            <div class="community-icon-search"></div>
+                                            <div class="field">
+                                                <p class="title is-4">@community.Name</p>
+                                                <p class="subtitle is-6">@Index.TrimIfTooLong(community.Description)</p>
+                                            </div>
+
+                                            @* <div class="field"> *@
+                                            @*     <label class="label">About this community</label> *@
+                                            @*     <div class="control"> *@
+                                            @*         <textarea class="textarea" rows="5" placeholder="A community where flower lovers can interact. Share pictures of your garden or flowers!" asp-for="NewCommunity.Description" required minlength="20" maxlength="254"></textarea> *@
+                                            @*     </div> *@
+                                            @*     <small class="has-text-grey">Be descriptive as possible so that more people can find your community.</small> *@
+                                            @* </div> *@
                                         </div>
-                                        <div class="card-content has-background-light">
-                                            <div class="level is-mobile">
-                                                <div class="level-left">
-                                                    <a class="level-item">
-                                                        <div class="tags has-addons">
-                                                            <span class="tag is-primary"><i class="fas fa-thumbs-up"></i>&ensp; Like</span>
-                                                            <span class="tag is-dark">100</span>
-                                                        </div>
-                                                    </a>
-                                                    <a class="level-item">
-                                                        <div class="tags has-addons">
-                                                            <span class="tag is-info"><i class="fas fa-comments"></i>&ensp; Reply</span>
-                                                            <span class="tag is-dark">69</span>
-                                                        </div>
-                                                    </a>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                    }
+                }
+                <hr/>
+
+                @{
+                    if (Model.SearchResultPosts.Count == 0)
+                    {
+                        <h2 class="title is-5"><i class="fas fa-sticky-note"></i>&ensp;Posts <span class="has-text-weight-normal">— No relevant results</span></h2>
+                    }
+                    else
+                    {
+                        <h2 class="title is-5"><i class="fas fa-sticky-note"></i>&ensp;Posts</h2>
+                        foreach (var post in Model.SearchResultPosts)
+                        {
+                            <div class="card mt-4">
+                                @{
+                                    if (post.InCommunity != null)
+                                    {
+                                        <div class="card-content card-meta">
+                                            <p class="has-text-weight-medium"><i class="fas fa-arrow-right"></i>&ensp;Posted in <a href="/Community?c=@post.InCommunity" class="has-text-weight-bold has-text-black">@CommunityApi.GetCommunityById(post.InCommunity).Name</a></p>
+                                        </div>
+                                    }
+                                }
+                                <div class="card-content card-top">
+                                    <a href="/Profile?u=@UserApi.GetUserById(post.Author).Uid2">
+                                        <div class="level">
+                                            <div class="level-left">
+                                                <div class="level-item">
+                                                    <div class="pfp-post"></div>
+                                                </div>
+                                                <div class="level-item">
+                                                    <div>
+                                                        <p class="title is-5">
+                                                            @UserApi.GetUserById(post.Author).Name
+                                                            <span class="is-size-6 has-text-grey" style="margin-top: -1.5rem">&#64;@UserApi.GetUserById(post.Author).Uid2</span>
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                    </a>
+                                </div>
+                                <div class="card-content">
+                                    <p class="is-size-5">@post.Content</p>
+                                </div>
+                                <div class="card-content has-background-light">
+                                    <div class="level is-mobile">
+                                        <div class="level-left">
+                                            <a class="level-item">
+                                                <div class="tags has-addons">
+                                                    <span class="tag is-primary"><i class="fas fa-thumbs-up"></i>&ensp; Like</span>
+                                                    <span class="tag is-dark">100</span>
+                                                </div>
+                                            </a>
+                                            <a class="level-item">
+                                                <div class="tags has-addons">
+                                                    <span class="tag is-info"><i class="fas fa-comments"></i>&ensp; Reply</span>
+                                                    <span class="tag is-dark">69</span>
+                                                </div>
+                                            </a>
+                                        </div>
                                     </div>
-                                }
-                            }
+                                </div>
+                            </div>
                         }
+                    }
+                }
             </div>
         </div>
-    </div>
-    <div class="container">
-        <hr/>
-        <p>
-            <b>Can't find what you're looking for?</b>
-            <br/>
-            <a class="button is-small"><i class="fas fa-search-plus"></i>&ensp;Use In-depth search</a>
-        </p>
     </div>
 </section>
