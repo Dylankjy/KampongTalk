@@ -84,24 +84,30 @@ namespace KampongTalk.Pages.Search
             return null;
         }
 
-        public static void PutKeyword(long eid, string keyword, int weight)
+        public static void PutKeyword(string keyword, int weight, long eid)
         {
-            PutKeyword(eid.ToString(), keyword, weight);
+            PutKeyword(keyword, weight, eid.ToString());
         }
 
-        public static void PutKeyword(string eid, string keyword, int weight)
+        public static void PutKeyword(string keyword, int weight, string eid)
         {
             // Database declarations
             var dbRel =
                 new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
                     "Relevancy");
+            
+            // Clear all existing relevancy data before populating with new
+#pragma warning disable CS4014
+            dbRel.Delete($"EntityId = '{eid}' AND type = 'manual'");
+#pragma warning restore CS4014
 
             dbRel.InsertAsync(new Relevancy
             {
                 EntityId = eid,
-                Keyword = keyword,
+                Keyword = keyword.ToLower(),
                 Weight = weight,
-                Type = "manual"
+                Type = "manual",
+                Timestamp = DateTime.Now,
             });
         }
 
@@ -116,6 +122,11 @@ namespace KampongTalk.Pages.Search
             var dbRel =
                 new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
                     "Relevancy");
+            
+            // Clear all existing relevancy data before populating with new
+#pragma warning disable CS4014
+            await dbRel.DeleteAsync($"EntityId = '{entityId}' AND type != 'manual'");
+#pragma warning restore CS4014
 
             var res = await GetKeyword(text);
             
