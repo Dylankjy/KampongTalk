@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using KampongTalk.Models;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -20,15 +21,16 @@ namespace KampongTalk.Pages.Search
             List<SearchResultEntry> calculatedWeightResults = CalculateWeight(result);
             calculatedWeightResults = calculatedWeightResults.OrderBy(i => i.Weight).Reverse().ToList();
 
-            foreach (var entity in calculatedWeightResults)
-                try
-                {
-                    SearchResultPosts.Add(PostApi.GetPostByPid(long.Parse(entity.EntityId)));
-                }
-                catch
-                {
-                    SearchResultCommunities.Add(CommunityApi.GetCommunityById(entity.EntityId));
-                }
+            foreach (var entityObj in calculatedWeightResults)
+            {
+                var thisObjectType = SearchApi.GetEntityTypeByEid(entityObj.EntityId);
+                
+                if (thisObjectType == "post")
+                    SearchResultPosts.Add(PostApi.GetPostByPid(long.Parse(entityObj.EntityId)));
+
+                if(thisObjectType == "community")
+                    SearchResultCommunities.Add(CommunityApi.GetCommunityById(entityObj.EntityId));
+            }
         }
 
         public static string TrimIfTooLong(string text)
