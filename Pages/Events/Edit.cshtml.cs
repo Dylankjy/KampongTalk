@@ -89,9 +89,9 @@ namespace KampongTalk.Pages.Events
                     var dt = Convert.ToDateTime(renderedDate + " " + myEvent.EndTime);
                     savedEvent.Date = dt;
                     savedEvent.Duration = Convert.ToString(endTimeSpan.TotalHours - startTimeSpan.TotalHours);
-
                     
-                    // SearchApi.PutRelevancy($"{savedEvent.Name} {savedEvent.Description}", savedEvent.Eid);
+                    // SearchApi.PutKeyword(savedEvent.Name, 5, savedEvent.Eid);
+                    // SearchApi.PutRelevancy(savedEvent.Description, savedEvent.Eid);
                     eventDb.Update(savedEvent);
                     return Redirect($"/Events/View/{savedEvent.Eid}");
                 }
