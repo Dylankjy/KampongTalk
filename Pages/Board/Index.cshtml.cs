@@ -116,7 +116,9 @@ namespace KampongTalk.Pages.Board
                 try
                 {
                     postDB.Insert(newPost);
-                    // SearchApi.PutRelevancy(CurrentUser.Name + " - " + newPost.Content, newPost.Pid);
+                    
+                    // SearchApi.PutKeyword(CurrentUser.Name, 5, newPost.Pid);
+                    // SearchApi.PutRelevancy(newPost.Content, newPost.Pid);
                 }
                 catch
                 {
