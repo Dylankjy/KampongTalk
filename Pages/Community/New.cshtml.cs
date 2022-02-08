@@ -96,7 +96,8 @@ namespace KampongTalk.Pages.Community
             dbCommunities.Insert(NewCommunity);
             
             // Update relevancy
-            SearchApi.PutRelevancy($"{NewCommunity.Name} - {NewCommunity.Description}", NewCommunity.Cid);
+            SearchApi.PutRelevancy(NewCommunity.Description, NewCommunity.Cid);
+            SearchApi.PutKeyword(NewCommunity.Name, 20, NewCommunity.Cid);
 
             return Redirect($"/Community?c={NewCommunity.Cid}");
         }

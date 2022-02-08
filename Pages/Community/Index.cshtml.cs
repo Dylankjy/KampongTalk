@@ -151,7 +151,8 @@ namespace KampongTalk.Pages.Community
             });
             
             // Update relevancy
-            SearchApi.PutRelevancy($"{selectedCommunity.Name} - {selectedCommunity.Description}", selectedCommunity.Cid);
+            SearchApi.PutRelevancy(selectedCommunity.Description, selectedCommunity.Cid);
+            SearchApi.PutKeyword(selectedCommunity.Name, 20, selectedCommunity.Cid);
 
             return Redirect($"/Community?c={selectedCommunity.Cid}");
         }
