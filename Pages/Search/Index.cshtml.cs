@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using KampongTalk.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Mighty;
 
 namespace KampongTalk.Pages.Search
 {
@@ -11,12 +12,17 @@ namespace KampongTalk.Pages.Search
         // Search result prop
         public List<dynamic> SearchResultPosts { get; set; } = new List<dynamic>();
         public List<dynamic> SearchResultCommunities { get; set; } = new List<dynamic>();
+        public List<dynamic> SearchResultUsers { get; set; } = new List<dynamic>();
         public string SearchField { get; set; }
 
-        public void OnGet(string q)
+        public IActionResult OnGet(string q)
         {
-            var result = SearchApi.GetSearchResults(q).Result;
             SearchField = q;
+
+            // Detect whether kampongid 
+            if (q.StartsWith("@")) return Redirect($"/Profile?u={q.Normalize().Replace("@", "")}");
+
+            var result = SearchApi.GetSearchResults(q).Result;
 
             List<SearchResultEntry> calculatedWeightResults = CalculateWeight(result);
             calculatedWeightResults = calculatedWeightResults.OrderBy(i => i.Weight).Reverse().ToList();
@@ -24,13 +30,29 @@ namespace KampongTalk.Pages.Search
             foreach (var entityObj in calculatedWeightResults)
             {
                 var thisObjectType = SearchApi.GetEntityTypeByEid(entityObj.EntityId);
-                
+
                 if (thisObjectType == "post")
                     SearchResultPosts.Add(PostApi.GetPostByPid(long.Parse(entityObj.EntityId)));
 
-                if(thisObjectType == "community")
+                if (thisObjectType == "community")
                     SearchResultCommunities.Add(CommunityApi.GetCommunityById(entityObj.EntityId));
             }
+
+            var dbUsers =
+                new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
+                    "Users");
+
+            foreach (var user in dbUsers.Query($"Select * from Users where Name LIKE '{q.Normalize()}%'"))
+                SearchResultUsers.Add(UserApi.GetUserById(user.Uid));
+
+            // Sort by length
+            SearchResultUsers = SearchResultUsers.OrderByDescending(user =>
+            {
+                string username = user.Name;
+                return username.Length;
+            }).ToList();
+
+            return Page();
         }
 
         public static string TrimIfTooLong(string text)
