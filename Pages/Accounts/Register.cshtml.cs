@@ -108,13 +108,12 @@ namespace KampongTalk.Pages.Accounts
 
             var userPrefs = new UserPreferences
             {
-                Uid = NewUserAccount.Uid,
+                Uid = NewUserAccount.Uid
             };
 
             // Push user object to database
             dbUsers.Insert(NewUserAccount);
             dbPrefs.Insert(userPrefs);
-
 
 
             // Generate new OTP code and insert into DB

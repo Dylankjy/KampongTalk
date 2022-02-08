@@ -46,7 +46,7 @@
             <h1 class="title">Create a new community</h1>
             <p class="subtitle">Start a space where people of similar interests can enjoy</p>
         </div>
-        
+
         @{
             if (Model.ShowAlreadyHaveCommunityError)
             {
@@ -54,64 +54,67 @@
                     <p class="has-text-weight-bold">No new communities can be created</p>
                     <p>This account has created the community, <a href="/Community?c=@Model.ExistingCommunity.Cid">@Model.ExistingCommunity.Name</a>, and can no longer create any new communities.</p>
                 </div>
-            } else {
+            }
+            else
+            {
+                <form method="post">
+                    <div class="card card-new-community mt-6" style="border-top-right-radius: 0.5rem; border-top-left-radius: 0.5rem">
+                        <div class="card-content">
+                            <div class="has-background-dark card-hero">
+                                <button onclick="$('#editProfileModal').fadeOut('fast')" class="modal-close is-large" aria-label="close"></button>
+                            </div>
+                            <div class="pfp-small"></div>
+                            <div class="field">
+                                <label class="label">Community Name</label>
+                                <div class="control has-icons-left">
+                                    <input class="input @Model.CommunityNameClass" type="text" placeholder="The Flower Garden" asp-for="NewCommunity.Name">
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-users"></i>
+                                    </span>
+                                </div>
+                                @{
+                                    if (Model.ShowDuplicateError)
+                                    {
+                                        <small class="has-text-danger"><i class="fas fa-exclamation-triangle"></i>&nbsp;There is already a community with the same or similar name.</small>
+                                    }
+                                }
+                                <small class="has-text-grey"><i class="fas fa-info-circle"></i>&nbsp;Choose carefully! This cannot be changed after creation.</small>
+                            </div>
 
-            <form method="post">
-            <div class="card card-new-community mt-6" style="border-top-right-radius: 0.5rem; border-top-left-radius: 0.5rem">
-                <div class="card-content">
-                    <div class="has-background-dark card-hero">
-                        <button onclick="$('#editProfileModal').fadeOut('fast')" class="modal-close is-large" aria-label="close"></button>
-                    </div>
-                    <div class="pfp-small"></div>
-                    <div class="field">
-                        <label class="label">Community Name</label>
-                        <div class="control has-icons-left">
-                            <input class="input @Model.CommunityNameClass" type="text" placeholder="The Flower Garden" asp-for="NewCommunity.Name">
-                            <span class="icon is-small is-left">
-                                <i class="fas fa-users"></i>
-                            </span>
+                            <div class="field">
+                                <label class="label">About this community</label>
+                                <div class="control">
+                                    <textarea class="textarea" rows="5" placeholder="A community where flower lovers can interact. Share pictures of your garden or flowers!" asp-for="NewCommunity.Description" required minlength="20" maxlength="254"></textarea>
+                                </div>
+                                <small class="has-text-grey">Be descriptive as possible so that more people can find your community.</small>
+                            </div>
                         </div>
-                        @{
-                            if (Model.ShowDuplicateError)
-                            {
-                                <small class="has-text-danger"><i class="fas fa-exclamation-triangle"></i>&nbsp;There is already a community with the same or similar name.</small>
-                            }
-                        }
-                        <small class="has-text-grey"><i class="fas fa-info-circle"></i>&nbsp;Choose carefully! This cannot be changed after creation.</small>
                     </div>
-
-                    <div class="field">
-                        <label class="label">About this community</label>
-                        <div class="control">
-                            <textarea class="textarea" rows="5" placeholder="A community where flower lovers can interact. Share pictures of your garden or flowers!" asp-for="NewCommunity.Description" required minlength="20" maxlength="254"></textarea>
+                    <div style="width: 640px; margin: 0 auto;">
+                        <hr/>
+                        <div class="field content">
+                            <label class="label">Things to take note</label>
+                            <div class="control">
+                                <ul>
+                                    <li>Your community and it's contents cannot contain anything inappropriate</li>
+                                    <li>Don't do anything illegal on KampongTalk</li>
+                                    <li>You are responsible for the posts on your community</li>
+                                    <li>You cannot delete your community after it has been created</li>
+                                    <li>Your account cannot create any new communities in the future</li>
+                                </ul>
+                            </div>
                         </div>
-                        <small class="has-text-grey">Be descriptive as possible so that more people can find your community.</small>
-                    </div>
-                </div>
-            </div>
-            <div style="width: 640px; margin: 0 auto;">
-                <hr/>
-                <div class="field content">
-                    <label class="label">Things to take note</label>
-                    <div class="control">
-                        <ul>
-                            <li>Your community and it's contents cannot contain anything inappropriate</li>
-                            <li>Don't do anything illegal on KampongTalk</li>
-                            <li>You are responsible for the posts on your community</li>
-                            <li>You cannot delete your community after it has been created</li>
-                            <li>Your account cannot create any new communities in the future</li>
-                        </ul>
-                    </div>
-                </div>
 
-                <span class="buttons">
-                    <button class="mt-5 button is-primary" type="submit"><i class="fas fa-arrow-right"></i>&ensp;Create community</button>
-                </span>
-            </div>
-        </form>
+                        <span class="buttons">
+                            <button class="mt-5 button is-primary" type="submit"><i class="fas fa-arrow-right"></i>&ensp;Create community</button>
+                        </span>
+                    </div>
+                </form>
             }
         }
         <hr/>
-        <p class="has-text-centered"><b>Changed your mind?</b><br/><a href="/">Return to homepage</a></p>
+        <p class="has-text-centered">
+            <b>Changed your mind?</b><br/><a href="/">Return to homepage</a>
+        </p>
     </div>
 </section>

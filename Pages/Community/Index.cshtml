@@ -71,7 +71,9 @@
                                 </div>
                                 <div class="level-item-right has-text-centered">
                                     <div>
-                                        <a href="/Profile?u=@UserApi.GetUserById(Model.ViewingCommunity.CreatorId).Uid2" class="is-size-6">@UserApi.GetUserById(Model.ViewingCommunity.CreatorId).Name <small>(&#64;@UserApi.GetUserById(Model.ViewingCommunity.CreatorId).Uid2)</small></a>
+                                        <a href="/Profile?u=@UserApi.GetUserById(Model.ViewingCommunity.CreatorId).Uid2" class="is-size-6">
+                                            @UserApi.GetUserById(Model.ViewingCommunity.CreatorId).Name <small>(&#64;@UserApi.GetUserById(Model.ViewingCommunity.CreatorId).Uid2)</small>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -91,7 +93,8 @@
                     </div>
                     <div class="column">
                         <h2 class="title is-5">Posts in this community</h2>
-                        @{foreach (var post in Model.PostsToDisplay.Reverse())
+                        @{
+                            foreach (var post in Model.PostsToDisplay.Reverse())
                             {
                                 if (post.Author == 0)
                                 {
@@ -155,7 +158,7 @@
                 </div>
             </div>
         </section>
-        
+
         <div id="editCommunityModal" class="modal is-active" style="display: none">
             <div class="modal-background"></div>
             <div class="modal-content">
@@ -165,7 +168,7 @@
                             <button onclick="$('#editCommunityModal').fadeOut('fast')" class="modal-close is-large" aria-label="close"></button>
                         </div>
                         <div class="pfp-small"></div>
-                        
+
                         <form method="post">
                             <div class="field">
                                 <label class="label">Community Name</label>
@@ -184,7 +187,7 @@
                                     <textarea class="textarea" rows="5" asp-for="EditDescription" minlength="20" maxlength="254"></textarea>
                                 </div>
                             </div>
-                            
+
                             <span class="buttons">
                                 <button class="mt-5 button is-primary" type="submit"><i class="fas fa-save"></i>&ensp;Save changes</button>
                             </span>
