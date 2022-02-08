@@ -84,6 +84,27 @@ namespace KampongTalk.Pages.Search
             return null;
         }
 
+        public static void PutKeyword(long eid, string keyword, int weight)
+        {
+            PutKeyword(eid.ToString(), keyword, weight);
+        }
+
+        public static void PutKeyword(string eid, string keyword, int weight)
+        {
+            // Database declarations
+            var dbRel =
+                new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
+                    "Relevancy");
+
+            dbRel.InsertAsync(new Relevancy
+            {
+                EntityId = eid,
+                Keyword = keyword,
+                Weight = weight,
+                Type = "manual"
+            });
+        }
+
         public static void PutRelevancy(string text, long entityId)
         {
             PutRelevancy(text, entityId.ToString());
