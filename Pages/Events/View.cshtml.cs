@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using IdGen;
 using KampongTalk.Models;
+using KampongTalk.Tools;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,10 +17,12 @@ namespace KampongTalk.Pages.Events
     public class ViewModel : PageModel
     {
         private readonly IWebHostEnvironment _environment;
+        private readonly IEventRecommender _recommender;
 
-        public ViewModel(IWebHostEnvironment environment)
+        public ViewModel(IWebHostEnvironment environment, IEventRecommender recommender)
         {
             _environment = environment;
+            _recommender = recommender;
         }
 
         [BindProperty] public long Eid { get; set; }
@@ -46,10 +51,13 @@ namespace KampongTalk.Pages.Events
         // Has the event ended?
         public bool isOver { get; set; }
 
+        public IEnumerable<long> recommendedIds { get; set; }
+
+        public List<dynamic> recommendedEvents { get; set; } = new List<dynamic>();
 
         [BindProperty] public IFormFile eventImage { get; set; }
 
-        public IActionResult OnGet(string eid)
+        public async Task OnGet(string eid)
         {
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
 
@@ -61,6 +69,24 @@ namespace KampongTalk.Pages.Events
             var eventDateTime = Convert.ToDateTime(myEvent.Date);
             eventDate = eventDateTime.ToLongDateString();
 
+            recommendedIds = await _recommender.Recommend($"{myEvent.Name} {myEvent.Description}");
+
+            var stopAtThreeCounter = 0;
+            foreach (var recommendedId in recommendedIds)
+            {
+                // We only want the top 3 recommendations
+                if (stopAtThreeCounter > 2)
+                    break;
+
+                // We don't want to recommend the same item
+                if (recommendedId == myEvent.Eid)
+                    continue;
+
+                var recommendedEvent = eventDb.Single($"Eid = {recommendedId}");
+                recommendedEvents.Add(recommendedEvent);
+                stopAtThreeCounter += 1;
+            }
+
             if (DateTime.Now >= myEvent.Date) isOver = true;
 
             if (CurrentUser != null)
@@ -68,8 +94,6 @@ namespace KampongTalk.Pages.Events
                 if (myEvent.Attendees.Contains(CurrentUser.Uid.ToString())) hasAdded = true;
                 if (myEvent.CreatorId == CurrentUser.Uid) amOwner = true;
             }
-
-            return Page();
         }
 
 
@@ -82,7 +106,7 @@ namespace KampongTalk.Pages.Events
                 var imgExt = eventImage.FileName.Split('.').Last();
                 var genImgNum = new IdGenerator(2).CreateId();
                 var genImgName = genImgNum + "." + imgExt;
-                var file = Path.Combine(_environment.ContentRootPath, "wwwroot/imgs", genImgName);
+                var file = Path.Combine(_environment.ContentRootPath, "wwwroot/imgs/Events", genImgName);
                 using (var fileStream = new FileStream(file, FileMode.Create))
                 {
                     eventImage.CopyTo(fileStream);
@@ -91,7 +115,7 @@ namespace KampongTalk.Pages.Events
                 // if current image is not default.jpg, we will delete on our end
                 if (savedEvent.Img != "default.jpg")
                 {
-                    var currentImgPath = Path.Combine(_environment.ContentRootPath, "wwwroot/imgs", savedEvent.Img);
+                    var currentImgPath = Path.Combine(_environment.ContentRootPath, "wwwroot/imgs/Events", savedEvent.Img);
                     System.IO.File.Delete(currentImgPath);
                 }
 
