@@ -1,0 +1,72 @@
+﻿.pfp {
+    height: 12rem;
+    width: 12rem;
+    background: grey;
+    border: .7rem solid white;
+    border-radius: 9999rem;
+    position: absolute;
+}
+
+.pfp-small {
+    height: 8rem;
+    width: 8rem;
+    background: grey;
+    border: .5rem solid white;
+    border-radius: 9999rem;
+    margin-top: -5rem;
+}
+
+.pfp-post {
+    height: 3rem;
+    width: 3rem;
+    background: grey;
+    border: .2rem solid white;
+    border-radius: 9999rem;
+    margin-top: -.5rem;
+    margin-bottom: -.5rem;
+}
+
+.community-icon-search {
+    height: 5rem;
+    width: 5rem;
+    background: grey;
+    border: .35rem solid white;
+    border-radius: 2.25rem;
+    margin-top: -3.5rem;
+    margin-bottom: 1rem;
+}
+
+.card-hero {
+    background: grey;
+    width: 19rem;
+    height: 4em;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    margin: -1.5rem -1.5rem 1.5rem;
+}
+.card-top {
+    padding: 1.5rem 1.5rem 0;
+    background: linear-gradient(180deg, rgba(72,136,149,0.4) 15%, rgba(255,255,255,0.4) 100%);
+}
+
+.card-meta {
+    padding: 1rem 1.5rem 0;
+    background:rgba(72,136,149,0.4)
+}
+
+.card-meta + .card-top {
+    padding-top: 1.5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+.communities-container {
+    height: 19rem;
+    overflow-x: auto;
+    display: flex;
+}
+
+.communities-container > * {
+    display: inline-block;
+    flex-shrink: 0;
+}
