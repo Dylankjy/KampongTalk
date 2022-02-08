@@ -12,6 +12,7 @@ namespace KampongTalk.Pages.Search
         // Search result prop
         public List<dynamic> SearchResultPosts { get; set; } = new List<dynamic>();
         public List<dynamic> SearchResultCommunities { get; set; } = new List<dynamic>();
+        public List<dynamic> SearchResultEvents { get; set; } = new List<dynamic>();
         public List<dynamic> SearchResultUsers { get; set; } = new List<dynamic>();
         public string SearchField { get; set; }
 
@@ -36,6 +37,9 @@ namespace KampongTalk.Pages.Search
 
                 if (thisObjectType == "community")
                     SearchResultCommunities.Add(CommunityApi.GetCommunityById(entityObj.EntityId));
+
+                if (thisObjectType == "event")
+                    SearchResultEvents.Add(EventApi.GetEventById(long.Parse(entityObj.EntityId)));
             }
 
             var dbUsers =
