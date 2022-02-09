@@ -136,3 +136,7 @@
         transform: scale(1);
     }
 }
+
+.navbar {
+    transition: background-color 0.25s ease-in-out;
+}
