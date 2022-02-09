@@ -236,8 +236,6 @@
             Vibrant.from('/userdata/@Model.ViewingUser.BannerImg').getPalette((err, palette) => {
                 $('nav.navbar').css({ 'background-color': `rgb(${palette.DarkMuted._rgb})` })
                 $(':root').css({ '--page-theme-color': `${palette.DarkMuted._rgb}`, '--page-theme-color-light': `${palette.Muted._rgb}` })
-                $('.card-top').css({ 'background': `linear-gradient(180deg, rgba(${palette.LightVibrant._rgb}, 0.8) 0%, rgba(${palette.LightVibrant._rgb},0.0) 100%)` })
-                $('.card-meta').css({ 'background': `rgba(${palette.LightVibrant._rgb}, 0.8` })
             });
         </script>
     }
