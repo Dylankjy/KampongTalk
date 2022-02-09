@@ -24,6 +24,7 @@ namespace KampongTalk.Models
 
         [DatabaseColumn] public string Bio { get; set; }
         [DatabaseColumn] public string AvatarImg { get; set; } = "default.jpg";
+        [DatabaseColumn] public string BannerImg { get; set; } = "default-banner.jpg";
         [DatabaseColumn] public string Interests { get; set; }
         [DatabaseColumn] public string Challenges { get; set; }
         [DatabaseColumn] public DateTime DateOfBirth { get; set; }
