@@ -1,5 +1,4 @@
 ﻿@page
-@using KampongTalk.Models
 @model KampongTalk.Pages.Profile.Index
 
 @{
@@ -15,10 +14,10 @@
     // ViewData["currentUid"] = Model.CurrentUser.Uid;
 }
 
-<section class="hero is-medium has-background-grey is-dark">
+<section id="profileHeader" class="hero is-medium has-background-primary-dark is-dark">
     <div class="hero-body">
         <div class="container">
-            <div class="pfp"></div>
+            <div id="profileImage" class="pfp"></div>
         </div>
     </div>
 </section>
@@ -32,9 +31,9 @@
                 <div class="columns mt-5">
                     <div class="column is-one-quarter">
                         <div>
-                            <h1 class="title is-1">@Model.ViewingUser.Name</h1>
-                            <p class="subtitle">&#64;@Model.ViewingUser.Uid2</p>
-                            <br />
+                            <h1 class="title is-1 has-text-page-color">@Model.ViewingUser.Name</h1>
+                            <p class="subtitle has-text-page-color-light">&#64;@Model.ViewingUser.Uid2</p>
+                            <br/>
                             <div class="level">
                                 <div class="level-item has-text-centered">
                                     <div>
@@ -60,22 +59,22 @@
                                 }
                             </p>
                         </div>
-                        <hr />
+                        <hr/>
                         @{
                             if (Model.ViewingUser.Bio != null)
                             {
                                 <div>
-                                    <h3 class="title is-5">About me</h3>
+                                    <h3 class="title is-5 has-text-page-color">About me</h3>
                                     <p style="hyphens: auto; overflow-wrap: break-word">@Model.ViewingUser.Bio</p>
                                 </div>
-                                <hr />
+                                <hr/>
                             }
                         }
                         <div>
                             <div class="level">
                                 <div class="level-item-left has-text-centered">
                                     <div>
-                                        <h3 class="title is-5">Joined</h3>
+                                        <h3 class="title is-5 has-text-page-color">Joined</h3>
                                     </div>
                                 </div>
                                 <div class="level-item-right has-text-centered">
@@ -95,19 +94,19 @@
                                         <p class="title">
                                             <i class="fas fa-feather-alt"></i>
                                         </p>
-                                        <h1 class="subtitle is-4 has-text-weight-bold">Hmm, there's nothing here</h1>
+                                        <h1 class="subtitle is-4 has-text-weight-bold has-text-page-color">Hmm, there's nothing here</h1>
                                         <p>This user has not created any posts</p>
                                     </div>
                                 </section>
                             }
                             else
                             {
-                                <h2 class="title is-5">Recent posts by this user</h2>
+                                <h2 class="title is-5 has-text-page-color">Recent posts by this user</h2>
                             }
 
                             foreach (var post in Model.PostsToDisplay)
                             {
-                                <partial name="Partials/_Post" model="post" view-data="ViewData" />
+                                <partial name="Partials/_Post" model="post" view-data="ViewData"/>
                             }
                         }
                     </div>
@@ -117,15 +116,24 @@
 
         <div id="editProfileModal" class="modal is-active" style="display: none">
             <div class="modal-background"></div>
+            <button onclick="$('#editProfileModal').fadeOut('fast')" class="modal-close is-large" aria-label="close"></button>
             <div class="modal-content">
                 <div class="card" style="border-top-right-radius: 0.5rem; border-top-left-radius: 0.5rem">
                     <div class="card-content">
                         <div class="has-background-dark card-hero-user">
-                            <button onclick="$('#editProfileModal').fadeOut('fast')" class="modal-close is-large" aria-label="close"></button>
+                            <div class="is-vcentered has-text-centered has-text-white banner-edit is-size-2" onclick="$('#bannerUploadField').trigger('click')">
+                                <i class="fa-solid fa-pen"></i>
+                            </div>
                         </div>
-                        <div class="pfp-small"></div>
+                        <div class="pfp-small">
+                            <div class="is-vcentered has-text-centered has-text-white pfp-edit is-size-2" onclick="$('#pfpUploadField').trigger('click')">
+                                <i class="fa-solid fa-pen"></i>
+                            </div>
+                        </div>
 
-                        <form method="post">
+                        <form id="profileEditForm" method="post" enctype="multipart/form-data">
+                            <input accept="image/png, image/jpg" type="file" asp-for="ProfileImage" id="pfpUploadField" style="opacity: 0; height: 0; width: 0"/>
+                            <input accept="image/png, image/jpg" type="file" asp-for="BannerImage" id="bannerUploadField" style="opacity: 0; height: 0; width: 0"/>
                             <div class="field">
                                 <label class="label">Name</label>
                                 <div class="control has-icons-left">
@@ -147,7 +155,7 @@
                             </div>
                             <small class="has-text-grey"><i class="fas fa-info-circle"></i>&nbsp;For security reasons, please visit <a>account settings</a> to change your KampongID.</small>
 
-                            <hr />
+                            <hr/>
 
                             <div class="field">
                                 <label class="label">About me</label>
@@ -156,7 +164,7 @@
                                 </div>
                             </div>
 
-                            <hr />
+                            <hr/>
 
                             <div class="field">
                                 <label class="label">Birthday</label>
@@ -187,8 +195,50 @@
                     <i class="fas fa-question-circle"></i>
                 </p>
                 <h1 class="subtitle is-4 has-text-weight-bold">We searched high and low, but we weren't able to find this account.</h1>
-                <p>The user may have changed their user tag, deleted their account, or the user simply didn't exist to begin with.<br />Please ensure that you did not make any typing mistakes.</p>
+                <p>The user may have changed their user tag, deleted their account, or the user simply didn't exist to begin with.<br/>Please ensure that you did not make any typing mistakes.</p>
             </div>
         </section>
+    }
+}
+
+<script>
+    $("#pfpUploadField").on('change', () => {
+        $("#profileEditForm").submit()
+    })
+    $("#bannerUploadField").on('change', () => {
+        $("#profileEditForm").submit()
+    })
+</script>
+
+@{
+    if (Model.ViewingUser != null)
+    {
+        <style>
+            #profileImage, .pfp-small {
+                background: url('/userdata/@Model.ViewingUser.AvatarImg') center no-repeat; background-size: cover
+            }
+            
+            #profileHeader, .card-hero-user {
+                background: url('/userdata/@Model.ViewingUser.BannerImg') center no-repeat; background-size: cover
+            }
+            
+            .has-text-page-color {
+                color: rgb(var(--page-theme-color));
+            }
+            
+            .has-text-page-color-light {
+                color: rgb(var(--page-theme-color-light));
+            }
+            
+        </style>
+
+        <script>
+            Vibrant.from('/userdata/@Model.ViewingUser.BannerImg').getPalette((err, palette) => {
+                $('nav.navbar').css({ 'background-color': `rgb(${palette.DarkMuted._rgb})` })
+                $(':root').css({ '--page-theme-color': `${palette.DarkMuted._rgb}`, '--page-theme-color-light': `${palette.Muted._rgb}` })
+                $('.card-top').css({ 'background': `linear-gradient(180deg, rgba(${palette.LightVibrant._rgb}, 0.8) 0%, rgba(${palette.LightVibrant._rgb},0.0) 100%)` })
+                $('.card-meta').css({ 'background': `rgba(${palette.LightVibrant._rgb}, 0.8` })
+            });
+        </script>
     }
 }
