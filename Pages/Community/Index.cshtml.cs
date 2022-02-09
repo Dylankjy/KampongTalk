@@ -14,7 +14,7 @@ namespace KampongTalk.Pages.Community
     public class Index : PageModel
     {
         // Current user prop
-        private User CurrentUser { get; set; }
+        public User CurrentUser { get; set; }
 
         // Profile props
         public dynamic ViewingCommunity { get; set; }

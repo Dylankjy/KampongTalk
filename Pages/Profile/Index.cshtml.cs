@@ -13,7 +13,7 @@ namespace KampongTalk.Pages.Profile
     public class Index : PageModel
     {
         // Current user prop
-        private User CurrentUser { get; set; }
+        public User CurrentUser { get; set; }
 
         // Profile props
         public dynamic ViewingUser { get; set; }

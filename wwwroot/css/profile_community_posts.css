@@ -80,3 +80,12 @@
     display: inline-block;
     flex-shrink: 0;
 }
+
+.userPFP {
+    border-radius: 50%;
+    height: 3rem;
+    width: 3rem;
+    background-size: cover;
+    background-position: center;
+    display: inline-block;
+}

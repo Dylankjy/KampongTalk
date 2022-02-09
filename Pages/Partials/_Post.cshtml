@@ -1,41 +1,121 @@
-﻿@model KampongTalk.Pages.Board.IndexModel
+﻿@inject Tools.IUserAttributes UserAttributes
+
+@using KampongTalk.Models
+@using KampongTalk.Pages.Board
 @{
+    string pDivId = "pDiv_" + @Model.Pid.ToString();
+    string postID = "pid_" + @Model.Pid.ToString();
+
 }
 
-<div class="box m-5">
-    <div class="p-4">
-        <div class="userPFP"
-             style="background-image: url('imgs/default.jpg')">
-        </div>
-        <div class="postPriInfo">
-            <span class="has-text-weight-bold is-size-5">John Doe</span><br/>
-            <span class="minorInfo" id="InCommunitySpan"> In <a>Community</a></span>
-            <span class="minorInfo" id="taggedUsersSpan">&bull; Tagged <a>User1</a>, <a>User2</a></span>
-        </div>
 
-        <p class="mt-3 is-size-5">
-        </p>
-        <br/>
-        <img id="attachmentImg" class="postImg has-text-centered" src="~/imgs/default.jpg"/>
-        <br/>
-        <div class="has-text-grey-light minorInfo">
-            <span>1 Jan 2001</span> <span id="fromWhere">&bull; From Your Friends' Likes</span>
-        </div>
-        <hr/>
-        <span class="is-size-5 has-text-danger ml-3"><i class="fas fa-heart"></i> 69 Likes</span>
-        <span class="is-size-5 has-text-primary mr-3 is-pulled-right"><i class="fas fa-comment-dots"></i> Show 10 comments </span>
-        <br/>
 
-        <form>
-            <div class="level mt-4">
-                <div class="level-item">
-                    <button class="button is-large is-fullwidth is-danger is-outlined" type="button"><i class="fas fa-heart mr-2"></i>Like</button>
-                </div>
-                <div class="level-item">
-                    <button class="button is-large is-fullwidth is-primary is-outlined" type="button"><i class="fas fa-comment-dots mr-2"></i>Comment</button>
-                </div>
+
+<div class="card mt-4" id="@pDivId">
+    @{
+        if (@Model.InCommunity != null)
+        {
+            <div class="card-content card-meta">
+                <p class="has-text-weight-medium"><i class="fas fa-arrow-right"></i>&ensp;Posted in <a href="/Community?c=@Model.InCommunity" class="has-text-weight-bold has-text-black">@CommunityApi.GetCommunityById(@Model.InCommunity).Name</a></p>
             </div>
-        </form>
+        }
+    }
+    <div class="card-content card-top">
+        <div class="level">
+            <a href="/Profile?u=@UserApi.GetUserById(@Model.Author).Uid2">
+                <div class="level-left">
+                    <div class="level-item">
+                        <div class="pfp-post userPFP" style="background-image: url('/imgs/@UserApi.GetUserById(@Model.Author).AvatarImg')">
+                        </div>
+                    </div>
+                    <div class="level-item">
+                        <div>
+                            <p class="title is-5">
+                                @UserApi.GetUserById(@Model.Author).Name
+                                <span class="is-size-6 has-text-grey" style="margin-top: -1.5rem">&#64;@UserApi.GetUserById(@Model.Author).Uid2</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                </a>
+                <div class="level-right">
+                    <div class="dropdown is-right">
+                        <div class="dropdown-trigger">
+                            <button class="button is-white" aria-haspopup="true" aria-controls="dropdown-menu">
+                                <span class="has-text-weight-bold">...</span>
+                                @*<span class="icon is-small">
+                                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                </span>*@
+                            </button>
+                        </div>
+                        <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                            <div class="dropdown-content">
+                                <a href="#" class="dropdown-item">
+                                    Message User
+                                </a>
+                                <a href="/Support" class="dropdown-item">
+                                    Report Post
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <div class="card-content">
+        <p class="is-size-5">@Model.Content</p>
 
+        @if (Model.AttachmentImg != null)
+        {
+            <img id="attachmentImg" class="postImg has-text-centered mt-2 mb-2" src="~/imgs/@Model.AttachmentImg" />
+        }
+        <div class="has-text-grey-light minorInfo mt-2">
+            <span>@Model.Timestamp.ToString("dd/MM/yy hh:mm tt")</span>
+        </div>
+
+    </div>
+    <div class="card-content has-background-light">
+        <div class="level is-mobile">
+            <div class="level-left">
+                <a class="level-item">
+                    <div class="tags has-addons are-medium" onclick="likePost(@postID, this)">
+                        @if (LikesApi.IsLiked(@Model.Pid, Convert.ToInt64(ViewData["currentUid"])))
+                        {
+                            <span class="tag is-primary"><i class="fas fa-thumbs-up"></i>&ensp; Like</span>
+                        }
+                        else
+                        {
+                            <span class="tag is-primary"><i class="far fa-thumbs-up"></i>&ensp; Like</span>
+                        }
+                        <span class="tag is-link is-hidden" id="@postID">@Model.Pid</span>
+                        <span class="tag is-dark">@LikesApi.GetLikesByPid(@Model.Pid)</span>
+                    </div>
+                </a>
+                <a class="level-item" href="/Board/Detail/@Model.Pid" onclick="savePosition(@pDivId);">
+                    <div class="tags has-addons are-medium">
+                        <span class="tag is-info"><i class="fas fa-comments"></i>&ensp; Reply</span>
+                        <span class="tag is-dark">@PostApi.GetCommentCountByPid(@Model.Pid)</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="level-right">
+                <a class="level-item">
+                    <div class="tags has-addons are-medium" onclick="translateText(this)">
+                        <span class="tag is-white"><i class="fas fa-language"></i></span>
+                    </div>
+                </a>
+                <a class="level-item">
+                    <div class="tags has-addons are-medium" onclick="synthesizeSpeech(this)">
+                        <span class="tag is-white"><i class="fas fa-volume-up"></i></span>
+                    </div>
+                </a>
+            </div>
+
+            <audio id="audio" controls hidden>
+                <source type="audio/mp3">
+            </audio>
+
+        </div>
     </div>
 </div>

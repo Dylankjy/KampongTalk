@@ -11,6 +11,8 @@
     {
         ViewData["Title"] = "404: Community not found";
     }
+
+    ViewData["currentUid"] = Model.CurrentUser.Uid;
 }
 
 <section class="hero has-background-grey is-dark">
@@ -31,7 +33,7 @@
                     <div class="column is-one-quarter">
                         <div>
                             <h1 class="title is-1">@Model.ViewingCommunity.Name</h1>
-                            <br/>
+                            <br />
                             <div class="level">
                                 <div class="level-item has-text-centered">
                                     <div>
@@ -51,7 +53,7 @@
                                 }
                             </div>
                         </div>
-                        <hr/>
+                        <hr />
                         @{
                             if (Model.ViewingCommunity.Description != null)
                             {
@@ -59,7 +61,7 @@
                                     <h3 class="title is-5">About this community</h3>
                                     <p style="hyphens: auto; overflow-wrap: break-word">@Model.ViewingCommunity.Description</p>
                                 </div>
-                                <hr/>
+                                <hr />
                             }
                         }
                         <div>
@@ -109,48 +111,7 @@
                                 }
                                 else
                                 {
-                                    <div class="card mt-4">
-                                        <div class="card-content card-top">
-                                            <a href="/Profile?u=@UserApi.GetUserById(post.Author).Uid2">
-                                                <div class="level">
-                                                    <div class="level-left">
-                                                        <div class="level-item">
-                                                            <div class="pfp-post"></div>
-                                                        </div>
-                                                        <div class="level-item">
-                                                            <div>
-                                                                <p class="title is-5">
-                                                                    @UserApi.GetUserById(post.Author).Name
-                                                                    <span class="is-size-6 has-text-grey" style="margin-top: -1.5rem">&#64;@UserApi.GetUserById(post.Author).Uid2</span>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="card-content">
-                                            <p class="is-size-5">@post.Content</p>
-                                        </div>
-                                        <div class="card-content has-background-light pt-3 pb-3">
-                                            <div class="level is-mobile">
-                                                <div class="level-left">
-                                                    <a class="level-item">
-                                                        <div class="tags has-addons">
-                                                            <span class="tag is-primary"><i class="fas fa-thumbs-up"></i>&ensp; Like</span>
-                                                            <span class="tag is-dark">100</span>
-                                                        </div>
-                                                    </a>
-                                                    <a class="level-item">
-                                                        <div class="tags has-addons">
-                                                            <span class="tag is-info"><i class="fas fa-comments"></i>&ensp; Reply</span>
-                                                            <span class="tag is-dark">69</span>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <partial name="_Post" model="post" view-data="ViewData" />
                                 }
                             }
                         }
@@ -196,6 +157,8 @@
                 </div>
             </div>
         </div>
+
+        <script type="text/javascript" src="~/js/Board.js"></script>
     }
     else
     {
