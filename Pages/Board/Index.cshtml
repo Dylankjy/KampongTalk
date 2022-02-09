@@ -5,6 +5,7 @@
 @model KampongTalk.Pages.Board.IndexModel
 @{
     ViewData["Title"] = "KampongBoard";
+    ViewData["currentUid"] = Model.CurrentUser.Uid;
 }
 
 <link rel="stylesheet" href="~/css/board.css">
@@ -14,86 +15,90 @@
         <h1 class="title has-text-centered">KampongBoard</h1>
         <aside class="menu">
             <ul class="menu-list">
-                <li>
-                    <a>Friends</a>
-                </li>
-                <li>
-                    <a>Recommended For You</a>
-                </li>
+                @if (HttpContext.Request.Path == "/Board")
+                {
+                    <li><a href="/Board" class="is-active">Whole Kampong</a></li>
+}
+                else
+                {
+                    <li><a href="/Board">Whole Kampong</a></li>
+}
+
+                @if (HttpContext.Request.Path == "/Board/Friends")
+                {
+                    <li><a href="/Board/Friends" class="is-active">Friends</a></li>
+}
+                else
+                {
+                    <li><a href="/Board/Friends">Friends</a></li>
+}
+
+                @if (HttpContext.Request.Path == "/Board/Recommended")
+                {
+                    <li><a href="/Board/Recommended" class="is-active">Recommended For You</a></li>
+}
+                else
+                {
+                    <li><a href="/Board/Recommended">Recommended For You</a></li>
+}
+
             </ul>
         </aside>
+
     </div>
     <div class="column is-three-fifths">
-        <div class="hero is-fullheight-with-navbar has-background-white-ter" style="overflow-y: auto; height:80vh; padding-left: 1em; padding-right:  1rem">
-            @{
+        <div class="hero is-fullheight-with-navbar has-background-white-ter" style="overflow-y: auto; height:80vh; padding-left: 1em; padding-right:  1rem; overflow-x:hidden;">
+
+            @if (Model.PostsToDisplay.Count() > 0)
+            {
+
                 foreach (var post in Model.PostsToDisplay)
                 {
-                    <div class="card mt-4">
-                        @{
-                            if (post.InCommunity != null)
-                            {
-                                <div class="card-content card-meta">
-                                    <p class="has-text-weight-medium"><i class="fas fa-arrow-right"></i>&ensp;Posted in <a href="/Community?c=@post.InCommunity" class="has-text-weight-bold has-text-black">@CommunityApi.GetCommunityById(post.InCommunity).Name</a></p>
-                                </div>
-                            }
-                        }
-                        <div class="card-content card-top">
-                            <a href="/Profile?u=@UserApi.GetUserById(post.Author).Uid2">
-                                <div class="level">
-                                    <div class="level-left">
-                                        <div class="level-item">
-                                            <div class="pfp-post"></div>
-                                        </div>
-                                        <div class="level-item">
-                                            <div>
-                                                <p class="title is-5">
-                                                    @UserApi.GetUserById(post.Author).Name
-                                                    <span class="is-size-6 has-text-grey" style="margin-top: -1.5rem">&#64;@UserApi.GetUserById(post.Author).Uid2</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="card-content">
-                            <p class="is-size-5">@post.Content</p>
-                        </div>
-                        <div class="card-content has-background-light">
-                            <div class="level is-mobile">
-                                <div class="level-left">
-                                    <a class="level-item">
-                                        <div class="tags has-addons">
-                                            <span class="tag is-primary"><i class="fas fa-thumbs-up"></i>&ensp; Like</span>
-                                            <span class="tag is-dark">@LikesApi.GetLikesByPid(post.Pid)</span>
-                                        </div>
-                                    </a>
-                                    <a class="level-item">
-                                        <div class="tags has-addons">
-                                            <span class="tag is-info"><i class="fas fa-comments"></i>&ensp; Reply</span>
-                                            <span class="tag is-dark">@PostApi.GetCommentCountByPid(post.Pid)</span>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <partial name="_Post" model="post" view-data="ViewData" />
+
+                }
+
+
+            }
+            else
+            {
+                @if (HttpContext.Request.Path == "/Board/Friends")
+                {
+                    <section class="section has-text-centered">
+                        <p class="is-size-4 mt-5 has-text-weight-bold">You have no friends :(</p>
+                        <br />
+                        <p>We suggest finding some friends at the Void Deck</p>
+                        <br />
+                        <a href="/DigitalVoidDeck/Lobby">
+                            <span class="tag is-info is-large">Take me to the Void Deck</span>
+                        </a>
+                    </section>
+
+                }
+                else
+                {
+                    <section class="section has-text-centered">
+                        <p class="is-size-4 mt-5 has-text-weight-bold">The Kampong is empty..</p>
+                        <br />
+                        <p>Write a new post to bring the Kampong to life.</p>
+                    </section>
                 }
             }
+
         </div>
     </div>
     <div class="column">
         <div class="container m-5">
-    @*<div class="has-text-centered mt-6">
-                <a href="/">
-                    <button class="button is-info is-large">
-                        <i class="fas fa-map-signs mr-2"></i>Map
-                    </button>
-                </a>
-                <p>Explore the rest of KampongTalk</p>
-            </div>
-            <br />*@
-            
+            @*<div class="has-text-centered mt-6">
+                    <a href="/">
+                        <button class="button is-info is-large">
+                            <i class="fas fa-map-signs mr-2"></i>Map
+                        </button>
+                    </a>
+                    <p>Explore the rest of KampongTalk</p>
+                </div>
+                <br />*@
+
             <p class="has-text-weight-bold mt-5 is-size-6">Popular Communities</p>
             <ul class="minorInfo">
                 <li>
@@ -106,7 +111,7 @@
                     <a>Community 3 </a>
                 </li>
                 <li class="mt-3">
-                    <a>View more Communities </a>
+                    <a href="/Community/Explore">View more Communities </a>
                 </li>
             </ul>
 
@@ -122,7 +127,7 @@
                     <a>Event 3 </a>
                 </li>
                 <li class="mt-3">
-                    <a>View more Events </a>
+                    <a href="/Events">View more Events </a>
                 </li>
             </ul>
 
@@ -138,9 +143,149 @@
 
 <partial name="_CreatePost" />
 
+<script type="text/javascript" src="~/js/Board.js"></script>
+
 <script type="text/javascript">
 
-    function likePost(Pid, likeBtn) {
+    $(document).ready(function () {
+        setTimeout(scrollFunc, 1)
+
+    });
+
+    function scrollFunc() {
+        var pDivId = @Model.PrevPostDiv
+        // Do not remove this console log
+        console.log(pDivId)
+        if (pDivId) {
+            //pDivId.scrollIntoView()
+            pDivId.parentNode.scrollTop = pDivId.offsetTop;
+            removePosition()
+        }
+    }
+
+    //var dropdownList = document.getElementsByClassName("dropdown");
+    //for (const d of dropdownList) {
+    //    d.addEventListener('click', function (event) {
+    //        event.stopPropagation();
+    //        d.classList.toggle('is-active');
+    //    });
+    //}
+
+    function savePosition(pDivId) {
+        $.ajax({
+            type: "POST",
+            url: "/Board/position",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("XSRF-TOKEN",
+                    $('input:hidden[name="__RequestVerificationToken"]').val());
+            },
+            data: {
+                postDivId: pDivId.id.toString()
+            }
+
+        })
+
+    }
+
+    function removePosition() {
+        $.ajax({
+            type: "POST",
+            url: "/Board/removepos",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("XSRF-TOKEN",
+                    $('input:hidden[name="__RequestVerificationToken"]').val());
+            }
+
+        })
+    }
+
+    //function likePost(postID, likeBtn) {
+    //    console.log(postID.toString())
+    //    console.log("pid frontend params: ", postID.toString(), " with value : ", (typeof postID))
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "/Board/like",
+    //        beforeSend: function (xhr) {
+    //            xhr.setRequestHeader("XSRF-TOKEN",
+    //                $('input:hidden[name="__RequestVerificationToken"]').val());
+    //        },
+    //        data: JSON.stringify({
+    //            EntityId: postID
+    //        }),
+    //        contentType: "application/json; charset=utf-8",
+    //        dataType: "json",
+    //        success: function (likeResp) {
+    //            var likeRespArr = likeResp.toString().split(",")
+    //            if (likeRespArr[0] == '1') {
+    //                // likeBtn.firstElementChild.classList.remove('is-light')
+    //                likeBtn.firstElementChild.innerHTML = '<i class="fas fa-thumbs-up"></i>&ensp; Like';
+    //            }
+    //            else {
+    //                //likeBtn.firstElementChild.classList.add('is-light')
+    //                likeBtn.firstElementChild.innerHTML = '<i class="far fa-thumbs-up"></i>&ensp; Like';
+    //            }
+    //            likeBtn.lastElementChild.innerHTML = likeRespArr[1]
+
+    //        },
+    //        error: function () {
+    //            return "error";
+    //        }
+
+    //    })
+    //}
+
+    // THIS THE WORKING ONE
+    //function likePost(postSpan, likeBtn) {
+    //    var Pid = postSpan.innerText
+    //    console.log("frontend: " + Pid)
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "/Board/like",
+    //        beforeSend: function (xhr) {
+    //            xhr.setRequestHeader("XSRF-TOKEN",
+    //                $('input:hidden[name="__RequestVerificationToken"]').val());
+    //        },
+    //        data: {
+    //            EntityId: Pid
+    //        },
+    //        success: function (likeResp) {
+    //            var likeRespArr = likeResp.toString().split(",")
+    //            if (likeRespArr[0] == '1') {
+    //                // likeBtn.firstElementChild.classList.remove('is-light')
+    //                likeBtn.firstElementChild.innerHTML = '<i class="fas fa-thumbs-up"></i>&ensp; Like';
+    //            }
+    //            else {
+    //                //likeBtn.firstElementChild.classList.add('is-light')
+    //                likeBtn.firstElementChild.innerHTML = '<i class="far fa-thumbs-up"></i>&ensp; Like';
+    //            }
+    //            likeBtn.lastElementChild.innerHTML = likeRespArr[1]
+
+    //        },
+    //        error: function () {
+    //            return "error";
+    //        }
+
+    //    })
+    //}
+
+    //function likesPost(Pid) {
+    //    console.log("postid frontend is " + Pid)
+    //    console.log(Pid.innerText)
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "/Board/likespost",
+    //        beforeSend: function (xhr) {
+    //            xhr.setRequestHeader("XSRF-TOKEN",
+    //                $('input:hidden[name="__RequestVerificationToken"]').val());
+    //        },
+    //        data: {
+    //            entityID: Pid.innerText
+    //        }
+
+    //    })
+    //}
+
+    @*function likePost(Pid, likeBtn) {
         $.ajax({
             type: "POST",
             url: "/Board/like",
@@ -150,7 +295,7 @@
             },
             data: JSON.stringify({
                 EntityId: Pid,
-                Uid: @Model.CurrentUser.Uid
+                Uid: @ViewData["currentUid"]
             }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -170,75 +315,74 @@
             }
 
         })
-    }
+    }*@
 
-    function showComments(commentBtn) {
-        const commentBtnPDiv = commentBtn.parentNode.parentNode
-        const commentDiv = commentBtnPDiv.nextElementSibling
-        if (commentDiv.classList.contains('is-hidden')) {
-            commentBtn.classList.remove('is-outlined')
-            commentDiv.classList.remove('is-hidden')
-        } else {
-            commentBtn.classList.add('is-outlined')
-            commentDiv.classList.add('is-hidden')
-        }
-    }
+    //function showComments(commentBtn) {
+    //    const commentBtnPDiv = commentBtn.parentNode.parentNode
+    //    const commentDiv = commentBtnPDiv.nextElementSibling
+    //    if (commentDiv.classList.contains('is-hidden')) {
+    //        commentBtn.classList.remove('is-outlined')
+    //        commentDiv.classList.remove('is-hidden')
+    //    } else {
+    //        commentBtn.classList.add('is-outlined')
+    //        commentDiv.classList.add('is-hidden')
+    //    }
+    //}
 
 </script>
 
-<script>
-    var translateText = (obj) => {
-        var translateString = $(obj).prev().text()
-        // Use the TranslateAPIController.cs, and run the Translate() function
-        var url = '@Url.Action("Translate", "TranslateAPI")'
-        console.log(translateString)
+@*<script>
+        var translateText = (obj) => {
+            var translateString = $(obj).prev().text()
+            // Use the TranslateAPIController.cs, and run the Translate() function
+            var url = '@Url.Action("Translate", "TranslateAPI")'
+            console.log(translateString)
+    // Pass in the parameters as {"text": blahblah, "language": blahblah}
+    $.get(url, { text: translateString, language: "@UserAttributes.getTranslateLanguage()" })
+                .done((data) => {
+                    $(obj).prev().text(data)
+                })
+        }
 
-        @*// Pass in the parameters as {"text": blahblah, "language": blahblah}*@
-        $.get(url, { text: translateString, language: "@UserAttributes.getTranslateLanguage()" })
+        // Keep a list of all the generated filenames, so we can delete them once the user does not need thems
+        var filenames = []
+
+        var deleteFile = (filename) => {
+            // "Delete" refers to the function name, not the route name as specified in [Route] within your API controller
+            var deleteUrl = '@Url.Action("Delete", "SpeechAPI")'
+            console.log(deleteUrl)
+            $.get(deleteUrl, { filename: filename })
             .done((data) => {
-                $(obj).prev().text(data)
+                console.log(data)
             })
-    }
+        }
 
-    // Keep a list of all the generated filenames, so we can delete them once the user does not need thems
-    var filenames = []
+        var synthesizeSpeech = (obj) => {
+            // Use the TranslateAPIController.cs, and run the Translate() function
+            var url = '@Url.Action("AutoSynthesize", "SpeechAPI")'
+            var ttsText = $(obj).prev().prev().text()
 
-    var deleteFile = (filename) => {
-        // "Delete" refers to the function name, not the route name as specified in [Route] within your API controller
-        var deleteUrl = '@Url.Action("Delete", "SpeechAPI")'
-        console.log(deleteUrl)
-        $.get(deleteUrl, { filename: filename })
-        .done((data) => {
-            console.log(data)
-        })
-    }
+            // Pass in the parameters as {"text": blahblah, "language": blahblah}
+            $.get(url, { text: ttsText, gender: "@UserAttributes.getSpeechGender()" })
+                .done((data) => {
+                    var filename = `speech/${data}`
+                    filenames.push(filename)
+                    $(obj).next().attr("src", filename)
+                    $(obj).next()[0].play()
+                })
 
-    var synthesizeSpeech = (obj) => {
-        // Use the TranslateAPIController.cs, and run the Translate() function
-        var url = '@Url.Action("AutoSynthesize", "SpeechAPI")'
-        var ttsText = $(obj).prev().prev().text()
-
-        // Pass in the parameters as {"text": blahblah, "language": blahblah}
-        $.get(url, { text: ttsText, gender: "@UserAttributes.getSpeechGender()" })
-            .done((data) => {
-                var filename = `speech/${data}`
-                filenames.push(filename)
-                $(obj).next().attr("src", filename)
-                $(obj).next()[0].play()
+            $(window).bind('beforeunload', () => {
+                filenames.forEach((filename) => {
+                    deleteFile(filename)
+                })
             })
+        }
 
+        // Delete all the synthesized files when the user navigates to another page
+        // console.log("This has ran")
         $(window).bind('beforeunload', () => {
             filenames.forEach((filename) => {
                 deleteFile(filename)
             })
         })
-    }
-
-    // Delete all the synthesized files when the user navigates to another page
-    console.log("This has ran")
-    $(window).bind('beforeunload', () => {
-        filenames.forEach((filename) => {
-            deleteFile(filename)
-        })
-    })
-</script>
+    </script>*@

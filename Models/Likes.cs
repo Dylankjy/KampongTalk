@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Mighty;
 
 namespace KampongTalk.Models
@@ -14,7 +15,18 @@ namespace KampongTalk.Models
         public static int GetLikesByPid(long pid)
         {
             var dbLikes = new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"], "Likes");
-            return dbLikes.All(new {EntityId = pid}).ToList().Count;
+            return dbLikes.All(new { EntityId = pid }).ToList().Count;
+        }
+
+        public static bool IsLiked(long pid, long uid)
+        {
+            var dbLikes = new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"], "Likes");
+            var isLiked = dbLikes.Count($"EntityId = '{pid}' && Uid = '{uid}'");
+            if (isLiked.ToString() == "1")
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
