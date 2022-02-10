@@ -34,16 +34,8 @@
     
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script>
-    let nprogressIncFunction
-    
-    
-        $(document).on('turbolinks:click', function () {
+        $(document).on('turbolinks:click turbolinks:visit', function () {
             NProgress.start();
-            
-            nprogressIncFunction = setInterval(() => {
-                NProgress.inc();
-            }
-            , 500)
             
             $('#main').fadeOut(250, () => {
                 // return $('#loading-skeleton-section').fadeOut(100);
@@ -57,9 +49,6 @@
             }, 0)
             
              NProgress.done();
-            
-            clearInterval(nprogressIncFunction)
-            
         });
         
         $(document).on('turbolinks:render', function() {
@@ -119,10 +108,10 @@
         <div id="navbarBasicExample" class="navbar-menu">
 
             <div class="navbar-item" style="width: 70%; margin: 0 auto;">
-                <form method="get" action="/Search" style="width: 100%">
+                <form id="searchForm" method="get" action="/Search" style="width: 100%" >
                     <div class="field">
                         <p class="control has-icons-left has-icons-right">
-                            <input class="input is-light" type="text" asp-for="@ViewData["SearchField"]" name="q" placeholder="Search KampongTalk">
+                            <input id="searchField" class="input is-light" type="text" asp-for="@ViewData["SearchField"]" name="q" placeholder="Search KampongTalk">
                             <span class="icon is-small is-left">
                                 <i class="fas fa-search"></i>
                             </span>
@@ -131,6 +120,13 @@
                     </div>
                 </form>
             </div>
+            
+            <script>
+                $("#searchForm").submit(function(e) {
+                    Turbolinks.visit(`/Search?q=${$('#searchField').val()}`)
+                    e.preventDefault();
+                });
+            </script>
 
             <div class="navbar-end">
                 @if (!UserAttributes.isLoggedIn())
