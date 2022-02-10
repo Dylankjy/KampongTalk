@@ -171,3 +171,7 @@
 .navbar {
     transition: background-color 0.25s ease-in-out;
 }
+
+.turbolinks-progress-bar {
+    display: none !important;
+}

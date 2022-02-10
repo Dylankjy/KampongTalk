@@ -22,7 +22,10 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.0.0/turbolinks.min.js" integrity="sha512-ifx27fvbS52NmHNCt7sffYPtKIvIzYo38dILIVHQ9am5XGDQ2QjSXGfUZ54Bs3AXdVi7HaItdhAtdhKz8fOFrA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <meta name="turbolinks-cache-control" content="no-cache">
-
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.js" integrity="sha512-/CzcPLOqUndTJKlWJ+PkvFh2ETRtkrnxwmULr9LsUU+cFLl7TAOR5gwwD8DRLvtM4h5ke/GQknlqQbWuT9BKdA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="/css/nprogress.css"/>
+    
     <link rel="stylesheet" href="/css/profile_community_posts.css"/>
     
     <script>
@@ -31,7 +34,16 @@
     
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script>
+    let nprogressIncFunction
+    
+    
         $(document).on('turbolinks:click', function () {
+            NProgress.start();
+            
+            nprogressIncFunction = setInterval(() => {
+                NProgress.inc();
+            }
+            , 500)
             
             $('#main').fadeOut(250, () => {
                 // return $('#loading-skeleton-section').fadeOut(100);
@@ -43,6 +55,15 @@
                     return $('main').fadeIn(250);
                 // });
             }, 0)
+            
+             NProgress.done();
+            
+            clearInterval(nprogressIncFunction)
+            
+        });
+        
+        $(document).on('turbolinks:render', function() {
+            NProgress.remove();
         });
     </script>
 
