@@ -10,4 +10,4 @@ Bundled dependencies are owned and governed by their respective source repositor
 - [Bulma](https://github.com/jgthms/bulma) ([MIT](https://github.com/jgthms/bulma/blob/master/LICENSE))
 - [JQuery](https://github.com/jquery/jquery) ([MIT](https://github.com/jquery/jquery/blob/main/LICENSE.txt))
 - [NProgress](https://ricostacruz.com/nprogress/) ([MIT](https://github.com/rstacruz/nprogress/blob/master/License.md))
-- [Signlr](https://github.com/SignalR/SignalR) ([Apache 2.0](https://github.com/SignalR/SignalR/blob/main/LICENSE.txt))
+- [Signalr](https://github.com/SignalR/SignalR) ([Apache 2.0](https://github.com/SignalR/SignalR/blob/main/LICENSE.txt))
