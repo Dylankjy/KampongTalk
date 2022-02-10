@@ -37,15 +37,12 @@
         $(document).on('turbolinks:click turbolinks:visit', function () {
             NProgress.start();
             
-            $('#main').fadeOut(250, () => {
-                // return $('#loading-skeleton-section').fadeOut(100);
-            });
-        });
+            $('main').fadeOut(250)
+        });        
+        
         $(document).on('turbolinks:load', function () {
             setTimeout(() => {
-                // $('#loading-skeleton-section').fadeOut(100, () => {
-                    return $('main').fadeIn(250);
-                // });
+                    return $('main').fadeIn(250)
             }, 0)
             
              NProgress.done();
