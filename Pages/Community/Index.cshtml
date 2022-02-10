@@ -116,6 +116,17 @@
                                     <partial name="Partials/_Post" model="post" view-data="ViewData" />
                                 }
                             }
+                            
+                            <div class="mt-6 has-text-centered">
+                                @if (Model.PageNo != 0)
+                                {
+                                    <a class="button" href="?c=@Model.ViewingCommunity.Cid&p=@Model.PreviousPageNo"><i class="fa-solid fa-arrow-left"></i>&ensp;Previous Page</a>
+                                }
+                                @if (Model.PostsToDisplay.Count() == 10)
+                                {
+                                    <a class="button" href="?c=@Model.ViewingCommunity.Cid&p=@Model.NextPageNo">Next Page&ensp;<i class="fa-solid fa-arrow-right"></i></a>
+                                }
+                            </div>
                         }
                     </div>
                 </div>

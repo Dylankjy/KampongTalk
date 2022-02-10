@@ -39,6 +39,11 @@ namespace KampongTalk.Pages.Community
         // Posts
         public IEnumerable<dynamic> PostsToDisplay { get; set; }
         public int PostCount { get; set; }
+        
+        // Page number
+        public int PageNo { get; set; }
+        public int PreviousPageNo { get; set; }
+        public int NextPageNo { get; set; }
 
         // Profile edit props
         [BindProperty] [Required] public string EditDescription { get; set; }
@@ -94,9 +99,15 @@ namespace KampongTalk.Pages.Community
             var postsInThisCommunity = dbPost.All(new {InCommunity = ViewingCommunity.Cid});
 
             var numberOfObjectsPerPage = 10;
-            PostsToDisplay = postsInThisCommunity.ToList().Skip(numberOfObjectsPerPage * p)
+            var posts = postsInThisCommunity.ToList();
+            PostsToDisplay = posts.Skip(numberOfObjectsPerPage * p)
                 .Take(numberOfObjectsPerPage);
-            PostCount = PostsToDisplay.Count();
+            PostCount = posts.Count();
+            
+            // Set page number
+            PageNo = p;
+            PreviousPageNo = p - 1;
+            NextPageNo = p + 1;
 
             return Page();
         }
