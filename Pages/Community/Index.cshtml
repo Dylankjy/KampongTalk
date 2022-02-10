@@ -98,35 +98,50 @@
                     <div class="column is-three-quarters">
                         <h2 class="title is-5">Posts in this community</h2>
                         @{
-                            foreach (var post in Model.PostsToDisplay.Reverse())
+                            if (!Model.PostsToDisplay.Any())
                             {
-                                if (post.Author == 0)
-                                {
-                                    <div class="card mt-4" style="border-left: solid 4px;">
-                                        <div class="card-content">
-                                            <p style="overflow-wrap: break-word; hyphens: auto;"><i class="fas fa-edit"></i>&ensp;@post.Content</p>
-                                        </div>
-                                        <div class="card-content has-background-light pt-2 pb-2">
-                                            <p>@post.Timestamp.ToString("dd/MM/yyyy hh:mm tt")</p>
-                                        </div>
+                                <section class="section is-medium">
+                                    <div class="container has-text-centered">
+                                        <p class="title">
+                                            <i class="fa-solid fa-box-open"></i>
+                                        </p>
+                                        <h1 class="subtitle is-4 has-text-weight-bold has-text-page-color">Nothing to display</h1>
+                                        <p>This community does not have any posts</p>
                                     </div>
-                                }
-                                else
-                                {
-                                    <partial name="Partials/_Post" model="post" view-data="ViewData" />
-                                }
+                                </section>
                             }
-                            
-                            <div class="mt-6 has-text-centered">
-                                @if (Model.PageNo != 0)
+                            else
+                            {
+                                foreach (var post in Model.PostsToDisplay.Reverse())
                                 {
-                                    <a class="button" href="?c=@Model.ViewingCommunity.Cid&p=@Model.PreviousPageNo"><i class="fa-solid fa-arrow-left"></i>&ensp;Previous Page</a>
+                                    if (post.Author == 0)
+                                    {
+                                        <div class="card mt-4" style="border-left: solid 4px;">
+                                            <div class="card-content">
+                                                <p style="overflow-wrap: break-word; hyphens: auto;"><i class="fas fa-edit"></i>&ensp;@post.Content</p>
+                                            </div>
+                                            <div class="card-content has-background-light pt-2 pb-2">
+                                                <p>@post.Timestamp.ToString("dd/MM/yyyy hh:mm tt")</p>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <partial name="Partials/_Post" model="post" view-data="ViewData"/>
+                                    }
                                 }
-                                @if (Model.PostsToDisplay.Count() == 10)
-                                {
-                                    <a class="button" href="?c=@Model.ViewingCommunity.Cid&p=@Model.NextPageNo">Next Page&ensp;<i class="fa-solid fa-arrow-right"></i></a>
-                                }
-                            </div>
+
+                                <div class="mt-6 has-text-centered">
+                                    @if (Model.PageNo != 0)
+                                    {
+                                        <a class="button" href="?c=@Model.ViewingCommunity.Cid&p=@Model.PreviousPageNo"><i class="fa-solid fa-arrow-left"></i>&ensp;Previous Page</a>
+                                    }
+                                    @if (Model.PostsToDisplay.Count() == 10)
+                                    {
+                                        <a class="button" href="?c=@Model.ViewingCommunity.Cid&p=@Model.NextPageNo">Next Page&ensp;<i class="fa-solid fa-arrow-right"></i></a>
+                                    }
+                                </div>
+                            }
                         }
                     </div>
                 </div>
