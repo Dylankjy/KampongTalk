@@ -122,6 +122,15 @@
             </div>
             
             <script>
+                hideShowClearBtn = () => {
+                    let length = $('#searchField').val().length
+                    if (length > 0) {
+                        $("#searchFieldClearBtn").show();
+                    } else {
+                        $("#searchFieldClearBtn").hide();
+                    }
+                }
+                            
                 $("#searchForm").submit(function(e) {
                     Turbolinks.visit(`/Search?q=${encodeURIComponent($('#searchField').val())}`)
                     e.preventDefault();
@@ -129,12 +138,7 @@
                 
                 $("#searchField")
                 .on('input', () => {
-                    let length = $('#searchField').val().length
-                    if (length > 0) {
-                        $("#searchFieldClearBtn").show();
-                    } else {
-                        $("#searchFieldClearBtn").hide();
-                    }
+                    hideShowClearBtn()
                 })
                 .on("focus", () => {
                     $("#searchField").attr("placeholder", "Search KampongTalk — Type #community or @@user to directly navigate")
@@ -147,6 +151,10 @@
                     $("#searchFieldClearBtn").hide();
                     $('#searchField').val("").focus();
                 }
+                
+                
+                
+                hideShowClearBtn()
             </script>
 
             <div class="navbar-end">
@@ -162,11 +170,6 @@
                             </a>
                         </div>
                     </div>
-                }
-                // IF user is logged in, show this
-                else
-                {
-
                 }
             </div>
         </div>
