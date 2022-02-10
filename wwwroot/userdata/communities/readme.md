@@ -1,0 +1,1 @@
+This folder contains user data for community icons.
