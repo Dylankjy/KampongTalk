@@ -18,7 +18,7 @@
 <section id="profileHeader" class="hero has-background-primary-dark is-dark">
     <div class="hero-body">
         <div class="container">
-            <div id="iconImage" class="pfp"></div>
+            <div id="iconImage" class="community-icon"></div>
         </div>
     </div>
 </section>
@@ -93,7 +93,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="column">
+                    <div class="column is-three-quarters">
                         <h2 class="title is-5">Posts in this community</h2>
                         @{
                             foreach (var post in Model.PostsToDisplay.Reverse())
@@ -102,7 +102,7 @@
                                 {
                                     <div class="card mt-4" style="border-left: solid 4px;">
                                         <div class="card-content">
-                                            <p><i class="fas fa-edit"></i>&ensp;@post.Content</p>
+                                            <p style="overflow-wrap: break-word; hyphens: auto;"><i class="fas fa-edit"></i>&ensp;@post.Content</p>
                                         </div>
                                         <div class="card-content has-background-light pt-2 pb-2">
                                             <p>@post.Timestamp.ToString("ddd, dd MMMM yyyy")</p>
