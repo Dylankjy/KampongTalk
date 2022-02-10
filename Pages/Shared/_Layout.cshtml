@@ -112,6 +112,9 @@
                             <span class="icon is-small is-left">
                                 <i class="fas fa-search"></i>
                             </span>
+                            <span class="icon is-small is-right has-text-black">
+                                <i id="searchFieldClearBtn" onclick="clearSearchField()" class="fas fa-times" style="cursor: pointer !important; pointer-events: all"></i>
+                            </span>
                             @*  *@
                         </p>
                     </div>
@@ -120,9 +123,24 @@
             
             <script>
                 $("#searchForm").submit(function(e) {
-                    Turbolinks.visit(`/Search?q=${$('#searchField').val()}`)
+                    Turbolinks.visit(`/Search?q=${encodeURIComponent($('#searchField').val())}`)
                     e.preventDefault();
                 });
+                
+                $("#searchField").on('input', () => {
+                    let length = $('#searchField').val().length
+                    console.log(length)
+                    if (length > 0) {
+                        $("#searchFieldClearBtn").show();
+                    } else {
+                        $("#searchFieldClearBtn").hide();
+                    }
+                })
+                
+                clearSearchField = () => {
+                    $("#searchFieldClearBtn").hide();
+                    $('#searchField').val("").focus();
+                }
             </script>
 
             <div class="navbar-end">
