@@ -19,6 +19,12 @@ namespace KampongTalk.Pages.Search
         public IActionResult OnGet(string q)
         {
             SearchField = q;
+            
+            // If searchfield null
+            if (SearchField == null)
+            {
+                return Page();
+            }
 
             // Detect whether kampongid 
             if (q.StartsWith("@")) return Redirect($"/Profile?u={q.Normalize().Replace("@", "")}");
