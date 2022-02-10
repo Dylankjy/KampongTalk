@@ -120,56 +120,7 @@
                         <h2 class="title is-5"><i class="fas fa-sticky-note"></i>&ensp;Posts</h2>
                         foreach (var post in Model.SearchResultPosts)
                         {
-                            <div class="card mt-4">
-                                @{
-                                    if (post.InCommunity != null)
-                                    {
-                                        <div class="card-content card-meta">
-                                            <p class="has-text-weight-medium"><i class="fas fa-arrow-right"></i>&ensp;Posted in <a href="/Community?c=@post.InCommunity" class="has-text-weight-bold has-text-black">@CommunityApi.GetCommunityById(post.InCommunity).Name</a></p>
-                                        </div>
-                                    }
-                                }
-                                <div class="card-content card-top">
-                                    <a href="/Profile?u=@UserApi.GetUserById(post.Author).Uid2">
-                                        <div class="level">
-                                            <div class="level-left">
-                                                <div class="level-item">
-                                                    <div class="pfp-post"></div>
-                                                </div>
-                                                <div class="level-item">
-                                                    <div>
-                                                        <p class="title is-5">
-                                                            @UserApi.GetUserById(post.Author).Name
-                                                            <span class="is-size-6 has-text-grey" style="margin-top: -1.5rem">&#64;@UserApi.GetUserById(post.Author).Uid2</span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="card-content">
-                                    <p class="is-size-5">@post.Content</p>
-                                </div>
-                                <div class="card-content has-background-light">
-                                    <div class="level is-mobile">
-                                        <div class="level-left">
-                                            <a class="level-item">
-                                                <div class="tags has-addons">
-                                                    <span class="tag is-primary"><i class="fas fa-thumbs-up"></i>&ensp; Like</span>
-                                                    <span class="tag is-dark">100</span>
-                                                </div>
-                                            </a>
-                                            <a class="level-item">
-                                                <div class="tags has-addons">
-                                                    <span class="tag is-info"><i class="fas fa-comments"></i>&ensp; Reply</span>
-                                                    <span class="tag is-dark">69</span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <partial name="Partials/_Post" model="post" view-data="ViewData"/>
                         }
                     }
                 }
