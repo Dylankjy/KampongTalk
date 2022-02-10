@@ -96,24 +96,22 @@
                     <br />
                     <!--Add info tooltip-->
                     <!--Search-->
-
-                    <div class="field has-addons has-addons-centered">
-                        <div class="control has-icons-left">
-                            <input class="input" type="text" placeholder="Find a community">
-                            <span class="icon is-left">
-                                <i class="fas fa-search" aria-hidden="true"></i>
-                            </span>
+                        <div class="field has-addons has-addons-centered">
+                            <div class="control has-icons-left">
+                                <input id="communitySearch" class="input" type="text" placeholder="Find a community">
+                                <span class="icon is-left">
+                                    <i class="fas fa-search" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div class="control">
+                                <button class="button is-info" type="button" onclick="searchComms()">
+                                    Search
+                                </button>
+                            </div>
                         </div>
-                        <div class="control">
-                            <a class="button is-info">
-                                Search
-                            </a>
-                        </div>
-                    </div>
 
                     <br />
                     <div id="commSearchResults">
-
                     </div>
                     <div id="suggestedCommsSect">
                         <p class="has-text-centered">SUGGESTED COMMUNITIES</p>
@@ -217,7 +215,38 @@
                     //        </ul >
             },
             failure: function (response) {
-                alert('failed lmao')
+                alert('failed')
+
+            }
+        })
+    }
+
+    function searchComms() {
+        event.preventDefault();
+        var commName = document.getElementById("communitySearch").value
+        $.ajax({
+            type: "GET",
+            url: "/Board/searchcommunity",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("XSRF-TOKEN",
+                    $('input:hidden[name="__RequestVerificationToken"]').val());
+            },
+            data: {
+                commName: commName.toString(),
+            },
+            success: function (response) {
+                var searchResultsDiv = document.getElementById("commSearchResults")
+                
+                if (response == "") {
+                    searchResultsDiv.innerHTML = "<p class='has-text-centered'>We couldn't find any communities with that name.</p><br>"
+                }
+                else {
+                    searchResultsDiv.innerHTML = '<p class="has-text-centered">Search Results</p>' + 
+                        "<ul><li><hr />" + response + '<button class="button is-link is-outlined is-pulled-right commButton" type="button" onclick="selectComms(this)">Select</button></li></ul><br>'
+                }
+            },
+            failure: function (response) {
+                console.log('search unsuccessful')
 
             }
         })
@@ -266,6 +295,8 @@
     function showSect(newSect) {
         document.getElementById("mainSect").style.display = "none";
         document.getElementById(newSect).style.display = "block";
+        document.getElementById("commSearchResults").innerHTML = "";
+        document.getElementById("communitySearch").value = ""
     }
 
     function toMainSect() {
