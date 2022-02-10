@@ -6,6 +6,7 @@
     if (Model.ViewingCommunity != null)
     {
         ViewData["Title"] = Model.ViewingCommunity.Name;
+        ViewData["SearchField"] = "#" + Model.ViewingCommunity.Cid;
     }
     else
     {

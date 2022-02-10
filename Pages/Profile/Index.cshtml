@@ -5,6 +5,7 @@
     if (Model.ViewingUser != null)
     {
         ViewData["Title"] = Model.ViewingUser.Name;
+        ViewData["SearchField"] = "@" + Model.ViewingUser.Uid2;
     }
     else
     {
