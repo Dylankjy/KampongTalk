@@ -108,7 +108,7 @@
                 <form id="searchForm" method="get" action="/Search" style="width: 100%" >
                     <div class="field">
                         <p class="control has-icons-left has-icons-right">
-                            <input id="searchField" class="input is-light" type="text" asp-for="@ViewData["SearchField"]" name="q" placeholder="Search KampongTalk">
+                            <input id="searchField" autocomplete="off"  class="input is-light" type="text" asp-for="@ViewData["SearchField"]" name="q" placeholder="Search KampongTalk">
                             <span class="icon is-small is-left">
                                 <i class="fas fa-search"></i>
                             </span>
@@ -127,14 +127,20 @@
                     e.preventDefault();
                 });
                 
-                $("#searchField").on('input', () => {
+                $("#searchField")
+                .on('input', () => {
                     let length = $('#searchField').val().length
-                    console.log(length)
                     if (length > 0) {
                         $("#searchFieldClearBtn").show();
                     } else {
                         $("#searchFieldClearBtn").hide();
                     }
+                })
+                .on("focus", () => {
+                    $("#searchField").attr("placeholder", "Search KampongTalk — Type #community or @@user to directly navigate")
+                })
+                .on("focusout", () => {
+                    $("#searchField").attr("placeholder", "Search KampongTalk")
                 })
                 
                 clearSearchField = () => {
