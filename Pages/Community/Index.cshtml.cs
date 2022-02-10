@@ -1,18 +1,30 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
+using IdGen;
 using KampongTalk.Models;
 using KampongTalk.Pages.Search;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Mighty;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
 
 namespace KampongTalk.Pages.Community
 {
     public class Index : PageModel
     {
+        private readonly IWebHostEnvironment _environment;
+
+        public Index(IWebHostEnvironment environment)
+        {
+            _environment = environment;
+        }
+        
         // Current user prop
         public User CurrentUser { get; set; }
 
@@ -20,6 +32,9 @@ namespace KampongTalk.Pages.Community
         public dynamic ViewingCommunity { get; set; }
         public string CreateDate { get; set; }
         public bool IsCurrentUserOwner { get; set; }
+        
+        // Community Icon prop
+        [BindProperty] public IFormFile IconImage { get; set; }
 
         // Posts
         public IEnumerable<dynamic> PostsToDisplay { get; set; }
@@ -117,6 +132,49 @@ namespace KampongTalk.Pages.Community
             if (selectedCommunity.CreatorId != CurrentUser.Uid) return Page();
 
             selectedCommunity.Description = EditDescription;
+            
+            // Set icon
+            // Profile image
+            if (IconImage != null)
+            {
+                var imgExt = IconImage.FileName.Split('.').Last();
+                var genImgNum = new IdGenerator(66).CreateId();
+                var genImgName = genImgNum + "." + imgExt;
+                var file = Path.Combine(_environment.ContentRootPath, "wwwroot/userdata/communities", genImgName);
+                var genImgNameOriginal = genImgNum + "-original." + imgExt;
+                var fileOriginal = Path.Combine(_environment.ContentRootPath, "wwwroot/userdata/communities", genImgNameOriginal);
+
+                using (var fileStream = new FileStream(fileOriginal, FileMode.Create))
+                {
+                    IconImage.CopyTo(fileStream);
+                }
+
+                using (var image = Image.Load(fileOriginal))
+                {
+                    var ratio = Convert.ToDouble(image.Height) / Convert.ToDouble(image.Width);
+                    var width = 384;
+                    var height = (int) Math.Round(384 * ratio, 0);
+                    image.Mutate(x => x.Resize(width, height));
+
+                    image.Save(file);
+                }
+
+                // if current image is not default.jpg, we will delete on our end
+                if (selectedCommunity.IconImg != "default.jpg")
+                {
+                    string oldAvatarImg = selectedCommunity.IconImg;
+                    var oldAvatarImgOriginal =
+                        oldAvatarImg.Split(".").First() + "-original." + oldAvatarImg.Split(".").Last();
+
+                    var currentImgPath = Path.Combine(_environment.ContentRootPath, "wwwroot/userdata/communities", oldAvatarImg);
+                    var currentImgPathOriginal = Path.Combine(_environment.ContentRootPath, "wwwroot/userdata/communities",
+                        oldAvatarImgOriginal);
+                    System.IO.File.Delete(currentImgPath);
+                    System.IO.File.Delete(currentImgPathOriginal);
+                }
+
+                selectedCommunity.IconImg = genImgName;
+            }
 
             // Commit changes
             dbCommunities.Update(selectedCommunity);

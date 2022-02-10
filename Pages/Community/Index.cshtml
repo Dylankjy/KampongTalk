@@ -15,10 +15,10 @@
     // ViewData["currentUid"] = Model.CurrentUser.Uid;
 }
 
-<section class="hero has-background-grey is-dark">
+<section id="profileHeader" class="hero has-background-primary-dark is-dark">
     <div class="hero-body">
         <div class="container">
-            <div class="pfp"></div>
+            <div id="iconImage" class="pfp"></div>
         </div>
     </div>
 </section>
@@ -32,7 +32,7 @@
                 <div class="columns" style="margin-top: 4rem;">
                     <div class="column is-one-quarter">
                         <div>
-                            <h1 class="title is-1">@Model.ViewingCommunity.Name</h1>
+                            <h1 class="title is-1 mt-6 has-text-black">@Model.ViewingCommunity.Name</h1>
                             <br />
                             <div class="level">
                                 <div class="level-item has-text-centered">
@@ -58,7 +58,7 @@
                             if (Model.ViewingCommunity.Description != null)
                             {
                                 <div>
-                                    <h3 class="title is-5">About this community</h3>
+                                    <h3 class="title is-5 has-text-page-color">About this community</h3>
                                     <p style="hyphens: auto; overflow-wrap: break-word">@Model.ViewingCommunity.Description</p>
                                 </div>
                                 <hr />
@@ -68,7 +68,7 @@
                             <div class="level">
                                 <div class="level-item-left has-text-centered">
                                     <div>
-                                        <h3 class="title is-5">Owner</h3>
+                                        <h3 class="title is-5 has-text-page-color">Owner</h3>
                                     </div>
                                 </div>
                                 <div class="level-item-right has-text-centered">
@@ -82,7 +82,7 @@
                             <div class="level">
                                 <div class="level-item-left has-text-centered">
                                     <div>
-                                        <h3 class="title is-5">Created</h3>
+                                        <h3 class="title is-5 has-text-page-color">Created</h3>
                                     </div>
                                 </div>
                                 <div class="level-item-right has-text-centered">
@@ -128,9 +128,14 @@
                         <div class="has-background-dark card-hero-community">
                             <button onclick="$('#editCommunityModal').fadeOut('fast')" class="modal-close is-large" aria-label="close"></button>
                         </div>
-                        <div class="pfp-small"></div>
+                        <div class="community-icon-small">
+                            <div class="is-vcentered has-text-centered has-text-white pfp-edit is-size-2" onclick="$('#iconUploadField').trigger('click')">
+                                <i class="fa-solid fa-pen"></i>
+                            </div>
+                        </div>
 
-                        <form method="post">
+                        <form id="communityEditForm" method="post" enctype="multipart/form-data" style="margin-top: 6rem">
+                            <input accept="image/png, image/jpg" type="file" asp-for="IconImage" id="iconUploadField" style="opacity: 0; height: 0; width: 0"/>
                             <div class="field">
                                 <label class="label">Community Name</label>
                                 <div class="control has-icons-left">
@@ -145,7 +150,7 @@
                             <div class="field">
                                 <label class="label">About this community</label>
                                 <div class="control">
-                                    <textarea class="textarea" rows="5" asp-for="EditDescription" minlength="20" maxlength="254"></textarea>
+                                    <input class="input" type="text" asp-for="EditDescription" minlength="20" maxlength="254" value="@Model.ViewingCommunity.Description">
                                 </div>
                             </div>
 
@@ -167,9 +172,46 @@
                 <p class="title">
                     <i class="fas fa-question-circle"></i>
                 </p>
-                <h1 class="subtitle is-4 has-text-weight-bold">This isn't a void deck, it's just a void.</h1>
+                <h1 class="subtitle is-4 has-text-weight-bold has-text-page-color">This isn't a void deck, it's just a void.</h1>
                 <p>This community does not exist. Please ensure that you did not type the name of the community wrongly.</p>
             </div>
         </section>
+    }
+}
+
+<script>
+    $("#iconUploadField").on('change', () => {
+        $("#communityEditForm").submit()
+    })
+</script>
+
+@{
+    if (Model.ViewingCommunity != null)
+    {
+        <style>
+            #iconImage, .community-icon-small {
+                background: url('/userdata/communities/@Model.ViewingCommunity.IconImg') center no-repeat; background-size: cover
+            }
+            
+            #profileHeader, .card-hero-community {
+                background-color: rgb(var(--page-theme-color)) !important;
+            }
+            
+            .has-text-page-color {
+                color: rgb(var(--page-theme-color));
+            }
+            
+            .has-text-page-color-light {
+                color: rgb(var(--page-theme-color-light));
+            }
+            
+        </style>
+
+        <script>
+            Vibrant.from('/userdata/communities/@Model.ViewingCommunity.IconImg').getPalette((err, palette) => {
+                $('nav.navbar').css({ 'background-color': `rgb(${palette.DarkMuted._rgb})` })
+                $(':root').css({ '--page-theme-color': `${palette.DarkMuted._rgb}`, '--page-theme-color-light': `${palette.Muted._rgb}` })
+            });
+        </script>
     }
 }
