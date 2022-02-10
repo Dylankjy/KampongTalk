@@ -174,3 +174,11 @@
 .turbolinks-progress-bar {
     display: none !important;
 }
+
+.view-more-item > div {
+    border-bottom: 1px solid lightgrey;
+}
+
+.view-more-item:last-child > div {
+    border-bottom: none;
+}
