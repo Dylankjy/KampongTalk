@@ -28,6 +28,8 @@ namespace KampongTalk.Pages.Search
 
             // Detect whether kampongid 
             if (q.StartsWith("@")) return Redirect($"/Profile?u={q.Normalize().Replace("@", "")}");
+            // Detect whether community id
+            if (q.StartsWith("#")) return Redirect($"/Community?c={q.Normalize().Replace("#", "")}");
 
             var result = SearchApi.GetSearchResults(q).Result;
 
