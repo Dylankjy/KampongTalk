@@ -103,11 +103,20 @@
                             else
                             {
                                 <h2 class="title is-5">Recent posts by this user</h2>
-                            }
-
-                            foreach (var post in Model.PostsToDisplay)
-                            {
-                                <partial name="Partials/_Post" model="post" view-data="ViewData"/>
+                                foreach (var post in Model.PostsToDisplay.Reverse())
+                                {
+                                    <partial name="Partials/_Post" model="post" view-data="ViewData"/>
+                                }
+                                <div class="mt-4 has-text-centered">
+                                    @if (Model.PageNo != 0)
+                                    {
+                                        <a class="button" href="?u=@Model.ViewingUser.Uid2&p=@Model.PreviousPageNo"><i class="fa-solid fa-arrow-left"></i>&ensp;Previous Page</a>
+                                    }
+                                    @if (Model.PostsToDisplay.Count() == 10)
+                                    {
+                                        <a class="button" href="?u=@Model.ViewingUser.Uid2&p=@Model.NextPageNo">Next Page&ensp;<i class="fa-solid fa-arrow-right"></i></a>
+                                    }
+                                </div>
                             }
                         }
                     </div>

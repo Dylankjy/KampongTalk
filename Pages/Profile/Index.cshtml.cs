@@ -39,6 +39,11 @@ namespace KampongTalk.Pages.Profile
         // Posts
         public IEnumerable<dynamic> PostsToDisplay { get; set; }
         public int PostCount { get; set; }
+        
+        // Page number
+        public int PageNo { get; set; }
+        public int PreviousPageNo { get; set; }
+        public int NextPageNo { get; set; }
 
         // Profile edit props
         [BindProperty] [Required] public string EditName { get; set; }
@@ -101,12 +106,18 @@ namespace KampongTalk.Pages.Profile
             var postsByThisUser = dbPost.All(new {Author = ViewingUser.Uid});
 
             var numberOfObjectsPerPage = 10;
-            PostsToDisplay = postsByThisUser.ToList().Skip(numberOfObjectsPerPage * p)
+            var posts = postsByThisUser.ToList();
+            PostsToDisplay = posts.Skip(numberOfObjectsPerPage * p)
                 .Take(numberOfObjectsPerPage);
-            PostCount = PostsToDisplay.Count();
+            PostCount = posts.Count();
 
             // Set default value for textarea, Bio
             EditBio = ViewingUser.Bio;
+            
+            // Set page number
+            PageNo = p;
+            PreviousPageNo = p - 1;
+            NextPageNo = p + 1;
 
             return Page();
         }
