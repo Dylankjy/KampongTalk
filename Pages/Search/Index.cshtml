@@ -26,15 +26,15 @@
                         foreach (var user in Model.SearchResultUsers.Take(5))
                         {
                             <a href="/Profile?u=@user.Uid2">
-                                <div class="box">
+                                <div class="box mb-3">
                                     <div class="level">
                                         <div class="level-left">
                                             <div class="level-item">
-                                                <div class="pfp-post"></div>
+                                                <div class="pfp-post" style="background: url('/userdata/@user.AvatarImg') center no-repeat; background-size: cover"></div>
                                             </div>
                                             <div class="level-item">
                                                 <div>
-                                                    <p class="title is-5">
+                                                    <p class="title is-5" style="overflow-wrap: break-word; hyphens: auto;">
                                                         @user.Name
                                                         <span class="is-size-6 has-text-grey">&#64;@user.Uid2</span>
                                                     </p>
@@ -63,7 +63,7 @@
                         foreach (var eventObj in Model.SearchResultEvents.Take(5))
                         {
                             <a href="/Events/View/@eventObj.Eid">
-                                <div class="box">
+                                <div class="box mb-2">
                                     <p>@eventObj.Name</p>
                                 </div>
                             </a>
@@ -87,20 +87,18 @@
                                 <a href="/Community?c=@community.Cid" class="mr-3 m-4">
                                     <div class="card card-new-community" style="border-top-right-radius: 0.5rem; border-top-left-radius: 0.5rem; width: 19rem; height: 100%">
                                         <div class="card-content">
-                                            <div class="has-background-dark card-hero"></div>
-                                            <div class="community-icon-search"></div>
-                                            <div class="field">
+                                            <div id="card-community-@community.Cid" class="card-hero-community"></div>
+                                            <div class="community-icon-search" style="background: url('/userdata/communities/@community.IconImg') center no-repeat; background-size: cover"></div>
+                                            <div class="field mt-3">
                                                 <p class="title is-4">@community.Name</p>
                                                 <p class="subtitle is-6">@Index.TrimIfTooLong(community.Description)</p>
                                             </div>
-
-                                            @* <div class="field"> *@
-                                            @*     <label class="label">About this community</label> *@
-                                            @*     <div class="control"> *@
-                                            @*         <textarea class="textarea" rows="5" placeholder="A community where flower lovers can interact. Share pictures of your garden or flowers!" asp-for="NewCommunity.Description" required minlength="20" maxlength="254"></textarea> *@
-                                            @*     </div> *@
-                                            @*     <small class="has-text-grey">Be descriptive as possible so that more people can find your community.</small> *@
-                                            @* </div> *@
+                                            
+                                            <script>
+                                            Vibrant.from('/userdata/communities/@community.IconImg').getPalette((err, palette) => {
+                                                            $('#card-community-@community.Cid').css({ 'background': `rgb(${palette.DarkMuted._rgb})` })
+                                                        });
+                                            </script>
                                         </div>
                                     </div>
                                 </a>
