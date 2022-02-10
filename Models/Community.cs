@@ -11,7 +11,7 @@ namespace KampongTalk.Models
         public string Cid { get; set; }
         [Required] public string Name { get; set; }
         public long CreatorId { get; set; }
-        public string IconImg { get; set; } = "default_community.png";
+        public string IconImg { get; set; } = "default-community.png";
         [Required, MaxLength(255), MinLength(20)] public string Description { get; set; }
         public DateTime TimeCreated { get; set; } = DateTime.Now;
 
