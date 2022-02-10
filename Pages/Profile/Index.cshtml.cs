@@ -161,8 +161,8 @@ namespace KampongTalk.Pages.Profile
                 using (var image = Image.Load(fileOriginal))
                 {
                     var ratio = Convert.ToDouble(image.Height) / Convert.ToDouble(image.Width);
-                    var width = 512;
-                    var height = (int) Math.Round(512 * ratio, 0);
+                    var width = 384;
+                    var height = (int) Math.Round(384 * ratio, 0);
                     image.Mutate(x => x.Resize(width, height));
 
                     image.Save(file);
@@ -202,8 +202,8 @@ namespace KampongTalk.Pages.Profile
                 using (var image = Image.Load(fileOriginal))
                 {
                     var ratio = Convert.ToDouble(image.Height) / Convert.ToDouble(image.Width);
-                    var width = 512;
-                    var height = (int) Math.Round(512 * ratio, 0);
+                    var width = 1080;
+                    var height = (int) Math.Round(1080 * ratio, 0);
                     image.Mutate(x => x.Resize(width, height));
 
                     image.Save(file);
