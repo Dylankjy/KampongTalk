@@ -9,7 +9,7 @@
 
 <section class="section">
     <div class="container">
-        <div class="columns">
+        <div class="columns is-variable is-4">
             <div class="column is-one-quarter">
 
                 @{
@@ -36,14 +36,20 @@
                                                 <div>
                                                     <p class="title is-5" style="overflow-wrap: break-word; hyphens: auto;">
                                                         @user.Name
-                                                        <span class="is-size-6 has-text-grey">&#64;@user.Uid2</span>
+                                                        
                                                     </p>
+                                                    <p class="subtitle mt-0 has-text-grey is-6">&#64;@user.Uid2</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </a>
+                        }
+
+                        if (Model.SearchResultUsers.Count > 5)
+                        {
+                            <a class="has-text-grey" onclick="$('#viewMore-users').fadeIn('fast')"><i class="fa-solid fa-arrow-right"></i>&ensp;View more</a>
                         }
                     }
                 }
@@ -54,12 +60,12 @@
                     var numberOfEvents = Model.SearchResultEvents.Count;
                     if (numberOfEvents == 0)
                     {
-                        <h2 class="title is-5"><i class="fas fa-user"></i>&ensp;Events — 0 results</h2>
+                        <h2 class="title is-5"><i class="fa-solid fa-calendar-week"></i>&ensp;Events — 0 results</h2>
                         <p>No events found</p>
                     }
                     else
                     {
-                        <h2 class="title is-5"><i class="fas fa-campground"></i>&ensp;Events — @numberOfEvents result(s)</h2>
+                        <h2 class="title is-5"><i class="fa-solid fa-calendar-week"></i>&ensp;Events — @numberOfEvents result(s)</h2>
                         foreach (var eventObj in Model.SearchResultEvents.Take(5))
                         {
                             <a href="/Events/View/@eventObj.Eid">
@@ -67,6 +73,11 @@
                                     <p>@eventObj.Name</p>
                                 </div>
                             </a>
+                        }
+                        
+                        if (Model.SearchResultUsers.Count > 5)
+                        {
+                            <a class="has-text-grey" onclick="$('#viewMore-events').fadeIn('fast')"><i class="fa-solid fa-arrow-right"></i>&ensp;View more</a>
                         }
                     }
                 }
@@ -82,7 +93,7 @@
                     {
                         <h2 class="title is-5"><i class="fas fa-users"></i>&ensp;Communities</h2>
                         <div class="communities-container">
-                            @foreach (var community in Model.SearchResultCommunities.Take(6))
+                            @foreach (var community in Model.SearchResultCommunities)
                             {
                                 <a href="/Community?c=@community.Cid" class="mr-3 m-4">
                                     <div class="card card-new-community" style="border-top-right-radius: 0.5rem; border-top-left-radius: 0.5rem; width: 19rem; height: 100%">
@@ -126,3 +137,63 @@
         </div>
     </div>
 </section>
+
+<div id="viewMore-users" class="modal is-active" style="display: none">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <div class="card">
+            <div class="card-content has-background-light">
+                <p class="title is-4"><i class="fas fa-user"></i>&ensp;Users</p>
+                <p class="subtitle is-6">Showing @Model.SearchResultUsers.Count users</p>
+            </div>
+            <div class="card-content">
+                @foreach (var user in Model.SearchResultUsers)
+                {
+                    <a href="/Profile?u=@user.Uid2" class="view-more-item">
+                        <div class="pt-4 pb-4">
+                            <div class="level">
+                                <div class="level-left">
+                                    <div class="level-item">
+                                        <div class="pfp-post" style="background: url('/userdata/@user.AvatarImg') center no-repeat; background-size: cover"></div>
+                                    </div>
+                                    <div class="level-item">
+                                        <div>
+                                            <p class="title is-5" style="overflow-wrap: break-word; hyphens: auto;">
+                                                @user.Name
+                                                <span class="is-size-6 has-text-grey">&#64;@user.Uid2</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+    <button onclick="$('#viewMore-users').fadeOut('fast')" class="modal-close is-large" aria-label="close"></button>
+</div>
+
+<div id="viewMore-events" class="modal is-active" style="display: none">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <div class="card">
+            <div class="card-content has-background-light">
+                <p class="title is-4"><i class="fa-solid fa-calendar-week"></i>&ensp;Events</p>
+                <p class="subtitle is-6">Showing @Model.SearchResultUsers.Count events</p>
+            </div>
+            <div class="card-content">
+                @foreach (var eventObj in Model.SearchResultEvents)
+                {
+                <a href="/Events/View/@eventObj.Eid">
+                    <div class="box mb-2">
+                        <p>@eventObj.Name</p>
+                    </div>
+                </a>
+                }
+            </div>
+        </div>
+    </div>
+    <button onclick="$('#viewMore-events').fadeOut('fast')" class="modal-close is-large" aria-label="close"></button>
+</div>
