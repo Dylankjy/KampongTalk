@@ -372,21 +372,19 @@
                     // $(obj).next().attr("src", filename)
                     // $(obj).next()[0].play()
                     $(obj).parent().parent().next().attr("src", filename)
+                    $(obj).parent().parent().next()[0].addEventListener("ended", function () {
+                        deleteFile(filename)
+                    });
                     $(obj).parent().parent().next()[0].play()
+                    // deleteFile(filename)
                 })
-
-            $(window).bind('beforeunload', () => {
-                filenames.forEach((filename) => {
-                    deleteFile(filename)
-                })
-            })
         }
 
         // Delete all the synthesized files when the user navigates to another page
         // console.log("This has ran")
-        $(window).bind('beforeunload', () => {
+        @*$(window).bind('beforeunload', () => {
             filenames.forEach((filename) => {
                 deleteFile(filename)
             })
-        })
+        })*@
     </script>
