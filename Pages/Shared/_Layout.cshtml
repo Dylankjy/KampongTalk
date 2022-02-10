@@ -132,8 +132,16 @@
                 }
                             
                 $("#searchForm").submit(function(e) {
-                    Turbolinks.visit(`/Search?q=${encodeURIComponent($('#searchField').val())}`)
                     e.preventDefault();
+                    const searchQuery = $('#searchField').val()
+                    if (searchQuery[0] === "@@") {
+                        return Turbolinks.visit(`/Profile?u=${encodeURIComponent(searchQuery.substring(1))}`)
+                    }
+                    if (searchQuery[0] === "#") {
+                        return Turbolinks.visit(`/Community?c=${encodeURIComponent(searchQuery.substring(1))}`)
+                    }
+                    
+                    return Turbolinks.visit(`/Search?q=${encodeURIComponent(searchQuery)}`)
                 });
                 
                 $("#searchField")
