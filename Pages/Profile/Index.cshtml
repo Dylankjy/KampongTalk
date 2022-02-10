@@ -31,7 +31,7 @@
                 <div class="columns mt-5">
                     <div class="column is-one-quarter">
                         <div>
-                            <h1 class="title is-1 has-text-page-color">@Model.ViewingUser.Name</h1>
+                            <h1 class="title is-1 has-text-black">@Model.ViewingUser.Name</h1>
                             <p class="subtitle has-text-page-color-light">&#64;@Model.ViewingUser.Uid2</p>
                             <br/>
                             <div class="level">
@@ -101,7 +101,7 @@
                             }
                             else
                             {
-                                <h2 class="title is-5 has-text-page-color">Recent posts by this user</h2>
+                                <h2 class="title is-5">Recent posts by this user</h2>
                             }
 
                             foreach (var post in Model.PostsToDisplay)
@@ -160,7 +160,7 @@
                             <div class="field">
                                 <label class="label">About me</label>
                                 <div class="control">
-                                    <textarea class="textarea" rows="5" asp-for="EditBio"></textarea>
+                                    <input class="input" type="text" value="@Model.ViewingUser.Bio" asp-for="EditBio" style="word-break: break-word;">
                                 </div>
                             </div>
 
