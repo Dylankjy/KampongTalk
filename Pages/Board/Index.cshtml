@@ -55,7 +55,6 @@
                 foreach (var post in Model.PostsToDisplay)
                 {
                     <partial name="_Post" model="post" view-data="ViewData" />
-
                 }
 
 
@@ -331,16 +330,18 @@
 
 </script>
 
-@*<script>
+<script>
         var translateText = (obj) => {
-            var translateString = $(obj).prev().text()
+            // var translateString = $(obj).prev().text()
+            var translateString = $(obj).parent().parent().parent().parent().prev().children(":first-child").text()
             // Use the TranslateAPIController.cs, and run the Translate() function
             var url = '@Url.Action("Translate", "TranslateAPI")'
             console.log(translateString)
     // Pass in the parameters as {"text": blahblah, "language": blahblah}
     $.get(url, { text: translateString, language: "@UserAttributes.getTranslateLanguage()" })
                 .done((data) => {
-                    $(obj).prev().text(data)
+                    // $(obj).prev().text(data)
+                    $(obj).parent().parent().parent().parent().prev().children(":first-child").text(data)
                 })
         }
 
@@ -360,15 +361,18 @@
         var synthesizeSpeech = (obj) => {
             // Use the TranslateAPIController.cs, and run the Translate() function
             var url = '@Url.Action("AutoSynthesize", "SpeechAPI")'
-            var ttsText = $(obj).prev().prev().text()
+            // var ttsText = $(obj).prev().prev().text()
+            var ttsText = $(obj).parent().parent().parent().parent().prev().children(":first-child").text()
 
             // Pass in the parameters as {"text": blahblah, "language": blahblah}
             $.get(url, { text: ttsText, gender: "@UserAttributes.getSpeechGender()" })
                 .done((data) => {
                     var filename = `speech/${data}`
                     filenames.push(filename)
-                    $(obj).next().attr("src", filename)
-                    $(obj).next()[0].play()
+                    // $(obj).next().attr("src", filename)
+                    // $(obj).next()[0].play()
+                    $(obj).parent().parent().next().attr("src", filename)
+                    $(obj).parent().parent().next()[0].play()
                 })
 
             $(window).bind('beforeunload', () => {
@@ -385,4 +389,4 @@
                 deleteFile(filename)
             })
         })
-    </script>*@
+    </script>
