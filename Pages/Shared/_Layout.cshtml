@@ -107,6 +107,8 @@
 
         <div id="navbarBasicExample" class="navbar-menu">
 
+            @if (UserAttributes.isLoggedIn())
+            {
             <div class="navbar-item" style="width: 70%; margin: 0 auto;">
                 <form id="searchForm" method="get" action="/Search" style="width: 100%" >
                     <div class="field">
@@ -123,7 +125,8 @@
                     </div>
                 </form>
             </div>
-            
+            }
+
             <script>
                 hideShowClearBtn = () => {
                     let length = $('#searchField').val().length
