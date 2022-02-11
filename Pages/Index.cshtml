@@ -6,15 +6,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="~/css/navMap.css">
 
+
 <audio preload="auto" id="chime" src="/audio/navMapHover.mp3"
        style="width: 100%;">
 </audio>
+
+
 
 <section class="section" id="fullview" style="display:block;">
     <div class="columns">
 
         <!-- START: Main Column -->
-        <div class="column is-four-fifths-desktop">
+        <div class="column is-four-fifths-desktop" data-title="Welcome to KampongTalk's map." data-intro="This is where you can access all the features of KampongTalk.">
             @*<div class="container mb-3 has-text-centered">
             <h1 class="subtitle has-text-weight-bold">Welcome to Kampong Talk</h1>
         </div>*@
@@ -25,7 +28,7 @@
 
                 <!-- ChatIcon -->
                 <a href="">
-                    <div class="iconDiv expandDiv" style="top: 0vh; left: 14vw;">
+                    <div class="iconDiv expandDiv" style="top: 0vh; left: 14vw;" data-title="Chat" data-intro="Here, you can access your private messages and create chats.">
                         <img src="~/imgs/NavMap/Chat_Icon.png" class="navMapIcon" />
                         <p><span class="tag is-dark is-large has-text-weight-bold">Chats</span></p>
                     </div>
@@ -33,7 +36,7 @@
 
                 <!-- CommunitiesIcon -->
                 <a href="/Community/Explore">
-                    <div class="iconDiv expandDiv" style="top:0vh; left:38vw;">
+                    <div class="iconDiv expandDiv" style="top:0vh; left:38vw;" data-title="Communities" data-intro="Have a specific interest or hobby? Find posts grouped by topics here.">
                         <img src="~/imgs/NavMap/Communities_Icon.png" class="navMapIcon" style="height:25vh;" />
                         <p><span class="tag is-dark is-large has-text-weight-bold">Communities</span></p>
 
@@ -42,7 +45,7 @@
 
                 <!-- VoidDeckIcon -->
                 <a href="/DigitalVoidDeck/Lobby">
-                    <div class="iconDiv expandDiv" style="top:0vh; left:51vw;">
+                    <div class="iconDiv expandDiv" style="top:0vh; left:51vw;" data-title="Void Deck" data-intro="Find and meet new people around your neighbourhood.">
                         <img src="~/imgs/NavMap/Void_Deck.png" class="navMapIcon" />
                         <p><span class="tag is-dark is-large has-text-weight-bold">Void Deck</span></p>
                     </div>
@@ -50,7 +53,7 @@
 
                 <!-- BoardIcon -->
                 <a href="/Board">
-                    <div class="iconDiv expandDiv" style="top:21vh; left:25vw;">
+                    <div class="iconDiv expandDiv" style="top:21vh; left:25vw;" data-title="Board" data-intro="Here, you can view and create posts. Share about your day, or catch up with friends.">
                         <img src="~/imgs/NavMap/Board_Icon.png" class="navMapIcon" />
                         <p><span class="tag is-dark is-large has-text-weight-bold">Board</span></p>
                     </div>
@@ -58,7 +61,7 @@
 
                 <!-- SupportIcon -->
                 <a href="/Support">
-                    <div class="iconDiv expandDiv" style="top:47vh; left:14vw;">
+                    <div class="iconDiv expandDiv" style="top:47vh; left:14vw;" data-title="Support" data-intro="Contact KampongTalk staff here.">
                         <!--SupportLink-->
                         <img src="~/imgs/NavMap/Support_Icon.png" class="navMapIcon" />
                         <p><span class="tag is-dark is-large has-text-weight-bold">Support</span></p>
@@ -67,7 +70,7 @@
 
                 <!-- EventsIcon -->
                 <a href="/Events">
-                    <div class="iconDiv expandDiv" style="top:38vh; left:40vw;">
+                    <div class="iconDiv expandDiv" style="top:38vh; left:40vw;" data-title="Events" data-intro="Looking for a way to pass the time? Find engaging community-hosted events here.">
                         <img src="~/imgs/NavMap/Events_Icon.png" class="navMapIcon" style="height:25vh;" />
                         <p><span class="tag is-dark is-large has-text-weight-bold">Events</span></p>
 
@@ -82,12 +85,12 @@
 
         <div class="column">
 
-            <p><button class="button is-light" onclick="history.back()"><i class="fas fa-times"></i>&ensp;Close Map</button></p>
+            <p><button class="button is-light" onclick="history.back()" data-title="Close the map" data-intro="Click here to close the map and return to your previous page."><i class="fas fa-times"></i>&ensp;Close Map</button></p>
             <br />
 
             <div class="is-pulled-left">
 
-                <div class="has-text-centered expandDiv">
+                <div class="has-text-centered expandDiv" data-title="Friends" data-intro="Access your friends list here.">
                     <a href="">
                         <button class="button is-large is-primary">
                             <span class="icon is-medium">
@@ -99,7 +102,7 @@
                 </div>
                 <br />
 
-                <div class="has-text-centered expandDiv">
+                <div class="has-text-centered expandDiv" data-title="Profile" data-intro="Change your profile settings here.">
                     <a href="/Profile?u=@Model.CurrentUser.Uid2">
                         <button class="button is-large is-primary">
                             <span class="icon is-medium">
@@ -111,7 +114,7 @@
                 </div>
                 <br />
 
-                <div class="has-text-centered expandDiv">
+                <div class="has-text-centered expandDiv" data-title="My Events" data-intro="Access the events you signed up for, or create your own event.">
                     <a href="/Events/MyEvents">
                         <button class="button is-large is-primary">
                             <span class="icon is-medium">
@@ -123,7 +126,7 @@
                 </div>
                 <br />
 
-                <div class="has-text-centered expandDiv">
+                <div class="has-text-centered expandDiv" data-title="Settings" data-intro="Change your account settings here.">
                     <a href="/Settings">
                         <button class="button is-large is-primary">
                             <span class="icon is-medium">
@@ -133,6 +136,20 @@
                     </a>
                     <p class="has-text-weight-bold">Settings</p>
                 </div>
+                <br />
+
+                <div class="has-text-centered expandDiv" data-title="Log Out" data-intro="Click this button to exit Kampong Talk.">
+                    <!--Hi Dylan, logout button here-->
+                    <a href="">
+                        <button class="button is-large is-primary">
+                            <span class="icon is-medium">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                            </span>
+                        </button>
+                    </a>
+                    <p class="has-text-weight-bold">Log Out</p>
+                </div>
+
             </div>
         </div>
         </div>
@@ -214,8 +231,8 @@
 </section>
 
 <script>
-
-    window.addEventListener('load', function () {
+    $(document).ready(function () {
+        
         adjustView()
         var icons = document.getElementsByClassName('navMapIcon');
         var chime = document.getElementById('chime');
@@ -254,4 +271,13 @@
         }
     }
 
+</script>
+
+<script defer>
+    if (window.location.hash === '#walkthrough') {
+        introJs().start()
+    }
+    var mapBtn = document.getElementById("mapButton")
+    mapBtn.classList.remove("is-light")
+    mapBtn.classList.add("is-dark")
 </script>

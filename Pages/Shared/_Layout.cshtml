@@ -4,10 +4,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - KampongTalk</title>
-    <link rel="stylesheet" href="~/lib/bulma/css/bulma.css"/>
+    <link rel="stylesheet" href="~/lib/bulma/css/bulma.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />    @* <link rel="stylesheet" href="~/css/site.css" /> *@
     <script src="https://cdn.jsdelivr.net/npm/node-vibrant@3.2.1-alpha.1/dist/vibrant.min.js" integrity="sha256-6mcoajgXAcE4fnc/lZrvN4omfFGDkS9tOl0h+tZQpUk=" crossorigin="anonymous"></script>
 
@@ -19,36 +19,39 @@
             font-family: 'Atkinson Hyperlegible', 'Noto Sans JP', 'Noto Sans SC', 'Noto Sans Tamil', 'Helvetica Neue', sans-serif;
         }
     </style>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.0.0/turbolinks.min.js" integrity="sha512-ifx27fvbS52NmHNCt7sffYPtKIvIzYo38dILIVHQ9am5XGDQ2QjSXGfUZ54Bs3AXdVi7HaItdhAtdhKz8fOFrA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <meta name="turbolinks-cache-control" content="no-cache">
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.js" integrity="sha512-/CzcPLOqUndTJKlWJ+PkvFh2ETRtkrnxwmULr9LsUU+cFLl7TAOR5gwwD8DRLvtM4h5ke/GQknlqQbWuT9BKdA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="stylesheet" href="/css/nprogress.css"/>
-    
-    <link rel="stylesheet" href="/css/profile_community_posts.css"/>
-    
+    <link rel="stylesheet" href="/css/nprogress.css" />
+
+    <link rel="stylesheet" href="/css/profile_community_posts.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/5.0.0/intro.min.js" integrity="sha512-sjzr7wOVjpnvPO03NIXQ7ah4pK1lYr1HfVPnIZ1ZSRBHgXJHWhXL/DELFN2Nnssup1KDDfIUPTtbGlS5eRUEkg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/5.0.0/introjs.min.css" integrity="sha512-B5BOsh3/c3Lg0FOPf3k+DASjK21v5SpLy7IlLg3fdGnbilmT1gR2QzELRp0gvCDSG+bptATmQDNtwHyLQxnKzg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
+
     <script>
         Turbolinks.start()
     </script>
-    
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script>
         $(document).on('turbolinks:click turbolinks:visit', function () {
             NProgress.start();
-            
+
             $('main').fadeOut(250)
-        });        
-        
+        });
+
         $(document).on('turbolinks:load', function () {
             setTimeout(() => {
-                    return $('main').fadeIn(250)
+                return $('main').fadeIn(250)
             }, 0)
-            
-             NProgress.done();
+
+            NProgress.done();
         });
-        
-        $(document).on('turbolinks:render', function() {
+
+        $(document).on('turbolinks:render', function () {
             NProgress.remove();
         });
     </script>
@@ -187,11 +190,11 @@
                             <i class="fa-solid fa-circle-question"></i>&ensp;Help
                         </a>
                         <div class="navbar-dropdown is-boxed">
-                            <a class="navbar-item" href="">
+                            <a class="navbar-item" onclick="introJs().start()">
                                 How to use this page?
                             </a>
-                            <a class="navbar-item" href="">
-                                Other Guides
+                            <a class="navbar-item" href="/Guides">
+                                Guided Tours
                             </a>
                             <a class="navbar-item" href="/Support">
                                 Support
@@ -200,7 +203,7 @@
                     </div>
 
                     <div class="navbar-item">
-                        <a class="button is-light" href="/">
+                        <a class="button is-light" href="/" id="mapButton">
                             <i class="fa-solid fa-map"></i>&ensp;Map
                         </a>
                     </div>
