@@ -51,6 +51,9 @@ namespace KampongTalk.Pages.Profile
         [BindProperty] public string EditBirthday { get; set; }
         
         // Friend props
+        public dynamic? FriendList { get; set; }
+        public dynamic? FriendListPending { get; set; }
+        public int FriendCount { get; set; }
         [BindProperty] public string FriendAction { get; set; }
         [BindProperty] public string FriendActionOtherUid { get; set; }
         public string FriendActionToDisplay { get; set; }
@@ -129,6 +132,23 @@ namespace KampongTalk.Pages.Profile
             PreviousPageNo = p - 1;
             NextPageNo = p + 1;
             
+            // Get friend list
+            var friendList =
+                dbRelation.Query(
+                    $"Select * from Relationships where (UserA = '{ViewingUser.Uid}' or UserB = '{ViewingUser.Uid}') AND Status = 'friends'");
+            FriendList = friendList;
+            FriendListPending =
+                dbRelation.Query(
+                    $"Select * from Relationships where (UserA = '{ViewingUser.Uid}' or UserB = '{ViewingUser.Uid}') AND Status = 'pending'");
+            if (friendList != null)
+            {
+                FriendCount = friendList.Count();
+                // foreach (var o in friendList)
+                // {
+                //     Console.WriteLine($"{UserApi.GetUserById(o.UserA).Name} --> {UserApi.GetUserById(o.UserB).Name} | {o.Status}");
+                // }
+            }
+
             // Show friend control buttons
             if (!IsCurrentUserOwnPage && CurrentUser != null)
             {
