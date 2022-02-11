@@ -92,7 +92,7 @@ namespace KampongTalk.Pages.Accounts
             dbActionLogs.Insert(otpRecord);
 
             // Else, go to index
-            return RedirectToPage("/Index");
+            return Redirect("/");
         }
     }
 }
