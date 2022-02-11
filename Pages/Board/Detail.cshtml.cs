@@ -21,7 +21,7 @@ namespace KampongTalk.Pages.Board
         {
             _environment = environment;
         }
-
+        [BindProperty]
         public User CurrentUser { get; set; }
 
         [BindProperty]
@@ -56,6 +56,7 @@ namespace KampongTalk.Pages.Board
 
         public IActionResult OnGet(string Pid)
         {
+            CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
             Postid = Convert.ToInt64(Pid);
             // commentList = postDB.All($"IsComment = '{Pid}'");
             commentList = GetComments(Postid);

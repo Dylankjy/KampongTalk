@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -12,6 +14,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Mighty;
 using MoreLinq;
 using Newtonsoft.Json;
@@ -56,14 +59,23 @@ namespace KampongTalk.Pages.Board
 
         [BindProperty] public IEnumerable<dynamic> likesList { get; set; } = likesDB.All();
 
-        [BindProperty] public IEnumerable<dynamic> communityList { get; set; } = communitiesDB.All();
-        [BindProperty] public IEnumerable<dynamic> pList { get; set; } = Enumerable.Empty<dynamic>();
+        //[BindProperty] public IEnumerable<dynamic> communityList { get; set; } = communitiesDB.All();
+        //[BindProperty] public IEnumerable<dynamic> pList { get; set; } = Enumerable.Empty<dynamic>();
 
         [BindProperty] public IFormFile postImg { get; set; }
-        
+
         // Posts to display on board
         // public dynamic PostsToDisplay { get; set; }
-        public IEnumerable<dynamic> PostsToDisplay { get; set; }
+        //public IEnumerable<dynamic> PostsToDisplay { get; set; }
+        // public dynamic PostsToDisplay { get; set; }
+        public PagedResults<dynamic> PostsToDisplay { get; set; }
+
+        public List<string> commsByPopularity = new List<string>();
+
+        public List<string> eventsByPopularity = new List<string>();
+
+        private int postPage { get; set; }
+        //public string postType { get; set; }
 
         //public IActionResult OnGet()
         //{
@@ -85,31 +97,48 @@ namespace KampongTalk.Pages.Board
         public IActionResult OnGet()
         {
             if (needLogin()) return Redirect("/Accounts/Login");
+            //postType = "";
+            HttpContext.Session.SetString("PostPage", "1");
+            PostsToDisplay = GetPosts("");
+            GetPopularCommunities();
+            GetPopularEvents();
 
-            GetPosts("");
             return Page();
         }
 
         public IActionResult OnGetFriends()
         {
             if (needLogin()) return Redirect("/Accounts/Login");
-            GetPosts("Friends");
+            //postType = "Friends";
+            HttpContext.Session.SetString("PostPage", "1");
+            PostsToDisplay = GetPosts("Friends");
+            GetPopularCommunities();
+            GetPopularEvents();
+
             return Page();
         }
 
-        public IActionResult OnGetRecommended()
-        {
-            if (needLogin()) return Redirect("/Accounts/Login");
-            GetPosts("Recommended");
-            return Page();
-        }
+        //public IActionResult OnGetRecommended()
+        //{
+        //    if (needLogin()) return Redirect("/Accounts/Login");
+        //    // postType = "Recommended";
+        //    HttpContext.Session.SetString("PostPage", "1");
+        //    PostsToDisplay = GetPosts("Recommended");
+        //    GetPopularCommunities();
+        //    GetPopularEvents();
 
-        public void GetPosts(string postType)
+        //    return Page();
+        //}
+
+        // Inititalise posts
+        public dynamic GetPosts(string postType)
         {
-            IEnumerable<dynamic> allPosts = Enumerable.Empty<dynamic>();
+            //IEnumerable<dynamic> allPosts = Enumerable.Empty<dynamic>();
+            PagedResults<dynamic> allPosts = new PagedResults<dynamic>();
+            //dynamic allPosts;
             if (postType == "Friends")
             {
-                // Friends Posts
+                // Generating friends list in format (Uid, Uid, Uid)
                 MightyOrm relationsDB = new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"], "Relationships");
                 dynamic friendsList1 = relationsDB.All(where: $"(UserA = {CurrentUser.Uid} AND Status = 'friends')", columns: "UserB");
                 dynamic friendsList2 = relationsDB.All(where: $"(UserB = {CurrentUser.Uid} AND Status = 'friends')", columns: "UserA");
@@ -125,7 +154,6 @@ namespace KampongTalk.Pages.Board
                         foreach (var friend in friendsList1)
                         {
                             string friendID = friend.UserB.ToString();
-                            Debug.WriteLine(friendID);
                             friendIDsStr = friendIDsStr + friendID + ", ";
                         };
                     }
@@ -135,7 +163,6 @@ namespace KampongTalk.Pages.Board
                         foreach (var friend in friendsList2)
                         {
                             string friendID = friend.UserA.ToString();
-                            Debug.WriteLine(friendID);
                             friendIDsStr = friendIDsStr + friendID + ", ";
                         };
                     }
@@ -143,8 +170,8 @@ namespace KampongTalk.Pages.Board
                     {
                         friendIDsStr = friendIDsStr[0..^2];
                         friendIDsStr = friendIDsStr + ")";
-                        Debug.WriteLine(friendIDsStr, "the string is");
-                        allPosts = postDB.All(where: $"IsComment = 0 AND Author IN {friendIDsStr}", orderBy: "Timestamp DESC");
+                        //allPosts = postDB.All(where: $"IsComment = 0 AND Author IN {friendIDsStr}", orderBy: "Timestamp DESC");
+                        allPosts = postDB.Paged(orderBy: "Timestamp DESC", where: $"IsComment = 0 AND Author IN {friendIDsStr}", pageSize: 5, currentPage: 0);
 
                     }
                    
@@ -154,16 +181,19 @@ namespace KampongTalk.Pages.Board
             else if(postType == "Recommended")
             {
                 // Recommended Posts
-                allPosts = postDB.All(where: "IsComment = 0 AND Author != '0'", orderBy: "Timestamp DESC", limit: 2);
+                //allPosts = postDB.All(where: "IsComment = 0 AND Author != '0'", orderBy: "Timestamp DESC", limit: 2);
+                allPosts = postDB.Paged(orderBy: "Timestamp DESC", where: "IsComment = 0 AND Author != '0'", pageSize: 1, currentPage: 0);
             }
             else
             {
                 // Whole Kampong, All posts
-                allPosts = postDB.All(where: "IsComment = 0 AND Author != '0'", orderBy: "Timestamp DESC", limit: 5);
-                // allPosts = postDB.All(where: "IsComment = 0 AND Author != '0'", orderBy: "Timestamp DESC");
+                // allPosts = postDB.All(where: "IsComment = 0 AND Author != '0'", orderBy: "Timestamp DESC", limit: 5);
+                // allPosts = postDB.All(where: "IsComment = 0 AND Author != '0'", orderBy: "Timestamp DESC", limit: 5, args: pageNum);
+                allPosts = postDB.Paged(orderBy: "Timestamp DESC", where: "IsComment = 0 AND Author != '0'", pageSize: 5, currentPage: 0);
             }
             //var allPosts = postDB.All(new { IsComment = 0});
-            PostsToDisplay = allPosts;
+            //PostsToDisplay = allPosts;
+            return allPosts;
         }
 
         public IActionResult OnPost()
@@ -174,10 +204,8 @@ namespace KampongTalk.Pages.Board
                 CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
                 newPost.Author = CurrentUser.Uid;
                 newPost.Timestamp = DateTime.Now;
-                Debug.WriteLine(newPost.InCommunity);
                 var cid = communitiesDB.Single($"Name = '{newPost.InCommunity}'");
                 newPost.InCommunity = cid.Cid;
-                Debug.WriteLine(newPost.InCommunity);
 
                 if (postImg != null)
                 {
@@ -201,8 +229,8 @@ namespace KampongTalk.Pages.Board
                 {
                     postDB.Insert(newPost);
                     
-                    // SearchApi.PutKeyword(CurrentUser.Name, 5, newPost.Pid);
-                    // SearchApi.PutRelevancy(newPost.Content, newPost.Pid);
+                    //SearchApi.PutKeyword(CurrentUser.Name, 5, newPost.Pid);
+                    //SearchApi.PutRelevancy(newPost.Content, newPost.Pid);
                 }
                 catch
                 {
@@ -217,35 +245,10 @@ namespace KampongTalk.Pages.Board
 
         public ActionResult OnPostLike(string Pid)
         {
-            Debug.WriteLine("backend: " + Pid);
-            //Debug.WriteLine("onpostlike call");
-            ////var isLiked = false;
-
-            //// Testing getting postid from request object body
-            //{
-            //    MemoryStream stream = new MemoryStream();
-            //    Request.Body.CopyTo(stream);
-            //    stream.Position = 0;
-            //    using (StreamReader reader = new StreamReader(stream))
-            //    {
-            //        string requestBody = reader.ReadToEnd();
-            //        if (requestBody.Length > 0)
-            //        {
-            //            var obj = JsonConvert.DeserializeObject<Likes>(requestBody);
-            //            Debug.WriteLine("ent id: " + obj.EntityId + " with type " + obj.EntityId.GetType());
-            //            if (obj != null)
-            //            {
-            //                newLike = obj;
-
-            //            }
-            //        }
-            //    }
-            //}
 
             try
             {
                 CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
-                Debug.WriteLine(newLike.EntityId);
                 var existLike = likesDB.Single(new { newLike.EntityId, CurrentUser.Uid });
                 if (existLike != null)
                 {
@@ -259,9 +262,7 @@ namespace KampongTalk.Pages.Board
                 }
 
                 var likeCount = likesDB.Count(where: $"EntityId = '{newLike.EntityId}'");
-                Debug.WriteLine("like count:" + likeCount);
                 var isLiked = likesDB.Count($"EntityId = '{newLike.EntityId}' && Uid = '{newLike.Uid}'");
-                Debug.WriteLine("isLiked:" + isLiked);
 
                 var likeResp = new List<string>
                 {
@@ -278,86 +279,66 @@ namespace KampongTalk.Pages.Board
             }
         }
 
-        public ActionResult OnGetCommunitylist()
+        public void GetPopularCommunities()
         {
-            CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
-            var communityResp = new List<string>();
-
             try
             {
-                var userComm = communitiesDB.Single($"CreatorId = '{CurrentUser.Uid}'");
-                if (userComm != null)
+                var commPosts = postDB.All(where: "IsComment = 0 AND Author != '0' AND InCommunity != ''");
+
+                var commsByPopularityObj = commPosts
+                            .GroupBy(p => p.InCommunity)
+                            .Select(p => new
+                            {
+                                Community = p.Key,
+                                Popularity = p.Count()
+                            })
+                            .OrderBy(p => p.Popularity)
+                            .Take(5);
+
+                if (commsByPopularityObj.Count() > 0)
                 {
-                    communityResp.Add(userComm.Name);
-                }
-            }
-            finally {}
-
-            try
-            {
-                var someCommunities = communitiesDB.Paged(orderBy: "TimeCreated", currentPage: 0, pageSize: 5);
-
-
-                if (someCommunities.TotalRecords > 0)
-                {
-                    Debug.WriteLine(someCommunities.Items);
-                    foreach (var c in someCommunities.Items)
+                    foreach (var comm in commsByPopularityObj)
                     {
-                        communityResp.Add(c.Name);
+                        string commName = comm.Community.ToString();
+                        commsByPopularity.Add(commName);
 
                     }
-
                 }
 
             }
             finally { }
-
-            //return Page();
-            return new JsonResult(communityResp);
         }
 
-        public void OnPostPosition(string postDivId)
+        public void GetPopularEvents()
         {
-            HttpContext.Session.SetString("PostDivID", postDivId);
-        }
+            try
+            {
+                var eventsDB = new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"], "Events");
 
-        public void OnPostRemovepos()
-        {
-            HttpContext.Session.Remove("PostDivID");
-        }
+                var allEvents = eventsDB.All(where: $"Attendees != '' AND Date >= CURDATE()");
+                //var allEvents = eventsDB.All();
 
-        public IActionResult OnPostComment()
-        {
-            CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
-            newComment.Author = CurrentUser.Uid;
-            newComment.Timestamp = DateTime.Now;
-            newComment.AttachmentImg = null;
-            postDB.Insert(newComment);
-            return Redirect("/Board");
-        }
+                var eventsByPopularityObj = allEvents
+                    .Select(e => new
+                    {
+                        Event = e.Eid,
+                        AttendeeCount = e.Attendees.Split(";").Length
+                    })
+                    .OrderBy(e => e.AttendeeCount)
+                    .Take(5);
 
-        public IEnumerable<dynamic> GetComments(long parentPid)
-        {
-            var query = (from post in postList
-                join user in userList on post.Author equals user.Uid
-                join like in likesList on post.Pid equals like.EntityId into likeGrp
-                from sublike in likeGrp.DefaultIfEmpty()
-                where post.IsComment == parentPid
-                select new PostInfo
+                if (eventsByPopularityObj.Count() > 0)
                 {
-                    Pid = post.Pid,
-                    Content = post.Content,
-                    AttachmentImg = post.AttachmentImg,
-                    Timestamp = post.Timestamp,
-                    InCommunity = post.InCommunity,
-                    IsComment = post.IsComment,
-                    TaggedUsers = post.TaggedUsers,
-                    Uid = user.Uid,
-                    UserName = user.Name,
-                    UserPfp = user.AvatarImg,
-                    likeCount = likeGrp.Count()
-                }).DistinctBy(post => post.Pid).AsEnumerable();
-            return query;
+                    foreach (var e in eventsByPopularityObj)
+                    {
+                        string eventName = e.Event.ToString();
+                        eventsByPopularity.Add(eventName);
+
+                    }
+                }
+
+            }
+            finally { }
         }
 
     }

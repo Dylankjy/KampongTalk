@@ -1,6 +1,11 @@
 ﻿@page "{pid}"
+
+@using KampongTalk.Models
+@using KampongTalk.Pages.Board
+
 @model KampongTalk.Pages.Board.DetailModel
 @{
+    ViewData["currentUid"] = Model.CurrentUser.Uid;
 }
 
 <link rel="stylesheet" href="~/css/board.css">
@@ -9,9 +14,8 @@
 
     <div class="columns is-centered">
         <div class="column is-one-fifth has-text-centered">
-            @*<button class="button is-medium is-fullwidth is-primary" type="button"><i class="fas fa-arrow-left mr-2"></i>back</button>*@
             <a href="/Board" class="button is-medium is-fullwidth is-light m-5">
-                    <i class="fas fa-arrow-left mr-2"></i>Back to Board
+                <i class="fas fa-arrow-left mr-2"></i>Back to Board
             </a>
         </div>
         <div class="column is-three-fifths">
@@ -92,17 +96,28 @@
                                     <br>
                                     @comment.Content
                                     <br>
-                                    @*<small class="has-text-grey-light">@comment.likeCount Likes&bull; @comment.Timestamp</small>*@
-                                    <small class="has-text-grey-light">@comment.Timestamp</small>
+                                    <small class="has-text-grey-light">@comment.Timestamp.ToString("dd/MM/yy hh:mm tt")</small>
+                                    @*<small class="has-text-grey-light">@comment.Timestamp.ToString("dd/MM/yy hh:mm tt")</small>*@
                                 </p>
                             </div>
                         </div>
-                        <!--<figure class="media-right">-->
+                        <figure class="media-right">
+
                             <!--insert form here-->
-                            <!--<button class="button is-medium is-rounded is-danger is-outlined" type="button">
-                                <i class="far fa-thumbs-up"></i>
+                            <button class="button is-medium is-rounded is-danger is-outlined" type="button" onclick="likePost(this)">
+                                @if (LikesApi.IsLiked(@comment.Pid, Convert.ToInt64(ViewData["currentUid"])))
+                                {
+                                    <span><i class="fas fa-thumbs-up"></i></span>
+                                }
+                                else
+                                {
+                                    <span><i class="far fa-thumbs-up"></i></span>
+                                }
+                                <span class="ml-2">@LikesApi.GetLikesByPid(@comment.Pid)</span>
+                                <span class="tag is-link is-hidden">@comment.Pid</span>
                             </button>
-                        </figure>-->
+
+                        </figure>
                     </article>
                 }
 
@@ -110,12 +125,50 @@
                 {
                     <p class="has-text-centered">No comments have been left on this post.</p>
                 }
-                </div>
+            </div>
 
             <br />
         </div>
-            <div class="column is-one-fifth"></div>
-        </div>
-
+        <div class="column is-one-fifth"></div>
     </div>
+
+</div>
+
+
+
+<script>
+    function likePost(likeBtn) {
+        var postSpan = likeBtn.children[2]
+        var Pid = postSpan.innerText
+        $.ajax({
+            type: "POST",
+            url: "/Board/like",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("XSRF-TOKEN",
+                    $('input:hidden[name="__RequestVerificationToken"]').val());
+            },
+            data: {
+                EntityId: Pid
+            },
+            success: function (likeResp) {
+                var likeRespArr = likeResp.toString().split(",")
+                if (likeRespArr[0] == '1') {
+                    //likeBtn.classList.remove('is-outlined')
+                    likeBtn.firstElementChild.innerHTML = '<i class="fas fa-thumbs-up"></i>';
+                }
+                else {
+                    //likeBtn.classList.add('is-outlined')
+                    likeBtn.firstElementChild.innerHTML = '<i class="far fa-thumbs-up"></i>';
+                }
+                likeBtn.children[1].innerText = likeRespArr[1]
+                //likeBtn.lastElementChild.innerHTML = likeRespArr[1]
+
+            },
+            error: function () {
+                return "error";
+            }
+
+        })
+    }
+</script>
 
