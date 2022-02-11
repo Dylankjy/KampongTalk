@@ -324,7 +324,7 @@ namespace KampongTalk.Pages.Profile
                 }
 
                 // if current image is not default.jpg, we will delete on our end
-                if (currentUserFromDb.BannerImg != "default-banner.jpg")
+                if (currentUserFromDb.BannerImg != "default-banner.png")
                 {
                     string oldBannerImg = currentUserFromDb.BannerImg;
                     var oldBannerImgOriginal =
