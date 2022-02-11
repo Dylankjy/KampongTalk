@@ -49,6 +49,11 @@ namespace KampongTalk.Pages.Profile
         [BindProperty] [Required] public string EditName { get; set; }
         [BindProperty] public string EditBio { get; set; }
         [BindProperty] public string EditBirthday { get; set; }
+        
+        // Friend props
+        [BindProperty] public string FriendAction { get; set; }
+        [BindProperty] public string FriendActionOtherUid { get; set; }
+        public string FriendActionToDisplay { get; set; }
 
         // Error handling props
         public bool ShowUserNotFoundError { get; set; }
@@ -70,6 +75,11 @@ namespace KampongTalk.Pages.Profile
             var dbPost =
                 new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
                     "Post");
+            
+            var dbRelation =
+                new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
+                    "Relationships");
+
 
             // Get user by PhoneNumber
             ViewingUser = dbUsers.Single(new
@@ -118,11 +128,48 @@ namespace KampongTalk.Pages.Profile
             PageNo = p;
             PreviousPageNo = p - 1;
             NextPageNo = p + 1;
+            
+            // Show friend control buttons
+            if (!IsCurrentUserOwnPage && CurrentUser != null)
+            {
+                var whereSelfIsInvoker = dbRelation.Single(new {UserA = CurrentUser.Uid, UserB = ViewingUser.Uid});
+                var whereOtherIsInvoker = dbRelation.Single(new {UserB = CurrentUser.Uid, UserA = ViewingUser.Uid});
+
+                // No relations
+                if (whereOtherIsInvoker == null && whereSelfIsInvoker == null)
+                {
+                    FriendActionToDisplay = "SHOW_ADD";
+                } else {
+                    // Where the other user is the invoker
+                    if (whereOtherIsInvoker != null && whereSelfIsInvoker == null)
+                    {
+                        if (whereOtherIsInvoker.Status == "pending") {
+                            FriendActionToDisplay = "SHOW_PENDING_ACCEPTABLE";
+                        }
+                        
+                        if (whereOtherIsInvoker.Status == "friends") {
+                            FriendActionToDisplay = "SHOW_ADDED";
+                        }
+                    }
+                    // Where self is the invoker
+                    if (whereOtherIsInvoker == null && whereSelfIsInvoker != null)
+                    {
+                        if (whereSelfIsInvoker.Status == "pending")
+                        {
+                            FriendActionToDisplay = "SHOW_PENDING";
+                        }
+                        
+                        if (whereSelfIsInvoker.Status == "friends") {
+                            FriendActionToDisplay = "SHOW_ADDED";
+                        }
+                    }
+                }
+            }
 
             return Page();
         }
 
-        public IActionResult OnPost()
+        public IActionResult OnPost(string u)
         {
             // Get current user
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
@@ -138,12 +185,68 @@ namespace KampongTalk.Pages.Profile
             var dbUsers =
                 new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
                     "Users", "Uid");
+            
+            // Very stupid workaround for this shit because SQL doesn't want to add because "MISSING RID". Please shoot me!
+            var dbRelationAdd =
+                new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
+                    "Relationships");
+            var dbRelation =
+                new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
+                    "Relationships", "Rid");
 
             // Get current user dynamic object from database
             var currentUserFromDb = dbUsers.Single(new {CurrentUser.Uid, CurrentUser.Uid2});
 
             // Check account existence
             if (currentUserFromDb == null) return RedirectToPage("/Accounts/Login");
+            
+            // Check whether if this is friend form
+            if (FriendAction != null)
+            {
+                // Check whether FriendActionOtherUid is valid
+                try
+                {
+                    if (UserApi.GetUserById(Convert.ToInt64(FriendActionOtherUid)) == null)
+                    {
+                        return Redirect($"/Profile?u={u}");
+                    }
+                }
+                // ReSharper disable once EmptyGeneralCatchClause
+                catch
+                {
+                    return Redirect($"/Profile?u={u}");
+                }
+                
+                
+                switch (FriendAction)
+                {
+                    case "ADD":
+                        var existingRelation = dbRelation.Single(new { UserA = Convert.ToInt64(FriendActionOtherUid), UserB = CurrentUser.Uid });
+
+                        if (existingRelation != null)
+                        {
+                            existingRelation.Status = "friends";
+                            dbRelation.Update(existingRelation);
+                        }
+                        else
+                        {
+                            dbRelationAdd.Insert(new Relationships
+                            {
+                                UserA = CurrentUser.Uid,
+                                UserB = Convert.ToInt64(FriendActionOtherUid),
+                            });
+                        }
+                        break;
+                    case "CANCEL_REQ":
+                        dbRelation.Delete($"UserA = {CurrentUser.Uid} AND UserB = {FriendActionOtherUid} AND Status = 'pending'");
+                        break;
+                    case "REMOVE_FRIEND":
+                        dbRelation.Delete($"UserA = {CurrentUser.Uid} AND UserB = {FriendActionOtherUid} AND Status = 'friends'");
+                        break;
+                }
+
+                return Redirect($"/Profile?u={u}");
+            }
 
             // Modify user
             // ReSharper disable once PossibleNullReferenceException

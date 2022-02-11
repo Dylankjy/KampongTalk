@@ -1,17 +1,23 @@
-﻿namespace KampongTalk.Models
+﻿using System.ComponentModel.DataAnnotations;
+using IdGen;
+using Mighty;
+
+namespace KampongTalk.Models
 {
+    [DatabaseTable("Relationships")]
     public class Relationships
     {
+        [DatabasePrimaryKey] [DatabaseColumn] public long Rid { get; set; } = new IdGenerator(8).CreateId();
         // Always set UserA as the invoker
-        public long UserA { get; set; }
+        [DatabaseColumn] [Required] public long UserA { get; set; }
 
         // UserB shall always be the receiving user
-        public long UserB { get; set; }
+        [DatabaseColumn] [Required] public long UserB { get; set; }
 
         // This property governs the relationship between two users
         // "friends" -> Both users are friends
         // "blocked" -> UserA has blocked UserB
         // "pending" -> UserA has sent UserB a friend request, but UserB has yet to accept it
-        public string Status { get; set; } = "pending";
+        [DatabaseColumn] [Required] public string Status { get; set; } = "pending";
     }
 }
