@@ -444,5 +444,13 @@
             }
         </div>
     </div>
-    <button onclick="$('#friendListModal').fadeOut('fast')" class="modal-close is-large" aria-label="close"></button>
+    <button id="friendsCloseBtn" onclick="$('#friendListModal').fadeOut('fast')" class="modal-close is-large" aria-label="close"></button>
 </div>
+
+@if (Model.IsOpenModalOnGet)
+{
+    <script>
+        $('#friendListModal').fadeIn('fast')
+        $('#friendsCloseBtn').attr('onclick', 'window.location.replace("/Index")')
+    </script>
+}

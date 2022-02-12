@@ -58,11 +58,12 @@ namespace KampongTalk.Pages.Profile
         [BindProperty] public string FriendAction { get; set; }
         [BindProperty] public string FriendActionOtherUid { get; set; }
         public string FriendActionToDisplay { get; set; }
+        public bool IsOpenModalOnGet { get; set; }
 
         // Error handling props
-        public bool ShowUserNotFoundError { get; set; }
+        public bool ShowUserNotFoundError { get; set; } = false;
 
-        public IActionResult OnGet(string u, int p)
+        public IActionResult OnGet(string u, int p, int showFriendsModal)
         {
             // Get current user
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
@@ -84,6 +85,16 @@ namespace KampongTalk.Pages.Profile
                 new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
                     "Relationships");
 
+            // Detect whether to open friend modal automatically
+            try
+            {
+                IsOpenModalOnGet = Convert.ToBoolean(showFriendsModal);
+            }
+            catch
+            {
+                IsOpenModalOnGet = false;
+            }
+            
 
             // Get user by PhoneNumber
             ViewingUser = dbUsers.Single(new
