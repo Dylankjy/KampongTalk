@@ -56,6 +56,10 @@
                                     }
                                     else
                                     {
+                                        <div class="has-text-centered">
+                                            <a class="has-text-grey" href="/Dms/Dm?to=@Model.ViewingUser.Uid"><i class="fa-solid fa-message"></i>&ensp;Send message</a>
+                                        </div>
+                                        <br/>
                                         <form method="post" class="has-text-centered">
 
                                             <input type="hidden" asp-for="FriendActionOtherUid" value="@Model.ViewingUser.Uid" />
