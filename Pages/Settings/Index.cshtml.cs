@@ -1,4 +1,6 @@
-﻿using KampongTalk.Models;
+﻿using System;
+using System.Text.RegularExpressions;
+using KampongTalk.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -30,15 +32,20 @@ namespace KampongTalk.Pages.Settings
         
         // Form type
         [BindProperty] public string ForForm { get; set; }
+        [BindProperty] public string IncomingPassword { get; set; }
         
         // KampongID Props
         [BindProperty] public string NewKampongId { get; set; }
-        [BindProperty] public string IncomingPassword { get; set; }
         public bool ShowDuplicateUid2Error { get; set; }
         public bool ShowCurrentUid2Error { get; set; }
         public bool ShowPasswordError { get; set; }
         public string ShowDuplicateUid2ErrorClass { get; set; }
         public string ShowPasswordErrorClass { get; set; }
+        
+        // Password change props
+        [BindProperty] public string NewPassword { get; set; }
+        public string ShowNewPasswordErrorClass { get; set; }
+        public bool ShowNewPasswordError { get; set; }
         
         // Modal auto open prop
         public string AutoOpenModalId { get; set; }
@@ -112,11 +119,12 @@ namespace KampongTalk.Pages.Settings
             // Automatically open modal
             if (openModal != null)
             {
-                if (openModal == "kampongId")
+                AutoOpenModalId = openModal switch
                 {
-                    AutoOpenModalId = "changeKampongIDModal";
-                }
-                // if () {}
+                    "kampongId" => "changeKampongIDModal",
+                    "passwd" => "changePasswordModal",
+                    _ => AutoOpenModalId
+                };
             }
             
             return Page();
@@ -132,6 +140,7 @@ namespace KampongTalk.Pages.Settings
                     "Users", "Uid");
 
             var currentUserFromDb = dbUsers.Single(new { CurrentUser.Uid });
+            if (currentUserFromDb == null) return Redirect("/Accounts/Login");
 
             // ReSharper disable once StringLiteralTypo
             if (ForForm == "KAMPONGID_CHANGE")
@@ -172,6 +181,38 @@ namespace KampongTalk.Pages.Settings
                 HttpContext.Session.SetString("CurrentUser", CurrentUser.ToJson());
                 dbUsers.Update(currentUserFromDb);
                 
+                return Page();
+            }
+
+            if (ForForm == "PASSWORD_CHANGE")
+            {
+                // Make sure session and database are in sync
+                CurrentUser.Password = currentUserFromDb.Password;
+                
+                
+                // If password is wrong
+                if (!CurrentUser.ComparePassword(IncomingPassword))
+                {
+                    ShowPasswordErrorClass = "is-danger";
+                    ShowPasswordError = true;
+                    AutoOpenModalId = "changePasswordModal";
+                    return Page();
+                }
+                
+                if (!Regex.IsMatch(NewPassword, @"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$") &&
+                    !Regex.IsMatch(NewPassword, @"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"))
+                {
+                    ShowNewPasswordErrorClass = "is-danger";
+                    ShowNewPasswordError = true;
+                    AutoOpenModalId = "changePasswordModal";
+                    return Page();
+                }
+                
+                // Commit data
+                currentUserFromDb.Password = CurrentUser.SetPassword(NewPassword);
+                dbUsers.Update(currentUserFromDb);
+                HttpContext.Session.SetString("CurrentUser", CurrentUser.ToJson());
+
                 return Page();
             }
             
