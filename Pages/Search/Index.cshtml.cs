@@ -54,7 +54,9 @@ namespace KampongTalk.Pages.Search
                 new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
                     "Users");
 
-            foreach (var user in dbUsers.Query($"Select * from Users where Name LIKE '{q.Normalize()}%'"))
+            var sanitizedQuery = q.Replace("'", "").Replace("\"", "").Replace("--", "").Replace("%", "");
+
+            foreach (var user in dbUsers.Query($"Select * from Users where Name LIKE '{sanitizedQuery}%'"))
                 SearchResultUsers.Add(UserApi.GetUserById(user.Uid));
 
             // Sort by length
