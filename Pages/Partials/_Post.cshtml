@@ -63,10 +63,12 @@
     <div class="card-content">
         <p class="is-size-5" style="overflow-wrap: break-word; hyphens: auto;">@Model.Content</p>
 
+        <div class="has-text-centered">
         @if (Model.AttachmentImg != null)
         {
-            <img id="attachmentImg" class="postImg has-text-centered mt-2 mb-2" src="~/imgs/@Model.AttachmentImg" />
+            <img id="attachmentImg" class="postImg mt-2 mb-2" src="~/imgs/@Model.AttachmentImg" onclick="expandImg(this)"/>
         }
+        </div>
         <div class="has-text-grey-light minorInfo mt-2">
             <span>@Model.Timestamp.ToString("dd/MM/yyyy hh:mm tt")</span>
         </div>
