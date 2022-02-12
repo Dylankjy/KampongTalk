@@ -30,12 +30,12 @@ namespace KampongTalk.Pages.Accounts
             // Get current user
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
 
-            // If the user has not OTP verified
-            if (CurrentUser is {IsVerified: false}) return Page();
-            
             // Set language data
             LangData = Internationalisation.LoadLanguage(HttpContext.Request.GetTypedHeaders().AcceptLanguage
                 .First().ToString().Split("-").First());
+            
+            // If the user has not OTP verified
+            if (CurrentUser is {IsVerified: false}) return Page();
 
             return RedirectToPage("/Index");
         }
