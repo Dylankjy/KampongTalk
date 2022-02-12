@@ -69,6 +69,11 @@
     }
   },
 
+  "navMap": {
+    "closeMap": "Close Map",
+    "social":  "Social"
+  },
+
   "events": {
     "create": {
       "Name": "Event Name",
