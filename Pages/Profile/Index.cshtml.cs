@@ -116,7 +116,7 @@ namespace KampongTalk.Pages.Profile
                 IsCurrentUserOwnPage = true;
 
             // Get posts by this user from database
-            var postsByThisUser = dbPost.All(new {Author = ViewingUser.Uid});
+            var postsByThisUser = dbPost.All(where: $"Author = {ViewingUser.Uid} AND IsComment = 0");
 
             var numberOfObjectsPerPage = 10;
             var posts = postsByThisUser.ToList();
