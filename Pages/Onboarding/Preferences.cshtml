@@ -1,0 +1,146 @@
+﻿@page
+@model KampongTalk.Pages.Onboarding.PreferencesModel
+@{
+}
+
+<link rel="stylesheet" href="/lib/bulma/css/bulma-steps.css">
+
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column"></div>
+
+            @*<div class="column is-two-fifths">
+            <h1 class="title is-size-3">Welcome to KampongTalk!</h1>
+
+            <p class="is-size-5">Let's get you started.</p>
+        </div>*@
+
+        <div class="column is-half">
+            <div class="has-text-centered">
+                <h1 class="title is-size-3 mb-1 mt-1">Welcome to KampongTalk!</h1>
+                <p class="is-size-6">Let's get you started.</p>
+                <br />
+            </div>
+
+            <!--Steps-->
+            <ul class="steps has-content-centered">
+                <li class="steps-segment is-active">
+                    <span class="steps-marker">1</span>
+                    <div class="steps-content">
+                        Preferences
+                    </div>
+                </li>
+                <li class="steps-segment">
+                    <span class="steps-marker">2</span>
+                    <div class="steps-content">
+                        Profile
+                    </div>
+                </li>
+                <li class="steps-segment">
+                    <span class="steps-marker">3</span>
+                    <div class="steps-content">
+                        Done
+                    </div>
+                </li>
+            </ul>
+
+            <div class="has-text-centered mb-3">
+                <h1 class="title is-size-4 mb-1">Set your preferences</h1>
+                <a href="/Onboarding/ProfileSettings">Skip this step for now</a>
+                <br />
+            </div>
+
+            <div class="box" style="border-top-right-radius: 0.5rem; border-top-left-radius: 0.5rem">
+            <form method="post">
+
+
+                <div class="field">
+                    <label class="label is-size-5 mb-0 has-text-primary-dark"><i class="fas fa-language"></i>&ensp;Language</label>
+                    @*<span class="is-size-6">Switch to your preferred language.</span>*@
+                    <div class="control has-icons-left is-size-5">
+                        <select value="@Model.currentUserPreference.Language" asp-items="Model.LangPrefList" asp-for="newUserPreference.Language" class="form-control" style="width:250px;"></select>
+                    </div>
+                </div>
+                <br />
+
+                <div class="field">
+                    <label class="label is-size-5 mb-0 has-text-primary-dark"><i class="fa-solid fa-text-height"></i>&ensp;Text Size</label>
+                    <div class="columns">
+                        <div class="column is-three-fifths">
+                            <div class="control is-fullwidth">
+                                <input id="textSizeSlider" type="range" min="1" max="3" step="1" class="is-fullwidth" style="width:100%" onchange="updateTextSize(this)">
+                            </div>
+                            <div class="level">
+                                <div class="level-item">
+                                    <span>Large</span>
+                                </div>
+                                <div class="level-item">
+                                    <span style="font-size: 105%">Larger</span>
+                                </div>
+                                <div class="level-item">
+                                    <span style="font-size: 110%">Largest</span>
+                                </div>
+                            </div>
+                            @*<span class="is-pulled-left">Large</span>
+                        <span class="is-centere" style="font-size: 105%">Larger</span>
+                        <span class="is-pulled-right" style="font-size: 110%">Largest</span>*@
+                        </div>
+                    </div>
+                </div>
+
+                <input id="textSizeInput" asp-for="newUserPreference.TextSize" value="large" class="form-control is-hidden" />
+
+                <br />
+                <div class="field">
+                    <label class="label is-size-5 mb-0 has-text-primary-dark"><i class="fas fa-volume-up"></i><i class="fas fa-volume-off is-hidden"></i>&ensp;Audio cues</label>
+                    <span class="is-size-6">Sounds effects will be used when interacting with KampongTalk.</span>&ensp;
+                    <input type="checkbox" style="height:4vh; width: 3vw;" checked="@Model.currentUserPreference.UseAudioCues == true" asp-for="newUserPreference.UseAudioCues">
+                </div>
+                <br />
+
+                <button class="mt-5 button is-primary is-dark is-fullwidth" type="submit">Next</button>
+
+            </form>
+                </div>
+        </div>
+
+            <div class="column"></div>
+        </div>
+
+
+        </div>
+</section>
+
+
+<script>
+    var slider = document.getElementById("textSizeSlider")
+
+    slider.onchange(function () {
+        var textSizeInput = document.getElementById("textSizeInput")
+        textSizeInput.value = 0;
+
+        slider.value
+    })
+
+    function updateTextSize(slider) {
+        var value = +slider.value,
+            textSize;
+
+        switch (value) {
+            case 1:
+                textSize = "large";
+                break;
+            case 2:
+                textSize = "larger";
+                break;
+            case 3:
+                textSize = "largest";
+                break;
+            default:
+                textSize = "large";
+        }
+        document.getElementById("textSizeInput").value = textSize
+    }
+
+</script>

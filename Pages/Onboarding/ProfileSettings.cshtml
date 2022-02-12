@@ -1,0 +1,169 @@
+﻿@page
+@model KampongTalk.Pages.Onboarding.ProfileSettingsModel
+@{
+}
+
+
+<link rel="stylesheet" href="/lib/bulma/css/bulma-steps.css">
+
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column"></div>
+
+            <div class="column is-half">
+
+                <!--Steps-->
+                <ul class="steps has-content-centered">
+                    <li class="steps-segment">
+                        <span class="steps-marker">1</span>
+                        <div class="steps-content">
+                            Preferences
+                        </div>
+                    </li>
+                    <li class="steps-segment is-active">
+                        <span class="steps-marker">2</span>
+                        <div class="steps-content">
+                            Profile
+                        </div>
+                    </li>
+                    <li class="steps-segment">
+                        <span class="steps-marker">3</span>
+                        <div class="steps-content">
+                            Done
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="has-text-centered mb-3">
+                    <h1 class="title is-size-4 mb-1">Customise Your Profile</h1>
+                    <a href="/Onboarding/Done">Skip this step for now</a>
+                    <br />
+                </div>
+
+                <!--from profile modal-->
+                <div class="card" style="border-top-right-radius: 0.5rem; border-top-left-radius: 0.5rem">
+                    <div class="card-content">
+                        <div class="has-background-dark card-hero-user" id="card-hero-user">
+                            <div class="is-vcentered has-text-centered has-text-white banner-edit is-size-2" onclick="$('#bannerUploadField').trigger('click')">
+                                <i class="fa-solid fa-pen"></i>
+                            </div>
+                        </div>
+                        <div class="pfp-small" id="pfp-small">
+                            <div class="is-vcentered has-text-centered has-text-white pfp-edit is-size-2" onclick="$('#pfpUploadField').trigger('click')">
+                                <i class="fa-solid fa-pen"></i>
+                            </div>
+                        </div>
+                        @*/Onboarding/ProfileSettings*@
+                        <form id="profileEditForm" method="post" enctype="multipart/form-data">
+                            <input accept="image/png, image/jpg" type="file" asp-for="ProfileImage" id="pfpUploadField" style="opacity: 0; height: 0; width: 0" />
+                            <input accept="image/png, image/jpg" type="file" asp-for="BannerImage" id="bannerUploadField" style="opacity: 0; height: 0; width: 0" />
+
+                            <div class="field">
+                                <label class="label">About me</label>
+                                <div class="control">
+                                    <input class="input" type="text" asp-for="EditBio" style="word-break: break-word;" placeholder="Introduce yourself :)">
+                                </div>
+                            </div>
+                            <br />
+
+                            <div class="field">
+                                <label class="label">Birthday</label>
+                                <div class="control has-icons-left">
+                                    <input class="input" type="date" asp-for="EditBirthday">
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-birthday-cake"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <button class="button is-dark mt-3" type="button" style="width:49%" onclick="location.href='/Onboarding/Preferences';">
+                                Back
+                            </button>
+                            <button class="button is-primary mt-3" type="submit" style="width:49%">
+                                Next
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+                <!--from profile modal-->
+
+            </div>
+
+            <div class="column"></div>
+        </div>
+
+
+    </div>
+</section>
+
+<script>
+    //var pfpUploadField = document.getElementById("pfpUploadField")
+    //$("#pfpUploadField").on('change', () => {
+    //    //$("#profileEditForm").submit()
+    //    const [file] = pfpUploadField.files
+    //    if (file) {
+    //        console.log(URL.createObjectURL(file))
+    //        document.getElementById("pfp-small").background = URL.createObjectURL(file)
+    //        //$("#pfp-small") = URL.createObjectURL(file)
+    //    }
+    //})
+
+    var pfpUploadField = document.getElementById("pfpUploadField")
+    pfpUploadField.onchange = function () {
+        //$("#profileEditForm").submit()
+        const [file] = pfpUploadField.files
+        if (file) {
+            console.log(URL.createObjectURL(file))
+            //document.getElementById("pfp-small").background = URL.createObjectURL(file)
+            $("#pfp-small").css("background-image", "url(" + URL.createObjectURL(file) + ")");
+            $("#pfp-small").css("background-repeat", "no-repeat");
+            $("#pfp-small").css("background-position", "center");
+            $("#pfp-small").css("background-size", "cover");
+            //$("#pfp-small") = URL.createObjectURL(file)
+        }
+    }
+
+    var bannerUploadField = document.getElementById("bannerUploadField")
+    bannerUploadField.onchange = function () {
+        //$("#profileEditForm").submit()
+        const [file] = bannerUploadField.files
+        if (file) {
+            console.log(URL.createObjectURL(file))
+            //document.getElementById("card-hero-user").background = URL.createObjectURL(file)
+            $("#card-hero-user").css("background-image", "url(" + URL.createObjectURL(file) + ")");
+            $("#card-hero-user").css("background-repeat", "no-repeat");
+            $("#card-hero-user").css("background-position", "center");
+            $("#card-hero-user").css("background-size", "cover");
+            //$("#pfp-small") = URL.createObjectURL(file)
+        }
+    }
+    //$("#bannerUploadField").on('change', () => {
+    //    $("#profileEditForm").submit()
+    //})
+</script>
+
+<script defer>
+    if (window.location.hash === '#walkthrough') {
+        introJs().start()
+    }
+</script>
+
+@{
+    if (Model.ViewingUser != null)
+    {
+        <style>
+            #profileImage, .pfp-small {
+                background: url('/userdata/@Model.ViewingUser.AvatarImg') center no-repeat; background-size: cover
+            }
+
+            #profileHeader, .card-hero-user {
+                background: url('/userdata/@Model.ViewingUser.BannerImg') center no-repeat; background-size: cover
+            }
+
+
+        </style>
+
+    }
+}
