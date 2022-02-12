@@ -9,95 +9,172 @@ namespace KampongTalk.Pages.Settings
     public class Index : PageModel
     {
         public static MightyOrm prefDb { get; set; } =
-            new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"], "UserPreferences", "Uid");
+            new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
+                "UserPreferences", "Uid");
 
         // Saved in the db. Use this to render the current attributes
-        public dynamic currentUserPreference { get; set; }
+        public dynamic CurrentUserPreference { get; set; }
 
-        public string displayLang { get; set; }
+        public string DisplayLang { get; set; }
 
-        public string displayTextSize { get; set; }
+        public string DisplayTextSize { get; set; }
 
-        public string displaySpeechGender { get; set; }
+        public string DisplaySpeechGender { get; set; }
 
-        public string displayAudioCues { get; set; }
+        public string DisplayAudioCues { get; set; }
 
-        public string displayPasswordLess { get; set; }
+        public string DisplayPasswordLess { get; set; }
 
 
+        public User CurrentUser { get; set; }
+        
+        // Form type
+        [BindProperty] public string ForForm { get; set; }
+        
+        // KampongID Props
+        [BindProperty] public string NewKampongId { get; set; }
+        [BindProperty] public string IncomingPassword { get; set; }
+        public bool ShowDuplicateUid2Error { get; set; }
+        public bool ShowCurrentUid2Error { get; set; }
+        public bool ShowPasswordError { get; set; }
+        public string ShowDuplicateUid2ErrorClass { get; set; }
+        public string ShowPasswordErrorClass { get; set; }
+        
+        // Modal auto open prop
+        public string AutoOpenModalId { get; set; }
 
-        private User CurrentUser { get; set; }
-
-        public IActionResult OnGet()
+        public IActionResult OnGet(string openModal)
         {
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
             if (CurrentUser == null) return Redirect("/Accounts/Login");
 
-            currentUserPreference = prefDb.Single($"Uid = {CurrentUser.Uid}");
+            CurrentUserPreference = prefDb.Single($"Uid = {CurrentUser.Uid}");
 
-            switch (currentUserPreference.Language)
+            switch (CurrentUserPreference.Language)
             {
                 case "en":
-                    displayLang = "English";
+                    DisplayLang = "English";
                     break;
                 case "zh":
-                    displayLang = "中文 ";
+                    DisplayLang = "中文 ";
                     break;
                 case "ms":
-                    displayLang = "Melayu";
+                    DisplayLang = "Melayu";
                     break;
                 case "ta":
-                    displayLang = "தமிழ்";
+                    DisplayLang = "தமிழ்";
                     break;
             }
 
-            switch (currentUserPreference.TextSize)
+            switch (CurrentUserPreference.TextSize)
             {
                 case "large":
-                    displayTextSize = "Large";
+                    DisplayTextSize = "Large";
                     break;
                 case "larger":
-                    displayTextSize = "Larger ";
+                    DisplayTextSize = "Larger ";
                     break;
                 case "largest":
-                    displayTextSize = "Largest";
+                    DisplayTextSize = "Largest";
                     break;
             }
 
-            switch (currentUserPreference.SpeechGender)
+            switch (CurrentUserPreference.SpeechGender)
             {
                 case "Male":
-                    displaySpeechGender = "Male";
+                    DisplaySpeechGender = "Male";
                     break;
                 case "Female":
-                    displaySpeechGender = "Female ";
+                    DisplaySpeechGender = "Female ";
                     break;
-               
             }
 
-            switch (currentUserPreference.UseAudioCues)
+            switch (CurrentUserPreference.UseAudioCues)
             {
                 case true:
-                    displayAudioCues = "On";
+                    DisplayAudioCues = "On";
                     break;
                 case false:
-                    displayAudioCues = "Off";
+                    DisplayAudioCues = "Off";
                     break;
-
             }
 
-            switch (currentUserPreference.UsePasswordLess)
+            switch (CurrentUserPreference.UsePasswordLess)
             {
                 case true:
-                    displayPasswordLess = "On";
+                    DisplayPasswordLess = "On";
                     break;
                 case false:
-                    displayPasswordLess = "Off";
+                    DisplayPasswordLess = "Off";
                     break;
-
             }
+            
+            // Automatically open modal
+            if (openModal != null)
+            {
+                if (openModal == "kampongId")
+                {
+                    AutoOpenModalId = "changeKampongIDModal";
+                }
+                // if () {}
+            }
+            
+            return Page();
+        }
 
+        public IActionResult OnPost()
+        {
+            CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
+            if (CurrentUser == null) return Redirect("/Accounts/Login");
+            
+            var dbUsers =
+                new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
+                    "Users", "Uid");
 
+            var currentUserFromDb = dbUsers.Single(new { CurrentUser.Uid });
+
+            // ReSharper disable once StringLiteralTypo
+            if (ForForm == "KAMPONGID_CHANGE")
+            {
+                // Check if user is trying to change to their own Uid2
+                if (CurrentUser.Uid2 == NewKampongId)
+                {
+                    ShowCurrentUid2Error = true;
+                    ShowDuplicateUid2ErrorClass = "is-danger";
+                    AutoOpenModalId = "changeKampongIDModal";
+                    return Page();
+                }
+                
+                // Check if there is an account already with the same Uid2
+                var userWithSameUid2 = dbUsers.Single(new {Uid2 = NewKampongId});
+                if (userWithSameUid2 != null)
+                {
+                    ShowDuplicateUid2ErrorClass = "is-danger";
+                    ShowDuplicateUid2Error = true;
+                    AutoOpenModalId = "changeKampongIDModal";
+                    return Page();
+                }
+                
+                // If password is wrong
+                if (!CurrentUser.ComparePassword(IncomingPassword))
+                {
+                    ShowPasswordErrorClass = "is-danger";
+                    ShowPasswordError = true;
+                    AutoOpenModalId = "changeKampongIDModal";
+                    return Page();
+                }
+
+                // Update values
+                CurrentUser.Uid2 = NewKampongId;
+                currentUserFromDb.Uid2 = NewKampongId;
+            
+                // Commit values
+                HttpContext.Session.SetString("CurrentUser", CurrentUser.ToJson());
+                dbUsers.Update(currentUserFromDb);
+                
+                return Page();
+            }
+            
             return Page();
         }
     }

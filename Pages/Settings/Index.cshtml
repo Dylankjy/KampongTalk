@@ -20,36 +20,27 @@
 
 <section class="section">
     <div class="container">
-        <div class="level is-mobile">
-            <div class="level-left">
-                <div class="level-item mr-5">
-                    <div>
-                        <div class="pfp small"></div>
-                    </div>
-                </div>
-                <div class="level-item">
-                    <div>
-                        <p class="title">Dylan Kok</p>
-                        <p>&#64;Test</p>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="card">
             <div class="card-content">
-                <p class="title is-5"><i class="fas fa-user"></i>&ensp;Your profile</p>
-                <p class="subtitle is-6">This information is used to personalise your experience<br/>and may be visible to others.</p>
-                
+                <p class="title is-5"><i class="fas fa-user"></i>&ensp;Your KampongID</p>
+                <p class="subtitle is-6">Help friends and family easily find you using your KampongID.</p>
+                <div class="account-detail-field">
+                    <small class="has-text-weight-bold">Your current KampongID</small>
+                    <p class="is-size-4">@@@Model.CurrentUser.Uid2</p>
+                    <br/>
+                    <p>You can share your KampongID with your friends and family for them to easily locate your profile page just by typing it into the search bar.</p>
+                </div>
+                <a class="button is-dark mt-4" onclick="$('#changeKampongIDModal').fadeIn('fast'); $('#kampongID').val('')"><i class="fas fa-arrow-right"></i>&ensp;Change KampongID</a>
             </div>
         </div>
-        
+
         <div class="card mt-5">
             <div class="card-content">
                 <p class="title is-5">
                     <i class="fas fa-shield-alt"></i>&ensp;Account Privacy &amp; Security
                 </p>
                 <p class="subtitle is-6">Keep your account secured and control it's visibility.</p>
-        
+
                 <div class="account-detail-field">
                     <small class="has-text-weight-bold">Password</small>
                     <p>Your password was last changed on {{}}</p>
@@ -76,64 +67,52 @@
 
                 <div class="account-detail-field">
                     <small class="has-text-weight-bold">Display Language</small>
-                    <p>@Model.displayLang</p>
+                    <p>@Model.DisplayLang</p>
                 </div>
-
-                <hr />
 
                 <div class="account-detail-field">
                     <small class="has-text-weight-bold">Display Text Size</small>
-                    <p>@Model.displayTextSize</p>
+                    <p>@Model.DisplayTextSize</p>
                 </div>
-
-                <hr />
 
                 <div class="account-detail-field">
                     <small class="has-text-weight-bold">Gender</small>
-                    <p>@Model.displaySpeechGender</p>
+                    <p>@Model.DisplaySpeechGender</p>
                 </div>
-
-                <hr />
 
                 <div class="account-detail-field">
                     <small class="has-text-weight-bold">Use audio cues</small>
-                    <p>@Model.displayAudioCues</p>
+                    <p>@Model.DisplayAudioCues</p>
                 </div>
-
-                <hr />
-
 
                 <div class="account-detail-field">
                     <small class="has-text-weight-bold">Enable passwordless</small>
-                    <p>@Model.displayPasswordLess</p>
+                    <p>@Model.DisplayPasswordLess</p>
                 </div>
 
-                <hr />
-
-               
                 <a class="button is-dark mt-4" href="/Settings/Preference"><i class="fas fa-arrow-right"></i>&ensp;Toggle profile preferences</a>
             </div>
         </div>
 
-        <div class="card mt-5">
-            <div class="card-content">
-                <p class="title is-5"><i class="fas fa-bell"></i>&ensp;Notification preferences</p>
-                <p class="subtitle is-6">Control when and what KampongTalk notifies you about.</p>
-
-                <div class="account-detail-field">
-                    <p class="has-text-weight-bold"><i class="fas fa-thumbs-up"></i>&ensp;Likes — <span class="has-text-weight-normal">On</span></p>
-                </div>
-                <div class="account-detail-field">
-                    <p class="has-text-weight-bold"><i class="fas fa-user-friends"></i>&ensp;Friend Requests — <span class="has-text-weight-normal">On</span></p>
-                </div>
-                <div class="account-detail-field">
-                    <p class="has-text-weight-bold"><i class="fas fa-comments"></i>&ensp;Private Messages — <span class="has-text-weight-normal">On</span></p>
-                </div>
-                <div class="account-detail-field">
-                    <p class="has-text-weight-bold"><i class="fas fa-comment-dots"></i>&ensp;Tagged and Replies — <span class="has-text-weight-normal">On</span></p>
-                </div>
-            </div>
-        </div>
+        @* <div class="card mt-5"> *@
+        @*     <div class="card-content"> *@
+        @*         <p class="title is-5"><i class="fas fa-bell"></i>&ensp;Notification preferences</p> *@
+        @*         <p class="subtitle is-6">Control when and what KampongTalk notifies you about.</p> *@
+        @* *@
+        @*         <div class="account-detail-field"> *@
+        @*             <p class="has-text-weight-bold"><i class="fas fa-thumbs-up"></i>&ensp;Likes — <span class="has-text-weight-normal">On</span></p> *@
+        @*         </div> *@
+        @*         <div class="account-detail-field"> *@
+        @*             <p class="has-text-weight-bold"><i class="fas fa-user-friends"></i>&ensp;Friend Requests — <span class="has-text-weight-normal">On</span></p> *@
+        @*         </div> *@
+        @*         <div class="account-detail-field"> *@
+        @*             <p class="has-text-weight-bold"><i class="fas fa-comments"></i>&ensp;Private Messages — <span class="has-text-weight-normal">On</span></p> *@
+        @*         </div> *@
+        @*         <div class="account-detail-field"> *@
+        @*             <p class="has-text-weight-bold"><i class="fas fa-comment-dots"></i>&ensp;Tagged and Replies — <span class="has-text-weight-normal">On</span></p> *@
+        @*         </div> *@
+        @*     </div> *@
+        @* </div> *@
 
         @* <div class="card mt-5"> *@
         @*             <div class="card-content"> *@
@@ -180,3 +159,81 @@
         </a>
     </div>
 </section>
+
+<div id="changeKampongIDModal" class="modal is-active" style="display: none">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <div class="card">
+            <div class="card-content has-background-light">
+                <p class="title is-4"><i class="fa-solid fa-at"></i>&ensp;Change your KampongID</p>
+            </div>
+            <div class="card-content">
+                <small class="has-text-weight-bold">Your current KampongID</small>
+                <p class="is-size-4">@@@Model.CurrentUser.Uid2</p>
+            </div>
+            <div class="card-content has-background-danger-light has-text-danger-dark">
+                <p class="title has-text-danger-dark is-5 mb-2"><i class="fa-solid fa-circle-exclamation"></i>&ensp;Things to take note</p>
+                <div class="content">
+                    <ul>
+                        <li>Other users cannot use your previous KampongID to find you.</li>
+                        <li>The web address to your profile page will also be changed.</li>
+                        <p class="has-text-weight-bold mt-3">Make sure you inform your friends and family so that they can still find you after this change to your KampongID.</p>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-content">
+                <form autocomplete="off" method="post">
+                    <input value="KAMPONGID_CHANGE" asp-for="ForForm" type="hidden"/>
+                    <div class="field">
+                        <label class="label">New KampongID</label>
+                        <div class="control has-icons-left">
+                            <input class="input @Model.ShowDuplicateUid2ErrorClass" type="text" placeholder="@Model.CurrentUser.Uid2" asp-for="NewKampongId">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-at"></i>
+                            </span>
+                            @if (Model.ShowDuplicateUid2Error)
+                            {
+                                <small class="has-text-danger">This KampongID is currently being used by another user.</small>
+                            }
+                            @if (Model.ShowCurrentUid2Error)
+                            {
+                                <small class="has-text-danger">This KampongID already belongs to you. No changes required.</small>
+                            }
+                        </div>
+                    </div>
+                    <input type="text" id="kampongID" style="height: 0; width: 0; opacity: 0; position: absolute; padding: 0">
+                    <div class="field">
+                        <label class="label">Password</label>
+                        <div class="control has-icons-left">
+                            <input class="input @Model.ShowPasswordErrorClass" type="password" placeholder="••••••••" asp-for="IncomingPassword">
+                            <span class="icon is-small is-left">
+                                <i class="fa-solid fa-key"></i>
+                            </span>
+                            @if (Model.ShowPasswordError) {
+                                <small class="has-text-danger">Password is incorrect.</small>
+                            }
+                        </div>
+                        <small class="has-text-grey"><i class="fas fa-info-circle"></i>&nbsp;As you are performing a major change to your account, we will need your password to continue.</small>
+                    </div>
+                    <br/>
+                    <button class="button is-primary"><i class="fas fa-arrow-right"></i>&ensp;Save changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <button id="friendsCloseBtn" onclick="$('#changeKampongIDModal').fadeOut('fast')" class="modal-close is-large" aria-label="close"></button>
+    
+    <script>
+    setTimeout(() => {
+        if ($("#kampongID").val() === '@Model.CurrentUser.PhoneNumber' ) {
+                $("#kampongID").val("")
+        }
+    }, 800)
+    </script>
+</div>
+
+@if (Model.AutoOpenModalId != null) {
+    <script>
+        $("#@Model.AutoOpenModalId").fadeIn('fast');
+    </script>
+}
