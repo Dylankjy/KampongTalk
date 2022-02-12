@@ -59,6 +59,10 @@ namespace KampongTalk.Pages.Profile
         [BindProperty] public string FriendActionOtherUid { get; set; }
         public string FriendActionToDisplay { get; set; }
         public bool IsOpenModalOnGet { get; set; }
+        
+        // Privacy props
+        public bool IsAccountPrivateAccessible { get; set; } = true;
+        public bool IsPrivate { get; set; }
 
         // Error handling props
         public bool ShowUserNotFoundError { get; set; }
@@ -72,6 +76,10 @@ namespace KampongTalk.Pages.Profile
             var dbUsers =
                 new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
                     "Users");
+            
+            var dbPrefs =
+                new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
+                    "UserPreferences");
 
             var dbActionLogs =
                 new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
@@ -143,21 +151,43 @@ namespace KampongTalk.Pages.Profile
             PageNo = p;
             PreviousPageNo = p - 1;
             NextPageNo = p + 1;
+            
+            // Get whether user profile is private
+            IsPrivate = Convert.ToBoolean(dbPrefs.Single(new { Uid = ViewingUser.Uid }).IsPublic);
 
             // Get friend list
             var friendList =
                 dbRelation.Query(
                     $"Select * from Relationships where (UserA = '{ViewingUser.Uid}' or UserB = '{ViewingUser.Uid}') AND Status = 'friends'");
 
+            bool isFriends = false;
             if (friendList != null)
             {
                 foreach (var relationRow in friendList)
+                {
                     if (relationRow.UserA != ViewingUser.Uid)
+                    {
                         FriendList.Add(UserApi.GetUserById(relationRow.UserA));
+                    }
                     else
                         FriendList.Add(UserApi.GetUserById(relationRow.UserB));
+                }
                 // ReSharper disable once PossibleMultipleEnumeration
                 FriendCount = friendList.Count();
+                
+                // Check whether the current user is a friend
+                foreach (var row in FriendList)
+                {
+                    if (CurrentUser.Uid == row.Uid)
+                    {
+                        isFriends = true;
+                    }
+                }
+            }
+            
+            if (!IsPrivate && !isFriends)
+            {
+                IsAccountPrivateAccessible = false;
             }
 
             var friendListPendingOutgoing =
