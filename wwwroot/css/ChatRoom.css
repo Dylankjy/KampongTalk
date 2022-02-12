@@ -1,4 +1,21 @@
 ﻿
+
+
+.userPFP {
+    border-radius: 50%;
+    height: 3rem;
+    width: 3rem;
+    background-size: cover;
+    background-position: center;
+    display: inline-block;
+    float: left;
+}
+
+
+
+
+
+
 .message-box-holder {
     width: 100%;
     margin: 0 0 15px;

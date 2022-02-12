@@ -1,0 +1,104 @@
+﻿@page
+@model KampongTalk.Pages.Dms.DmModel
+@{
+    if (Model.ReceivingUser != null)
+    {
+        ViewData["Title"] = Model.ReceivingUser.Name;
+    }
+    else
+    {
+        ViewData["Title"] = "404: User not found";
+    }
+
+    ViewData["currentUid"] = Model.CurrentUser.Uid;
+
+}
+<link rel="stylesheet" href="~/css/ChatRoom.css">
+
+<div class="iconDiv">
+    <a href="/Profile?u=@Model.ReceivingUser.Uid2">
+        <img src="~/imgs/BackButton.png" style=" height: 3vh; right: 100px;" />
+    </a>
+</div>
+
+<div class="container">
+
+
+
+
+    <hr />
+    <div class="userPFP"
+         style="background-image: url('/userdata/@Model.ReceivingUser.AvatarImg')">
+    </div>
+    
+    <h1 class="display title is-8 ml-30"> @Model.ReceivingUser.Name </h1>
+    <hr />
+    <div id="messagearea" class="row" style="overflow-y: scroll; height: 530px">
+        <div><b>Start chatting with @Model.ReceivingUser.Name !</b></div>
+
+
+        <div class="row">
+            <div class="col-6">
+
+
+                @if (Model.myChat != null)
+                {
+
+                    @foreach (var message in Model.myChat)
+                    {
+                        if (message.RecipientId == Model.CurrentUser.Uid)
+                        {
+                            <div class="message-box-holder">
+                                <div class="message-box message-partner">
+                                    @message.Content
+                                </div>
+                                <div class="message-sender">
+                                    <p class="subtitle is-size-8">@message.Timestamp</p>
+                                </div>
+                            </div>
+                        }
+
+                        else
+                        {
+
+                            <div class="message-box-holder">
+                                <div class="message-box">
+                                    @message.Content
+                                </div>
+                                <div class="message-sender">
+                                    <p class="subtitle is-size-8">@message.Timestamp</p>
+                                </div>
+                            </div>
+                            }
+
+                        }
+
+                    }
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+    </div>
+    <hr />
+
+    <div class="container">
+        <form method="post">
+            <div class="field">
+
+                <div class="control">
+                    <input class="input form-input-50" type="text" asp-for="newChat.Content" placeholder="Enter your message" style='width: 89%; height: 50px; font-size: 20pt;'> <button class="button is-warning is-blue" id="sendButton" style='width:10%; height: 50px; font-size: 20pt;'>Send</button>
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
