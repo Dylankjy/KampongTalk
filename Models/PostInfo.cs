@@ -5,6 +5,7 @@ namespace KampongTalk.Models
     public class PostInfo
     {
         public long Pid { get; set; }
+        public long Author { get; set; }
         public string Content { get; set; }
         public string AttachmentImg { get; set; }
         public DateTime Timestamp { get; set; }

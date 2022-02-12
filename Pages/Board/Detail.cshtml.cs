@@ -23,6 +23,7 @@ namespace KampongTalk.Pages.Board
         }
         [BindProperty]
         public User CurrentUser { get; set; }
+        public dynamic LangData { get; set; }
 
         [BindProperty]
         public long Postid { get; set; }
@@ -57,6 +58,8 @@ namespace KampongTalk.Pages.Board
         public IActionResult OnGet(string Pid)
         {
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
+            if (CurrentUser == null) return Redirect("/Accounts/Login");
+            LangData = UserPrefApi.GetLangByUid(CurrentUser);
             Postid = Convert.ToInt64(Pid);
             // commentList = postDB.All($"IsComment = '{Pid}'");
             commentList = GetComments(Postid);
@@ -87,6 +90,7 @@ namespace KampongTalk.Pages.Board
                          select new PostInfo
                          {
                              Pid = post.Pid,
+                             Author = post.Author,
                              Content = post.Content,
                              AttachmentImg = post.AttachmentImg,
                              Timestamp = post.Timestamp,

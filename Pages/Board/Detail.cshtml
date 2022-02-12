@@ -15,7 +15,7 @@
     <div class="columns is-centered">
         <div class="column is-one-fifth has-text-centered">
             <a href="/Board" class="button is-medium is-fullwidth is-light m-5">
-                <i class="fas fa-arrow-left mr-2"></i>Back to Board
+                <i class="fas fa-arrow-left mr-2"></i>@Model.LangData.back
             </a>
         </div>
         <div class="column is-three-fifths">
@@ -27,11 +27,14 @@
 
                 </div>
                 <div class="postPriInfo">
-                    <span class="has-text-weight-bold is-size-5">@Model.author.Name</span><span class="is-size-6 has-text-grey ml-2" style="margin-top: -1.5rem">&#64;@Model.author.Uid2</span>
+                    <a href="/Profile?u=@Model.author.Uid2">
+                        <span class="has-text-weight-bold is-size-5">@Model.author.Name</span><span class="is-size-6 has-text-grey ml-2" style="margin-top: -1.5rem">&#64;@Model.author.Uid2</span>
+                    </a>
+                    
                     @if (Model.thisPost.InCommunity != null)
                     {
                         <p style="line-height: 60%;">
-                            <span class="minorInfo" id="InCommunitySpan"> In <a href="/Community?c=@Model.thisPost.InCommunity">@CommunityApi.GetCommunityById(@Model.thisPost.InCommunity).Name</a></span>
+                            <span class="minorInfo" id="InCommunitySpan"> @Model.LangData.post.postedIn <a href="/Community?c=@Model.thisPost.InCommunity">@CommunityApi.GetCommunityById(@Model.thisPost.InCommunity).Name</a></span>
                         </p>
                     }
                 </div>
@@ -72,14 +75,14 @@
 
                     <div class="field has-addons">
                         <div class="control is-expanded has-icons-left">
-                            <input class="input" type="text" asp-for="newComment.Content" placeholder="Reply to post..." />
+                            <input class="input" type="text" asp-for="newComment.Content" placeholder="@Model.LangData.board.detail.replyToPost" />
                             <span class="icon is-small is-left">
                                 <i class="fas fa-comment-dots mr-2"></i>
                             </span>
                         </div>
                         <input asp-for="newComment.IsComment" value="@Model.thisPost.Pid" class="is-hidden" />
                         <div class="control">
-                            <button class="button is-primary" type="submit">Send Reply</button>
+                            <button class="button is-primary" type="submit">@Model.LangData.board.detail.sendReply</button>
                         </div>
                     </div>
                 </form>
@@ -96,7 +99,10 @@
                         <div class="media-content">
                             <div class="content is-size-6">
                                 <p>
-                                    <strong>@comment.UserName</strong><span class="is-size-6 has-text-grey ml-2" style="margin-top: -1.5rem">&#64;@Model.author.Uid2</span>
+                                    <a href="/Profile?u=@UserApi.GetUserById(@comment.Author).Uid2">
+                                        <strong>@comment.UserName</strong><span class="is-size-6 has-text-grey ml-2" style="margin-top: -1.5rem">&#64;@UserApi.GetUserById(@comment.Author).Uid2</span>
+                                    </a>
+                                    
                                     <br>
                                     @comment.Content
                                     <br>
@@ -127,7 +133,7 @@
 
                 @if (!Model.commentList.Any())
                 {
-                    <p class="has-text-centered">No comments have been left on this post.</p>
+                    <p class="has-text-centered">@Model.LangData.board.detail.noComms</p>
                 }
             </div>
 
