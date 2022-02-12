@@ -241,7 +241,8 @@
 
 
     function infiniteScroll() {
-        var postType = window.location.pathname.split("/")[1];
+        var arr = window.location.pathname.split("/")
+        var postType = arr[arr.length - 1];
         $.ajax({
                 type: "POST",
                 url: "/Board/renderpost",

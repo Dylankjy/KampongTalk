@@ -224,7 +224,6 @@ namespace KampongTalk.Pages.Board
                 if (postImg != null)
                 {
                     var uploadFolder = Path.Combine(webHostEnvironment.ContentRootPath, "wwwroot/userdata/posts");
-                    Debug.WriteLine(uploadFolder);
                     var extension = postImg.FileName.Split('.').Last();
                     var uniqueImgName = new IdGenerator(1).CreateId();
                     var attachmentImg = uniqueImgName + "." + extension;

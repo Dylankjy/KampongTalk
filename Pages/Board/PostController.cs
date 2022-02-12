@@ -21,9 +21,8 @@ namespace KampongTalk.Pages.Board
         // ROUTE METHODS
         [HttpPost]
         [Route("/Board/renderpost")]
-        public ActionResult OnPostRenderpost(string postType)
+        public ActionResult Renderpost(string postType)
         {
-
             int pPage = Convert.ToInt32(HttpContext.Session.GetString("PostPage"));
             pPage = pPage + 1;
             HttpContext.Session.SetString("PostPage", pPage.ToString());
@@ -32,14 +31,13 @@ namespace KampongTalk.Pages.Board
             try
             {
                 var allPosts = postDB.Paged(orderBy: "Timestamp DESC", where: "IsComment = 0 AND Author != '0'", pageSize: 1, currentPage: pPage + 5);
-                nPost = allPosts.Items.First();
+                //nPost = allPosts.Items.First();
+                nPost = GetPost(postType, pPage);
             }
             catch
             {
                 return null;
             }
-
-            //nPost = GetPost(postType, pPage);
 
             return PartialView("/Pages/Partials/_Post.cshtml", nPost);
         }
@@ -167,15 +165,10 @@ namespace KampongTalk.Pages.Board
                 }
 
             }
-            else if (postType == "Recommended")
-            {
-                // Recommended Posts
-                nPosts = postDB.Paged(orderBy: "Timestamp DESC", where: "IsComment = 0 AND Author != '0'", pageSize: 1, currentPage: postPage + 5);
-            }
             else
             {
                 // Whole Kampong, All posts
-                nPosts = postDB.Paged(orderBy: "Timestamp DESC", where: "IsComment = 0 AND Author != '0'", pageSize: 5, currentPage: postPage + 5);
+                nPosts = postDB.Paged(orderBy: "Timestamp DESC", where: "IsComment = 0 AND Author != '0'", pageSize: 1, currentPage: postPage + 5);
             }
             return nPosts.Items.First();
         }
