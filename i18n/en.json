@@ -154,6 +154,36 @@
       "reccForFirstTime": "(Recommended for first-time users)",
       "takeToKTDirectly": "Take me to the Kampong directly"
     }
+  },
+
+  "board": {
+    "kampongBoard": "KampongBoard",
+    "wholeKampong": "Whole Kampong",
+    "popComms": "Popular Communities",
+    "viewMoreComms": "View more Communities",
+    "popEvents": "Popular Events",
+    "viewMoreEvents": "View more Events",
+    "writePost": "Write Post",
+    "empty": {
+      "noFriends": "You have no friends :(",
+      "suggestion": "We suggest finding some friends at the Void Deck",
+      "takeMeToVD": "Take me to the Void Deck",
+      "KtIsEmpty": "The Kampong is empty..",
+      "bringKtToLife": "Write a new post to bring the Kampong to life.",
+      "noComms": "There are no communities to display.",
+      "noEvents": "There are no events to display.",
+      "scrollToEnd": "Wow, it looks like you've scrolled to the bottom of the KampongBoard!",
+      "checkNewPosts": "Check for new Posts"
+    }
+  },
+
+  "post": {
+    "like": "Like",
+    "reply": "Reply",
+    "postedIn": "Posted in",
+    // From the dropdown
+    "messageUser": "Message User",
+    "reportPost": "Report Post"
   }
 
 }

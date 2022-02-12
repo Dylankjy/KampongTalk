@@ -37,6 +37,7 @@ namespace KampongTalk.Pages.Board
         [BindProperty] public Post newComment { get; set; } = new Post();
 
         public User CurrentUser { get; set; }
+        public dynamic LangData { get; set; }
 
         public string PrevPostDiv { get; set; }
 
@@ -89,7 +90,7 @@ namespace KampongTalk.Pages.Board
             {
                 return Redirect("/Accounts/Login");
             }
-  
+            LangData = UserPrefApi.GetLangByUid(CurrentUser);
             //postType = "";
             HttpContext.Session.SetString("PostPage", "1");
             PostsToDisplay = GetPosts("");
@@ -107,7 +108,7 @@ namespace KampongTalk.Pages.Board
             {
                 return Redirect("/Accounts/Login");
             }
-
+            LangData = UserPrefApi.GetLangByUid(CurrentUser);
             //postType = "Friends";
             HttpContext.Session.SetString("PostPage", "1");
             PostsToDisplay = GetPosts("Friends");
