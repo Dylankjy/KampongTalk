@@ -26,6 +26,8 @@ namespace KampongTalk.Pages.Onboarding
 
         private User CurrentUser { get; set; }
 
+        public dynamic LangData { get; set; }
+
         public List<SelectListItem> LangPrefList { get; set; } = new List<SelectListItem>
             {
                 new SelectListItem {Text = "English", Value = "en"},
@@ -38,6 +40,7 @@ namespace KampongTalk.Pages.Onboarding
         {
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
             if (CurrentUser == null) return Redirect("/Accounts/Login");
+            LangData = UserPrefApi.GetLangByUid(CurrentUser);
             currentUserPreference = prefDb.Single($"Uid = {CurrentUser.Uid}");
             return Page();
         }

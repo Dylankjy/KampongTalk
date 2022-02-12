@@ -23,6 +23,8 @@ namespace KampongTalk.Pages
 
         public bool useAudioCues { get; set; }
 
+        public dynamic LangData { get; set; }
+
         public IActionResult OnGet()
         {
             // Create User here (DONT SPECIFY Uid in MightyOrm Constructor here)
@@ -55,6 +57,7 @@ namespace KampongTalk.Pages
                 //CurrentUser = new User();
                 return Redirect("/Accounts/Login");
             }
+            LangData = UserPrefApi.GetLangByUid(CurrentUser);
             var preferencesDB = new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"], "UserPreferences");
 
             var uid = CurrentUser.Uid;

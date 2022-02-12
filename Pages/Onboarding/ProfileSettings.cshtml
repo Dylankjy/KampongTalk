@@ -18,26 +18,26 @@
                     <li class="steps-segment">
                         <span class="steps-marker">1</span>
                         <div class="steps-content">
-                            Preferences
+                            @Model.LangData.onboarding.pref
                         </div>
                     </li>
                     <li class="steps-segment is-active">
                         <span class="steps-marker">2</span>
                         <div class="steps-content">
-                            Profile
+                            @Model.LangData.onboarding.prof
                         </div>
                     </li>
                     <li class="steps-segment">
                         <span class="steps-marker">3</span>
                         <div class="steps-content">
-                            Done
+                            @Model.LangData.onboarding.done
                         </div>
                     </li>
                 </ul>
 
                 <div class="has-text-centered mb-3">
-                    <h1 class="title is-size-4 mb-1">Customise Your Profile</h1>
-                    <a href="/Onboarding/Done">Skip this step for now</a>
+                    <h1 class="title is-size-4 mb-1">@Model.LangData.onboarding.profileSettings.customProfile</h1>
+                    <a href="/Onboarding/Done">@Model.LangData.onboarding.skip</a>
                     <br />
                 </div>
 
@@ -60,15 +60,15 @@
                             <input accept="image/png, image/jpg" type="file" asp-for="BannerImage" id="bannerUploadField" style="opacity: 0; height: 0; width: 0" />
 
                             <div class="field">
-                                <label class="label">About me</label>
+                                <label class="label">@Model.LangData.onboarding.profileSettings.aboutMe</label>
                                 <div class="control">
-                                    <input class="input" type="text" asp-for="EditBio" style="word-break: break-word;" placeholder="Introduce yourself :)">
+                                    <input class="input" type="text" asp-for="EditBio" style="word-break: break-word;" placeholder="@Model.LangData.onboarding.profileSettings.introYourself">
                                 </div>
                             </div>
                             <br />
 
                             <div class="field">
-                                <label class="label">Birthday</label>
+                                <label class="label">@Model.LangData.onboarding.profileSettings.birthday</label>
                                 <div class="control has-icons-left">
                                     <input class="input" type="date" asp-for="EditBirthday">
                                     <span class="icon is-small is-left">
@@ -78,10 +78,10 @@
                             </div>
 
                             <button class="button is-dark mt-3" type="button" style="width:49%" onclick="location.href='/Onboarding/Preferences';">
-                                Back
+                                @Model.LangData.back
                             </button>
                             <button class="button is-primary mt-3" type="submit" style="width:49%">
-                                Next
+                                @Model.LangData.next
                             </button>
                         </form>
 

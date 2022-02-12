@@ -18,8 +18,8 @@
 
         <div class="column is-half">
             <div class="has-text-centered">
-                <h1 class="title is-size-3 mb-1 mt-1">Welcome to KampongTalk!</h1>
-                <p class="is-size-6">Let's get you started.</p>
+                <h1 class="title is-size-3 mb-1 mt-1">@Model.LangData.onboarding.preferences.welcome</h1>
+                <p class="is-size-6">@Model.LangData.onboarding.preferences.getStarted</p>
                 <br />
             </div>
 
@@ -28,26 +28,26 @@
                 <li class="steps-segment is-active">
                     <span class="steps-marker">1</span>
                     <div class="steps-content">
-                        Preferences
+                        @Model.LangData.onboarding.pref
                     </div>
                 </li>
                 <li class="steps-segment">
                     <span class="steps-marker">2</span>
                     <div class="steps-content">
-                        Profile
+                        @Model.LangData.onboarding.prof
                     </div>
                 </li>
                 <li class="steps-segment">
                     <span class="steps-marker">3</span>
                     <div class="steps-content">
-                        Done
+                        @Model.LangData.onboarding.done
                     </div>
                 </li>
             </ul>
 
             <div class="has-text-centered mb-3">
-                <h1 class="title is-size-4 mb-1">Set your preferences</h1>
-                <a href="/Onboarding/ProfileSettings">Skip this step for now</a>
+                <h1 class="title is-size-4 mb-1">@Model.LangData.onboarding.preferences.setPrefs</h1>
+                <a href="/Onboarding/ProfileSettings">@Model.LangData.onboarding.skip</a>
                 <br />
             </div>
 
@@ -56,7 +56,7 @@
 
 
                 <div class="field">
-                    <label class="label is-size-5 mb-0 has-text-primary-dark"><i class="fas fa-language"></i>&ensp;Language</label>
+                    <label class="label is-size-5 mb-0 has-text-primary-dark"><i class="fas fa-language"></i>&ensp;@Model.LangData.onboarding.preferences.language</label>
                     @*<span class="is-size-6">Switch to your preferred language.</span>*@
                     <div class="control has-icons-left is-size-5">
                         <select value="@Model.currentUserPreference.Language" asp-items="Model.LangPrefList" asp-for="newUserPreference.Language" class="form-control" style="width:250px;"></select>
@@ -65,7 +65,7 @@
                 <br />
 
                 <div class="field">
-                    <label class="label is-size-5 mb-0 has-text-primary-dark"><i class="fa-solid fa-text-height"></i>&ensp;Text Size</label>
+                    <label class="label is-size-5 mb-0 has-text-primary-dark"><i class="fa-solid fa-text-height"></i>&ensp;@Model.LangData.onboarding.preferences.textSize</label>
                     <div class="columns">
                         <div class="column is-three-fifths">
                             <div class="control is-fullwidth">
@@ -73,13 +73,13 @@
                             </div>
                             <div class="level">
                                 <div class="level-item">
-                                    <span>Large</span>
+                                    <span>@Model.LangData.onboarding.preferences.large</span>
                                 </div>
                                 <div class="level-item">
-                                    <span style="font-size: 105%">Larger</span>
+                                    <span style="font-size: 105%">@Model.LangData.onboarding.preferences.larger</span>
                                 </div>
                                 <div class="level-item">
-                                    <span style="font-size: 110%">Largest</span>
+                                    <span style="font-size: 110%">@Model.LangData.onboarding.preferences.largest</span>
                                 </div>
                             </div>
                             @*<span class="is-pulled-left">Large</span>
@@ -93,13 +93,13 @@
 
                 <br />
                 <div class="field">
-                    <label class="label is-size-5 mb-0 has-text-primary-dark"><i class="fas fa-volume-up"></i><i class="fas fa-volume-off is-hidden"></i>&ensp;Audio cues</label>
-                    <span class="is-size-6">Sounds effects will be used when interacting with KampongTalk.</span>&ensp;
+                    <label class="label is-size-5 mb-0 has-text-primary-dark"><i class="fas fa-volume-up"></i><i class="fas fa-volume-off is-hidden"></i>&ensp;@Model.LangData.onboarding.preferences.audioCues</label>
+                    <span class="is-size-6">@Model.LangData.onboarding.preferences.audioCuesDesc</span>&ensp;
                     <input type="checkbox" style="height:4vh; width: 3vw;" checked="@Model.currentUserPreference.UseAudioCues == true" asp-for="newUserPreference.UseAudioCues">
                 </div>
                 <br />
 
-                <button class="mt-5 button is-primary is-dark is-fullwidth" type="submit">Next</button>
+                <button class="mt-5 button is-primary is-dark is-fullwidth" type="submit">@Model.LangData.next</button>
 
             </form>
                 </div>

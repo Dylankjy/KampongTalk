@@ -18,35 +18,35 @@
                     <li class="steps-segment">
                         <span class="steps-marker">1</span>
                         <div class="steps-content">
-                            Preferences
+                            @Model.LangData.onboarding.pref
                         </div>
                     </li>
                     <li class="steps-segment">
                         <span class="steps-marker">2</span>
                         <div class="steps-content">
-                            Profile
+                            @Model.LangData.onboarding.prof
                         </div>
                     </li>
                     <li class="steps-segment is-active">
                         <span class="steps-marker">3</span>
                         <div class="steps-content">
-                            Done
+                            @Model.LangData.onboarding.done
                         </div>
                     </li>
                 </ul>
 
                 <div class="has-text-centered">
 
-                    <h1 class="is-size-5">Your Account is all set up!</h1>
-                    <p class="title is-size-4">Do you wish to take a guided tour around KampongTalk?</p>
+                    <h1 class="is-size-5">@Model.LangData.onboarding.doneStep.accountSetup</h1>
+                    <p class="title is-size-4">@Model.LangData.onboarding.doneStep.guidedTourQn</p>
 
                     <div class="columns is-vcentered">
 
                         <div class="column">
                             <a href="/Guides">
                                 <div class="box is-inline-block m-2 has-text-centered has-background-success is-pulled-right">
-                                    <p class="is-size-4 has-text-weight-bold">Yes, Let's go</p>
-                                    <p>(Recommended for first-time users)</p>
+                                    <p class="is-size-4 has-text-weight-bold">@Model.LangData.onboarding.doneStep.yesLetsGo</p>
+                                    <p>@Model.LangData.onboarding.doneStep.reccForFirstTime</p>
                                 </div>
                             </a>
                         </div>
@@ -54,8 +54,8 @@
                         <div class="column">
                             <a href="/Board">
                                 <div class="box is-inline-block m-2 has-text-centered has-background-grey-light is-pulled-left">
-                                    <p class="is-size-4 has-text-weight-bold">No</p>
-                                    <p>Take me to the Kampong directly</p>
+                                    <p class="is-size-4 has-text-weight-bold">@Model.LangData.no</p>
+                                    <p>@Model.LangData.onboarding.doneStep.takeToKTDirectly</p>
                                 </div>
                             </a>
                         </div>

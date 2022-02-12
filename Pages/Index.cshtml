@@ -31,7 +31,7 @@
                 <a href="">
                     <div class="iconDiv expandDiv" style="top: 0vh; left: 14vw;" data-title="Chat" data-intro="Here, you can access your private messages and create chats.">
                         <img src="~/imgs/NavMap/Chat_Icon.png" class="navMapIcon" />
-                        <p><span class="tag is-dark is-large has-text-weight-bold">Chats</span></p>
+                        <p><span class="tag is-dark is-large has-text-weight-bold">@Model.LangData.features.chats</span></p>
                     </div>
                 </a>
 
@@ -39,7 +39,7 @@
                 <a href="/Community/Explore">
                     <div class="iconDiv expandDiv" style="top:0vh; left:38vw;" data-title="Communities" data-intro="Have a specific interest or hobby? Find posts grouped by topics here.">
                         <img src="~/imgs/NavMap/Communities_Icon.png" class="navMapIcon" style="height:25vh;" />
-                        <p><span class="tag is-dark is-large has-text-weight-bold">Communities</span></p>
+                        <p><span class="tag is-dark is-large has-text-weight-bold">@Model.LangData.features.communities</span></p>
 
                     </div>
                 </a>
@@ -48,7 +48,7 @@
                 <a href="/DigitalVoidDeck/Lobby">
                     <div class="iconDiv expandDiv" style="top:0vh; left:51vw;" data-title="Void Deck" data-intro="Find and meet new people in your neighbourhood.">
                         <img src="~/imgs/NavMap/Void_Deck.png" class="navMapIcon" />
-                        <p><span class="tag is-dark is-large has-text-weight-bold">Void Deck</span></p>
+                        <p><span class="tag is-dark is-large has-text-weight-bold">@Model.LangData.features.voidDeck</span></p>
                     </div>
                 </a>
 
@@ -56,7 +56,7 @@
                 <a href="/Board">
                     <div class="iconDiv expandDiv" style="top:21vh; left:25vw;" data-title="Board" data-intro="Here, you can view and create posts. Share about your day, or catch up with friends.">
                         <img src="~/imgs/NavMap/Board_Icon.png" class="navMapIcon" />
-                        <p><span class="tag is-dark is-large has-text-weight-bold">Board</span></p>
+                        <p><span class="tag is-dark is-large has-text-weight-bold">@Model.LangData.features.board</span></p>
                     </div>
                 </a>
 
@@ -65,7 +65,7 @@
                     <div class="iconDiv expandDiv" style="top:47vh; left:14vw;" data-title="Support" data-intro="Contact KampongTalk staff here.">
                         <!--SupportLink-->
                         <img src="~/imgs/NavMap/Support_Icon.png" class="navMapIcon" />
-                        <p><span class="tag is-dark is-large has-text-weight-bold">Support</span></p>
+                        <p><span class="tag is-dark is-large has-text-weight-bold">@Model.LangData.features.support</span></p>
                     </div>
                 </a>
 
@@ -73,7 +73,7 @@
                 <a href="/Events">
                     <div class="iconDiv expandDiv" style="top:38vh; left:40vw;" data-title="Events" data-intro="Looking for a way to pass the time? Browse and create engaging events here.">
                         <img src="~/imgs/NavMap/Events_Icon.png" class="navMapIcon" style="height:25vh;" />
-                        <p><span class="tag is-dark is-large has-text-weight-bold">Events</span></p>
+                        <p><span class="tag is-dark is-large has-text-weight-bold">@Model.LangData.features.events</span></p>
 
                     </div>
                 </a>
@@ -86,7 +86,7 @@
 
         <div class="column">
 
-            <p><button class="button is-light" onclick="history.back()" data-title="Close the map" data-intro="Click here to close the map and return to your previous page."><i class="fas fa-times"></i>&ensp;Close Map</button></p>
+            <p><button class="button is-light" onclick="history.back()" data-title="Close the map" data-intro="Click here to close the map and return to your previous page."><i class="fas fa-times"></i>&ensp;@Model.LangData.navMap.closeMap</button></p>
             <br />
 
             <div class="is-pulled-left">
@@ -99,7 +99,7 @@
                             </span>
                         </button>
                     </a>
-                    <p class="has-text-weight-bold">Friends</p>
+                    <p class="has-text-weight-bold">@Model.LangData.features.friends</p>
                 </div>
                 <br />
 
@@ -111,7 +111,7 @@
                             </span>
                         </button>
                     </a>
-                    <p class="has-text-weight-bold">Profile</p>
+                    <p class="has-text-weight-bold">@Model.LangData.features.profile</p>
                 </div>
                 <br />
 
@@ -123,12 +123,11 @@
                             </span>
                         </button>
                     </a>
-                    <p class="has-text-weight-bold">Settings</p>
+                    <p class="has-text-weight-bold">@Model.LangData.features.settings</p>
                 </div>
                 <br />
 
                 <div class="has-text-centered expandDiv" data-title="Log Out" data-intro="Click this button to exit Kampong Talk.">
-                    <!--Hi Dylan, logout button here-->
                     <form method="post">
                         <button class="button is-large is-primary" type="submit" value="LOGOUT" formaction="/Accounts/Logout">
                             <span class="icon is-medium">
@@ -136,7 +135,7 @@
                             </span>
                         </button>
                     </form>
-                    <p class="has-text-weight-bold">Log Out</p>
+                    <p class="has-text-weight-bold">@Model.LangData.logout</p>
                 </div>
 
             </div>
@@ -150,25 +149,25 @@
         <a href="/Board">
             <div class="box is-inline-block m-2 has-text-centered" style="width:40vw;">
                 <img src="~/imgs/NavMap/Board_Icon.png" style="height:15vh;" class="mt-3" />
-                <p class="is-size-4 has-text-centered">Board</p>
+                <p class="is-size-4 has-text-centered">@Model.LangData.features.board</p>
             </div>
         </a>
         <a href="/Community/Explore">
             <div class="box is-inline-block m-2 has-text-centered" style="width: 40vw;">
                 <img src="~/imgs/NavMap/Communities_Icon.png" style="height:15vh;" class="mt-3" />
-                <p class="is-size-4 has-text-centered">Communities</p>
+                <p class="is-size-4 has-text-centered">@Model.LangData.features.communities</p>
             </div>
         </a>
         <a href="/DigitalVoidDeck/Lobby">
             <div class="box is-inline-block m-2 has-text-centered" style="width: 40vw;">
                 <img src="~/imgs/NavMap/Void_Deck.png" style="height:15vh;" class="mt-3" />
-                <p class="is-size-4 has-text-centered">Void Deck</p>
+                <p class="is-size-4 has-text-centered">@Model.LangData.features.voidDeck</p>
             </div>
         </a>
         <a href="/Events">
             <div class="box is-inline-block m-2 has-text-centered" style="width: 40vw;">
                 <img src="~/imgs/NavMap/Events_Icon.png" style="height:15vh;" class="mt-3" />
-                <p class="is-size-4 has-text-centered">Events</p>
+                <p class="is-size-4 has-text-centered">@Model.LangData.features.events</p>
             </div>
         </a>
 
@@ -178,22 +177,22 @@
     <aside class="menu">
 
         @*<p class="menu-label">
-                Community
-            </p>
-            <ul class="menu-list">
-                <li><a>Board</a></li>
-                <li><a>Communities</a></li>
-                <li><a>Void Deck</a></li>
-                <li><a>Events</a></li>
-            </ul>
-            <br />*@
-
-        <p class="menu-label">
-            Social
+            Community
         </p>
         <ul class="menu-list">
-            <li><a><i class="fas fa-comment"></i>&ensp;Chats</a></li>
-            <li><a><i class="fas fa-user-friends"></i>&ensp;Friends</a></li>
+            <li><a>Board</a></li>
+            <li><a>Communities</a></li>
+            <li><a>Void Deck</a></li>
+            <li><a>Events</a></li>
+        </ul>
+        <br />*@
+
+        <p class="menu-label">
+            @Model.LangData.navMap.social
+        </p>
+        <ul class="menu-list">
+            <li><a><i class="fas fa-comment"></i>&ensp;@Model.LangData.features.chats</a></li>
+            <li><a><i class="fas fa-user-friends"></i>&ensp;@Model.LangData.features.friends</a></li>
         </ul>
         <br />
 
@@ -201,8 +200,8 @@
             My Account
         </p>
         <ul class="menu-list">
-            <li><a href="/Profile?u=@Model.CurrentUser.Uid2"><i class="fas fa-user-circle"></i>&ensp;Profile</a></li>
-            <li><a href="/Settings"><i class="fas fa-cog"></i>&ensp;Settings</a></li>
+            <li><a href="/Profile?u=@Model.CurrentUser.Uid2"><i class="fas fa-user-circle"></i>&ensp;@Model.LangData.features.profile</a></li>
+            <li><a href="/Settings"><i class="fas fa-cog"></i>&ensp;@Model.LangData.features.settings</a></li>
         </ul>
         <br />
 
@@ -210,8 +209,15 @@
             Help
         </p>
         <ul class="menu-list">
-            <li><a href="/Support"><i class="fas fa-headset"></i>&ensp;Support</a></li>
+            <li><a href="/Support"><i class="fas fa-headset"></i>&ensp;@Model.LangData.features.support</a></li>
         </ul>
+
+        <br />
+        <form method="post">
+            <button class="button is-primary" type="submit" value="LOGOUT" formaction="/Accounts/Logout">
+                <i class="fa-solid fa-right-from-bracket"></i>&ensp;@Model.LangData.logout
+            </button>
+        </form>
 
     </aside>
 </section>
