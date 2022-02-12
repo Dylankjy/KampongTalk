@@ -51,8 +51,9 @@ namespace KampongTalk.Pages.Profile
         [BindProperty] public string EditBirthday { get; set; }
         
         // Friend props
-        public dynamic? FriendList { get; set; }
-        public dynamic? FriendListPending { get; set; }
+        public List<dynamic> FriendList { get; set; } = new List<dynamic>();
+        public List<dynamic> FriendListPendingOutgoing { get; set; } = new List<dynamic>();
+        public List<dynamic> FriendListPendingIncoming { get; set; } = new List<dynamic>();
         public int FriendCount { get; set; }
         [BindProperty] public string FriendAction { get; set; }
         [BindProperty] public string FriendActionOtherUid { get; set; }
@@ -136,17 +137,57 @@ namespace KampongTalk.Pages.Profile
             var friendList =
                 dbRelation.Query(
                     $"Select * from Relationships where (UserA = '{ViewingUser.Uid}' or UserB = '{ViewingUser.Uid}') AND Status = 'friends'");
-            FriendList = friendList;
-            FriendListPending =
-                dbRelation.Query(
-                    $"Select * from Relationships where (UserA = '{ViewingUser.Uid}' or UserB = '{ViewingUser.Uid}') AND Status = 'pending'");
-            if (friendList != null)
-            {
+
+            if (friendList != null) {
+                foreach (var relationRow in friendList)
+                {
+                    if (relationRow.UserA != ViewingUser.Uid)
+                    {
+                        FriendList.Add(UserApi.GetUserById(relationRow.UserA));
+                    }
+                    else
+                    {
+                        FriendList.Add(UserApi.GetUserById(relationRow.UserB));
+                    }
+                }
+                // ReSharper disable once PossibleMultipleEnumeration
                 FriendCount = friendList.Count();
-                // foreach (var o in friendList)
-                // {
-                //     Console.WriteLine($"{UserApi.GetUserById(o.UserA).Name} --> {UserApi.GetUserById(o.UserB).Name} | {o.Status}");
-                // }
+            }
+            
+            var friendListPendingOutgoing =
+                dbRelation.Query(
+                    $"Select * from Relationships where UserA = '{ViewingUser.Uid}' AND Status = 'pending'");
+            
+            if (friendListPendingOutgoing != null) {
+                foreach (var relationRow in friendListPendingOutgoing)
+                {
+                    if (relationRow.UserA != ViewingUser.Uid)
+                    {
+                        FriendListPendingOutgoing.Add(UserApi.GetUserById(relationRow.UserA));
+                    }
+                    else
+                    {
+                        FriendListPendingOutgoing.Add(UserApi.GetUserById(relationRow.UserB));
+                    }
+                }
+            }
+            
+            var friendListPendingIncoming =
+                dbRelation.Query(
+                    $"Select * from Relationships where UserB = '{ViewingUser.Uid}' AND Status = 'pending'");
+            
+            if (friendListPendingIncoming != null) {
+                foreach (var relationRow in friendListPendingIncoming)
+                {
+                    if (relationRow.UserA != ViewingUser.Uid)
+                    {
+                        FriendListPendingIncoming.Add(UserApi.GetUserById(relationRow.UserA));
+                    }
+                    else
+                    {
+                        FriendListPendingIncoming.Add(UserApi.GetUserById(relationRow.UserB));
+                    }
+                }
             }
 
             // Show friend control buttons

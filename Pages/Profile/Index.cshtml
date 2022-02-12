@@ -36,10 +36,10 @@
                             <br/>
                             <div class="level">
                                 <div class="level-item has-text-centered">
-                                    <div>
+                                    <a onclick="$('#friendListModal').fadeIn('fast')">
                                         <p class="heading">Friends</p>
                                         <p class="title">@Model.FriendCount</p>
-                                    </div>
+                                    </a>
                                 </div>
                                 <div class="level-item has-text-centered">
                                     <div>
@@ -316,3 +316,108 @@
         </script>
     }
 }
+
+<div id="friendListModal" class="modal is-active" style="display: none">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <div class="card">
+            <div class="card-content has-background-light">
+                <p class="title is-4"><i class="fa-solid fa-user-group"></i>&ensp;Your friends list</p>
+            </div>
+            
+            @if (Model.FriendListPendingIncoming.Count != 0 && Model.IsCurrentUserOwnPage) {
+                <div class="card-content">
+                    <p class="has-text-weight-bold">Incoming friend requests — @Model.FriendListPendingIncoming.Count request(s)</p>
+                    @foreach (var user in Model.FriendListPendingIncoming)
+                    {
+                        <a href="/Profile?u=@user.Uid2" class="view-more-item">
+                            <div class="pt-4 pb-4">
+                                <div class="level">
+                                    <div class="level-left">
+                                        <div class="level-item">
+                                            <div class="pfp-post" style="background: url('/userdata/@user.AvatarImg') center no-repeat; background-size: cover"></div>
+                                        </div>
+                                        <div class="level-item">
+                                            <div>
+                                                <p class="title is-5" style="overflow-wrap: break-word; hyphens: auto;">
+                                                    @user.Name
+                                                    <span class="is-size-6 has-text-grey">&#64;@user.Uid2</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    }
+                </div>
+            }
+            
+            @if (Model.FriendListPendingOutgoing.Count != 0)
+            {
+                <div class="card-content">
+                    <p class="has-text-weight-bold">Outgoing friend requests — @Model.FriendListPendingOutgoing.Count request(s)</p>
+                    @foreach (var user in Model.FriendListPendingOutgoing)
+                    {
+                        <a href="/Profile?u=@user.Uid2" class="view-more-item">
+                            <div class="pt-4 pb-4">
+                                <div class="level">
+                                    <div class="level-left">
+                                        <div class="level-item">
+                                            <div class="pfp-post" style="background: url('/userdata/@user.AvatarImg') center no-repeat; background-size: cover"></div>
+                                        </div>
+                                        <div class="level-item">
+                                            <div>
+                                                <p class="title is-5" style="overflow-wrap: break-word; hyphens: auto;">
+                                                    @user.Name
+                                                    <span class="is-size-6 has-text-grey">&#64;@user.Uid2</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    }
+                </div>
+            }
+            
+            @if (Model.FriendList.Count != 0) {
+                <div class="card-content pt-0">
+                    <p class="has-text-weight-bold">Friends — @Model.FriendList.Count user(s)</p>
+                    @foreach (var user in Model.FriendList)
+                    {
+                        <a href="/Profile?u=@user.Uid2" class="view-more-item">
+                            <div class="pt-4 pb-4">
+                                <div class="level">
+                                    <div class="level-left">
+                                        <div class="level-item">
+                                            <div class="pfp-post" style="background: url('/userdata/@user.AvatarImg') center no-repeat; background-size: cover"></div>
+                                        </div>
+                                        <div class="level-item">
+                                            <div>
+                                                <p class="title is-5" style="overflow-wrap: break-word; hyphens: auto;">
+                                                    @user.Name
+                                                    <span class="is-size-6 has-text-grey">&#64;@user.Uid2</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="section has-text-centered">
+                    <p class="title"><i class="fa-solid fa-dove"></i></p>
+                    <p class="subtitle">This user's friends list is empty</p>
+                    <p>Be their first, by sending a friend request!</p>
+                </div>
+            }
+        </div>
+    </div>
+    <button onclick="$('#friendListModal').fadeOut('fast')" class="modal-close is-large" aria-label="close"></button>
+</div>
