@@ -32,6 +32,8 @@ namespace KampongTalk.Pages.Onboarding
         public dynamic ViewingUser { get; set; }
         public bool IsCurrentUserOwnPage { get; set; }
 
+        public dynamic LangData { get; set; }
+
         // Profile image prop
         [BindProperty] public IFormFile ProfileImage { get; set; }
         [BindProperty] public IFormFile BannerImage { get; set; }
@@ -40,8 +42,14 @@ namespace KampongTalk.Pages.Onboarding
         [BindProperty] public string EditBio { get; set; }
         [BindProperty] public string EditBirthday { get; set; }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            // Get current user
+            CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
+            if (CurrentUser == null) return Redirect("/Accounts/Login");
+            // Set user language
+            LangData = UserPrefApi.GetLangByUid(CurrentUser);
+            return Page();
         }
 
         public IActionResult OnPost()

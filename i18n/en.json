@@ -2,7 +2,8 @@
   "kampongTalk": "KampongTalk",
 
   "back": "Back",
-  "next": "Continue",
+  "continue": "Continue",
+  "next": "Next",
   "close": "Close",
   "login": "Login",
   "register": "Register",
@@ -10,6 +11,8 @@
   
   "your": "Your",
   "you": "You",
+  "yes": "Yes",
+  "no": "No",
 
   "features": {
     "chats": "Chats",
@@ -116,5 +119,41 @@
   "smsMessages": {
     "verifyPhone": "Hello {selectedUser.Name}. You are almost done creating your KampongTalk account.\n\nWe need you to verify this phone number in order to complete the creation of your account.\n\nPlease enter the code below into KampongTalk:\n{otpRecord.Metadata} (Valid for 10mins)",
     "recoverAccount": "Hello {selectedUser.Name} (@{selectedUser.Uid2}). A password reset was requested for your KampongTalk account.\n\nIf this action is done by you, please enter the following into KampongTalk:\n{otpRecord.Metadata} (Valid for 10mins)\n\nIf you did not request for this, ignore and delete this message. DO NOT GIVE this code to anyone, including KampongTalk staff."
+  },
+
+  "onboarding": {
+    "pref": "Preferences",
+    "prof": "Profile",
+    "done": "Done",
+    "skip": "Skip this step for now",
+
+    "preferences": {
+      "welcome": "Welcome to KampongTalk!",
+      "getStarted": "Let's get you started.",
+      "setPrefs": "Set your preferences",
+      // These can be reused in settings, will remove these once/if added to settings
+      "language": "Language",
+      "textSize": "Text Size",
+      "large": "Large",
+      "larger": "Larger",
+      "largest": "Largest",
+      "audioCues": "Audio Cues",
+      "audioCuesDesc": "Sounds effects will be used when interacting with KampongTalk."
+    },
+    "profileSettings": {
+      "customProfile": "Customise Your Profile",
+      // Likewise, once profile localisation is in, I will remove these to avoid redundancy
+      "aboutMe": "About me",
+      "introYourself": "Introduce yourself :)",
+      "birthday": "Birthday"
+    },
+    "doneStep": {
+      "accountSetup": "Your Account is all set up!",
+      "guidedTourQn": "Do you wish to take a guided tour around KampongTalk?",
+      "yesLetsGo": "Yes, Let's go",
+      "reccForFirstTime": "(Recommended for first-time users)",
+      "takeToKTDirectly": "Take me to the Kampong directly"
+    }
   }
+
 }
