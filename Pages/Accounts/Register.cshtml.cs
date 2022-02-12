@@ -19,15 +19,14 @@ namespace KampongTalk.Pages.Accounts
         public User CurrentUser { get; set; }
 
         // Language prop
-        public dynamic LangData { get; } = Internationalisation.LoadLanguage("jp");
-        private static dynamic LangDataStatic { get; } = Internationalisation.LoadLanguage("jp");
+        public dynamic LangData { get; set; }
+        private static dynamic LangDataStatic { get; set; }
 
         // Prop declarations
         [BindProperty] public User NewUserAccount { get; set; }
         [BindProperty] public string NewUserPassword { get; set; }
 
         public string PasswordWarn { get; set; }
-            = LangDataStatic.accounts.register.passwordHint;
 
         public string PasswordInputClass { get; set; } = string.Empty;
         public string PhoneWarn { get; set; }
@@ -46,6 +45,14 @@ namespace KampongTalk.Pages.Accounts
 
             // If the user has not OTP verified
             if (CurrentUser is {IsVerified: false}) return RedirectToPage("Verify");
+            
+            // Set language data
+            LangData = Internationalisation.LoadLanguage(HttpContext.Request.GetTypedHeaders().AcceptLanguage
+                .First().ToString().Split("-").First());
+            LangDataStatic = Internationalisation.LoadLanguage(HttpContext.Request.GetTypedHeaders().AcceptLanguage
+                .First().ToString().Split("-").First());
+
+            PasswordWarn = LangDataStatic.accounts.register.passwordHint;
 
             // And then show them the page
             // If verification is not yet done, the verification screen will show up
@@ -55,6 +62,12 @@ namespace KampongTalk.Pages.Accounts
 
         public IActionResult OnPost()
         {
+            // Set language data
+            LangData = Internationalisation.LoadLanguage(HttpContext.Request.GetTypedHeaders().AcceptLanguage
+                .First().ToString().Split("-").First());
+            LangDataStatic = LangData;
+            PasswordWarn = LangDataStatic.accounts.register.passwordHint;
+            
             // Database declarations
             var dbActionLogs =
                 new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],

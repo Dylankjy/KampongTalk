@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using KampongTalk.i18n;
 using KampongTalk.Models;
 using Microsoft.AspNetCore.Http;
@@ -19,8 +20,7 @@ namespace KampongTalk.Pages.Accounts
         // Prop declarations
         [BindProperty] public string LoginPhoneNumber { get; set; }
 
-        public dynamic LangData { get; } = Internationalisation.LoadLanguage("jp");
-        private static dynamic LangDataStatic { get; } = Internationalisation.LoadLanguage("jp");
+        public dynamic LangData { get; set; }
         public string FieldClass { get; set; }
 
         // For invalid account resets
@@ -36,6 +36,10 @@ namespace KampongTalk.Pages.Accounts
 
             // If the user has not OTP verified
             if (CurrentUser is {IsVerified: false}) return RedirectToPage("/Verify");
+            
+            // Set language data
+            LangData = Internationalisation.LoadLanguage(HttpContext.Request.GetTypedHeaders().AcceptLanguage
+                .First().ToString().Split("-").First());
 
             // Show recovery page if not logged in already.
             return Page();
@@ -43,6 +47,10 @@ namespace KampongTalk.Pages.Accounts
 
         public IActionResult OnPost()
         {
+            // Set language data
+            LangData = Internationalisation.LoadLanguage(HttpContext.Request.GetTypedHeaders().AcceptLanguage
+                .First().ToString().Split("-").First());
+
             // Database declarations
             var dbActionLogs =
                 new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],

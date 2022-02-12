@@ -23,13 +23,17 @@ namespace KampongTalk.Pages.Accounts
         public string OtpInputClass { get; set; }
 
         // Language prop
-        public dynamic LangData { get; } = Internationalisation.LoadLanguage("jp");
+        public dynamic LangData { get; set; }
 
         public IActionResult OnGet()
         {
             // Get current user
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
 
+            // Set language data
+            LangData = Internationalisation.LoadLanguage(HttpContext.Request.GetTypedHeaders().AcceptLanguage
+                .First().ToString().Split("-").First());
+            
             // If the user has not OTP verified
             if (CurrentUser is {IsVerified: false}) return Page();
 
@@ -38,6 +42,8 @@ namespace KampongTalk.Pages.Accounts
 
         public IActionResult OnPost()
         {
+            LangData = Internationalisation.LoadLanguage(HttpContext.Request.GetTypedHeaders().AcceptLanguage
+                .First().ToString().Split("-").First());
             // Get current user
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
 
@@ -80,9 +86,13 @@ namespace KampongTalk.Pages.Accounts
                 // Update session to reflect IsVerified to true.
                 CurrentUser.IsVerified = true;
                 HttpContext.Session.SetString("CurrentUser", CurrentUser.ToJson());
+                
+                // Set language data
+                LangData = Internationalisation.LoadLanguage(HttpContext.Request.GetTypedHeaders().AcceptLanguage
+                    .First().ToString().Split("-").First());
 
                 // And then, return the user to the main index page.
-                return RedirectToPage("/Index");
+                return RedirectToPage("/Onboarding/Preferences");
             }
 
             // if (FormName == "ResendMessageAction")

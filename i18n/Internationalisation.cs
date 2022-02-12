@@ -17,8 +17,9 @@ namespace KampongTalk.i18n
             }
             catch (Exception)
             {
-                throw new Exception(
+                Console.WriteLine(
                     "Attempted to load a language file that does not exist. Check i18n file's existence and try again.");
+                jsonData = File.ReadAllText(@$"{Environment.CurrentDirectory}/i18n/en.json");
             }
 
             try
