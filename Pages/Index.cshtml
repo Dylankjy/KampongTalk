@@ -1,6 +1,7 @@
 ﻿@page
+@using KampongTalk.Tools
 @model IndexModel
-@inject Tools.IUserAttributes UserAttributes
+@inject IUserAttributes UserAttributes
 @{
     ViewData["Title"] = "Home page";
 }
@@ -13,170 +14,185 @@
 </audio>
 
 
+@if (Model.IsLoggedIn)
+{
+    <section class="section" id="fullview" style="display:block;">
+        <div class="columns">
 
-<section class="section" id="fullview" style="display:block;">
-    <div class="columns">
-
-        <!-- START: Main Column -->
-        <div class="column is-four-fifths-desktop" data-title="Welcome to KampongTalk's map." data-intro="This is where you can access all the features of KampongTalk.">
-            @*<div class="container mb-3 has-text-centered">
+            <!-- START: Main Column -->
+            <div class="column is-four-fifths-desktop" data-title="Welcome to KampongTalk's map." data-intro="This is where you can access all the features of KampongTalk.">
+                @*<div class="container mb-3 has-text-centered">
                     <h1 class="subtitle has-text-weight-bold">Welcome to Kampong Talk</h1>
                 </div>*@
 
-            <!-- START: KT Nav Map-->
-            <div class="container has-text-centered" style="position:relative;">
-                <img src="~/imgs/NavMap/KT_MapBG.png" style="top: 5vh; height: 80vh; z-index: 1; position: relative;" />
+                <!-- START: KT Nav Map-->
+                <div class="container has-text-centered" style="position:relative;">
+                    <img src="~/imgs/NavMap/KT_MapBG.png" style="top: 5vh; height: 80vh; z-index: 1; position: relative;"/>
 
-                <!-- ChatIcon -->
-                <a href="">
-                    <div class="iconDiv expandDiv" style="top: 0vh; left: 14vw;" data-title="Chat" data-intro="Here, you can access your private messages and create chats.">
-                        <img src="~/imgs/NavMap/Chat_Icon.png" class="navMapIcon" />
-                        <p><span class="tag is-dark is-large has-text-weight-bold">@Model.LangData.features.chats</span></p>
-                    </div>
-                </a>
+                    <!-- ChatIcon -->
+                    <a href="">
+                        <div class="iconDiv expandDiv" style="top: 0vh; left: 14vw;" data-title="Chat" data-intro="Here, you can access your private messages and create chats.">
+                            <img src="~/imgs/NavMap/Chat_Icon.png" class="navMapIcon"/>
+                            <p>
+                                <span class="tag is-dark is-large has-text-weight-bold">@Model.LangData.features.chats</span>
+                            </p>
+                        </div>
+                    </a>
 
-                <!-- CommunitiesIcon -->
-                <a href="/Community/Explore">
-                    <div class="iconDiv expandDiv" style="top:0vh; left:38vw;" data-title="Communities" data-intro="Have a specific interest or hobby? Find posts grouped by topics here.">
-                        <img src="~/imgs/NavMap/Communities_Icon.png" class="navMapIcon" style="height:25vh;" />
-                        <p><span class="tag is-dark is-large has-text-weight-bold">@Model.LangData.features.communities</span></p>
+                    <!-- CommunitiesIcon -->
+                    <a href="/Community/Explore">
+                        <div class="iconDiv expandDiv" style="top:0vh; left:38vw;" data-title="Communities" data-intro="Have a specific interest or hobby? Find posts grouped by topics here.">
+                            <img src="~/imgs/NavMap/Communities_Icon.png" class="navMapIcon" style="height:25vh;"/>
+                            <p>
+                                <span class="tag is-dark is-large has-text-weight-bold">@Model.LangData.features.communities</span>
+                            </p>
 
-                    </div>
-                </a>
+                        </div>
+                    </a>
 
-                <!-- VoidDeckIcon -->
-                <a href="/DigitalVoidDeck/Lobby">
-                    <div class="iconDiv expandDiv" style="top:0vh; left:51vw;" data-title="Void Deck" data-intro="Find and meet new people in your neighbourhood.">
-                        <img src="~/imgs/NavMap/Void_Deck.png" class="navMapIcon" />
-                        <p><span class="tag is-dark is-large has-text-weight-bold">@Model.LangData.features.voidDeck</span></p>
-                    </div>
-                </a>
+                    <!-- VoidDeckIcon -->
+                    <a href="/DigitalVoidDeck/Lobby">
+                        <div class="iconDiv expandDiv" style="top:0vh; left:51vw;" data-title="Void Deck" data-intro="Find and meet new people in your neighbourhood.">
+                            <img src="~/imgs/NavMap/Void_Deck.png" class="navMapIcon"/>
+                            <p>
+                                <span class="tag is-dark is-large has-text-weight-bold">@Model.LangData.features.voidDeck</span>
+                            </p>
+                        </div>
+                    </a>
 
-                <!-- BoardIcon -->
-                <a href="/Board">
-                    <div class="iconDiv expandDiv" style="top:21vh; left:25vw;" data-title="Board" data-intro="Here, you can view and create posts. Share about your day, or catch up with friends.">
-                        <img src="~/imgs/NavMap/Board_Icon.png" class="navMapIcon" />
-                        <p><span class="tag is-dark is-large has-text-weight-bold">@Model.LangData.features.board</span></p>
-                    </div>
-                </a>
+                    <!-- BoardIcon -->
+                    <a href="/Board">
+                        <div class="iconDiv expandDiv" style="top:21vh; left:25vw;" data-title="Board" data-intro="Here, you can view and create posts. Share about your day, or catch up with friends.">
+                            <img src="~/imgs/NavMap/Board_Icon.png" class="navMapIcon"/>
+                            <p>
+                                <span class="tag is-dark is-large has-text-weight-bold">@Model.LangData.features.board</span>
+                            </p>
+                        </div>
+                    </a>
 
-                <!-- SupportIcon -->
-                <a href="/Support">
-                    <div class="iconDiv expandDiv" style="top:47vh; left:14vw;" data-title="Support" data-intro="Contact KampongTalk staff here.">
-                        <!--SupportLink-->
-                        <img src="~/imgs/NavMap/Support_Icon.png" class="navMapIcon" />
-                        <p><span class="tag is-dark is-large has-text-weight-bold">@Model.LangData.features.support</span></p>
-                    </div>
-                </a>
+                    <!-- SupportIcon -->
+                    <a href="/Support">
+                        <div class="iconDiv expandDiv" style="top:47vh; left:14vw;" data-title="Support" data-intro="Contact KampongTalk staff here.">
+                            <!--SupportLink-->
+                            <img src="~/imgs/NavMap/Support_Icon.png" class="navMapIcon"/>
+                            <p>
+                                <span class="tag is-dark is-large has-text-weight-bold">@Model.LangData.features.support</span>
+                            </p>
+                        </div>
+                    </a>
 
-                <!-- EventsIcon -->
-                <a href="/Events">
-                    <div class="iconDiv expandDiv" style="top:38vh; left:40vw;" data-title="Events" data-intro="Looking for a way to pass the time? Browse and create engaging events here.">
-                        <img src="~/imgs/NavMap/Events_Icon.png" class="navMapIcon" style="height:25vh;" />
-                        <p><span class="tag is-dark is-large has-text-weight-bold">@Model.LangData.features.events</span></p>
+                    <!-- EventsIcon -->
+                    <a href="/Events">
+                        <div class="iconDiv expandDiv" style="top:38vh; left:40vw;" data-title="Events" data-intro="Looking for a way to pass the time? Browse and create engaging events here.">
+                            <img src="~/imgs/NavMap/Events_Icon.png" class="navMapIcon" style="height:25vh;"/>
+                            <p>
+                                <span class="tag is-dark is-large has-text-weight-bold">@Model.LangData.features.events</span>
+                            </p>
 
-                    </div>
-                </a>
+                        </div>
+                    </a>
+
+                </div>
+                <!-- END: KT Nav Map -->
 
             </div>
-            <!-- END: KT Nav Map -->
+            <!-- END: Main Column -->
+
+            <div class="column">
+
+                <p>
+                    <button class="button is-light" onclick="history.back()" data-title="Close the map" data-intro="Click here to close the map and return to your previous page."><i class="fas fa-times"></i>&ensp;@Model.LangData.navMap.closeMap</button>
+                </p>
+                <br/>
+
+                <div class="is-pulled-left">
+
+                    <div class="has-text-centered expandDiv" data-title="Friends" data-intro="Access your friends list here.">
+                        <a href="/Profile?u=@Model.CurrentUser.Uid2&showFriendsModal=1">
+                            <button class="button is-large is-primary">
+                                <span class="icon is-medium">
+                                    <i class="fas fa-user-friends"></i>
+                                </span>
+                            </button>
+                        </a>
+                        <p class="has-text-weight-bold">@Model.LangData.features.friends</p>
+                    </div>
+                    <br/>
+
+                    <div class="has-text-centered expandDiv" data-title="Profile" data-intro="View and customise your profile here.">
+                        <a href="/Profile?u=@Model.CurrentUser.Uid2">
+                            <button class="button is-large is-primary">
+                                <span class="icon is-medium">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                            </button>
+                        </a>
+                        <p class="has-text-weight-bold">@Model.LangData.features.profile</p>
+                    </div>
+                    <br/>
+
+                    <div class="has-text-centered expandDiv" data-title="Settings" data-intro="Change your account settings here.">
+                        <a href="/Settings">
+                            <button class="button is-large is-primary">
+                                <span class="icon is-medium">
+                                    <i class="fas fa-cog"></i>
+                                </span>
+                            </button>
+                        </a>
+                        <p class="has-text-weight-bold">@Model.LangData.features.settings</p>
+                    </div>
+                    <br/>
+
+                    <div class="has-text-centered expandDiv" data-title="Log Out" data-intro="Click this button to exit Kampong Talk.">
+                        <form method="post">
+                            <button class="button is-large is-primary" type="submit" value="LOGOUT" formaction="/Accounts/Logout">
+                                <span class="icon is-medium">
+                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                </span>
+                            </button>
+                        </form>
+                        <p class="has-text-weight-bold">@Model.LangData.logout</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="halfview">
+
+        <div class="container">
+            <a href="/Board">
+                <div class="box is-inline-block m-2 has-text-centered" style="width:40vw;">
+                    <img src="~/imgs/NavMap/Board_Icon.png" style="height:15vh;" class="mt-3"/>
+                    <p class="is-size-4 has-text-centered">@Model.LangData.features.board</p>
+                </div>
+            </a>
+            <a href="/Community/Explore">
+                <div class="box is-inline-block m-2 has-text-centered" style="width: 40vw;">
+                    <img src="~/imgs/NavMap/Communities_Icon.png" style="height:15vh;" class="mt-3"/>
+                    <p class="is-size-4 has-text-centered">@Model.LangData.features.communities</p>
+                </div>
+            </a>
+            <a href="/DigitalVoidDeck/Lobby">
+                <div class="box is-inline-block m-2 has-text-centered" style="width: 40vw;">
+                    <img src="~/imgs/NavMap/Void_Deck.png" style="height:15vh;" class="mt-3"/>
+                    <p class="is-size-4 has-text-centered">@Model.LangData.features.voidDeck</p>
+                </div>
+            </a>
+            <a href="/Events">
+                <div class="box is-inline-block m-2 has-text-centered" style="width: 40vw;">
+                    <img src="~/imgs/NavMap/Events_Icon.png" style="height:15vh;" class="mt-3"/>
+                    <p class="is-size-4 has-text-centered">@Model.LangData.features.events</p>
+                </div>
+            </a>
 
         </div>
-        <!-- END: Main Column -->
+        <br/>
 
-        <div class="column">
+        <aside class="menu">
 
-            <p><button class="button is-light" onclick="history.back()" data-title="Close the map" data-intro="Click here to close the map and return to your previous page."><i class="fas fa-times"></i>&ensp;@Model.LangData.navMap.closeMap</button></p>
-            <br />
-
-            <div class="is-pulled-left">
-
-                <div class="has-text-centered expandDiv" data-title="Friends" data-intro="Access your friends list here.">
-                    <a href="/Profile?u=@Model.CurrentUser.Uid2&showFriendsModal=1">
-                        <button class="button is-large is-primary">
-                            <span class="icon is-medium">
-                                <i class="fas fa-user-friends"></i>
-                            </span>
-                        </button>
-                    </a>
-                    <p class="has-text-weight-bold">@Model.LangData.features.friends</p>
-                </div>
-                <br />
-
-                <div class="has-text-centered expandDiv" data-title="Profile" data-intro="View and customise your profile here.">
-                    <a href="/Profile?u=@Model.CurrentUser.Uid2">
-                        <button class="button is-large is-primary">
-                            <span class="icon is-medium">
-                                <i class="fas fa-user"></i>
-                            </span>
-                        </button>
-                    </a>
-                    <p class="has-text-weight-bold">@Model.LangData.features.profile</p>
-                </div>
-                <br />
-
-                <div class="has-text-centered expandDiv" data-title="Settings" data-intro="Change your account settings here.">
-                    <a href="/Settings">
-                        <button class="button is-large is-primary">
-                            <span class="icon is-medium">
-                                <i class="fas fa-cog"></i>
-                            </span>
-                        </button>
-                    </a>
-                    <p class="has-text-weight-bold">@Model.LangData.features.settings</p>
-                </div>
-                <br />
-
-                <div class="has-text-centered expandDiv" data-title="Log Out" data-intro="Click this button to exit Kampong Talk.">
-                    <form method="post">
-                        <button class="button is-large is-primary" type="submit" value="LOGOUT" formaction="/Accounts/Logout">
-                            <span class="icon is-medium">
-                                <i class="fa-solid fa-right-from-bracket"></i>
-                            </span>
-                        </button>
-                    </form>
-                    <p class="has-text-weight-bold">@Model.LangData.logout</p>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="section" id="halfview">
-
-    <div class="container">
-        <a href="/Board">
-            <div class="box is-inline-block m-2 has-text-centered" style="width:40vw;">
-                <img src="~/imgs/NavMap/Board_Icon.png" style="height:15vh;" class="mt-3" />
-                <p class="is-size-4 has-text-centered">@Model.LangData.features.board</p>
-            </div>
-        </a>
-        <a href="/Community/Explore">
-            <div class="box is-inline-block m-2 has-text-centered" style="width: 40vw;">
-                <img src="~/imgs/NavMap/Communities_Icon.png" style="height:15vh;" class="mt-3" />
-                <p class="is-size-4 has-text-centered">@Model.LangData.features.communities</p>
-            </div>
-        </a>
-        <a href="/DigitalVoidDeck/Lobby">
-            <div class="box is-inline-block m-2 has-text-centered" style="width: 40vw;">
-                <img src="~/imgs/NavMap/Void_Deck.png" style="height:15vh;" class="mt-3" />
-                <p class="is-size-4 has-text-centered">@Model.LangData.features.voidDeck</p>
-            </div>
-        </a>
-        <a href="/Events">
-            <div class="box is-inline-block m-2 has-text-centered" style="width: 40vw;">
-                <img src="~/imgs/NavMap/Events_Icon.png" style="height:15vh;" class="mt-3" />
-                <p class="is-size-4 has-text-centered">@Model.LangData.features.events</p>
-            </div>
-        </a>
-
-    </div>
-    <br />
-
-    <aside class="menu">
-
-        @*<p class="menu-label">
+            @*<p class="menu-label">
             Community
         </p>
         <ul class="menu-list">
@@ -187,42 +203,52 @@
         </ul>
         <br />*@
 
-        <p class="menu-label">
-            @Model.LangData.navMap.social
-        </p>
-        <ul class="menu-list">
-            <li><a><i class="fas fa-comment"></i>&ensp;@Model.LangData.features.chats</a></li>
-            <li><a><i class="fas fa-user-friends"></i>&ensp;@Model.LangData.features.friends</a></li>
-        </ul>
-        <br />
+            <p class="menu-label">
+                @Model.LangData.navMap.social
+            </p>
+            <ul class="menu-list">
+                <li>
+                    <a><i class="fas fa-comment"></i>&ensp;@Model.LangData.features.chats</a>
+                </li>
+                <li>
+                    <a><i class="fas fa-user-friends"></i>&ensp;@Model.LangData.features.friends</a>
+                </li>
+            </ul>
+            <br/>
 
-        <p class="menu-label">
-            My Account
-        </p>
-        <ul class="menu-list">
-            <li><a href="/Profile?u=@Model.CurrentUser.Uid2"><i class="fas fa-user-circle"></i>&ensp;@Model.LangData.features.profile</a></li>
-            <li><a href="/Settings"><i class="fas fa-cog"></i>&ensp;@Model.LangData.features.settings</a></li>
-        </ul>
-        <br />
+            <p class="menu-label">
+                My Account
+            </p>
+            <ul class="menu-list">
+                <li>
+                    <a href="/Profile?u=@Model.CurrentUser.Uid2"><i class="fas fa-user-circle"></i>&ensp;@Model.LangData.features.profile</a>
+                </li>
+                <li>
+                    <a href="/Settings"><i class="fas fa-cog"></i>&ensp;@Model.LangData.features.settings</a>
+                </li>
+            </ul>
+            <br/>
 
-        <p class="menu-label">
-            Help
-        </p>
-        <ul class="menu-list">
-            <li><a href="/Support"><i class="fas fa-headset"></i>&ensp;@Model.LangData.features.support</a></li>
-        </ul>
+            <p class="menu-label">
+                Help
+            </p>
+            <ul class="menu-list">
+                <li>
+                    <a href="/Support"><i class="fas fa-headset"></i>&ensp;@Model.LangData.features.support</a>
+                </li>
+            </ul>
 
-        <br />
-        <form method="post">
-            <button class="button is-primary" type="submit" value="LOGOUT" formaction="/Accounts/Logout">
-                <i class="fa-solid fa-right-from-bracket"></i>&ensp;@Model.LangData.logout
-            </button>
-        </form>
+            <br/>
+            <form method="post">
+                <button class="button is-primary" type="submit" value="LOGOUT" formaction="/Accounts/Logout">
+                    <i class="fa-solid fa-right-from-bracket"></i>&ensp;@Model.LangData.logout
+                </button>
+            </form>
 
-    </aside>
-</section>
+        </aside>
+    </section>
 
-<script>
+    <script>
     $(document).ready(function () {
 
         adjustView()
@@ -274,10 +300,9 @@
         })
 
     </script>
-
 }
 
-<script defer>
+    <script defer>
     if (window.location.hash === '#walkthrough') {
         introJs().start()
     }
@@ -285,3 +310,65 @@
     mapBtn.classList.remove("is-light")
     mapBtn.classList.add("is-dark")
 </script>
+}
+else
+{
+    <section class="section has-background-white-bis is-medium">
+        <div class="container">
+            <div class="columns is-vcentered">
+                <div class="column">
+                    <h1 class="title is-1">KampongTalk</h1>
+                    <p class="subtitle is-4">Connect with your close friends and those close to heart.<br/><span class="has-text-primary">Come talk with KampongTalk.</span></p>
+                    <img src="/imgs/welcome.svg" class="mt-3" style="height: 25rem; width: auto"/>
+                </div>
+                <div class="column">
+                    <div class="card" style="width: 70%; margin: 0 auto;">
+                        <div class="card-content">
+                            <div>
+                                <h1 class="title">Welcome back</h1>
+                                <p class="subtitle">@Model.LangData.accounts.login.loginToAccount</p>
+                            </div>
+                            <br/>
+
+                            <form method="post">
+                                <div class="field">
+                                    <label class="label">@Model.LangData.accounts.phoneNumber</label>
+                                    <div class="control has-icons-left">
+                                        <input class="input @Model.FieldClass" type="tel" placeholder="91234567" maxlength="8" asp-for="LoginPhoneNumber" required>
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-mobile-alt"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label">@Model.LangData.accounts.password</label>
+                                    <div class="control has-icons-left">
+                                        <input class="input @Model.FieldClass" type="password" placeholder="••••••••" asp-for="LoginPassword" required>
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-key"></i>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                @{
+                                    if (Model.ShowErrorMessage)
+                                    {
+                                        <div id="wrongPassError" class="notification is-danger is-light">
+                                            <a onclick="$('#wrongPassError').slideUp()" class="delete"></a>
+                                            @Model.LangData.accounts.login.wrongPassword<br/>
+                                            <a href="/Accounts/Recover">@Model.LangData.accounts.login.forgottenPasswordLink</a>
+                                        </div>
+                                    }
+                                }
+                                <button class="button is-primary is-fullwidth" type="submit"><i class="fas fa-arrow-right"></i>&ensp;@Model.LangData.login</button>
+                            </form>
+                        </div>
+                        <div class="card-content has-background-primary-light">
+                            <a class="button is-success is-fullwidth is-medium" href="/Accounts/Register"><i class="fa-solid fa-plus"></i>&ensp;Create new account</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
