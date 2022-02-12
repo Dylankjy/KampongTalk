@@ -171,7 +171,7 @@ namespace KampongTalk.Pages.Community
                 }
 
                 // if current image is not default.jpg, we will delete on our end
-                if (selectedCommunity.IconImg != "default.jpg")
+                if (selectedCommunity.IconImg != "default-community.png")
                 {
                     string oldAvatarImg = selectedCommunity.IconImg;
                     var oldAvatarImgOriginal =
