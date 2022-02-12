@@ -3,30 +3,61 @@
 @{
 }
 
-<link rel="stylesheet" href="~/css/Support.css">
+@*<link rel="stylesheet" href="~/css/Support.css">*@
 
 
 &nbsp;
-<section id="contact-form">
-    <h2>Contact</h2>
-    <form id="contact" name="contact" accept-charset="utf-8">
-        <label>
-            <span>Name</span><input name="name" type="text" placeholder="Name"/>
-        </label>
+<section id="contact-form" class="section">
+    <div class="columns is-vcentered">
+        <div class="column"></div>
 
-        <label>
-            <span>Message</span><textarea name="message" placeholder="Enter your message"></textarea>
-        </label>
-        <input name="submit" type="submit" class="btn btn-primary"/>
-    </form>
-    <aside>
-        <p style="font-size:20px"><strong>Contact Hotline: </strong> +65 9000 9000</p>
-        &nbsp;
-        &nbsp;
-        &nbsp;
-        &nbsp;
-        <p style="font-size:20px"><strong> Address: </strong> 180 Ang Mo Kio Ave 8, Singapore 569830</p>
+        <!--Form column-->
+        <div class="column is-half" 
+             data-title="Contact Us" data-intro="Here, you can connect with KampongTalk staff. Submit a question, report a user or suggest a feature. 🙂">
+            <h2 class="title">Contact</h2>
+            <form id="contact" name="contact" accept-charset="utf-8">
 
-    </aside>
+                <!--Name field-->
+                <div class="field">
+                    <label class="label">Name</label>
+                    <div class="control">
+                        <!--Name input-->
+                        <input class="input" name="name" type="text" placeholder="Name">
+                    </div>
+                </div>
+
+                <!--Message field-->
+                <div class="field">
+                    <label class="label">Message</label>
+                    <div class="control">
+                        <!--Message input-->
+                        <textarea class="textarea" name="message" placeholder="Enter your message"></textarea>
+                    </div>
+                </div>
+                <br />
+
+                <!--Submit button-->
+                <button class="button is-fullwidth is-info" name="submit" type="submit">Submit</button>
+
+            </form>
+        </div>
+
+        <!--Information column-->
+        <div class="column is-one-third has-text-centered" data-title="Contact Information" data-intro="Here are other ways you can contact us.">
+            <p class="is-size-5"><strong>Contact Hotline: </strong> +65 9000 9000</p>
+            <br />
+            <p class="is-size-5"><strong> Address: </strong> 180 Ang Mo Kio Ave 8, Singapore 569830</p>
+        </div>
+
+        <div class="column"></div>
+    </div>
+
+
 </section>
-&nbsp;
+
+<!--This is for the walkthrough-->
+<script defer>
+    if (window.location.hash === '#walkthrough') {
+        introJs().start()
+    }
+</script> 
