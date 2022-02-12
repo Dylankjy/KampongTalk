@@ -47,61 +47,69 @@
 
             <div class="has-text-centered mb-3">
                 <h1 class="title is-size-4 mb-1">@Model.LangData.onboarding.preferences.setPrefs</h1>
-                <a href="/Onboarding/ProfileSettings">@Model.LangData.onboarding.skip</a>
-                <br />
             </div>
 
             <div class="box" style="border-top-right-radius: 0.5rem; border-top-left-radius: 0.5rem">
-            <form method="post">
+                <form method="post">
 
 
-                <div class="field">
-                    <label class="label is-size-5 mb-0 has-text-primary-dark"><i class="fas fa-language"></i>&ensp;@Model.LangData.onboarding.preferences.language</label>
-                    @*<span class="is-size-6">Switch to your preferred language.</span>*@
-                    <div class="control has-icons-left is-size-5">
-                        <select value="@Model.currentUserPreference.Language" asp-items="Model.LangPrefList" asp-for="newUserPreference.Language" class="form-control" style="width:250px;"></select>
-                    </div>
-                </div>
-                <br />
-
-                <div class="field">
-                    <label class="label is-size-5 mb-0 has-text-primary-dark"><i class="fa-solid fa-text-height"></i>&ensp;@Model.LangData.onboarding.preferences.textSize</label>
-                    <div class="columns">
-                        <div class="column is-three-fifths">
-                            <div class="control is-fullwidth">
-                                <input id="textSizeSlider" type="range" min="1" max="3" step="1" class="is-fullwidth" style="width:100%" onchange="updateTextSize(this)">
-                            </div>
-                            <div class="level">
-                                <div class="level-item">
-                                    <span>@Model.LangData.onboarding.preferences.large</span>
-                                </div>
-                                <div class="level-item">
-                                    <span style="font-size: 105%">@Model.LangData.onboarding.preferences.larger</span>
-                                </div>
-                                <div class="level-item">
-                                    <span style="font-size: 110%">@Model.LangData.onboarding.preferences.largest</span>
-                                </div>
-                            </div>
-                            @*<span class="is-pulled-left">Large</span>
-                        <span class="is-centere" style="font-size: 105%">Larger</span>
-                        <span class="is-pulled-right" style="font-size: 110%">Largest</span>*@
+                    <div class="field">
+                        <label class="label is-size-5 mb-0"><i class="fas fa-language"></i>&ensp;@Model.LangData.onboarding.preferences.language</label>
+                        @*<span class="is-size-6">Switch to your preferred language.</span>*@
+                        <div class="control has-icons-left is-size-5 select">
+                            <select value="@Model.currentUserPreference.Language" asp-items="Model.LangPrefList" asp-for="newUserPreference.Language" class="form-control" style="width:250px;"></select>
                         </div>
                     </div>
-                </div>
+                    <br />
 
-                <input id="textSizeInput" asp-for="newUserPreference.TextSize" value="large" class="form-control is-hidden" />
+                    <div class="field">
+                        <label class="label is-size-5 mb-0"><i class="fa-solid fa-text-height"></i>&ensp;@Model.LangData.onboarding.preferences.textSize</label>
+                        <div class="columns">
+                            <div class="column is-three-fifths">
+                                <div class="control is-fullwidth">
+                                    <input id="textSizeSlider" type="range" min="1" max="3" step="1" class="is-fullwidth" style="width:100%" onchange="updateTextSize(this)">
+                                </div>
+                                <div class="level">
+                                    <div class="level-item">
+                                        <span>@Model.LangData.onboarding.preferences.large</span>
+                                    </div>
+                                    <div class="level-item">
+                                        <span style="font-size: 105%">@Model.LangData.onboarding.preferences.larger</span>
+                                    </div>
+                                    <div class="level-item">
+                                        <span style="font-size: 110%">@Model.LangData.onboarding.preferences.largest</span>
+                                    </div>
+                                </div>
+                                @*<span class="is-pulled-left">Large</span>
+                    <span class="is-centere" style="font-size: 105%">Larger</span>
+                    <span class="is-pulled-right" style="font-size: 110%">Largest</span>*@
+                            </div>
+                        </div>
+                    </div>
 
-                <br />
-                <div class="field">
-                    <label class="label is-size-5 mb-0 has-text-primary-dark"><i class="fas fa-volume-up"></i><i class="fas fa-volume-off is-hidden"></i>&ensp;@Model.LangData.onboarding.preferences.audioCues</label>
-                    <span class="is-size-6">@Model.LangData.onboarding.preferences.audioCuesDesc</span>&ensp;
-                    <input type="checkbox" style="height:4vh; width: 3vw;" checked="@Model.currentUserPreference.UseAudioCues == true" asp-for="newUserPreference.UseAudioCues">
-                </div>
-                <br />
+                    <input id="textSizeInput" asp-for="newUserPreference.TextSize" value="large" class="form-control is-hidden" />
 
-                <button class="mt-5 button is-primary is-dark is-fullwidth" type="submit">@Model.LangData.next</button>
+                    <br />
+                    <div class="field">
+                        <label class="label is-size-5 mb-0"><i class="fas fa-volume-up"></i><i class="fas fa-volume-off is-hidden"></i>&ensp;@Model.LangData.onboarding.preferences.audioCues</label>
+                        <span class="is-size-6">@Model.LangData.onboarding.preferences.audioCuesDesc</span>&ensp;
+                        <input type="checkbox" style="height:4vh; width: 3vw;" checked="@Model.currentUserPreference.UseAudioCues == true" asp-for="newUserPreference.UseAudioCues">
+                    </div>
+                    <br />
 
-            </form>
+                    @*<div class="has-text-centered">
+                        <button class="mt-5 mb-3 button is-primary is-dark is-fullwidth" type="submit">@Model.LangData.next</button>
+                        <a href="/Onboarding/ProfileSettings">@Model.LangData.onboarding.skip</a>
+                    </div>*@
+                    <button class="button is-light mt-3 mb-3" type="button" style="width:49%" onclick="location.href='/Onboarding/ProfileSettings';">
+                        @Model.LangData.onboarding.skip
+                    </button>
+                    <button class="button is-primary mt-3 mb-3" type="submit" style="width:49%">
+                        @Model.LangData.next
+                    </button>
+                    <br />
+
+                </form>
                 </div>
         </div>
 

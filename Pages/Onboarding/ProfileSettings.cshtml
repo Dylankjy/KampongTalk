@@ -16,10 +16,12 @@
                 <!--Steps-->
                 <ul class="steps has-content-centered">
                     <li class="steps-segment">
-                        <span class="steps-marker">1</span>
-                        <div class="steps-content">
-                            @Model.LangData.onboarding.pref
-                        </div>
+                        <a href="/Onboarding/Preferences">
+                            <span class="steps-marker">1</span>
+                            <div class="steps-content">
+                                @Model.LangData.onboarding.pref
+                            </div>
+                        </a>
                     </li>
                     <li class="steps-segment is-active">
                         <span class="steps-marker">2</span>
@@ -37,8 +39,6 @@
 
                 <div class="has-text-centered mb-3">
                     <h1 class="title is-size-4 mb-1">@Model.LangData.onboarding.profileSettings.customProfile</h1>
-                    <a href="/Onboarding/Done">@Model.LangData.onboarding.skip</a>
-                    <br />
                 </div>
 
                 <!--from profile modal-->
@@ -55,35 +55,26 @@
                             </div>
                         </div>
                         @*/Onboarding/ProfileSettings*@
-                        <form id="profileEditForm" method="post" enctype="multipart/form-data">
-                            <input accept="image/png, image/jpg" type="file" asp-for="ProfileImage" id="pfpUploadField" style="opacity: 0; height: 0; width: 0" />
-                            <input accept="image/png, image/jpg" type="file" asp-for="BannerImage" id="bannerUploadField" style="opacity: 0; height: 0; width: 0" />
+                    <form id="profileEditForm" method="post" enctype="multipart/form-data">
+                        <input accept="image/png, image/jpg" type="file" asp-for="ProfileImage" id="pfpUploadField" style="opacity: 0; height: 0; width: 0" />
+                        <input accept="image/png, image/jpg" type="file" asp-for="BannerImage" id="bannerUploadField" style="opacity: 0; height: 0; width: 0" />
 
-                            <div class="field">
-                                <label class="label">@Model.LangData.onboarding.profileSettings.aboutMe</label>
-                                <div class="control">
-                                    <input class="input" type="text" asp-for="EditBio" style="word-break: break-word;" placeholder="@Model.LangData.onboarding.profileSettings.introYourself">
-                                </div>
+                        <div class="field">
+                            <label class="label">@Model.LangData.onboarding.profileSettings.aboutMe</label>
+                            <div class="control">
+                                <input class="input" type="text" asp-for="EditBio" style="word-break: break-word;" placeholder="@Model.LangData.onboarding.profileSettings.introYourself">
                             </div>
-                            <br />
+                        </div>
+                        <br />
 
-                            <div class="field">
-                                <label class="label">@Model.LangData.onboarding.profileSettings.birthday</label>
-                                <div class="control has-icons-left">
-                                    <input class="input" type="date" asp-for="EditBirthday">
-                                    <span class="icon is-small is-left">
-                                        <i class="fas fa-birthday-cake"></i>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <button class="button is-dark mt-3" type="button" style="width:49%" onclick="location.href='/Onboarding/Preferences';">
-                                @Model.LangData.back
-                            </button>
-                            <button class="button is-primary mt-3" type="submit" style="width:49%">
-                                @Model.LangData.next
-                            </button>
-                        </form>
+                        <button class="button is-light mt-3 mb-3" type="button" style="width:49%" onclick="location.href='/Onboarding/Done';">
+                            @Model.LangData.onboarding.skip
+                        </button>
+                        <button class="button is-primary mt-3 mb-3" type="submit" style="width:49%">
+                            @Model.LangData.next
+                        </button>
+                        <br />
+                    </form>
 
                     </div>
                 </div>
