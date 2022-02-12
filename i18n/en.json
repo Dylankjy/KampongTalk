@@ -3,11 +3,28 @@
 
   "back": "Back",
   "next": "Continue",
+  "close": "Close",
   "login": "Login",
   "register": "Register",
+  "logout": "Log Out",
   
   "your": "Your",
   "you": "You",
+
+  "features": {
+    "chats": "Chats",
+    "communities": "Communities",
+    "board": "Board",
+    "voidDeck": "Void Deck",
+    "events": "Events",
+    "support": "Support",
+    "friends": "Friends",
+    "profile": "Profile",
+    "settings": "Settings",
+    "map": "Map",
+    "help": "Help"
+
+  },
 
   "accounts": {
 
