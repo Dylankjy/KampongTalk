@@ -1,0 +1,86 @@
+﻿@page
+@model KampongTalk.Pages.GuidesModel
+@{
+}
+
+<section class="section">
+    <div class="container">
+        <div class="is-pulled-right has-text-centered" style="width:400px">
+            <p><i class="fa-solid fa-arrow-up"></i></p>
+            <span class="tag is-medium is-success">Tip: If you're stuck on a page, help is just a click away</span>
+        </div>
+        
+        <h1 class="is-size-1 has-text-weight-bold">Guided Tours</h1>
+        <br />
+        <div class="container has-background-grey-lighter section">
+            <span class="is-size-3">How To Use &ensp;</span>
+
+            <br />
+            <a href="/#walkthrough">
+                <div class="box is-inline-block m-2 has-text-centered" style="width:200px" data-title="Access a guide" data-intro="Click on any of these boxes to get a tour of that feature.">
+                    <img src="~/imgs/NavMap/overall_map.png" style="height:15vh;" class="mt-3" />
+                    <p class="is-size-4 has-text-centered has-text-weight-bold">Map</p>
+                    @*<p>An Overview of KampongTalk's features</p>*@
+                </div>
+            </a>
+
+            <a href="/Board#walkthrough">
+                <div class="box is-inline-block m-2 has-text-centered" style="width:200px">
+                    <img src="~/imgs/NavMap/Board_Icon.png" style="height:15vh;" class="mt-3" />
+                    <p class="is-size-4 has-text-centered has-text-weight-bold">Board</p>
+                </div>
+            </a>
+
+            <a href="/Community/Explore">
+                <div class="box is-inline-block m-2 has-text-centered" style="width: 200px">
+                    <img src="~/imgs/NavMap/Communities_Icon.png" style="height:15vh;" class="mt-3" />
+                    <p class="is-size-4 has-text-centered">Communities</p>
+                </div>
+            </a>
+            <a href="/DigitalVoidDeck/Lobby">
+                <div class="box is-inline-block m-2 has-text-centered" style="width: 200px">
+                    <img src="~/imgs/NavMap/Void_Deck.png" style="height:15vh;" class="mt-3" />
+                    <p class="is-size-4 has-text-centered">Void Deck</p>
+                </div>
+            </a>
+            <a href="/Events#walkthrough">
+                <div class="box is-inline-block m-2 has-text-centered" style="width: 200px">
+                    <img src="~/imgs/NavMap/Events_Icon.png" style="height:15vh;" class="mt-3" />
+                    <p class="is-size-4 has-text-centered">Events</p>
+                </div>
+            </a>
+            <a href="/">
+                <div class="box is-inline-block m-2 has-text-centered" style="width: 200px">
+                    <img src="~/imgs/NavMap/Chat_Icon.png" style="height:15vh;" class="mt-3" />
+                    <p class="is-size-4 has-text-centered">Chats</p>
+                </div>
+            </a>
+            <a href="/Support">
+                <div class="box is-inline-block m-2 has-text-centered" style="width: 200px">
+                    <img src="~/imgs/NavMap/Support_Icon.png" style="height:15vh;" class="mt-3" />
+                    <p class="is-size-4 has-text-centered">Support</p>
+                </div>
+            </a>
+            <a href="/Friends">
+                <div class="box is-inline-block m-2 has-text-centered" style="width: 200px">
+                    <img src="~/imgs/FriendsIcon.png" style="height:15vh; opacity:0.9;" class="mt-3" />
+                    <p class="is-size-4 has-text-centered">Friends</p>
+                </div>
+            </a>
+            <a href="/Profile?u=@Model.CurrentUser.Uid2#walkthrough">
+                <div class="box is-inline-block m-2 has-text-centered" style="width: 200px">
+                    <img src="~/userdata/default.jpg" style="height:15vh;" class="mt-3" />
+                    <p class="is-size-4 has-text-centered has-text-weight-bold">Profile</p>
+                </div>
+            </a>
+            <a href="/Settings">
+                <div class="box is-inline-block m-2 has-text-centered" style="width: 200px">
+                    <img src="~/imgs/NavMap_SettingsIcon.png" style="height: 15vh; opacity: 0.9;" class="mt-3" />
+                    <p class="is-size-4 has-text-centered">Settings</p>
+                </div>
+            </a>
+
+        </div>
+    </div>
+</section>
+
