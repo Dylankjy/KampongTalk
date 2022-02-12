@@ -29,7 +29,8 @@
 .community-icon-small {
     height: 8rem;
     width: 8rem;
-    background: grey;
+    background: url("/userdata/communities/default-community.png") center;
+    background-size: cover;
     border: .5rem solid white;
     border-radius: 3rem;
     position: absolute;

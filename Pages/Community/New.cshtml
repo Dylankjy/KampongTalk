@@ -32,11 +32,31 @@
                 <form method="post">
                     <div class="card card-new-community mt-6" style="border-top-right-radius: 0.5rem; border-top-left-radius: 0.5rem">
                         <div class="card-content">
-                            <div class="has-background-dark card-hero-community">
-                                <button onclick="$('#editProfileModal').fadeOut('fast')" class="modal-close is-large" aria-label="close"></button>
+                            <div class="card-hero-community"></div>
+                            <div id="community-icon" class="community-icon-small">
+                                <div class="is-vcentered has-text-centered has-text-white pfp-edit is-size-2" onclick="$('#iconUploadField').trigger('click')">
+                                    <i class="fa-solid fa-pen"></i>
+                                </div>
                             </div>
-                            <div class="community-icon-small"></div>
-                            <div class="field" style="margin-top: 7rem">
+                            <input accept="image/png, image/jpg" type="file" asp-for="IconImage" id="iconUploadField" style="opacity: 0; height: 0; width: 0" />
+                            <script>
+                            var bannerUploadField = document.getElementById("iconUploadField")
+                                bannerUploadField.onchange = function () {
+                                    const [file] = bannerUploadField.files
+                                    if (file) {
+                                        $("#community-icon").css("background-image", "url(" + URL.createObjectURL(file) + ")");
+                                        $("#community-icon").css("background-repeat", "no-repeat");
+                                        $("#community-icon").css("background-position", "center");
+                                        $("#community-icon").css("background-size", "cover");
+                                        
+                                        Vibrant.from(URL.createObjectURL(file)).getPalette((err, palette) => {
+                                            $('.card-hero-community').css({ 'background-color': `rgb(${palette.DarkMuted._rgb})` })
+                                        });
+                                    }
+                                }
+                                
+                            </script>
+                            <div class="field" style="margin-top: 4rem">
                                 <label class="label">Community Name</label>
                                 <div class="control has-icons-left">
                                     <input class="input @Model.CommunityNameClass" type="text" placeholder="The Flower Garden" asp-for="NewCommunity.Name">

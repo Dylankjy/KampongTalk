@@ -20,6 +20,7 @@ namespace KampongTalk.Pages.Community
         public bool ShowAlreadyHaveCommunityError { get; set; }
         public dynamic ExistingCommunity { get; set; }
         public string CommunityNameClass { get; set; }
+        [BindProperty] public IFormFile IconImage { get; set; }
 
         public IActionResult OnGet()
         {
