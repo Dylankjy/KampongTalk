@@ -186,11 +186,11 @@
             <div class="card-content">
                 @foreach (var eventObj in Model.SearchResultEvents)
                 {
-                <a href="/Events/View/@eventObj.Eid">
-                    <div class="box mb-2">
-                        <p>@eventObj.Name</p>
-                    </div>
-                </a>
+                    <a href="/Events/View/@eventObj.Eid">
+                        <div class="box mb-2">
+                            <p>@eventObj.Name</p>
+                        </div>
+                    </a>
                 }
             </div>
         </div>

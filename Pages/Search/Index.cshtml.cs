@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using KampongTalk.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Mighty;
@@ -9,6 +10,9 @@ namespace KampongTalk.Pages.Search
 {
     public class Index : PageModel
     {
+        // Current user prop
+        public User CurrentUser { get; set; }
+        
         // Search result prop
         public List<dynamic> SearchResultPosts { get; set; } = new List<dynamic>();
         public List<dynamic> SearchResultCommunities { get; set; } = new List<dynamic>();
@@ -18,6 +22,9 @@ namespace KampongTalk.Pages.Search
 
         public IActionResult OnGet(string q)
         {
+            // Get current user
+            CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
+            
             SearchField = q;
             
             // If searchfield null
@@ -41,7 +48,13 @@ namespace KampongTalk.Pages.Search
                 var thisObjectType = SearchApi.GetEntityTypeByEid(entityObj.EntityId);
 
                 if (thisObjectType == "post")
-                    SearchResultPosts.Add(PostApi.GetPostByPid(long.Parse(entityObj.EntityId)));
+                {
+                    var thisPost = PostApi.GetPostByPid(long.Parse(entityObj.EntityId));
+                    if (RelApi.IsAccessible(CurrentUser.Uid, thisPost.Author) && thisPost.InCommunity != null)
+                    {
+                        SearchResultPosts.Add(thisPost);
+                    }
+                }
 
                 if (thisObjectType == "community")
                     SearchResultCommunities.Add(CommunityApi.GetCommunityById(entityObj.EntityId));
