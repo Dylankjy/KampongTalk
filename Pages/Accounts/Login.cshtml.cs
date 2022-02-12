@@ -19,14 +19,17 @@ namespace KampongTalk.Pages.Accounts
         public string FieldClass { get; set; }
         public bool ShowErrorMessage { get; set; }
 
-        public dynamic LangData { get; } = Internationalisation.LoadLanguage("jp");
+        public dynamic LangData { get; set; }
 
         public IActionResult OnGet()
         {
             // Get current user
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
+            
+            // Set user language
+            LangData = UserPrefApi.GetLangByUid(CurrentUser); // <- Param should be the user object, not Uid.
 
-            // If the current user is verified, naturally, the object is present, so just redirect them.
+                // If the current user is verified, naturally, the object is present, so just redirect them.
             if (CurrentUser is {IsVerified: true}) return RedirectToPage("/Index");
 
             // If the user has not OTP verified
@@ -45,6 +48,10 @@ namespace KampongTalk.Pages.Accounts
             var dbUsers =
                 new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
                     "Users");
+            
+            var dbPrefs =
+                new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
+                    "UserPreferences");
 
             // Block OnPost if user is verified and already authenticated
             var currentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));

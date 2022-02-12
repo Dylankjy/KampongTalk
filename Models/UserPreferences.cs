@@ -1,4 +1,7 @@
-﻿namespace KampongTalk.Models
+﻿using KampongTalk.i18n;
+using Mighty;
+
+namespace KampongTalk.Models
 {
     public class UserPreferences
     {
@@ -46,6 +49,29 @@
                 Language = obj.Language,
                 SpeechGender = obj.SpeechGender
             };
+        }
+    }
+
+    public static class UserPrefApi
+    {
+        public static dynamic GetLangByUid(dynamic userObj)
+        {
+            if (userObj == null)
+            {
+                return Internationalisation.LoadLanguage("en");
+            }
+            
+            var dbPrefs =
+                new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
+                    "UserPreferences");
+            
+            // Set user language
+            var userPref = dbPrefs.Single(new { Uid = userObj.Uid });
+            if (userPref != null)
+            {
+                return Internationalisation.LoadLanguage(userPref.Language);
+            }
+            return Internationalisation.LoadLanguage("en");
         }
     }
 }
