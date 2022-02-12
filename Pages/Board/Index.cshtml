@@ -200,7 +200,7 @@
     function chk_scroll(e) {
 
         var elem = $(e.currentTarget);
-        if ((elem[0].scrollHeight - elem.scrollTop() -1) <= elem.outerHeight()) {
+        if ((elem[0].scrollHeight - elem.scrollTop() -0.2) <= elem.outerHeight()) {
             infiniteScroll()
         }
     }
