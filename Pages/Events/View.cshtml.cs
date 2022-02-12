@@ -56,11 +56,12 @@ namespace KampongTalk.Pages.Events
         public List<dynamic> recommendedEvents { get; set; } = new List<dynamic>();
 
         [BindProperty] public IFormFile eventImage { get; set; }
+        public dynamic LangData { get; set; }
 
         public async Task OnGet(string eid)
         {
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
-
+            LangData = UserPrefApi.GetLangByUid(CurrentUser);
             // TO retrieve the savedEvent object from db
             Eid = Convert.ToInt64(eid);
             myEvent = eventDb.Single($"Eid = {Eid}");

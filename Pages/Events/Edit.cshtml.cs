@@ -19,6 +19,8 @@ namespace KampongTalk.Pages.Events
 
         [BindProperty] public double Eid { get; set; }
 
+        public dynamic LangData { get; set; }
+
         public string eventDate { get; set; }
 
         public string timeErrMsg { get; set; }
@@ -42,6 +44,8 @@ namespace KampongTalk.Pages.Events
         {
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
             if (CurrentUser == null) return Redirect("/Accounts/Login");
+
+            LangData = UserPrefApi.GetLangByUid(CurrentUser); 
 
             Eid = Convert.ToInt64(eid);
             savedEvent = eventDb.Single($"Eid = {Eid}");

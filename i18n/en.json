@@ -8,14 +8,14 @@
   
   "your": "Your",
   "you": "You",
-  
+
   "accounts": {
-    
+
     "fullName": "Full name",
     "phoneNumber": "Phone number",
     "password": "Password",
     "otp": "6 Digit Code",
-    
+
     "login": {
       "kampongTalkAccount": "KampongTalk Account",
       "loginToAccount": "Login to your account",
@@ -49,6 +49,45 @@
       "phoneNumberNoExist": "This phone number doesn't match any existing account.",
       "newPassword": "New Password",
       "otpInvalid": "<i class='fas fa-exclamation-triangle'></i>&ensp;This recovery code has either expired or is invalid. Please request for a new one."
+    }
+  },
+
+  "events": {
+    "create": {
+      "Name": "Event Name",
+      "Description": "Event Description",
+      "Date": "Event Date",
+      "Start": "Start Time",
+      "End": "End Time",
+      "Location": "Event Location",
+      "MeetingLink": "Create meeting link here",
+      "Create": "Create Event",
+      "Edit": "Update Event"
+    },
+    "index": {
+      "explore":"Explore Event",
+      "my":"My Events",
+      "create":"Create an Event"
+    },
+    "detail": {
+      "Organized": "Organized By",
+      "Date": "Date",
+      "Duration": "Duration",
+      "Time": "Time",
+      "Location": "Held At",
+      "Recommended": "Similar Events",
+      "viewOnly": "This event is view only",
+      "Archive": "This event is archived",
+      "Edit": "Edit",
+      "Attend": "I'm attending",
+      "Remove": "Remove"
+    },
+    "myEvents": {
+      "Upcoming": "Upcoming Events",
+      "Past": "Past Events",
+      "My": "My Events",
+      "Add": "Add Event",
+      "emptyCreate": "You haven't created any events"
     }
   },
 

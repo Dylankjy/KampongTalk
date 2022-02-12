@@ -33,21 +33,21 @@
 <div class="container">
     <form method="post">
         <div class="field">
-            <label class="label">Event Name</label>
+            <label class="label">@Model.LangData.events.create.Name</label>
             <div class="control">
                 <input class="input form-input-50" type="text" value="@Model.savedEvent.Name" asp-for="myEvent.Name">
             </div>
         </div>
 
         <div class="field">
-            <label class="label">Event Description</label>
+            <label class="label">@Model.LangData.events.create.Description</label>
             <div class="control form-input-50">
                 <textarea id="eventDesc" class="textarea" asp-for="myEvent.Description"></textarea>
             </div>
         </div>
 
         <div class="field">
-            <label class="label">Event Date</label>
+            <label class="label">@Model.LangData.events.create.Date</label>
             <div class="control">
                 <input class="input form-input-50" id="eventDate" type="date" value="@Model.eventDate" id="eventDate" asp-for="myEvent.Date"/>
             </div>
@@ -55,7 +55,7 @@
 
         <div class="field is-grouped">
             <div class="control">
-                <label class="label">Start Time</label>
+                <label class="label">@Model.LangData.events.create.Start</label>
                 <div class="control">
                     <div class="select">
                         <select id="startTime" value="@Model.savedEvent.StartTime" asp-for="myEvent.StartTime" asp-items="Model.ListOfStartTimeIntervals" class="form-control"></select>
@@ -64,7 +64,7 @@
             </div>
 
             <div class="control">
-                <label class="label">End Time</label>
+                <label class="label">@Model.LangData.events.create.End</label>
                 <div class="control">
                     <div class="select">
                         <select id="endTime" value="@Model.savedEvent.EndTime" asp-for="myEvent.EndTime" asp-items="Model.ListOfEndTimeIntervals" class="form-control"></select>
@@ -76,11 +76,11 @@
 
 
         <div class="field">
-            <label class="label">Event Location</label>
+            <label class="label">@Model.LangData.events.create.Location</label>
             <div class="control">
                 <input class="input form-input-50" value="@Model.savedEvent.Location" asp-for="myEvent.Location"></input>
                 <br/>
-                <a class="has-text-success" href="https://www.skype.com/en/free-conference-call/" target="_blank">Create meeting link here</a>
+                <a class="has-text-success" href="https://www.skype.com/en/free-conference-call/" target="_blank">@Model.LangData.events.create.MeetingLink</a>
             </div>
         </div>
 
@@ -88,7 +88,7 @@
 
         <div class="field">
             <div class="control">
-                <button class="button is-warning is-light">Update Event</button>
+                <button class="button is-warning is-light">@Model.LangData.events.create.Edit</button>
             </div>
         </div>
 

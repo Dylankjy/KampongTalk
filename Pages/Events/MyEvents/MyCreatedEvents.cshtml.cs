@@ -13,7 +13,7 @@ namespace KampongTalk.Pages.Events.MyEvents
         public static DateTime nowDt = DateTime.Now;
         public static string nowDtString = nowDt.ToString("yyyy-MM-dd HH:mm:ss");
         private User CurrentUser { get; set; }
-
+        public dynamic LangData { get; set; }
         public static MightyOrm eventDb { get; set; } =
             new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"], "Events");
 
@@ -24,6 +24,7 @@ namespace KampongTalk.Pages.Events.MyEvents
         {
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
             if (CurrentUser == null) return Redirect("/Accounts/Login");
+            LangData = UserPrefApi.GetLangByUid(CurrentUser);
 
             myCreatedEvents = eventDb.All($"CreatorId = {CurrentUser.Uid}");
             return Page();

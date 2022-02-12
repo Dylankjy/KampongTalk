@@ -16,7 +16,7 @@ namespace KampongTalk.Pages.Events
         [BindProperty] public Event myEvent { get; set; } = new Event();
 
         private User CurrentUser { get; set; }
-
+        public dynamic LangData { get; set; }
 
         public string timeErrMsg { get; set; }
 
@@ -32,6 +32,7 @@ namespace KampongTalk.Pages.Events
             // Get current user
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
             if (CurrentUser == null) return Redirect("/Accounts/Login");
+            LangData = UserPrefApi.GetLangByUid(CurrentUser); // <- Param should be the user object, not Uid.
 
             return Page();
         }

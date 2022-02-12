@@ -25,11 +25,11 @@
     <div class="section">
         <article class="message is-danger">
             <div class="message-header">
-                <p>Read Only</p>
+                <p>@Model.LangData.events.detail.viewOnly</p>
 
             </div>
             <div class="message-body">
-                This event is archived
+                @Model.LangData.events.detail.archive
             </div>
         </article>
     </div>
@@ -45,13 +45,13 @@
             <div class="column is-4">
                 <div class="content">
                     <h1 class="title is-size-3">@Model.myEvent.Name</h1>
-                    <p class="subtitle is-size-7">Organized By: <a href="/Profile?u=@Model.OwnerUser.Uid2">@Model.OwnerUser.Name</a></p>
+                    <p class="subtitle is-size-7">@Model.LangData.events.detail.Organized : <a href="/Profile?u=@Model.OwnerUser.Uid2">@Model.OwnerUser.Name</a></p>
                     <br/>
 
-                    <p>Date: @Model.eventDate</p>
-                    <p>Duration: @Model.myEvent.Duration Hours</p>
-                    <p>Time: @Model.myEvent.StartTime - @Model.myEvent.EndTime</p>
-                    <p>Held At: <a target="_blank" href="@Model.myEvent.Location">@Model.myEvent.Location</a></p>
+                    <p>@Model.LangData.events.detail.Date: @Model.eventDate</p>
+                    <p>@Model.LangData.events.detail.Duration: @Model.myEvent.Duration Hours</p>
+                    <p>@Model.LangData.events.detail.Time: @Model.myEvent.StartTime - @Model.myEvent.EndTime</p>
+                    <p>@Model.LangData.events.detail.Location: <a target="_blank" href="@Model.myEvent.Location">@Model.myEvent.Location</a></p>
                     <p>@Model.myEvent.Description</p>
                 </div>
             </div>
@@ -81,13 +81,13 @@ else
             <div class="column is-4">
                 <div class="content">
                     <h1 class="title is-size-3">@Model.myEvent.Name</h1>
-                    <p class="subtitle is-size-7">Organized By: <a href="/Profile?u=@Model.OwnerUser.Uid2">@Model.OwnerUser.Name</a></p>
+                    <p class="subtitle is-size-7">@Model.LangData.events.detail.Organized : <a href="/Profile?u=@Model.OwnerUser.Uid2">@Model.OwnerUser.Name</a></p>
                     <br/>
 
-                    <p>Date: @Model.eventDate</p>
-                    <p>Duration: @Model.myEvent.Duration Hours</p>
-                    <p>Time: @Model.myEvent.StartTime - @Model.myEvent.EndTime</p>
-                    <p>Held At: <a target="_blank" href="@Model.myEvent.Location">@Model.myEvent.Location</a></p>
+                    <p>@Model.LangData.events.detail.Date: @Model.eventDate</p>
+                    <p>@Model.LangData.events.detail.Duration: @Model.myEvent.Duration Hours</p>
+                    <p>@Model.LangData.events.detail.Time: @Model.myEvent.StartTime - @Model.myEvent.EndTime</p>
+                    <p>@Model.LangData.events.detail.Location: <a target="_blank" href="@Model.myEvent.Location">@Model.myEvent.Location</a></p>
                     <p>@Model.myEvent.Description</p>
                 </div>
 
@@ -97,7 +97,7 @@ else
                         <span class="icon">
                             <i class="fas fa-wrench"></i>
                         </span>
-                        <span>Edit</span>
+                        <span>@Model.LangData.events.detail.Edit</span>
                     </a>
                 }
                 else
@@ -109,7 +109,7 @@ else
                                 <span class="icon">
                                     <i class="fas fa-plus"></i>
                                 </span>
-                                <span>I'm Attending</span>
+                                <span>@Model.LangData.events.detail.Attend</span>
                             </button>
                         }
                         else
@@ -118,7 +118,7 @@ else
                                 <span class="icon">
                                     <i class="fas fa-minus"></i>
                                 </span>
-                                <span>Remove</span>
+                                <span>@Model.LangData.events.detail.Remove</span>
                             </button>
                         }
                         <input type="hidden" asp-for="@Model.Eid" value="@Model.Eid"/>
@@ -129,7 +129,7 @@ else
     </div>
 
     <div class="section">
-        <p class="title">Similar Events</p>
+        <p class="title">@Model.LangData.events.detail.Recommended</p>
         <div class="columns is-multiline is-variable is-5" id="displayedListings">
             @foreach (var myEvent in Model.recommendedEvents)
             {

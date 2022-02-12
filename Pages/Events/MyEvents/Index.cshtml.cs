@@ -14,6 +14,7 @@ namespace KampongTalk.Pages.Events.MyEvents
         public static string nowDtString = nowDt.ToString("yyyy-MM-dd HH:mm:ss");
 
         public long userId { get; set; }
+        public dynamic LangData { get; set; }
 
         public static MightyOrm eventDb { get; set; } =
             new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"], "Events");
@@ -27,6 +28,7 @@ namespace KampongTalk.Pages.Events.MyEvents
         {
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
             if (CurrentUser == null) return Redirect("/Accounts/Login");
+            LangData = UserPrefApi.GetLangByUid(CurrentUser);
 
             userId = CurrentUser.Uid;
             myUpcomingEvents = eventDb.All($"Attendees like '%{CurrentUser.Uid}%' AND Date > '{nowDtString}'");
