@@ -39,7 +39,7 @@ namespace KampongTalk.Pages.Profile
         // Posts
         public IEnumerable<dynamic> PostsToDisplay { get; set; }
         public int PostCount { get; set; }
-        
+
         // Page number
         public int PageNo { get; set; }
         public int PreviousPageNo { get; set; }
@@ -49,7 +49,7 @@ namespace KampongTalk.Pages.Profile
         [BindProperty] [Required] public string EditName { get; set; }
         [BindProperty] public string EditBio { get; set; }
         [BindProperty] public string EditBirthday { get; set; }
-        
+
         // Friend props
         public List<dynamic> FriendList { get; set; } = new List<dynamic>();
         public List<dynamic> FriendListPendingOutgoing { get; set; } = new List<dynamic>();
@@ -61,7 +61,7 @@ namespace KampongTalk.Pages.Profile
         public bool IsOpenModalOnGet { get; set; }
 
         // Error handling props
-        public bool ShowUserNotFoundError { get; set; } = false;
+        public bool ShowUserNotFoundError { get; set; }
 
         public IActionResult OnGet(string u, int p, int showFriendsModal)
         {
@@ -80,7 +80,7 @@ namespace KampongTalk.Pages.Profile
             var dbPost =
                 new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
                     "Post");
-            
+
             var dbRelation =
                 new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
                     "Relationships");
@@ -94,7 +94,7 @@ namespace KampongTalk.Pages.Profile
             {
                 IsOpenModalOnGet = false;
             }
-            
+
 
             // Get user by PhoneNumber
             ViewingUser = dbUsers.Single(new
@@ -128,7 +128,7 @@ namespace KampongTalk.Pages.Profile
                 IsCurrentUserOwnPage = true;
 
             // Get posts by this user from database
-            var postsByThisUser = dbPost.All(where: $"Author = {ViewingUser.Uid} AND IsComment = 0");
+            var postsByThisUser = dbPost.All($"Author = {ViewingUser.Uid} AND IsComment = 0");
 
             var numberOfObjectsPerPage = 10;
             var posts = postsByThisUser.ToList();
@@ -138,68 +138,49 @@ namespace KampongTalk.Pages.Profile
 
             // Set default value for textarea, Bio
             EditBio = ViewingUser.Bio;
-            
+
             // Set page number
             PageNo = p;
             PreviousPageNo = p - 1;
             NextPageNo = p + 1;
-            
+
             // Get friend list
             var friendList =
                 dbRelation.Query(
                     $"Select * from Relationships where (UserA = '{ViewingUser.Uid}' or UserB = '{ViewingUser.Uid}') AND Status = 'friends'");
 
-            if (friendList != null) {
+            if (friendList != null)
+            {
                 foreach (var relationRow in friendList)
-                {
                     if (relationRow.UserA != ViewingUser.Uid)
-                    {
                         FriendList.Add(UserApi.GetUserById(relationRow.UserA));
-                    }
                     else
-                    {
                         FriendList.Add(UserApi.GetUserById(relationRow.UserB));
-                    }
-                }
                 // ReSharper disable once PossibleMultipleEnumeration
                 FriendCount = friendList.Count();
             }
-            
+
             var friendListPendingOutgoing =
                 dbRelation.Query(
                     $"Select * from Relationships where UserA = '{ViewingUser.Uid}' AND Status = 'pending'");
-            
-            if (friendListPendingOutgoing != null) {
+
+            if (friendListPendingOutgoing != null)
                 foreach (var relationRow in friendListPendingOutgoing)
-                {
                     if (relationRow.UserA != ViewingUser.Uid)
-                    {
                         FriendListPendingOutgoing.Add(UserApi.GetUserById(relationRow.UserA));
-                    }
                     else
-                    {
                         FriendListPendingOutgoing.Add(UserApi.GetUserById(relationRow.UserB));
-                    }
-                }
-            }
-            
+
             var friendListPendingIncoming =
                 dbRelation.Query(
                     $"Select * from Relationships where UserB = '{ViewingUser.Uid}' AND Status = 'pending'");
-            
-            if (friendListPendingIncoming != null) {
+
+            if (friendListPendingIncoming != null)
                 foreach (var relationRow in friendListPendingIncoming)
-                {
                     if (relationRow.UserA != ViewingUser.Uid)
-                    {
                         FriendListPendingIncoming.Add(UserApi.GetUserById(relationRow.UserA));
-                    }
                     else
-                    {
                         FriendListPendingIncoming.Add(UserApi.GetUserById(relationRow.UserB));
-                    }
-                }
-            }
 
             // Show friend control buttons
             if (!IsCurrentUserOwnPage && CurrentUser != null)
@@ -211,29 +192,23 @@ namespace KampongTalk.Pages.Profile
                 if (whereOtherIsInvoker == null && whereSelfIsInvoker == null)
                 {
                     FriendActionToDisplay = "SHOW_ADD";
-                } else {
+                }
+                else
+                {
                     // Where the other user is the invoker
                     if (whereOtherIsInvoker != null && whereSelfIsInvoker == null)
                     {
-                        if (whereOtherIsInvoker.Status == "pending") {
-                            FriendActionToDisplay = "SHOW_PENDING_ACCEPTABLE";
-                        }
-                        
-                        if (whereOtherIsInvoker.Status == "friends") {
-                            FriendActionToDisplay = "SHOW_ADDED";
-                        }
+                        if (whereOtherIsInvoker.Status == "pending") FriendActionToDisplay = "SHOW_PENDING_ACCEPTABLE";
+
+                        if (whereOtherIsInvoker.Status == "friends") FriendActionToDisplay = "SHOW_ADDED";
                     }
+
                     // Where self is the invoker
                     if (whereOtherIsInvoker == null && whereSelfIsInvoker != null)
                     {
-                        if (whereSelfIsInvoker.Status == "pending")
-                        {
-                            FriendActionToDisplay = "SHOW_PENDING";
-                        }
-                        
-                        if (whereSelfIsInvoker.Status == "friends") {
-                            FriendActionToDisplay = "SHOW_ADDED";
-                        }
+                        if (whereSelfIsInvoker.Status == "pending") FriendActionToDisplay = "SHOW_PENDING";
+
+                        if (whereSelfIsInvoker.Status == "friends") FriendActionToDisplay = "SHOW_ADDED";
                     }
                 }
             }
@@ -257,7 +232,7 @@ namespace KampongTalk.Pages.Profile
             var dbUsers =
                 new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
                     "Users", "Uid");
-            
+
             // Very stupid workaround for this shit because SQL doesn't want to add because "MISSING RID". Please shoot me!
             var dbRelationAdd =
                 new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
@@ -271,7 +246,7 @@ namespace KampongTalk.Pages.Profile
 
             // Check account existence
             if (currentUserFromDb == null) return RedirectToPage("/Accounts/Login");
-            
+
             // Check whether if this is friend form
             if (FriendAction != null)
             {
@@ -279,21 +254,20 @@ namespace KampongTalk.Pages.Profile
                 try
                 {
                     if (UserApi.GetUserById(Convert.ToInt64(FriendActionOtherUid)) == null)
-                    {
                         return Redirect($"/Profile?u={u}");
-                    }
                 }
                 // ReSharper disable once EmptyGeneralCatchClause
                 catch
                 {
                     return Redirect($"/Profile?u={u}");
                 }
-                
-                
+
+
                 switch (FriendAction)
                 {
                     case "ADD":
-                        var existingRelation = dbRelation.Single(new { UserA = Convert.ToInt64(FriendActionOtherUid), UserB = CurrentUser.Uid });
+                        var existingRelation = dbRelation.Single(new
+                            {UserA = Convert.ToInt64(FriendActionOtherUid), UserB = CurrentUser.Uid});
 
                         if (existingRelation != null)
                         {
@@ -305,15 +279,18 @@ namespace KampongTalk.Pages.Profile
                             dbRelationAdd.Insert(new Relationships
                             {
                                 UserA = CurrentUser.Uid,
-                                UserB = Convert.ToInt64(FriendActionOtherUid),
+                                UserB = Convert.ToInt64(FriendActionOtherUid)
                             });
                         }
+
                         break;
                     case "CANCEL_REQ":
-                        dbRelation.Delete($"UserA = {CurrentUser.Uid} AND UserB = {FriendActionOtherUid} AND Status = 'pending'");
+                        dbRelation.Delete(
+                            $"UserA = {CurrentUser.Uid} AND UserB = {FriendActionOtherUid} AND Status = 'pending'");
                         break;
                     case "REMOVE_FRIEND":
-                        dbRelation.Delete($"UserA = {CurrentUser.Uid} AND UserB = {FriendActionOtherUid} AND Status = 'friends'");
+                        dbRelation.Delete(
+                            $"UserA = {CurrentUser.Uid} AND UserB = {FriendActionOtherUid} AND Status = 'friends'");
                         break;
                 }
 

@@ -33,7 +33,7 @@
                         <div data-intro="This is this user's information.">
                             <h1 class="title is-1 has-text-black">@Model.ViewingUser.Name</h1>
                             <p class="subtitle has-text-page-color-light">&#64;@Model.ViewingUser.Uid2</p>
-                            <br />
+                            <br/>
                             <div class="level">
                                 <div class="level-item has-text-centered">
                                     <a onclick="$('#friendListModal').fadeIn('fast')">
@@ -62,12 +62,12 @@
                                         <br/>
                                         <form method="post" class="has-text-centered">
 
-                                            <input type="hidden" asp-for="FriendActionOtherUid" value="@Model.ViewingUser.Uid" />
+                                            <input type="hidden" asp-for="FriendActionOtherUid" value="@Model.ViewingUser.Uid"/>
 
                                             @if (Model.FriendActionToDisplay == "SHOW_ADD")
                                             {
                                                 <div>
-                                                    <input type="hidden" asp-for="FriendAction" value="ADD" />
+                                                    <input type="hidden" asp-for="FriendAction" value="ADD"/>
                                                     <button class="button is-success" data-intro="Click here to send a friend request to this user."><i class="fa-solid fa-user-plus"></i>&ensp;Send friend request</button>
                                                 </div>
                                             }
@@ -75,7 +75,7 @@
                                             @if (Model.FriendActionToDisplay == "SHOW_PENDING_ACCEPTABLE")
                                             {
                                                 <div>
-                                                    <input type="hidden" asp-for="FriendAction" value="ADD" />
+                                                    <input type="hidden" asp-for="FriendAction" value="ADD"/>
                                                     <button class="button is-success"><i class="fa-solid fa-check"></i>&ensp;Accept friend request</button>
                                                 </div>
                                             }
@@ -83,7 +83,7 @@
                                             @if (Model.FriendActionToDisplay == "SHOW_PENDING")
                                             {
                                                 <div>
-                                                    <input type="hidden" asp-for="FriendAction" value="CANCEL_REQ" />
+                                                    <input type="hidden" asp-for="FriendAction" value="CANCEL_REQ"/>
                                                     <a id="pendingBtn" class="button is-success is-light"><i class="fa-solid fa-spinner fa-pulse"></i>&ensp;Friend request pending</a>
                                                     <button id="undoReqBtn" class="button is-danger is-light" style="display: none"><i class="fa-solid fa-xmark"></i>&ensp;Click again to undo request</button>
                                                 </div>
@@ -92,7 +92,7 @@
                                             @if (Model.FriendActionToDisplay == "SHOW_ADDED")
                                             {
                                                 <div>
-                                                    <input type="hidden" asp-for="FriendAction" value="REMOVE_FRIEND" />
+                                                    <input type="hidden" asp-for="FriendAction" value="REMOVE_FRIEND"/>
                                                     <a id="addedBtn" class="button is-light"><i class="fa-solid fa-user-group"></i>&ensp;Added as friend</a>
                                                     <button id="removeBtn" class="button is-danger" style="display: none"><i class="fa-solid fa-user-times"></i>&ensp;Click again to remove friend</button>
                                                 </div>
@@ -130,7 +130,7 @@
                                 }
                             </p>
                         </div>
-                        <hr />
+                        <hr/>
                         @{
                             if (Model.ViewingUser.Bio != null)
                             {
@@ -138,7 +138,7 @@
                                     <h3 class="title is-5 has-text-page-color">About me</h3>
                                     <p style="hyphens: auto; overflow-wrap: break-word">@Model.ViewingUser.Bio</p>
                                 </div>
-                                <hr />
+                                <hr/>
                             }
                         }
                         <div>
@@ -175,7 +175,7 @@
                                 <h2 class="title is-5">Recent posts by this user</h2>
                                 foreach (var post in Model.PostsToDisplay.Reverse())
                                 {
-                                    <partial name="Partials/_Post" model="post" view-data="ViewData" />
+                                    <partial name="Partials/_Post" model="post" view-data="ViewData"/>
                                 }
                                 <div class="mt-6 has-text-centered">
                                     @if (Model.PageNo != 0)
@@ -212,8 +212,8 @@
                         </div>
 
                         <form id="profileEditForm" method="post" enctype="multipart/form-data">
-                            <input accept="image/png, image/jpg" type="file" asp-for="ProfileImage" id="pfpUploadField" style="opacity: 0; height: 0; width: 0" />
-                            <input accept="image/png, image/jpg" type="file" asp-for="BannerImage" id="bannerUploadField" style="opacity: 0; height: 0; width: 0" />
+                            <input accept="image/png, image/jpg" type="file" asp-for="ProfileImage" id="pfpUploadField" style="opacity: 0; height: 0; width: 0"/>
+                            <input accept="image/png, image/jpg" type="file" asp-for="BannerImage" id="bannerUploadField" style="opacity: 0; height: 0; width: 0"/>
                             <div class="field">
                                 <label class="label">Name</label>
                                 <div class="control has-icons-left">
@@ -235,7 +235,7 @@
                             </div>
                             <small class="has-text-grey"><i class="fas fa-info-circle"></i>&nbsp;For security reasons, please visit <a>account settings</a> to change your KampongID.</small>
 
-                            <hr />
+                            <hr/>
 
                             <div class="field">
                                 <label class="label">About me</label>
@@ -244,7 +244,7 @@
                                 </div>
                             </div>
 
-                            <hr />
+                            <hr/>
 
                             <div class="field">
                                 <label class="label">Birthday</label>
@@ -275,7 +275,7 @@
                     <i class="fas fa-question-circle"></i>
                 </p>
                 <h1 class="subtitle is-4 has-text-weight-bold">We searched high and low, but we weren't able to find this account.</h1>
-                <p>The user may have changed their user tag, deleted their account, or the user simply didn't exist to begin with.<br />Please ensure that you did not make any typing mistakes.</p>
+                <p>The user may have changed their user tag, deleted their account, or the user simply didn't exist to begin with.<br/>Please ensure that you did not make any typing mistakes.</p>
             </div>
         </section>
     }
@@ -284,10 +284,10 @@
 <!--Image modal-->
 <div class="modal is-active" id="ImageModal" style="display: none;">
     <div class="modal-background" onclick="$('#ImageModal').fadeOut('fast');toMainSect();"></div>
-    <br />
+    <br/>
     <div class="modal-content mt-6">
         <div class="box has-text-centered">
-            <img id="imgInModal" />
+            <img id="imgInModal"/>
         </div>
     </div>
     <button class="modal-close is-large" aria-label="close" onclick="$('#ImageModal').fadeOut('fast');toMainSect();"></button>
@@ -336,125 +336,128 @@
                 $(':root').css({ '--page-theme-color': `${palette.DarkMuted._rgb}`, '--page-theme-color-light': `${palette.Muted._rgb}` })
             });
         </script>
-    }
-}
 
-<div id="friendListModal" class="modal is-active" style="display: none">
-    <div class="modal-background"></div>
-    <div class="modal-content">
-        <div class="card">
-            <div class="card-content has-background-light">
-                @if (Model.IsCurrentUserOwnPage)
-                {
-                    <p class="title is-4"><i class="fa-solid fa-user-group"></i>&ensp;Your friends list</p>
-                }
-                else
-                {
-                    <p class="title is-4"><i class="fa-solid fa-user-group"></i>&ensp;Friends list of @Model.ViewingUser.Name</p>
-                }
+        <div id="friendListModal" class="modal is-active" style="display: none">
+            <div class="modal-background"></div>
+            <div class="modal-content">
+                <div class="card">
+                    <div class="card-content has-background-light">
+                        @if (Model.IsCurrentUserOwnPage)
+                        {
+                            <p class="title is-4"><i class="fa-solid fa-user-group"></i>&ensp;Your friends list</p>
+                        }
+                        else
+                        {
+                            <p class="title is-4"><i class="fa-solid fa-user-group"></i>&ensp;Friend list of @Model.ViewingUser.Name</p>
+                        }
+                    </div>
+
+                    @if (Model.FriendListPendingIncoming.Count != 0 && Model.IsCurrentUserOwnPage)
+                    {
+                        <div class="card-content">
+                            <p class="has-text-weight-bold">Incoming friend requests — @Model.FriendListPendingIncoming.Count request(s)</p>
+                            @foreach (var user in Model.FriendListPendingIncoming)
+                            {
+                                <a href="/Profile?u=@user.Uid2" class="view-more-item">
+                                    <div class="pt-4 pb-4">
+                                        <div class="level">
+                                            <div class="level-left">
+                                                <div class="level-item">
+                                                    <div class="pfp-post" style="background: url('/userdata/@user.AvatarImg') center no-repeat; background-size: cover"></div>
+                                                </div>
+                                                <div class="level-item">
+                                                    <div>
+                                                        <p class="title is-5" style="overflow-wrap: break-word; hyphens: auto;">
+                                                            @user.Name
+                                                            <span class="is-size-6 has-text-grey">&#64;@user.Uid2</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                    }
+
+                    @if (Model.FriendListPendingOutgoing.Count != 0)
+                    {
+                        <div class="card-content">
+                            <p class="has-text-weight-bold">Outgoing friend requests — @Model.FriendListPendingOutgoing.Count request(s)</p>
+                            @foreach (var user in Model.FriendListPendingOutgoing)
+                            {
+                                <a href="/Profile?u=@user.Uid2" class="view-more-item">
+                                    <div class="pt-4 pb-4">
+                                        <div class="level">
+                                            <div class="level-left">
+                                                <div class="level-item">
+                                                    <div class="pfp-post" style="background: url('/userdata/@user.AvatarImg') center no-repeat; background-size: cover"></div>
+                                                </div>
+                                                <div class="level-item">
+                                                    <div>
+                                                        <p class="title is-5" style="overflow-wrap: break-word; hyphens: auto;">
+                                                            @user.Name
+                                                            <span class="is-size-6 has-text-grey">&#64;@user.Uid2</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                    }
+
+                    @if (Model.FriendList.Count != 0)
+                    {
+                        <div class="card-content">
+                            <p class="has-text-weight-bold">Friends — @Model.FriendList.Count user(s)</p>
+                            @foreach (var user in Model.FriendList)
+                            {
+                                <a href="/Profile?u=@user.Uid2" class="view-more-item">
+                                    <div class="pt-4 pb-4">
+                                        <div class="level">
+                                            <div class="level-left">
+                                                <div class="level-item">
+                                                    <div class="pfp-post" style="background: url('/userdata/@user.AvatarImg') center no-repeat; background-size: cover"></div>
+                                                </div>
+                                                <div class="level-item">
+                                                    <div>
+                                                        <p class="title is-5" style="overflow-wrap: break-word; hyphens: auto;">
+                                                            @user.Name
+                                                            <span class="is-size-6 has-text-grey">&#64;@user.Uid2</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="section has-text-centered">
+                            <p class="title">
+                                <i class="fa-solid fa-dove"></i>
+                            </p>
+                            <p class="subtitle">This user's friends list is empty</p>
+                            <p>Be their first, by sending a friend request!</p>
+                        </div>
+                    }
+                </div>
             </div>
-            
-            @if (Model.FriendListPendingIncoming.Count != 0 && Model.IsCurrentUserOwnPage) {
-                <div class="card-content">
-                    <p class="has-text-weight-bold">Incoming friend requests — @Model.FriendListPendingIncoming.Count request(s)</p>
-                    @foreach (var user in Model.FriendListPendingIncoming)
-                    {
-                        <a href="/Profile?u=@user.Uid2" class="view-more-item">
-                            <div class="pt-4 pb-4">
-                                <div class="level">
-                                    <div class="level-left">
-                                        <div class="level-item">
-                                            <div class="pfp-post" style="background: url('/userdata/@user.AvatarImg') center no-repeat; background-size: cover"></div>
-                                        </div>
-                                        <div class="level-item">
-                                            <div>
-                                                <p class="title is-5" style="overflow-wrap: break-word; hyphens: auto;">
-                                                    @user.Name
-                                                    <span class="is-size-6 has-text-grey">&#64;@user.Uid2</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    }
-                </div>
-            }
-            
-            @if (Model.FriendListPendingOutgoing.Count != 0)
-            {
-                <div class="card-content">
-                    <p class="has-text-weight-bold">Outgoing friend requests — @Model.FriendListPendingOutgoing.Count request(s)</p>
-                    @foreach (var user in Model.FriendListPendingOutgoing)
-                    {
-                        <a href="/Profile?u=@user.Uid2" class="view-more-item">
-                            <div class="pt-4 pb-4">
-                                <div class="level">
-                                    <div class="level-left">
-                                        <div class="level-item">
-                                            <div class="pfp-post" style="background: url('/userdata/@user.AvatarImg') center no-repeat; background-size: cover"></div>
-                                        </div>
-                                        <div class="level-item">
-                                            <div>
-                                                <p class="title is-5" style="overflow-wrap: break-word; hyphens: auto;">
-                                                    @user.Name
-                                                    <span class="is-size-6 has-text-grey">&#64;@user.Uid2</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    }
-                </div>
-            }
-            
-            @if (Model.FriendList.Count != 0) {
-                <div class="card-content">
-                    <p class="has-text-weight-bold">Friends — @Model.FriendList.Count user(s)</p>
-                    @foreach (var user in Model.FriendList)
-                    {
-                        <a href="/Profile?u=@user.Uid2" class="view-more-item">
-                            <div class="pt-4 pb-4">
-                                <div class="level">
-                                    <div class="level-left">
-                                        <div class="level-item">
-                                            <div class="pfp-post" style="background: url('/userdata/@user.AvatarImg') center no-repeat; background-size: cover"></div>
-                                        </div>
-                                        <div class="level-item">
-                                            <div>
-                                                <p class="title is-5" style="overflow-wrap: break-word; hyphens: auto;">
-                                                    @user.Name
-                                                    <span class="is-size-6 has-text-grey">&#64;@user.Uid2</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    }
-                </div>
-            }
-            else
-            {
-                <div class="section has-text-centered">
-                    <p class="title"><i class="fa-solid fa-dove"></i></p>
-                    <p class="subtitle">This user's friends list is empty</p>
-                    <p>Be their first, by sending a friend request!</p>
-                </div>
-            }
+            <button id="friendsCloseBtn" onclick="$('#friendListModal').fadeOut('fast')" class="modal-close is-large" aria-label="close"></button>
         </div>
-    </div>
-    <button id="friendsCloseBtn" onclick="$('#friendListModal').fadeOut('fast')" class="modal-close is-large" aria-label="close"></button>
-</div>
-
-@if (Model.IsOpenModalOnGet)
-{
-    <script>
-        $('#friendListModal').fadeIn('fast')
-        $('#friendsCloseBtn').attr('onclick', 'window.location.replace("/Index")')
-    </script>
+        @if (Model.IsOpenModalOnGet)
+        {
+            <script>
+                $('#friendListModal').fadeIn('fast')
+                $('#friendsCloseBtn').attr('onclick', 'window.location.replace("/Index")')
+            </script>
+        }
+    }
 }
