@@ -122,7 +122,7 @@ namespace KampongTalk.Pages.Profile
             var numberOfObjectsPerPage = 10;
             var posts = postsByThisUser.ToList();
             PostsToDisplay = posts.Skip(numberOfObjectsPerPage * p)
-                .Take(numberOfObjectsPerPage);
+                .Take(numberOfObjectsPerPage).OrderBy(post => post.Timestamp);
             PostCount = posts.Count();
 
             // Set default value for textarea, Bio

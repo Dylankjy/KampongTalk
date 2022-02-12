@@ -96,12 +96,12 @@ namespace KampongTalk.Pages.Community
                 IsCurrentUserOwner = true;
 
             // Get posts in this community from database
-            var postsInThisCommunity = dbPost.All(new {InCommunity = ViewingCommunity.Cid});
+            var postsInThisCommunity = dbPost.All(new {InCommunity = ViewingCommunity.Cid, IsComment = 0});
 
             var numberOfObjectsPerPage = 10;
             var posts = postsInThisCommunity.ToList();
             PostsToDisplay = posts.Skip(numberOfObjectsPerPage * p)
-                .Take(numberOfObjectsPerPage);
+                .Take(numberOfObjectsPerPage).OrderBy(post => post.Timestamp);
             PostCount = posts.Count();
             
             // Set page number
