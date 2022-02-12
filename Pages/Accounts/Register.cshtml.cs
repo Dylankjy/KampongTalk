@@ -27,7 +27,6 @@ namespace KampongTalk.Pages.Accounts
         [BindProperty] public string NewUserPassword { get; set; }
 
         public string PasswordWarn { get; set; }
-            = LangDataStatic.accounts.register.passwordHint;
 
         public string PasswordInputClass { get; set; } = string.Empty;
         public string PhoneWarn { get; set; }
@@ -50,7 +49,10 @@ namespace KampongTalk.Pages.Accounts
             // Set language data
             LangData = Internationalisation.LoadLanguage(HttpContext.Request.GetTypedHeaders().AcceptLanguage
                 .First().ToString().Split("-").First());
-            LangDataStatic = LangData;
+            LangDataStatic = Internationalisation.LoadLanguage(HttpContext.Request.GetTypedHeaders().AcceptLanguage
+                .First().ToString().Split("-").First());
+
+            PasswordWarn = LangDataStatic.accounts.register.passwordHint;
 
             // And then show them the page
             // If verification is not yet done, the verification screen will show up
@@ -64,6 +66,7 @@ namespace KampongTalk.Pages.Accounts
             LangData = Internationalisation.LoadLanguage(HttpContext.Request.GetTypedHeaders().AcceptLanguage
                 .First().ToString().Split("-").First());
             LangDataStatic = LangData;
+            PasswordWarn = LangDataStatic.accounts.register.passwordHint;
             
             // Database declarations
             var dbActionLogs =
