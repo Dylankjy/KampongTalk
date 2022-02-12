@@ -340,7 +340,14 @@
     <div class="modal-content">
         <div class="card">
             <div class="card-content has-background-light">
-                <p class="title is-4"><i class="fa-solid fa-user-group"></i>&ensp;Your friends list</p>
+                @if (Model.IsCurrentUserOwnPage)
+                {
+                    <p class="title is-4"><i class="fa-solid fa-user-group"></i>&ensp;Your friends list</p>
+                }
+                else
+                {
+                    <p class="title is-4"><i class="fa-solid fa-user-group"></i>&ensp;Friends list of @Model.ViewingUser.Name</p>
+                }
             </div>
             
             @if (Model.FriendListPendingIncoming.Count != 0 && Model.IsCurrentUserOwnPage) {
@@ -401,7 +408,7 @@
             }
             
             @if (Model.FriendList.Count != 0) {
-                <div class="card-content pt-0">
+                <div class="card-content">
                     <p class="has-text-weight-bold">Friends — @Model.FriendList.Count user(s)</p>
                     @foreach (var user in Model.FriendList)
                     {
