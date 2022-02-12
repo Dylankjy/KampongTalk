@@ -188,6 +188,12 @@
       "selected": "Selected",
       "noSearchComms": "We couldn't find any communities with that name.",
       "noSuggComms": "There are no communities to display."
+    },
+    "detail": {
+      "replyToPost": "Reply to post...",
+      "sendReply": "Send Reply",
+      "noComms": "No comments have been left on this post."
+
     }
   },
 
