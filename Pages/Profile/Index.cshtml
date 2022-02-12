@@ -137,14 +137,14 @@
                         <hr/>
                         @{
                             if (Model.IsAccountPrivateAccessible || Model.IsCurrentUserOwnPage)
-                            if (Model.ViewingUser.Bio != null)
-                            {
-                                <div>
-                                    <h3 class="title is-5 has-text-page-color">About me</h3>
-                                    <p style="hyphens: auto; overflow-wrap: break-word">@Model.ViewingUser.Bio</p>
-                                </div>
-                                <hr/>
-                            }
+                                if (Model.ViewingUser.Bio != null)
+                                {
+                                    <div>
+                                        <h3 class="title is-5 has-text-page-color">About me</h3>
+                                        <p style="hyphens: auto; overflow-wrap: break-word">@Model.ViewingUser.Bio</p>
+                                    </div>
+                                    <hr/>
+                                }
                         }
                         <div>
                             <div class="level">
@@ -260,17 +260,17 @@
                                 </div>
                             </div>
 
-                            <hr/>
+                            @* <hr/> *@
 
-                            <div class="field">
-                                <label class="label">Birthday</label>
-                                <div class="control has-icons-left">
-                                    <input class="input" type="date" asp-for="EditBirthday">
-                                    <span class="icon is-small is-left">
-                                        <i class="fas fa-birthday-cake"></i>
-                                    </span>
-                                </div>
-                            </div>
+                            @* <div class="field"> *@
+                            @*     <label class="label">Birthday</label> *@
+                            @*     <div class="control has-icons-left"> *@
+                            @*         <input class="input" type="date" asp-for="EditBirthday"> *@
+                            @*         <span class="icon is-small is-left"> *@
+                            @*             <i class="fas fa-birthday-cake"></i> *@
+                            @*         </span> *@
+                            @*     </div> *@
+                            @* </div> *@
                             <span class="buttons">
                                 <button class="mt-5 button is-primary" type="submit"><i class="fas fa-save"></i>&ensp;Save changes</button>
                             </span>
