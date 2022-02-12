@@ -17,8 +17,9 @@
                     <p class="has-text-centered is-size-4 has-text-weight-bold">@Model.LangData.board.createPost.writeNew</p>
 
                     <!--Content field-->
-                    <div class="field">
-                        <input class="textarea" placeholder="@Model.LangData.board.createPost.whatOnYourMind" type="text" asp-for="newPost.Content">
+                    <div class="field mt-2 mb-2 is-relative is-inline-block">
+                        <textarea id="contentInput" onkeyup="textCounter(); checkEmpty();" class="textarea is-fullwidth" style="width:600px;" placeholder="@Model.LangData.board.createPost.whatOnYourMind" type="text" asp-for="newPost.Content" maxlength="500"></textarea>
+                        <span id="wordCount" style="position:absolute; bottom:5px; right:10px" class="is-size-6 has-text-danger is-hidden"></span>
                     </div>
 
                     <!--Image preview-->
@@ -64,7 +65,7 @@
                     </div>
 
                     <div class="field is-grouped is-grouped-centered mt-5 mb-5">
-                        <button class="button is-fullwidth is-info" id="post_submit" type="submit" value="submit">@Model.LangData.board.createPost.post</button>
+                        <button class="button is-fullwidth is-info" id="post_submit" type="submit" value="submit" disabled>@Model.LangData.board.createPost.post</button>
                     </div>
                 </div>
                 <!-- END: Main Section -->
@@ -250,4 +251,35 @@
         document.getElementById("addCommunitySect").style.display = "none"
         document.getElementById("tagSect").style.display = "none";
     }
+
+    function textCounter() {
+        var counter = document.getElementById("wordCount");
+        var contentInput = document.getElementById("contentInput")
+        var maxLimit = 500
+        if (contentInput.value.length > maxLimit) {
+            contentInput.value = contentInput.value.substring(0, maxLimit);
+            return false;
+        } else {
+            if (maxLimit - contentInput.value.length < 100) {
+                counter.classList.remove("is-hidden")
+                counter.innerText = maxLimit - contentInput.value.length;
+            }
+            else {
+                counter.classList.add("is-hidden")
+            }
+            //console.log(maxLimit - contentInput.value.length)
+            //counter.innerText = maxLimit - contentInput.value.length;
+        }
+    }
+
+    function checkEmpty() {
+        console.log('here')
+        if ($("#contentInput").val().length != 0) {
+            $("#post_submit").attr('disabled', false)
+        }
+        else {
+            $("#post_submit").attr('disabled', true)
+        }
+    }
+
 </script>

@@ -36,8 +36,11 @@
                     </div>
                 </div>
             </a>
+
+            @if (UserApi.GetUserById(@Model.Author).Uid != Convert.ToInt64(ViewData["currentUid"]))
+            {
             <div class="level-right">
-                <div class="dropdown is-right">
+                <div class="dropdown is-right" onclick="this.classList.toggle('is-active');">
                     <div class="dropdown-trigger">
                         <button class="button is-white" aria-haspopup="true" aria-controls="dropdown-menu">
                             <span class="has-text-weight-bold">...</span>
@@ -48,7 +51,7 @@
                     </div>
                     <div class="dropdown-menu" id="dropdown-menu" role="menu">
                         <div class="dropdown-content">
-                            <a href="#" class="dropdown-item">
+                            <a href="/Dms/Dm?to=@UserApi.GetUserById(@Model.Author).Uid" class="dropdown-item">
                                 Message User
                             </a>
                             <a href="/Support" class="dropdown-item">
@@ -58,6 +61,7 @@
                     </div>
                 </div>
             </div>
+            }
         </div>
     </div>
     <div class="card-content">
@@ -66,7 +70,7 @@
         <div class="has-text-centered">
         @if (Model.AttachmentImg != null)
         {
-            <img id="attachmentImg" class="postImg mt-2 mb-2" src="~/imgs/@Model.AttachmentImg" onclick="expandImg(this)"/>
+            <img id="attachmentImg" class="postImg mt-2 mb-2" src="~/userdata/posts/@Model.AttachmentImg" onclick="expandImg(this)"/>
         }
         </div>
         <div class="has-text-grey-light minorInfo mt-2">

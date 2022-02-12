@@ -60,7 +60,7 @@
                 @if (Model.thisPost.AttachmentImg != null)
                 {
                     <br />
-                    <img id="attachmentImg" class="postImg has-text-centered" src="~/imgs/@Model.thisPost.AttachmentImg" onclick="expandImg(this)" />
+                    <img id="attachmentImg" class="postImg has-text-centered" src="~/userdata/posts/@Model.thisPost.AttachmentImg" onclick="expandImg(this)" />
                 }
                 <div class="has-text-grey-light minorInfo mt-2">
                     <span>@Model.thisPost.Timestamp.ToString("dd/MM/yy hh:mm tt")</span>

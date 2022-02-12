@@ -1,12 +1,4 @@
-﻿var dropdownList = document.getElementsByClassName("dropdown");
-    for (const d of dropdownList) {
-        d.addEventListener('click', function (event) {
-            event.stopPropagation();
-            d.classList.toggle('is-active');
-        });
-}
-
-function likePost(postSpan, likeBtn) {
+﻿function likePost(postSpan, likeBtn) {
     var Pid = postSpan.innerText
     console.log("frontend: " + Pid)
     $.ajax({

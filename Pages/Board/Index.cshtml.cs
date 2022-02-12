@@ -18,6 +18,8 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Mighty;
 using MoreLinq;
 using Newtonsoft.Json;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
 
 namespace KampongTalk.Pages.Board
 {
@@ -221,7 +223,8 @@ namespace KampongTalk.Pages.Board
 
                 if (postImg != null)
                 {
-                    var uploadFolder = Path.Combine(webHostEnvironment.ContentRootPath, "wwwroot/imgs");
+                    var uploadFolder = Path.Combine(webHostEnvironment.ContentRootPath, "wwwroot/userdata/posts");
+                    Debug.WriteLine(uploadFolder);
                     var extension = postImg.FileName.Split('.').Last();
                     var uniqueImgName = new IdGenerator(1).CreateId();
                     var attachmentImg = uniqueImgName + "." + extension;
@@ -230,6 +233,16 @@ namespace KampongTalk.Pages.Board
                     {
                         postImg.CopyTo(fileStream);
                     }
+
+                    //using (var image = Image.Load(filePath))
+                    //{
+                    //    var ratio = Convert.ToDouble(image.Height) / Convert.ToDouble(image.Width);
+                    //    var width = 384;
+                    //    var height = (int)Math.Round(384 * ratio, 0);
+                    //    image.Mutate(x => x.Resize(width, height));
+                    //    image.Save(uploadFolder);
+
+                    //}
 
                     newPost.AttachmentImg = attachmentImg;
                 }
@@ -242,8 +255,8 @@ namespace KampongTalk.Pages.Board
                 {
                     postDB.Insert(newPost);
                     
-                    //SearchApi.PutKeyword(CurrentUser.Name, 5, newPost.Pid);
-                    //SearchApi.PutRelevancy(newPost.Content, newPost.Pid);
+                    SearchApi.PutKeyword(CurrentUser.Name, 5, newPost.Pid);
+                    SearchApi.PutRelevancy(newPost.Content, newPost.Pid);
                 }
                 catch
                 {
