@@ -30,9 +30,9 @@
                     <span class="has-text-weight-bold is-size-5">@Model.author.Name</span><span class="is-size-6 has-text-grey ml-2" style="margin-top: -1.5rem">&#64;@Model.author.Uid2</span>
                     @if (Model.thisPost.InCommunity != null)
                     {
-                    <p style="line-height: 60%;">
-                        <span class="minorInfo" id="InCommunitySpan"> In <a href="/Community?c=@Model.thisPost.InCommunity">@CommunityApi.GetCommunityById(@Model.thisPost.InCommunity).Name</a></span>
-                    </p>
+                        <p style="line-height: 60%;">
+                            <span class="minorInfo" id="InCommunitySpan"> In <a href="/Community?c=@Model.thisPost.InCommunity">@CommunityApi.GetCommunityById(@Model.thisPost.InCommunity).Name</a></span>
+                        </p>
                     }
                 </div>
 
@@ -56,7 +56,8 @@
 
                 @if (Model.thisPost.AttachmentImg != null)
                 {
-                    <img id="attachmentImg" class="postImg has-text-centered" src="~/imgs/@Model.thisPost.AttachmentImg" />
+                    <br />
+                    <img id="attachmentImg" class="postImg has-text-centered" src="~/imgs/@Model.thisPost.AttachmentImg" onclick="expandImg(this)" />
                 }
                 <div class="has-text-grey-light minorInfo mt-2">
                     <span>@Model.thisPost.Timestamp.ToString("dd/MM/yy hh:mm tt")</span>
@@ -137,6 +138,18 @@
 
 </div>
 
+<!--Image modal-->
+<div class="modal is-active" id="ImageModal" style="display: none;">
+    <div class="modal-background" onclick="$('#ImageModal').fadeOut('fast');toMainSect();"></div>
+    <br />
+    <div class="modal-content mt-6">
+        <div class="box has-text-centered">
+            <img id="imgInModal" />
+        </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close" onclick="$('#ImageModal').fadeOut('fast');toMainSect();"></button>
+</div>
+
 
 
 <script>
@@ -172,6 +185,12 @@
             }
 
         })
+    }
+
+    function expandImg(img) {
+        var imgSrc = img.src
+        document.getElementById("ImageModal").style.display = "block"
+        document.getElementById("imgInModal").src = imgSrc
     }
 </script>
 

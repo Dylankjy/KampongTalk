@@ -193,3 +193,8 @@
     object-position: center;
     border: 2px solid #dbdbdb;
 }
+
+.postImg:hover {
+    filter: brightness(70%);
+    border: 2px solid white;
+}
