@@ -27,27 +27,6 @@ body{
 }
 
 .expandDiv:hover {
-    transform: scale(1.1);
+    transform: scale(103%);
     filter: brightness(80%);
 }
-/*
-.iconLabelEnt {
-    font-weight: bold;
-    color: #FF6E17;
-}
-
-.iconLabelSoc {
-    font-weight: bold;
-    color: #5AADF7;
-}
-
-.iconLabelHelp {
-    font-weight: bold;
-    color: #086D54;
-}
-
-.iconLabelMe {
-    font-weight: bold;
-    color: #880837;
-}
-*/
