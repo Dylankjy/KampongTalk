@@ -23,14 +23,17 @@
             <div class="box mt-3">
 
                 <div class="userPFP"
-                     style="background-image: url('/imgs/@Model.author.AvatarImg')">
+                     style="background-image: url('/userdata/@Model.author.AvatarImg')">
+
                 </div>
                 <div class="postPriInfo">
-                    <span class="has-text-weight-bold is-size-5">@Model.author.Name</span>
-                    <p style="line-height: 60%;">
-                        <span class="minorInfo" id="InCommunitySpan"> In <a>Community</a></span>
-                        <span class="minorInfo" id="taggedUsersSpan">&bull; Tagged <a>User1</a>, <a>User2</a></span>
-                    </p>
+                    <span class="has-text-weight-bold is-size-5">@Model.author.Name</span><span class="is-size-6 has-text-grey ml-2" style="margin-top: -1.5rem">&#64;@Model.author.Uid2</span>
+                    @if (Model.thisPost.InCommunity != null)
+                    {
+                        <p style="line-height: 60%;">
+                            <span class="minorInfo" id="InCommunitySpan"> In <a href="/Community?c=@Model.thisPost.InCommunity">@CommunityApi.GetCommunityById(@Model.thisPost.InCommunity).Name</a></span>
+                        </p>
+                    }
                 </div>
 
                 <p class="mt-3 is-size-5">
@@ -53,29 +56,30 @@
 
                 @if (Model.thisPost.AttachmentImg != null)
                 {
-                    <img id="attachmentImg" class="postImg has-text-centered" src="~/imgs/@Model.thisPost.AttachmentImg" />
+                    <br />
+                    <img id="attachmentImg" class="postImg has-text-centered" src="~/imgs/@Model.thisPost.AttachmentImg" onclick="expandImg(this)" />
                 }
                 <div class="has-text-grey-light minorInfo mt-2">
-                    <span>@Model.thisPost.Timestamp</span>
+                    <span>@Model.thisPost.Timestamp.ToString("dd/MM/yy hh:mm tt")</span>
                 </div>
 
             </div>
 
             <div class="box">
-                <p class="has-text-weight-bold is-size-4">Comments</p>
+                <p class="has-text-weight-bold is-size-4">Replies</p>
 
                 <form asp-page-handler="comment" method="post" enctype="multipart/form-data">
 
                     <div class="field has-addons">
                         <div class="control is-expanded has-icons-left">
-                            <input class="input" type="text" asp-for="newComment.Content" placeholder="Leave a comment..." />
+                            <input class="input" type="text" asp-for="newComment.Content" placeholder="Reply to post..." />
                             <span class="icon is-small is-left">
                                 <i class="fas fa-comment-dots mr-2"></i>
                             </span>
                         </div>
                         <input asp-for="newComment.IsComment" value="@Model.thisPost.Pid" class="is-hidden" />
                         <div class="control">
-                            <button class="button is-primary" type="submit">Comment</button>
+                            <button class="button is-primary" type="submit">Send Reply</button>
                         </div>
                     </div>
                 </form>
@@ -86,13 +90,13 @@
                     <article class="media p-2">
                         <figure class="media-left">
                             <div class="userPFP"
-                                 style="background-image: url('/imgs/@comment.UserPfp')">
+                                 style="background-image: url('/userdata/@comment.UserPfp')">
                             </div>
                         </figure>
                         <div class="media-content">
                             <div class="content is-size-6">
                                 <p>
-                                    <strong>@comment.UserName</strong>
+                                    <strong>@comment.UserName</strong><span class="is-size-6 has-text-grey ml-2" style="margin-top: -1.5rem">&#64;@Model.author.Uid2</span>
                                     <br>
                                     @comment.Content
                                     <br>
@@ -134,6 +138,18 @@
 
 </div>
 
+<!--Image modal-->
+<div class="modal is-active" id="ImageModal" style="display: none;">
+    <div class="modal-background" onclick="$('#ImageModal').fadeOut('fast');toMainSect();"></div>
+    <br />
+    <div class="modal-content mt-6">
+        <div class="box has-text-centered">
+            <img id="imgInModal" />
+        </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close" onclick="$('#ImageModal').fadeOut('fast');toMainSect();"></button>
+</div>
+
 
 
 <script>
@@ -169,6 +185,12 @@
             }
 
         })
+    }
+
+    function expandImg(img) {
+        var imgSrc = img.src
+        document.getElementById("ImageModal").style.display = "block"
+        document.getElementById("imgInModal").src = imgSrc
     }
 </script>
 

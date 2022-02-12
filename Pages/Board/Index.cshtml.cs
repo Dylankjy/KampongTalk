@@ -82,39 +82,39 @@ namespace KampongTalk.Pages.Board
         //    return Redirect("/Board/All");
         //}
 
-        public bool needLogin()
+        public IActionResult OnGet()
         {
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
             if (CurrentUser == null)
             {
-                return true;
+                return Redirect("/Accounts/Login");
             }
-            PrevPostDiv = HttpContext.Session.GetString("PostDivID"); 
-            return false;
-
-        }
-
-        public IActionResult OnGet()
-        {
-            if (needLogin()) return Redirect("/Accounts/Login");
+  
             //postType = "";
             HttpContext.Session.SetString("PostPage", "1");
             PostsToDisplay = GetPosts("");
             GetPopularCommunities();
             GetPopularEvents();
 
+            PrevPostDiv = HttpContext.Session.GetString("PostDivID");
             return Page();
         }
 
         public IActionResult OnGetFriends()
         {
-            if (needLogin()) return Redirect("/Accounts/Login");
+            CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
+            if (CurrentUser == null)
+            {
+                return Redirect("/Accounts/Login");
+            }
+
             //postType = "Friends";
             HttpContext.Session.SetString("PostPage", "1");
             PostsToDisplay = GetPosts("Friends");
             GetPopularCommunities();
             GetPopularEvents();
 
+            PrevPostDiv = HttpContext.Session.GetString("PostDivID");
             return Page();
         }
 
@@ -198,14 +198,25 @@ namespace KampongTalk.Pages.Board
 
         public IActionResult OnPost()
         {
+            CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
+            if (CurrentUser == null)
+            {
+                return Redirect("/Accounts/Login");
+            }
 
             if (CurrentUser != null && ModelState.IsValid)
             {
-                CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
                 newPost.Author = CurrentUser.Uid;
                 newPost.Timestamp = DateTime.Now;
-                var cid = communitiesDB.Single($"Name = '{newPost.InCommunity}'");
-                newPost.InCommunity = cid.Cid;
+                try
+                {
+                    var cid = communitiesDB.Single($"Name = '{newPost.InCommunity}'");
+                    newPost.InCommunity = cid.Cid;
+                }
+                catch
+                {
+                    newPost.InCommunity = null;
+                }
 
                 if (postImg != null)
                 {
@@ -225,6 +236,7 @@ namespace KampongTalk.Pages.Board
                 {
                     newPost.AttachmentImg = null;
                 }
+
                 try
                 {
                     postDB.Insert(newPost);
@@ -234,7 +246,7 @@ namespace KampongTalk.Pages.Board
                 }
                 catch
                 {
-
+                    
                 }
 
                 return Redirect("/Board");

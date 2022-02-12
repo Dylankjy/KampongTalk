@@ -13,7 +13,7 @@
         ViewData["Title"] = "404: Community not found";
     }
 
-    // ViewData["currentUid"] = Model.CurrentUser.Uid;
+    ViewData["currentUid"] = Model.CurrentUser.Uid;
 }
 
 <section id="profileHeader" class="hero has-background-primary-dark is-dark">
@@ -127,7 +127,7 @@
                                     }
                                     else
                                     {
-                                        <partial name="Partials/_Post" model="post" view-data="ViewData"/>
+                                        <partial name="Partials/_Post" model="post" view-data="ViewData" />
                                     }
                                 }
 
@@ -163,7 +163,7 @@
                         </div>
 
                         <form id="communityEditForm" method="post" enctype="multipart/form-data" style="margin-top: 6rem">
-                            <input accept="image/png, image/jpg" type="file" asp-for="IconImage" id="iconUploadField" style="opacity: 0; height: 0; width: 0"/>
+                            <input accept="image/png, image/jpg" type="file" asp-for="IconImage" id="iconUploadField" style="opacity: 0; height: 0; width: 0" />
                             <div class="field">
                                 <label class="label">Community Name</label>
                                 <div class="control has-icons-left">
@@ -207,6 +207,18 @@
     }
 }
 
+<!--Image modal-->
+<div class="modal is-active" id="ImageModal" style="display: none;">
+    <div class="modal-background" onclick="$('#ImageModal').fadeOut('fast');toMainSect();"></div>
+    <br />
+    <div class="modal-content mt-6">
+        <div class="box has-text-centered">
+            <img id="imgInModal" />
+        </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close" onclick="$('#ImageModal').fadeOut('fast');toMainSect();"></button>
+</div>
+
 <script>
     $("#iconUploadField").on('change', () => {
         $("#communityEditForm").submit()
@@ -220,19 +232,19 @@
             #iconImage, .community-icon-small {
                 background: url('/userdata/communities/@Model.ViewingCommunity.IconImg') center no-repeat; background-size: cover
             }
-            
+
             #profileHeader, .card-hero-community {
                 background-color: rgb(var(--page-theme-color)) !important;
             }
-            
+
             .has-text-page-color {
                 color: rgb(var(--page-theme-color));
             }
-            
+
             .has-text-page-color-light {
                 color: rgb(var(--page-theme-color-light));
             }
-            
+
         </style>
 
         <script>

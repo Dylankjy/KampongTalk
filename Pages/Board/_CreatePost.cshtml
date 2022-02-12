@@ -61,15 +61,6 @@
                             </button>
                         </p>
 
-                        <!--Tag users-->
-                        <p class="control">
-                            <button class="button" type="button" onclick="showSect('tagSect')">
-                                <span class="icon">
-                                    <i class="fas fa-user-friends"></i>
-                                </span>
-                                <span>Tag Users</span>
-                            </button>
-                        </p>
                     </div>
 
                     <div class="field is-grouped is-grouped-centered mt-5 mb-5">
@@ -126,57 +117,6 @@
 
                 </div>
                 <!-- END: Add Communities Section -->
-                <!-- START: Tag Users Section -->
-                <div id="tagSect" style="display: none;">
-
-                    <div class="has-text-left is-size-4 mt-0 p-0">
-                        <i class="fas fa-arrow-left" onclick="toMainSect()" style="cursor: pointer;"></i>
-                    </div>
-
-                    <p class="has-text-centered is-size-4 has-text-weight-bold">Tag Users</p>
-                    <div id="chosenUsers" class="has-text-centered">
-                        Tagged:
-                        <span class="tag is-success is-medium">
-                            John Doe
-                            <i class="fas fa-times-circle ml-3" style="cursor: pointer;"></i>
-                        </span>
-                    </div>
-                    <br />
-                    <!--Tag up to 5 users-->
-                    <!--Search-->
-
-                    <div class="field has-addons has-addons-centered">
-                        <div class="control has-icons-left">
-                            <input class="input" type="text" placeholder="Find users">
-                            <span class="icon is-left">
-                                <i class="fas fa-search" aria-hidden="true"></i>
-                            </span>
-                        </div>
-                        <div class="control">
-                            <a class="button is-info">
-                                Search
-                            </a>
-                        </div>
-                    </div>
-
-                    <br />
-                    <div id="userSearchResults">
-
-                    </div>
-                    <div id="friends">
-                        <p class="has-text-centered">FRIENDS</p>
-                        <div style="overflow-y: auto; height: 40vh;" class="pl-2 pr-2">
-                            <ul>
-                                <!--Foreach-->
-                                <hr />
-                                <li>Friend 1 <button class="button is-link is-outlined is-pulled-right" type="button">Tag</button></li>
-
-                            </ul>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- END: Tag Users Section -->
 
             </form>
 

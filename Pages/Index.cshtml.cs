@@ -1,5 +1,6 @@
 ﻿using KampongTalk.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Mighty;
@@ -20,7 +21,9 @@ namespace KampongTalk.Pages
 
         public string textSize { get; set; }
 
-        public void OnGet()
+        public bool useAudioCues { get; set; }
+
+        public IActionResult OnGet()
         {
             // Create User here (DONT SPECIFY Uid in MightyOrm Constructor here)
             // user = new User()
@@ -49,11 +52,17 @@ namespace KampongTalk.Pages
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
             if (CurrentUser == null)
             {
-                CurrentUser = new User();
+                //CurrentUser = new User();
+                return Redirect("/Accounts/Login");
             }
-         
+            var preferencesDB = new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"], "UserPreferences");
+
+            var uid = CurrentUser.Uid;
+            dynamic loggedInUserPrefs = preferencesDB.Single($"Uid = {uid}");
+            useAudioCues = loggedInUserPrefs.UseAudioCues;
 
             textSize = "larger";
+            return Page();
         }
     }
 }

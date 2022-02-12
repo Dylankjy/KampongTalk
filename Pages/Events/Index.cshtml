@@ -8,6 +8,12 @@
 {
     <main id="index-section" class="section">
         <div class="container market-listing-container">
+            <span class="has-text-weight-bold is-size-2 mb-6" data-intro="Explore fun and engaging community-hosted events here">Explore Events</span>
+                <a href="/Events/Create" class="button is-medium is-info is-pulled-right mr-4"
+                   data-title="Create an Event" data-intro="Click here to make your own event"> Create an Event </a>
+                <a href="/Events/MyEvents" class="button is-medium is-info is-pulled-right mr-4"
+                   data-title="My Events" data-intro="Here you can view the events you signed up for, past events, and created events."> My Events </a>
+            <br /><br />
             <div class="columns is-multiline is-variable is-5" id="displayedListings">
                 @foreach (var myEvent in Model.allEvents)
                 {
@@ -32,3 +38,10 @@ else
 {
     <h1>There are no events now</h1>
 }
+
+
+<script defer>
+    if (window.location.hash === '#walkthrough') {
+        introJs().start()
+    }
+</script>

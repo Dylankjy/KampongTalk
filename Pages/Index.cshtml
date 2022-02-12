@@ -1,5 +1,6 @@
 ﻿@page
 @model IndexModel
+@inject Tools.IUserAttributes UserAttributes
 @{
     ViewData["Title"] = "Home page";
 }
@@ -19,8 +20,8 @@
         <!-- START: Main Column -->
         <div class="column is-four-fifths-desktop" data-title="Welcome to KampongTalk's map." data-intro="This is where you can access all the features of KampongTalk.">
             @*<div class="container mb-3 has-text-centered">
-            <h1 class="subtitle has-text-weight-bold">Welcome to Kampong Talk</h1>
-        </div>*@
+                    <h1 class="subtitle has-text-weight-bold">Welcome to Kampong Talk</h1>
+                </div>*@
 
             <!-- START: KT Nav Map-->
             <div class="container has-text-centered" style="position:relative;">
@@ -45,7 +46,7 @@
 
                 <!-- VoidDeckIcon -->
                 <a href="/DigitalVoidDeck/Lobby">
-                    <div class="iconDiv expandDiv" style="top:0vh; left:51vw;" data-title="Void Deck" data-intro="Find and meet new people around your neighbourhood.">
+                    <div class="iconDiv expandDiv" style="top:0vh; left:51vw;" data-title="Void Deck" data-intro="Find and meet new people in your neighbourhood.">
                         <img src="~/imgs/NavMap/Void_Deck.png" class="navMapIcon" />
                         <p><span class="tag is-dark is-large has-text-weight-bold">Void Deck</span></p>
                     </div>
@@ -70,7 +71,7 @@
 
                 <!-- EventsIcon -->
                 <a href="/Events">
-                    <div class="iconDiv expandDiv" style="top:38vh; left:40vw;" data-title="Events" data-intro="Looking for a way to pass the time? Find engaging community-hosted events here.">
+                    <div class="iconDiv expandDiv" style="top:38vh; left:40vw;" data-title="Events" data-intro="Looking for a way to pass the time? Browse and create engaging events here.">
                         <img src="~/imgs/NavMap/Events_Icon.png" class="navMapIcon" style="height:25vh;" />
                         <p><span class="tag is-dark is-large has-text-weight-bold">Events</span></p>
 
@@ -102,7 +103,7 @@
                 </div>
                 <br />
 
-                <div class="has-text-centered expandDiv" data-title="Profile" data-intro="Change your profile settings here.">
+                <div class="has-text-centered expandDiv" data-title="Profile" data-intro="View and customise your profile here.">
                     <a href="/Profile?u=@Model.CurrentUser.Uid2">
                         <button class="button is-large is-primary">
                             <span class="icon is-medium">
@@ -111,18 +112,6 @@
                         </button>
                     </a>
                     <p class="has-text-weight-bold">Profile</p>
-                </div>
-                <br />
-
-                <div class="has-text-centered expandDiv" data-title="My Events" data-intro="Access the events you signed up for, or create your own event.">
-                    <a href="/Events/MyEvents">
-                        <button class="button is-large is-primary">
-                            <span class="icon is-medium">
-                                <i class="fas fa-calendar-week"></i>
-                            </span>
-                        </button>
-                    </a>
-                    <p class="has-text-weight-bold">My Events</p>
                 </div>
                 <br />
 
@@ -152,7 +141,7 @@
 
             </div>
         </div>
-        </div>
+    </div>
 </section>
 
 <section class="section" id="halfview">
@@ -189,18 +178,15 @@
     <aside class="menu">
 
         @*<p class="menu-label">
-            Community
-        </p>
-        <ul class="menu-list">
-            <li><a>Board</a></li>
-            <li><a>Communities</a></li>
-            <li><a>Void Deck</a></li>
-            <li><a>Events</a></li>
-        </ul>
-        <br />*@
-        <ul class="menu-list">
-            <li><a href="/Events/MyEvents">My Events</a></li>
-        </ul>
+                Community
+            </p>
+            <ul class="menu-list">
+                <li><a>Board</a></li>
+                <li><a>Communities</a></li>
+                <li><a>Void Deck</a></li>
+                <li><a>Events</a></li>
+            </ul>
+            <br />*@
 
         <p class="menu-label">
             Social
@@ -232,28 +218,8 @@
 
 <script>
     $(document).ready(function () {
-        
+
         adjustView()
-        var icons = document.getElementsByClassName('navMapIcon');
-        var chime = document.getElementById('chime');
-        /*chime.volume = 0.5;*/
-        var audios = document.querySelectorAll('audio');
-
-        var playAudio = function () {
-            [].forEach.call(audios, function (audio) {
-                audio.play();
-            });
-        }
-
-        var stopAudio = function () {
-            chime.pause();
-            chime.currentTime = 0;
-        }
-
-        for (var i = 0; i < icons.length; i++) {
-            icons[i].addEventListener('mouseover', playAudio, false);
-            icons[i].addEventListener('mouseleave', stopAudio, false);
-        }
     })
 
     window.addEventListener("resize", adjustView)
@@ -272,6 +238,38 @@
     }
 
 </script>
+
+@if (Model.useAudioCues)
+{
+    <script>
+
+        $(document).ready(function () {
+
+            var icons = document.getElementsByClassName('navMapIcon');
+            var chime = document.getElementById('chime');
+            /*chime.volume = 0.5;*/
+            var audios = document.querySelectorAll('audio');
+
+            var playAudio = function () {
+                [].forEach.call(audios, function (audio) {
+                    audio.play();
+                });
+            }
+
+            var stopAudio = function () {
+                chime.pause();
+                chime.currentTime = 0;
+            }
+
+            for (var i = 0; i < icons.length; i++) {
+                icons[i].addEventListener('mouseover', playAudio, false);
+                icons[i].addEventListener('mouseleave', stopAudio, false);
+            }
+        })
+
+    </script>
+
+}
 
 <script defer>
     if (window.location.hash === '#walkthrough') {
