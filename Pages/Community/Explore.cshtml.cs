@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using KampongTalk.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Mighty;
 
@@ -14,12 +15,21 @@ namespace KampongTalk.Pages.Community
         public dynamic CommToDisplay { get; set; }
         public dynamic CommToDisplayByPopularity { get; set; }
 
+        // Database declarations
+        public static MightyOrm dbCommunities { get; set; } =
+           new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"], "Communities");
+
+        // Current user prop
+        public User CurrentUser { get; set; }
+
+        public dynamic myCommunity { get; set; }
+
         public void OnGet(int p)
         {
             // Database declarations
-            var dbCommunities =
-                new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
-                    "Communities");
+            //var dbCommunities =
+            //    new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
+            //        "Communities");
 
             // Get posts by this user from database
             var communities = dbCommunities.All().Reverse();
@@ -46,8 +56,22 @@ namespace KampongTalk.Pages.Community
             }
 
             CommToDisplayByPopularity = communityByPopularity.OrderBy(i => i.NumberOfPosts).Reverse().ToList();
+            GetMyCommunity();
+        }
+
+        public void GetMyCommunity()
+        {
+            // Get current user
+            CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
+            try
+            {
+                myCommunity = dbCommunities.Single(new { CreatorId = CurrentUser.Uid });
+            }
+            catch { }
+           
         }
     }
+
 
     public class CommunityPopular
     {

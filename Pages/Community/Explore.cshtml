@@ -7,8 +7,24 @@
 
 <section class="section">
     <div class="container">
-        <h1 class="title">Explore community</h1>
-        <h2 class="title is-5">Popular communities</h2>
+        <h1 class="title">Explore communities</h1>
+
+        <div>
+            @if (Model.myCommunity == null)
+            {
+                <a href="/Community/New" class="button is-medium is-primary" data-title="Create your own community" data-intro="If your ideal community does not exist yet, you could start your own."><i class="fa-solid fa-plus"></i>&emsp;Create Community</a>
+            }
+            else
+            {
+                <div class="buttons has-addons" data-title="My Community" data-intro="View your community's details here.'">
+                    <button class="button is-medium is-static">My Community</button>
+                    <a href="/Community?c=@Model.myCommunity.Cid" class="button is-medium is-primary">@Model.myCommunity.Name</a>
+                </div>
+            }
+        </div>
+        <br />
+        <h2 class="title is-5" data-title="Popular communities" data-intro="Browse the most popular communities on KampongTalk.">Popular communities</h2>
+
         @{
             foreach (var community in Model.CommToDisplayByPopularity)
             {
@@ -35,3 +51,9 @@
         }
     </div>
 </section>
+
+<script defer>
+    if (window.location.hash === '#walkthrough') {
+        introJs().start()
+    }
+</script>
