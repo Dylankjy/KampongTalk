@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using KampongTalk.Models;
 using Microsoft.AspNetCore.Http;
@@ -46,6 +47,9 @@ namespace KampongTalk.Pages.Settings
         [BindProperty] public string NewPassword { get; set; }
         public string ShowNewPasswordErrorClass { get; set; }
         public bool ShowNewPasswordError { get; set; }
+
+        // Private profile prop
+        [BindProperty] public bool IsPrivateProfile { get; set; }
         
         // Modal auto open prop
         public string AutoOpenModalId { get; set; }
@@ -189,7 +193,6 @@ namespace KampongTalk.Pages.Settings
                 // Make sure session and database are in sync
                 CurrentUser.Password = currentUserFromDb.Password;
                 
-                
                 // If password is wrong
                 if (!CurrentUser.ComparePassword(IncomingPassword))
                 {
@@ -214,6 +217,15 @@ namespace KampongTalk.Pages.Settings
                 HttpContext.Session.SetString("CurrentUser", CurrentUser.ToJson());
 
                 return Page();
+            }
+
+            if (ForForm == "PRIVACY_CHANGE")
+            {
+                var currentUserPref = prefDb.Single(new {CurrentUser.Uid});
+                Console.WriteLine(IsPrivateProfile);
+                currentUserPref.IsPublic = !IsPrivateProfile;
+
+                prefDb.Update(currentUserPref);
             }
             
             return Page();

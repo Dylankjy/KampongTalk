@@ -43,7 +43,9 @@
 
                 <div class="account-detail-field">
                     <small class="has-text-weight-bold">Password</small>
-                    <p>Your password was last changed on {{}}</p>
+                    <p>
+                        Change your password often to keep your account secure.
+                    </p>
                 </div>
                 @* <div class="account-detail-field"> *@
                 @*     <small class="has-text-weight-bold">Preferred Login Method</small> *@
@@ -53,10 +55,24 @@
                 <hr/>
                 <div class="account-detail-field">
                     <small class="has-text-weight-bold">Profile Visibility</small>
-                    <p>Your account is private</p>
-                    <small class="has-text-grey has-text-weight-normal">Your profile page can only be viewed by your friends.</small>
+                    <p>
+                        Your account is
+                        @if (Model.IsPrivateProfile)
+                        {
+                            <span>private.</span>
+                            <br/>
+                            <small class="has-text-grey has-text-weight-normal">Your profile page can only be viewed by your friends.</small>
+                        }
+                        else
+                        {
+                            <span>public.</span>
+                            <br/>
+                            <small class="has-text-grey has-text-weight-normal">Your profile page can be viewed by anyone.</small>
+                        }
+
+                    </p>
                 </div>
-                <a class="button is-dark mt-4"><i class="fas fa-arrow-right"></i>&ensp;Change profile privacy</a>
+                <a class="button is-dark mt-4" onclick="$('#changePrivacyModal').fadeIn('fast');"><i class="fas fa-arrow-right"></i>&ensp;Change profile privacy</a>
             </div>
         </div>
 
@@ -243,6 +259,43 @@
         </div>
     </div>
     <button id="changePasswordModalCloseBtn" onclick="$('#changePasswordModal').fadeOut('fast')" class="modal-close is-large" aria-label="close"></button>
+</div>
+
+<div id="changePrivacyModal" class="modal is-active" style="display: none">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <div class="card">
+            <div class="card-content has-background-light">
+                <p class="title is-4"><i class="fa-solid fa-key"></i>&ensp;Profile privacy</p>
+            </div>
+            <div class="card-content has-background-info-light has-text-info-dark">
+                <p class="title has-text-info-dark is-5 mb-2"><i class="fa-solid fa-circle-info"></i>&ensp;What is a private profile?</p>
+                <div class="content">
+                    <p>When you set your profile to private,</p>
+                    <ul>
+                        <li>Only your friends can see your profile page and posts published on your profile.</li>
+                        <li>Posts to communities will still remain public.</li>
+                        <li>Your friend list will only be viewable by you and your friends.</li>
+                        <li>You will need to add users as friends to give them access to your profile page.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-content">
+                <form autocomplete="off" method="post">
+                    <input value="PRIVACY_CHANGE" asp-for="ForForm" type="hidden"/>
+                    <div class="field">
+                        <label class="checkbox">
+                            @Html.CheckBox("IsPrivateProfile", Model.IsPrivateProfile)
+                            Make this profile private
+                        </label>
+                    </div>
+                    <br/>
+                    <button class="button is-primary"><i class="fas fa-arrow-right"></i>&ensp;Save changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <button id="changePrivacyCloseBtn" onclick="$('#changePrivacyModal').fadeOut('fast')" class="modal-close is-large" aria-label="close"></button>
 </div>
 
 
