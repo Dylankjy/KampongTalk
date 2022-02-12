@@ -14,11 +14,11 @@
                     <div class="has-text-right is-size-4 mt-0 p-0">
                         <i class="fas fa-times-circle" onclick="$('#CreatePostModal').fadeOut('fast');toMainSect();" style="cursor: pointer;"></i>
                     </div>
-                    <p class="has-text-centered is-size-4 has-text-weight-bold">Write A New Post</p>
+                    <p class="has-text-centered is-size-4 has-text-weight-bold">@Model.LangData.board.createPost.writeNew</p>
 
                     <!--Content field-->
                     <div class="field">
-                        <input class="textarea" placeholder="What's on your mind?" type="text" asp-for="newPost.Content">
+                        <input class="textarea" placeholder="@Model.LangData.board.createPost.whatOnYourMind" type="text" asp-for="newPost.Content">
                     </div>
 
                     <!--Image preview-->
@@ -41,7 +41,7 @@
                                 <span class="icon">
                                     <i class="fas fa-image"></i>
                                 </span>
-                                <span>Add Image</span>
+                                <span>@Model.LangData.board.createPost.addImage</span>
                             </button>
                             <input id="postImg" class="file-input" type="file" accept="image/x-png,image/jpeg" asp-for="postImg" hidden>
                         </p>
@@ -57,14 +57,14 @@
                                 <span class="icon">
                                     <i class="fas fa-building"></i>
                                 </span>
-                                <span>Choose A Community</span>
+                                <span>@Model.LangData.board.createPost.chooseComm</span>
                             </button>
                         </p>
 
                     </div>
 
                     <div class="field is-grouped is-grouped-centered mt-5 mb-5">
-                        <button class="button is-fullwidth is-info" id="post_submit" type="submit" value="submit">Post</button>
+                        <button class="button is-fullwidth is-info" id="post_submit" type="submit" value="submit">@Model.LangData.board.createPost.post</button>
                     </div>
                 </div>
                 <!-- END: Main Section -->
@@ -77,9 +77,10 @@
                         <i class="fas fa-arrow-left" onclick="toMainSect()" style="cursor: pointer;"></i>
                     </div>
 
-                    <p class="has-text-centered is-size-4 has-text-weight-bold">Choose A Community</p>
+                    <p class="has-text-centered is-size-4 has-text-weight-bold">@Model.LangData.board.createPost.chooseComm</p>
+
                     <div id="chosenCommTag" class="has-text-centered is-hidden">
-                        Chosen Community:
+                        @Model.LangData.board.createPost.chosenComm
                         <span class="tag is-success is-medium" id="chosenCommTagText">
                             <i class="fas fa-times-circle ml-3" style="cursor: pointer;" onclick="removeComm()"></i>
                         </span>
@@ -87,30 +88,30 @@
                     <br />
                     <!--Add info tooltip-->
                     <!--Search-->
-                        <div class="field has-addons has-addons-centered">
-                            <div class="control has-icons-left">
-                                <input id="communitySearch" class="input" type="text" placeholder="Find a community">
-                                <span class="icon is-left">
-                                    <i class="fas fa-search" aria-hidden="true"></i>
-                                </span>
-                            </div>
-                            <div class="control">
-                                <button class="button is-info" type="button" onclick="searchComms()">
-                                    Search
-                                </button>
-                            </div>
+                    <div class="field has-addons has-addons-centered">
+                        <div class="control has-icons-left">
+                            <input id="communitySearch" class="input" type="text" placeholder="@Model.LangData.board.createPost.findComm">
+                            <span class="icon is-left">
+                                <i class="fas fa-search" aria-hidden="true"></i>
+                            </span>
                         </div>
+                        <div class="control">
+                            <button class="button is-info" type="button" onclick="searchComms()">
+                                @Model.LangData.board.createPost.search
+                            </button>
+                        </div>
+                    </div>
 
                     <br />
                     <div id="commSearchResults">
                     </div>
                     <div id="suggestedCommsSect">
-                        <p class="has-text-centered">SUGGESTED COMMUNITIES</p>
+                        <p class="has-text-centered">@Model.LangData.board.createPost.suggComms</p>
                         <div style="overflow-y: auto; height: 40vh;" class="pl-2 pr-2">
                             <ul id="suggestedComms">
                                 <!--Foreach-->
                                 @*<hr/>*@
-                                <li><hr />There are no communities to display.</li>
+                                <li><hr />@Model.LangData.board.createPost.noSuggComms</li>
                             </ul>
                         </div>
                     </div>
@@ -146,7 +147,7 @@
                 var suggestedCommsUL = $("#suggestedComms")
                 suggestedCommsUL.empty();
                 $.each(response, function (i, item) {
-                    $("#suggestedComms").append("<li><hr />" + item + '<button class="button is-link is-outlined is-pulled-right commButton" type="button" onclick="selectComms(this)">Select</button></li>')
+                    $("#suggestedComms").append("<li><hr />" + item + '<button class="button is-link is-outlined is-pulled-right commButton" type="button" onclick="selectComms(this)">@Model.LangData.board.createPost.select</button></li>')
                 })
 
 
@@ -176,13 +177,13 @@
             },
             success: function (response) {
                 var searchResultsDiv = document.getElementById("commSearchResults")
-                
+
                 if (response == "") {
-                    searchResultsDiv.innerHTML = "<p class='has-text-centered'>We couldn't find any communities with that name.</p><br>"
+                    searchResultsDiv.innerHTML = "<p class='has-text-centered'>@Model.LangData.board.createPost.noSearchComms</p><br>"
                 }
                 else {
-                    searchResultsDiv.innerHTML = '<p class="has-text-centered">Search Results</p>' + 
-                        "<ul><li><hr />" + response + '<button class="button is-link is-outlined is-pulled-right commButton" type="button" onclick="selectComms(this)">Select</button></li></ul><br>'
+                    searchResultsDiv.innerHTML = '<p class="has-text-centered">@Model.LangData.board.createPost.searchrs</p>' +
+                        "<ul><li><hr />" + response + '<button class="button is-link is-outlined is-pulled-right commButton" type="button" onclick="selectComms(this)">@Model.LangData.board.createPost.select</button></li></ul><br>'
                 }
             },
             failure: function (response) {
@@ -193,7 +194,12 @@
     }
 
     function selectComms(commLi) {
-        commLi.innerText = "Selected"
+        $(".commButton").each(function (i, item) {
+            item.innerText = "@Model.LangData.board.createPost.select"
+            item.classList.add("is-outlined")
+        })
+
+        commLi.innerHTML = "@Model.LangData.board.createPost.selected"
         commLi.classList.remove("is-outlined")
         var commName = commLi.parentElement.innerText
         commName = commName.substring(0, commName.length - 9)
@@ -212,7 +218,7 @@
         $("#chosenCommTagName").innerText = ""
 
         $(".commButton").each(function (i, item) {
-            item.innerText = "Select"
+            item.innerText = "@Model.LangData.board.createPost.select"
             item.classList.add("is-outlined")
         })
 

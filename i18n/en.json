@@ -131,7 +131,6 @@
       "welcome": "Welcome to KampongTalk!",
       "getStarted": "Let's get you started.",
       "setPrefs": "Set your preferences",
-      // These can be reused in settings, will remove these once/if added to settings
       "language": "Language",
       "textSize": "Text Size",
       "large": "Large",
@@ -142,7 +141,6 @@
     },
     "profileSettings": {
       "customProfile": "Customise Your Profile",
-      // Likewise, once profile localisation is in, I will remove these to avoid redundancy
       "aboutMe": "About me",
       "introYourself": "Introduce yourself :)",
       "birthday": "Birthday"
@@ -174,6 +172,22 @@
       "noEvents": "There are no events to display.",
       "scrollToEnd": "Wow, it looks like you've scrolled to the bottom of the KampongBoard!",
       "checkNewPosts": "Check for new Posts"
+    },
+    "createPost": {
+      "writeNew": "Write A New Post",
+      "whatOnYourMind": "What's on your mind?",
+      "addImage": "Add Image",
+      "chooseComm": "Choose A Community",
+      "chosenComm": "Chosen Community:",
+      "post": "Post",
+      "findComm": "Find a community",
+      "search": "Search",
+      "searchrs": "Search Results",
+      "suggComms": "SUGGESTED COMMUNITIES",
+      "select": "Select",
+      "selected": "Selected",
+      "noSearchComms": "We couldn't find any communities with that name.",
+      "noSuggComms": "There are no communities to display."
     }
   },
 
@@ -181,7 +195,6 @@
     "like": "Like",
     "reply": "Reply",
     "postedIn": "Posted in",
-    // From the dropdown
     "messageUser": "Message User",
     "reportPost": "Report Post"
   }
