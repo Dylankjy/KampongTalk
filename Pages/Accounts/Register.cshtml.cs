@@ -19,8 +19,8 @@ namespace KampongTalk.Pages.Accounts
         public User CurrentUser { get; set; }
 
         // Language prop
-        public dynamic LangData { get; } = Internationalisation.LoadLanguage("jp");
-        private static dynamic LangDataStatic { get; } = Internationalisation.LoadLanguage("jp");
+        public dynamic LangData { get; set; }
+        private static dynamic LangDataStatic { get; set; }
 
         // Prop declarations
         [BindProperty] public User NewUserAccount { get; set; }
@@ -46,6 +46,11 @@ namespace KampongTalk.Pages.Accounts
 
             // If the user has not OTP verified
             if (CurrentUser is {IsVerified: false}) return RedirectToPage("Verify");
+            
+            // Set language data
+            LangData = Internationalisation.LoadLanguage(HttpContext.Request.GetTypedHeaders().AcceptLanguage
+                .First().ToString().Split("-").First());
+            LangDataStatic = LangData;
 
             // And then show them the page
             // If verification is not yet done, the verification screen will show up
@@ -55,6 +60,11 @@ namespace KampongTalk.Pages.Accounts
 
         public IActionResult OnPost()
         {
+            // Set language data
+            LangData = Internationalisation.LoadLanguage(HttpContext.Request.GetTypedHeaders().AcceptLanguage
+                .First().ToString().Split("-").First());
+            LangDataStatic = LangData;
+            
             // Database declarations
             var dbActionLogs =
                 new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],

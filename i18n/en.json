@@ -131,7 +131,6 @@
       "welcome": "Welcome to KampongTalk!",
       "getStarted": "Let's get you started.",
       "setPrefs": "Set your preferences",
-      // These can be reused in settings, will remove these once/if added to settings
       "language": "Language",
       "textSize": "Text Size",
       "large": "Large",
@@ -142,7 +141,6 @@
     },
     "profileSettings": {
       "customProfile": "Customise Your Profile",
-      // Likewise, once profile localisation is in, I will remove these to avoid redundancy
       "aboutMe": "About me",
       "introYourself": "Introduce yourself :)",
       "birthday": "Birthday"

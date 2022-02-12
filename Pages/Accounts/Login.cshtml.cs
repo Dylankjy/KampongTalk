@@ -1,4 +1,5 @@
-﻿using IdGen;
+﻿using System.Linq;
+using IdGen;
 using KampongTalk.i18n;
 using KampongTalk.Models;
 using Microsoft.AspNetCore.Http;
@@ -27,9 +28,10 @@ namespace KampongTalk.Pages.Accounts
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
             
             // Set user language
-            LangData = UserPrefApi.GetLangByUid(CurrentUser); // <- Param should be the user object, not Uid.
+            LangData = Internationalisation.LoadLanguage(HttpContext.Request.GetTypedHeaders().AcceptLanguage
+                .First().ToString().Split("-").First());
 
-                // If the current user is verified, naturally, the object is present, so just redirect them.
+            // If the current user is verified, naturally, the object is present, so just redirect them.
             if (CurrentUser is {IsVerified: true}) return RedirectToPage("/Index");
 
             // If the user has not OTP verified
@@ -41,6 +43,9 @@ namespace KampongTalk.Pages.Accounts
 
         public IActionResult OnPost()
         {
+            LangData = Internationalisation.LoadLanguage(HttpContext.Request.GetTypedHeaders().AcceptLanguage
+                .First().ToString().Split("-").First());
+            
             // Database declarations
             var dbActionLogs =
                 new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],

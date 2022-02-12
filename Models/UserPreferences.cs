@@ -71,6 +71,7 @@ namespace KampongTalk.Models
             {
                 return Internationalisation.LoadLanguage(userPref.Language);
             }
+            
             return Internationalisation.LoadLanguage("en");
         }
     }

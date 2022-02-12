@@ -15,8 +15,8 @@ namespace KampongTalk.Pages.Accounts
         // Current user prop
         private User CurrentUser { get; set; }
 
-        public dynamic LangData { get; } = Internationalisation.LoadLanguage("jp");
-        private static dynamic LangDataStatic { get; } = Internationalisation.LoadLanguage("jp");
+        public dynamic LangData { get; set; }
+        private static dynamic LangDataStatic { get; set; }
 
         // Retrieve phone number
         public string PhoneNumber { get; set; }
@@ -38,6 +38,11 @@ namespace KampongTalk.Pages.Accounts
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
             // Get phone number attribute
             PhoneNumber = HttpContext.Session.GetString("PasswordResetNumber");
+            
+            // Set language data
+            LangData = Internationalisation.LoadLanguage(HttpContext.Request.GetTypedHeaders().AcceptLanguage
+                .First().ToString().Split("-").First());
+            LangDataStatic = LangData;
 
             // If current user is already logged in or phone number missing, clear the session. This session is malformed.
             if (CurrentUser != null || PhoneNumber == null)
@@ -51,11 +56,13 @@ namespace KampongTalk.Pages.Accounts
 
         public IActionResult OnPost()
         {
+            LangData = Internationalisation.LoadLanguage(HttpContext.Request.GetTypedHeaders().AcceptLanguage
+                .First().ToString().Split("-").First());
+            LangDataStatic = LangData;
             // Get current user
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
             // Get phone number attribute
             PhoneNumber = HttpContext.Session.GetString("PasswordResetNumber");
-
 
             // If current user is already logged in or phone number missing, clear the session. This session is malformed.
             if (CurrentUser != null || PhoneNumber == null)
