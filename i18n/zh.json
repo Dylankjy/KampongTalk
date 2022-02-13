@@ -90,7 +90,7 @@
     "editCommunity": "编辑社区",
     "aboutCommunity": "社区信息",
     "owner": "管理者",
-    "created": "创建者",
+    "created": "创建日",
     "postsInCommunity": "社区的帖子",
     "nothingToDisplay": "没东西展览",
     "communityNoPost": "这个社区没有帖子",
@@ -140,7 +140,7 @@
       "remove": "再次点击，将用户从好友列表中删除"
     },
     "aboutMe": "用户的描述",
-    "joined": "加入了",
+    "joined": "加入日",
     "privateAcc": {
       "title": "这是一个私人账户",
       "subtitle": "如果你想看这个用户的帖子, 你需要当{ViewingUser.Name}的朋友。"
