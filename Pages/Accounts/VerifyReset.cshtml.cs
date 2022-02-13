@@ -43,7 +43,7 @@ namespace KampongTalk.Pages.Accounts
             LangData = Internationalisation.LoadLanguage(HttpContext.Request.GetTypedHeaders().AcceptLanguage
                 .First().ToString().Split("-").First());
             LangDataStatic = LangData;
-            PasswordWarn = LangDataStatic.accounts.register.passwordNotSufficient;
+            PasswordWarn = LangDataStatic.accounts.register.passwordHint;
 
             // If current user is already logged in or phone number missing, clear the session. This session is malformed.
             if (CurrentUser != null || PhoneNumber == null)
