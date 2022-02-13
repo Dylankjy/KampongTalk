@@ -455,6 +455,10 @@
   },
 
   "walkthrough": {
+    "guides": {
+      "title1": "Access a guide",
+      "intro1": "Click on any of these boxes to get a tour of that feature."
+    },
     "map": {
       "title1": "Welcome to KampongTalk's map!",
       "intro1": "This is where you can access all the features of KampongTalk.",
