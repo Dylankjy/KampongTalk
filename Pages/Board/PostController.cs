@@ -71,16 +71,6 @@ namespace KampongTalk.Pages.Board
 
             try
             {
-                var userComm = communitiesDB.Single($"CreatorId = '{CurrentUser.Uid}'");
-                if (userComm != null)
-                {
-                    communityResp.Add(userComm.Name);
-                }
-            }
-            finally { }
-
-            try
-            {
                 var someCommunities = communitiesDB.Paged(orderBy: "TimeCreated", currentPage: 0, pageSize: 5);
 
                 if (someCommunities.TotalRecords > 0)
