@@ -10,7 +10,7 @@
     }
     else
     {
-        ViewData["Title"] = "404: Community not found";
+        ViewData["Title"] = "404";
     }
 
     ViewData["currentUid"] = Model.CurrentUser.Uid;
@@ -39,7 +39,7 @@
                             <div class="level">
                                 <div class="level-item has-text-centered">
                                     <div>
-                                        <p class="heading">Posts</p>
+                                        <p class="heading">@Model.LangData.community.posts</p>
                                         <p class="title">@Model.PostCount</p>
                                     </div>
                                 </div>
@@ -48,7 +48,7 @@
                                     {
                                         <div class="level-item has-text-centered">
                                             <div>
-                                                <a class="button is-black is-outlined" onclick="$('#editCommunityModal').fadeIn('fast')">Edit community</a>
+                                                <a class="button is-black is-outlined" onclick="$('#editCommunityModal').fadeIn('fast')">@Model.LangData.community.editCommunity</a>
                                             </div>
                                         </div>
                                     }
@@ -60,7 +60,7 @@
                             if (Model.ViewingCommunity.Description != null)
                             {
                                 <div>
-                                    <h3 class="title is-5 has-text-page-color">About this community</h3>
+                                    <h3 class="title is-5 has-text-page-color">@Model.LangData.community.aboutCommunity</h3>
                                     <p style="hyphens: auto; overflow-wrap: break-word">@Model.ViewingCommunity.Description</p>
                                 </div>
                                 <hr />
@@ -70,7 +70,7 @@
                             <div class="level">
                                 <div class="level-item-left has-text-centered">
                                     <div>
-                                        <h3 class="title is-5 has-text-page-color">Owner</h3>
+                                        <h3 class="title is-5 has-text-page-color">@Model.LangData.community.owner</h3>
                                     </div>
                                 </div>
                                 <div class="level-item-right has-text-centered">
@@ -84,7 +84,7 @@
                             <div class="level">
                                 <div class="level-item-left has-text-centered">
                                     <div>
-                                        <h3 class="title is-5 has-text-page-color">Created</h3>
+                                        <h3 class="title is-5 has-text-page-color">@Model.LangData.community.created</h3>
                                     </div>
                                 </div>
                                 <div class="level-item-right has-text-centered">
@@ -96,7 +96,7 @@
                         </div>
                     </div>
                     <div class="column is-three-quarters">
-                        <h2 class="title is-5">Posts in this community</h2>
+                        <h2 class="title is-5">@Model.LangData.community.postsInCommunity</h2>
                         @{
                             if (!Model.PostsToDisplay.Any())
                             {
@@ -105,8 +105,8 @@
                                         <p class="title">
                                             <i class="fa-solid fa-box-open"></i>
                                         </p>
-                                        <h1 class="subtitle is-4 has-text-weight-bold has-text-page-color">Nothing to display</h1>
-                                        <p>This community does not have any posts</p>
+                                        <h1 class="subtitle is-4 has-text-weight-bold has-text-page-color">@Model.LangData.community.nothingToDisplay</h1>
+                                        <p>@Model.LangData.community.communityNoPost</p>
                                     </div>
                                 </section>
                             }
@@ -134,11 +134,11 @@
                                 <div class="mt-6 has-text-centered">
                                     @if (Model.PageNo != 0)
                                     {
-                                        <a class="button" href="?c=@Model.ViewingCommunity.Cid&p=@Model.PreviousPageNo"><i class="fa-solid fa-arrow-left"></i>&ensp;Previous Page</a>
+                                        <a class="button" href="?c=@Model.ViewingCommunity.Cid&p=@Model.PreviousPageNo"><i class="fa-solid fa-arrow-left"></i>&ensp;@Model.LangData.previousPage</a>
                                     }
                                     @if (Model.PostsToDisplay.Count() == 10)
                                     {
-                                        <a class="button" href="?c=@Model.ViewingCommunity.Cid&p=@Model.NextPageNo">Next Page&ensp;<i class="fa-solid fa-arrow-right"></i></a>
+                                        <a class="button" href="?c=@Model.ViewingCommunity.Cid&p=@Model.NextPageNo">@Model.LangData.nextPage&ensp;<i class="fa-solid fa-arrow-right"></i></a>
                                     }
                                 </div>
                             }
@@ -165,25 +165,25 @@
                         <form id="communityEditForm" method="post" enctype="multipart/form-data" style="margin-top: 6rem">
                             <input accept="image/png, image/jpg" type="file" asp-for="IconImage" id="iconUploadField" style="opacity: 0; height: 0; width: 0" />
                             <div class="field">
-                                <label class="label">Community Name</label>
+                                <label class="label">@Model.LangData.community.edit.name</label>
                                 <div class="control has-icons-left">
                                     <input class="input" type="text" value="@Model.ViewingCommunity.Name" disabled>
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-users"></i>
                                     </span>
                                 </div>
-                                <small class="has-text-grey"><i class="fas fa-info-circle"></i>&nbsp;Community names cannot be changed.</small>
+                                <small class="has-text-grey"><i class="fas fa-info-circle"></i>&nbsp;@Model.LangData.community.edit.nameHint</small>
                             </div>
 
                             <div class="field">
-                                <label class="label">About this community</label>
+                                <label class="label">@Model.LangData.community.edit.about</label>
                                 <div class="control">
                                     <input class="input" type="text" asp-for="EditDescription" minlength="20" maxlength="254" value="@Model.ViewingCommunity.Description">
                                 </div>
                             </div>
 
                             <span class="buttons">
-                                <button class="mt-5 button is-primary" type="submit"><i class="fas fa-save"></i>&ensp;Save changes</button>
+                                <button class="mt-5 button is-primary" type="submit"><i class="fas fa-save"></i>&ensp;@Model.LangData.saveChanges</button>
                             </span>
                         </form>
                     </div>
@@ -200,8 +200,8 @@
                 <p class="title">
                     <i class="fas fa-question-circle"></i>
                 </p>
-                <h1 class="subtitle is-4 has-text-weight-bold has-text-page-color">This isn't a void deck, it's just a void.</h1>
-                <p>This community does not exist. Please ensure that you did not type the name of the community wrongly.</p>
+                <h1 class="subtitle is-4 has-text-weight-bold has-text-page-color">@Model.LangData.community.empty.title</h1>
+                <p>@Model.LangData.community.empty.subtitle</p>
             </div>
         </section>
     }

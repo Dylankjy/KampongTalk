@@ -130,6 +130,9 @@ namespace KampongTalk.Pages.Community
 
             // Get current user
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
+            
+            // Get user preferences
+            LangData = UserPrefApi.GetLangByUid(CurrentUser);
 
             // Check user is signed on
             if (CurrentUser == null) return RedirectToPage("/Accounts/Login");

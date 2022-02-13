@@ -22,13 +22,13 @@
     <div class="container">
         <div class="card" data-title="@Model.LangData.walkthrough.settings.title2" data-intro="@Model.LangData.walkthrough.settings.intro2" >
             <div class="card-content">
-                <p class="title is-5"><i class="fas fa-user"></i>&ensp;Your KampongID</p>
-                <p class="subtitle is-6">Help friends and family easily find you using your KampongID.</p>
+                <p class="title is-5"><i class="fas fa-user"></i>&ensp;@Model.LangData.settings.kampongId.title</p>
+                <p class="subtitle is-6">@Model.LangData.settings.kampongId.subtitle</p>
                 <div class="account-detail-field">
-                    <small class="has-text-weight-bold">Your current KampongID</small>
+                    <small class="has-text-weight-bold">@Model.LangData.settings.kampongId.currentId</small>
                     <p class="is-size-4">@@@Model.CurrentUser.Uid2</p>
                     <br/>
-                    <p>You can share your KampongID with your friends and family for them to easily locate your profile page just by typing it into the search bar.</p>
+                    <p>@Model.LangData.settings.hint</p>
                 </div>
                 <a class="button is-dark mt-4" onclick="$('#changeKampongIDModal').fadeIn('fast'); $('#kampongID').val('')"><i class="fas fa-arrow-right"></i>&ensp;Change KampongID</a>
             </div>
@@ -37,14 +37,14 @@
         <div class="card mt-5" data-title="@Model.LangData.walkthrough.settings.title3" data-intro="@Model.LangData.walkthrough.settings.intro3">
             <div class="card-content">
                 <p class="title is-5">
-                    <i class="fas fa-shield-alt"></i>&ensp;Account Privacy &amp; Security
+                    <i class="fas fa-shield-alt"></i>&ensp;@Model.LangData.settings.accountPrivacySecurity.title
                 </p>
-                <p class="subtitle is-6">Keep your account secured and control it's visibility.</p>
+                <p class="subtitle is-6">@Model.LangData.settings.accountPrivacySecurity.subtitle</p>
 
                 <div class="account-detail-field">
-                    <small class="has-text-weight-bold">Password</small>
+                    <small class="has-text-weight-bold">@Model.LangData.settings.accountPrivacySecurity.password</small>
                     <p>
-                        Change your password often to keep your account secure.
+                        @Model.LangData.settings.accountPrivacySecurity.passwordDesc
                     </p>
                 </div>
                 @* <div class="account-detail-field"> *@
@@ -54,59 +54,54 @@
                 <a class="button is-dark mt-4" onclick="$('#changePasswordModal').fadeIn('fast');"><i class="fas fa-arrow-right"></i>&ensp;Change password</a>
                 <hr/>
                 <div class="account-detail-field">
-                    <small class="has-text-weight-bold">Profile Visibility</small>
+                    <small class="has-text-weight-bold">@Model.LangData.settings.accountPrivacySecurity.profileVisibility</small>
                     <p>
-                        Your account is
+                        @Model.LangData.settings.accountPrivacySecurity.accountIs
                         @if (Model.IsPrivateProfile)
                         {
-                            <span>private.</span>
+                            <span>@Model.LangData.settings.accountPrivacySecurity.profilePrivacy.privateLabel</span>
                             <br/>
-                            <small class="has-text-grey has-text-weight-normal">Your profile page can only be viewed by your friends.</small>
+                            <small class="has-text-grey has-text-weight-normal">@Model.LangData.settings.accountPrivacySecurity.profilePrivacy.privateDesc</small>
                         }
                         else
                         {
-                            <span>public.</span>
+                            <span>@Model.LangData.settings.accountPrivacySecurity.profilePrivacy.publicLabel</span>
                             <br/>
-                            <small class="has-text-grey has-text-weight-normal">Your profile page can be viewed by anyone.</small>
+                            <small class="has-text-grey has-text-weight-normal">@Model.LangData.settings.accountPrivacySecurity.profilePrivacy.publicDesc</small>
                         }
 
                     </p>
                 </div>
-                <a class="button is-dark mt-4" onclick="$('#changePrivacyModal').fadeIn('fast');"><i class="fas fa-arrow-right"></i>&ensp;Change profile privacy</a>
+                <a class="button is-dark mt-4" onclick="$('#changePrivacyModal').fadeIn('fast');"><i class="fas fa-arrow-right"></i>&ensp;@Model.LangData.settings.accountPrivacySecurity.profilePrivacy.button</a>
             </div>
         </div>
 
         <div class="card mt-5" data-title="@Model.LangData.walkthrough.settings.title4" data-intro="@Model.LangData.walkthrough.settings.intro4">
             <div class="card-content">
-                <p class="title is-5"><i class="fas fa-universal-access"></i>&ensp;Accessibility &amp; Language</p>
-                <p class="subtitle is-6">Change the way KampongTalk looks for your comfort.</p>
+                <p class="title is-5"><i class="fas fa-universal-access"></i>&ensp;@Model.LangData.settings.accessibilityLanguage.title</p>
+                <p class="subtitle is-6">@Model.LangData.settings.accessibilityLanguage.subtitle</p>
 
                 <div class="account-detail-field">
-                    <small class="has-text-weight-bold">Display Language</small>
+                    <small class="has-text-weight-bold">@Model.LangData.settings.accessibilityLanguage.displayLang</small>
                     <p>@Model.DisplayLang</p>
                 </div>
 
                 <div class="account-detail-field">
-                    <small class="has-text-weight-bold">Display Text Size</small>
+                    <small class="has-text-weight-bold">@Model.LangData.settings.accessibilityLanguage.displayTextSize</small>
                     <p>@Model.DisplayTextSize</p>
                 </div>
 
                 <div class="account-detail-field">
-                    <small class="has-text-weight-bold">Gender</small>
+                    <small class="has-text-weight-bold">@Model.LangData.settings.accessibilityLanguage.gender</small>
                     <p>@Model.DisplaySpeechGender</p>
                 </div>
 
                 <div class="account-detail-field">
-                    <small class="has-text-weight-bold">Use audio cues</small>
+                    <small class="has-text-weight-bold">@Model.LangData.settings.accessibilityLanguage.useAudio</small>
                     <p>@Model.DisplayAudioCues</p>
                 </div>
 
-                <div class="account-detail-field">
-                    <small class="has-text-weight-bold">Enable passwordless</small>
-                    <p>@Model.DisplayPasswordLess</p>
-                </div>
-
-                <a class="button is-dark mt-4" href="/Settings/Preference"><i class="fas fa-arrow-right"></i>&ensp;Toggle profile preferences</a>
+                <a class="button is-dark mt-4" href="/Settings/Preference"><i class="fas fa-arrow-right"></i>&ensp;@Model.LangData.settings.accessibilityLanguage.button</a>
             </div>
         </div>
 
@@ -149,29 +144,29 @@
     <div class="modal-content">
         <div class="card">
             <div class="card-content has-background-light">
-                <p class="title is-4"><i class="fa-solid fa-at"></i>&ensp;Change your KampongID</p>
+                <p class="title is-4"><i class="fa-solid fa-at"></i>&ensp;@Model.LangData.settings.changeId.changeIdText</p>
             </div>
             <div class="card-content">
-                <small class="has-text-weight-bold">Your current KampongID</small>
+                <small class="has-text-weight-bold">@Model.LangData.settings.changeId.currId</small>
                 <p class="is-size-4">@@@Model.CurrentUser.Uid2</p>
             </div>
             <div class="card-content has-background-danger-light has-text-danger-dark">
-                <p class="title has-text-danger-dark is-5 mb-2"><i class="fa-solid fa-circle-exclamation"></i>&ensp;Things to take note</p>
+                <p class="title has-text-danger-dark is-5 mb-2"><i class="fa-solid fa-circle-exclamation"></i>&ensp;@Model.LangData.settings.changeId.takeNote</p>
                 <div class="content">
-                    <p>After changing your KampongID,</p>
+                    <p>@Model.LangData.settings.changeId.afterChange</p>
                     <ul>
-                        <li>Users can only use your new KampongID to find you.</li>
-                        <li>The web address to your profile page will be changed.</li>
-                        <li>Your old KampongID will be available for other users to change to.</li>
+                        <li>@Model.LangData.settings.changeId.afterChange1</li>
+                        <li>@Model.LangData.settings.changeId.afterChange2</li>
+                        <li>@Model.LangData.settings.changeId.afterChange3</li>
                     </ul>
-                    <p>Make sure you give your friends &amp; family a heads up so that they can find you using your new KampongID.</p>
+                    <p>@Model.LangData.settings.changeId.friendsFam</p>
                 </div>
             </div>
             <div class="card-content">
                 <form autocomplete="off" method="post">
                     <input value="KAMPONGID_CHANGE" asp-for="ForForm" type="hidden"/>
                     <div class="field">
-                        <label class="label">New KampongID</label>
+                        <label class="label">@Model.LangData.settings.changeId.newKampongId</label>
                         <div class="control has-icons-left">
                             <input class="input @Model.ShowDuplicateUid2ErrorClass" type="text" placeholder="@Model.CurrentUser.Uid2" asp-for="NewKampongId">
                             <span class="icon is-small is-left">
@@ -179,30 +174,30 @@
                             </span>
                             @if (Model.ShowDuplicateUid2Error)
                             {
-                                <small class="has-text-danger">This KampongID is currently being used by another user.</small>
+                                <small class="has-text-danger">@Model.LangData.settings.changeId.idUsed</small>
                             }
                             @if (Model.ShowCurrentUid2Error)
                             {
-                                <small class="has-text-danger">This KampongID already belongs to you. No changes required.</small>
+                                <small class="has-text-danger">@Model.LangData.settings.changeId.idBelongsidBelongs</small>
                             }
                         </div>
                     </div>
                     <input type="text" id="kampongID" style="height: 0; width: 0; opacity: 0; position: absolute; padding: 0">
                     <div class="field">
-                        <label class="label">Password</label>
+                        <label class="label">@Model.LangData.settings.changeId.pw</label>
                         <div class="control has-icons-left">
                             <input class="input @Model.ShowPasswordErrorClass" type="password" placeholder="••••••••" asp-for="IncomingPassword">
                             <span class="icon is-small is-left">
                                 <i class="fa-solid fa-key"></i>
                             </span>
                             @if (Model.ShowPasswordError) {
-                                <small class="has-text-danger">Password is incorrect.</small>
+                                <small class="has-text-danger">@Model.LangData.settings.changeId.pwErr</small>
                             }
                         </div>
-                        <small class="has-text-grey"><i class="fas fa-info-circle"></i>&nbsp;As you are performing a major change to your account, we will need your password to continue.</small>
+                        <small class="has-text-grey"><i class="fas fa-info-circle"></i>&nbsp;@Model.LangData.settings.changeId.change1</small>
                     </div>
                     <br/>
-                    <button class="button is-primary"><i class="fas fa-arrow-right"></i>&ensp;Save changes</button>
+                    <button class="button is-primary"><i class="fas fa-arrow-right"></i>&ensp;@Model.LangData.settings.changeId.change2</button>
                 </form>
             </div>
         </div>
@@ -223,37 +218,37 @@
     <div class="modal-content">
         <div class="card">
             <div class="card-content has-background-light">
-                <p class="title is-4"><i class="fa-solid fa-key"></i>&ensp;Change your password</p>
+                <p class="title is-4"><i class="fa-solid fa-key"></i>&ensp;@Model.LangData.settings.changePassword.changeIdText</p>
             </div>
             <div class="card-content">
                 <form autocomplete="off" method="post">
                     <input value="PASSWORD_CHANGE" asp-for="ForForm" type="hidden"/>
                     <div class="field">
-                        <label class="label">Current Password</label>
+                        <label class="label">@Model.LangData.settings.changePassword.currId</label>
                         <div class="control has-icons-left">
                             <input class="input @Model.ShowPasswordErrorClass" type="password" placeholder="••••••••" asp-for="IncomingPassword">
                             <span class="icon is-small is-left">
                                 <i class="fa-solid fa-unlock"></i>
                             </span>
                             @if (Model.ShowPasswordError) {
-                                <small class="has-text-danger">Password is incorrect</small>
+                                <small class="has-text-danger">@Model.LangData.settings.changePassword.incorrectPw</small>
                             }
                         </div>
                     </div>
                     <div class="field">
-                        <label class="label">New Password</label>
+                        <label class="label">@Model.LangData.settings.changePassword.newPw</label>
                         <div class="control has-icons-left">
                             <input class="input @Model.ShowNewPasswordErrorClass" type="password" placeholder="••••••••" asp-for="NewPassword">
                             <span class="icon is-small is-left">
                                 <i class="fa-solid fa-key"></i>
                             </span>
                             @if (Model.ShowNewPasswordError) {
-                                <small class="has-text-danger">Your new password needs to contain at least 8 characters and a number</small>
+                                <small class="has-text-danger">@Model.LangData.settings.changePassword.newPwMsg</small>
                             }
                         </div>
                     </div>
                     <br/>
-                    <button class="button is-primary"><i class="fas fa-arrow-right"></i>&ensp;Update password</button>
+                    <button class="button is-primary"><i class="fas fa-arrow-right"></i>&ensp;@Model.LangData.settings.changePassword.updatePw</button>
                 </form>
             </div>
         </div>
@@ -266,17 +261,17 @@
     <div class="modal-content">
         <div class="card">
             <div class="card-content has-background-light">
-                <p class="title is-4"><i class="fa-solid fa-key"></i>&ensp;Profile privacy</p>
+                <p class="title is-4"><i class="fa-solid fa-key"></i>&ensp;@Model.LangData.settings.changePrivacy.title</p>
             </div>
             <div class="card-content has-background-info-light has-text-info-dark">
-                <p class="title has-text-info-dark is-5 mb-2"><i class="fa-solid fa-circle-info"></i>&ensp;What is a private profile?</p>
+                <p class="title has-text-info-dark is-5 mb-2"><i class="fa-solid fa-circle-info"></i>&ensp;@Model.LangData.settings.changePrivacy.whatIsPrivate</p>
                 <div class="content">
-                    <p>When you set your profile to private,</p>
+                    <p>@Model.LangData.settings.changePrivacy.whenYouSet</p>
                     <ul>
-                        <li>Only your friends can see your profile page and posts published on your profile.</li>
-                        <li>Posts to communities will still remain public.</li>
-                        <li>Your friend list will only be viewable by you and your friends.</li>
-                        <li>You will need to add users as friends to give them access to your profile page.</li>
+                        <li>@Model.LangData.settings.changePrivacy.noticeList.a</li>
+                        <li>@Model.LangData.settings.changePrivacy.noticeList.b</li>
+                        <li>@Model.LangData.settings.changePrivacy.noticeList.c</li>
+                        <li>@Model.LangData.settings.changePrivacy.noticeList.d</li>
                     </ul>
                 </div>
             </div>
@@ -286,11 +281,11 @@
                     <div class="field">
                         <label class="checkbox">
                             @Html.CheckBox("IsPrivateProfile", Model.IsPrivateProfile)
-                            Make this profile private
+                            @Model.LangData.settings.changePrivacy.makePrivate
                         </label>
                     </div>
                     <br/>
-                    <button class="button is-primary"><i class="fas fa-arrow-right"></i>&ensp;Save changes</button>
+                    <button class="button is-primary"><i class="fas fa-arrow-right"></i>&ensp;@Model.LangData.saveChanges</button>
                 </form>
             </div>
         </div>

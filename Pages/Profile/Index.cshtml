@@ -9,7 +9,7 @@
     }
     else
     {
-        ViewData["Title"] = "404: User not found";
+        ViewData["Title"] = "404";
     }
 
     ViewData["currentUid"] = Model.CurrentUser.Uid;
@@ -42,13 +42,13 @@
                             <div class="level">
                                 <div class="level-item has-text-centered" data-title="@Model.LangData.features.friends" data-intro="@Model.LangData.walkthrough.profile.intro5">
                                     <a onclick="$('#friendListModal').fadeIn('fast')">
-                                        <p class="heading">Friends</p>
+                                        <p class="heading">@Model.LangData.profile.friends</p>
                                         <p class="title">@Model.FriendCount</p>
                                     </a>
                                 </div>
                                 <div class="level-item has-text-centered">
                                     <div>
-                                        <p class="heading">Posts</p>
+                                        <p class="heading">@Model.LangData.profile.posts</p>
                                         <p class="title">@Model.PostCount</p>
                                     </div>
                                 </div>
@@ -57,12 +57,12 @@
                                 @{
                                     if (Model.IsCurrentUserOwnPage)
                                     {
-                                        <a class="has-text-grey" onclick="$('#editProfileModal').fadeIn('fast')" data-title="@Model.LangData.walkthrough.profile.title6" data-intro="@Model.LangData.walkthrough.profile.intro6"><i class="fas fa-user-edit"></i>&ensp;Edit Profile</a>
+                                        <a class="has-text-grey" onclick="$('#editProfileModal').fadeIn('fast')" data-title="@Model.LangData.walkthrough.profile.title6" data-intro="@Model.LangData.walkthrough.profile.intro6"><i class="fas fa-user-edit"></i>&ensp;@Model.LangData.profile.editProfile</a>
                                     }
                                     else
                                     {
                                         <div class="has-text-centered" data-title="@Model.LangData.walkthrough.profile.title7" data-intro="@Model.LangData.walkthrough.profile.intro7">
-                                            <a class="has-text-grey" href="/Dms/Dm?to=@Model.ViewingUser.Uid"><i class="fa-solid fa-message"></i>&ensp;Send message</a>
+                                            <a class="has-text-grey" href="/Dms/Dm?to=@Model.ViewingUser.Uid"><i class="fa-solid fa-message"></i>&ensp;@Model.LangData.profile.sendMessage</a>
                                         </div>
                                         <br/>
                                         <form method="post" class="has-text-centered">
@@ -73,7 +73,7 @@
                                             {
                                                 <div>
                                                     <input type="hidden" asp-for="FriendAction" value="ADD"/>
-                                                    <button class="button is-success" data-intro="@Model.LangData.walkthrough.profile.intro8"><i class="fa-solid fa-user-plus"></i>&ensp;Send friend request</button>
+                                                    <button class="button is-success" data-intro="@Model.LangData.walkthrough.profile.intro8"><i class="fa-solid fa-user-plus"></i>&ensp;@Model.LangData.profile.friendReq.send</button>
                                                 </div>
                                             }
 
@@ -81,7 +81,7 @@
                                             {
                                                 <div>
                                                     <input type="hidden" asp-for="FriendAction" value="ADD"/>
-                                                    <button class="button is-success"><i class="fa-solid fa-check"></i>&ensp;Accept friend request</button>
+                                                    <button class="button is-success"><i class="fa-solid fa-check"></i>&ensp;@Model.LangData.profile.friendReq.accept</button>
                                                 </div>
                                             }
 
@@ -89,8 +89,8 @@
                                             {
                                                 <div>
                                                     <input type="hidden" asp-for="FriendAction" value="CANCEL_REQ"/>
-                                                    <a id="pendingBtn" class="button is-success is-light"><i class="fa-solid fa-spinner fa-pulse"></i>&ensp;Friend request pending</a>
-                                                    <button id="undoReqBtn" class="button is-danger is-light" style="display: none"><i class="fa-solid fa-xmark"></i>&ensp;Click again to undo request</button>
+                                                    <a id="pendingBtn" class="button is-success is-light"><i class="fa-solid fa-spinner fa-pulse"></i>&ensp;@Model.LangData.profile.friendReq.pending</a>
+                                                    <button id="undoReqBtn" class="button is-danger is-light" style="display: none"><i class="fa-solid fa-xmark"></i>&ensp;@Model.LangData.profile.friendReq.undoReq</button>
                                                 </div>
                                             }
 
@@ -98,8 +98,8 @@
                                             {
                                                 <div>
                                                     <input type="hidden" asp-for="FriendAction" value="REMOVE_FRIEND"/>
-                                                    <a id="addedBtn" class="button is-light"><i class="fa-solid fa-user-group"></i>&ensp;Added as friend</a>
-                                                    <button id="removeBtn" class="button is-danger" style="display: none"><i class="fa-solid fa-user-times"></i>&ensp;Click again to remove friend</button>
+                                                    <a id="addedBtn" class="button is-light"><i class="fa-solid fa-user-group"></i>&ensp;@Model.LangData.profile.friendReq.added</a>
+                                                    <button id="removeBtn" class="button is-danger" style="display: none"><i class="fa-solid fa-user-times"></i>&ensp;@Model.LangData.profile.friendReq.remove</button>
                                                 </div>
                                             }
                                         </form>
@@ -141,7 +141,7 @@
                                 if (Model.ViewingUser.Bio != null)
                                 {
                                     <div>
-                                        <h3 class="title is-5 has-text-page-color">About me</h3>
+                                        <h3 class="title is-5 has-text-page-color">@Model.LangData.profile.aboutMe</h3>
                                         <p style="hyphens: auto; overflow-wrap: break-word">@Model.ViewingUser.Bio</p>
                                     </div>
                                     <hr/>
@@ -151,7 +151,7 @@
                             <div class="level">
                                 <div class="level-item-left has-text-centered">
                                     <div>
-                                        <h3 class="title is-5 has-text-page-color">Joined</h3>
+                                        <h3 class="title is-5 has-text-page-color">@Model.LangData.profile.joined</h3>
                                     </div>
                                 </div>
                                 <div class="level-item-right has-text-centered">
@@ -170,8 +170,12 @@
                                     <p class="title">
                                         <i class="fa-solid fa-lock"></i>
                                     </p>
-                                    <h1 class="subtitle is-4 has-text-weight-bold has-text-page-color">This is a private account</h1>
-                                    <p>You need to be @Model.ViewingUser.Name's friend to see their post.</p>
+                                    <h1 class="subtitle is-4 has-text-weight-bold has-text-page-color">@Model.LangData.profile.privateAcc.title</h1>
+                                    @{
+                                        string subtitle = @Model.LangData.profile.privateAcc.subtitle;
+                                        <p>@subtitle.Replace("{ViewingUser.Name}", Model.ViewingUser.Name)</p>
+                                    }
+                                    
                                 </div>
                             } 
                             else
@@ -182,8 +186,8 @@
                                         <p class="title">
                                             <i class="fas fa-feather-alt"></i>
                                         </p>
-                                        <h1 class="subtitle is-4 has-text-weight-bold has-text-page-color">Hmm, there's nothing here</h1>
-                                        <p>This user has not created any posts</p>
+                                        <h1 class="subtitle is-4 has-text-weight-bold has-text-page-color">@Model.LangData.profile.empty.title</h1>
+                                        <p>@Model.LangData.profile.empty.subtitle</p>
                                     </div>
                                 </section>
                             }
@@ -197,11 +201,11 @@
                                 <div class="mt-6 has-text-centered">
                                     @if (Model.PageNo != 0)
                                     {
-                                        <a class="button" href="?u=@Model.ViewingUser.Uid2&p=@Model.PreviousPageNo"><i class="fa-solid fa-arrow-left"></i>&ensp;Previous Page</a>
+                                        <a class="button" href="?u=@Model.ViewingUser.Uid2&p=@Model.PreviousPageNo"><i class="fa-solid fa-arrow-left"></i>&ensp;@Model.LangData.previousPage</a>
                                     }
                                     @if (Model.PostsToDisplay.Count() == 10)
                                     {
-                                        <a class="button" href="?u=@Model.ViewingUser.Uid2&p=@Model.NextPageNo">Next Page&ensp;<i class="fa-solid fa-arrow-right"></i></a>
+                                        <a class="button" href="?u=@Model.ViewingUser.Uid2&p=@Model.NextPageNo">@Model.LangData.nextPage&ensp;<i class="fa-solid fa-arrow-right"></i></a>
                                     }
                                 </div>
                             }
@@ -232,7 +236,7 @@
                             <input accept="image/png, image/jpg" type="file" asp-for="ProfileImage" id="pfpUploadField" style="opacity: 0; height: 0; width: 0"/>
                             <input accept="image/png, image/jpg" type="file" asp-for="BannerImage" id="bannerUploadField" style="opacity: 0; height: 0; width: 0"/>
                             <div class="field">
-                                <label class="label">Name</label>
+                                <label class="label">@Model.LangData.profile.edit.name</label>
                                 <div class="control has-icons-left">
                                     <input class="input" type="text" placeholder="John Doe" value="@Model.ViewingUser.Name" asp-for="EditName" required>
                                     <span class="icon is-small is-left">
@@ -242,7 +246,7 @@
                             </div>
 
                             <div class="field">
-                                <label class="label">KampongID</label>
+                                <label class="label">@Model.LangData.profile.edit.kampongId</label>
                                 <div class="control has-icons-left">
                                     <input class="input" type="text" value="@Model.ViewingUser.Uid2" disabled>
                                     <span class="icon is-small is-left">
@@ -250,12 +254,12 @@
                                     </span>
                                 </div>
                             </div>
-                            <small class="has-text-grey"><i class="fas fa-info-circle"></i>&nbsp;For security reasons, please visit <a href="/Settings?openModal=kampongId">account settings</a> to change your KampongID.</small>
+                            <small class="has-text-grey"><i class="fas fa-info-circle"></i>&nbsp;@Html.Raw(Model.LangData.profile.edit.kampongIdHint)</small>
 
                             <hr/>
 
                             <div class="field">
-                                <label class="label">About me</label>
+                                <label class="label">@Model.LangData.profile.edit.aboutMe</label>
                                 <div class="control">
                                     <input class="input" type="text" value="@Model.ViewingUser.Bio" asp-for="EditBio" style="word-break: break-word;">
                                 </div>
@@ -273,7 +277,7 @@
                             @*     </div> *@
                             @* </div> *@
                             <span class="buttons">
-                                <button class="mt-5 button is-primary" type="submit"><i class="fas fa-save"></i>&ensp;Save changes</button>
+                                <button class="mt-5 button is-primary" type="submit"><i class="fas fa-save"></i>&ensp;@Model.LangData.saveChanges</button>
                             </span>
                         </form>
 
@@ -291,8 +295,8 @@
                 <p class="title">
                     <i class="fas fa-question-circle"></i>
                 </p>
-                <h1 class="subtitle is-4 has-text-weight-bold">We searched high and low, but we weren't able to find this account.</h1>
-                <p>The user may have changed their user tag, deleted their account, or the user simply didn't exist to begin with.<br/>Please ensure that you did not make any typing mistakes.</p>
+                <h1 class="subtitle is-4 has-text-weight-bold">@Model.LangData.profile.notExist.title</h1>
+                <p>@Model.LangData.profile.notExist.subtitle</p>
             </div>
         </section>
     }
@@ -409,14 +413,14 @@
                             <p class="title">
                                 <i class="fa-solid fa-lock"></i>
                             </p>
-                            <p class="subtitle">This user's profile is not public</p>
-                            <p>To see this user's friend list, you need to be their friend.</p>
+                            <p class="subtitle">@Model.LangData.profile.privateAccountFriendsList.title</p>
+                            <p>@Model.LangData.profile.privateAccountFriendsList.subtitle</p>
                         </div>
                     } else {
                         @if (Model.FriendListPendingIncoming.Count != 0 && Model.IsCurrentUserOwnPage)
                         {
                             <div class="card-content">
-                                <p class="has-text-weight-bold">Incoming friend requests — @Model.FriendListPendingIncoming.Count request(s)</p>
+                                <p class="has-text-weight-bold">@Model.LangData.profile.friendList.incoming — @Model.FriendListPendingIncoming.Count @Model.LangData.profile.friendList.requests</p>
                                 @foreach (var user in Model.FriendListPendingIncoming)
                                 {
                                     <a href="/Profile?u=@user.Uid2" class="view-more-item">
@@ -445,7 +449,7 @@
                         @if (Model.FriendListPendingOutgoing.Count != 0)
                         {
                             <div class="card-content">
-                                <p class="has-text-weight-bold">Outgoing friend requests — @Model.FriendListPendingOutgoing.Count request(s)</p>
+                                <p class="has-text-weight-bold">@Model.LangData.profile.friendList.outgoing — @Model.FriendListPendingOutgoing.Count @Model.LangData.profile.friendList.requests</p>
                                 @foreach (var user in Model.FriendListPendingOutgoing)
                                 {
                                     <a href="/Profile?u=@user.Uid2" class="view-more-item">
@@ -474,7 +478,7 @@
                         @if (Model.FriendList.Count != 0)
                         {
                             <div class="card-content">
-                                <p class="has-text-weight-bold">Friends — @Model.FriendList.Count user(s)</p>
+                                <p class="has-text-weight-bold">@Model.LangData.profile.friendList.friends — @Model.FriendList.Count @Model.LangData.profile.friendList.users</p>
                                 @foreach (var user in Model.FriendList)
                                 {
                                     <a href="/Profile?u=@user.Uid2" class="view-more-item">
@@ -505,8 +509,8 @@
                                 <p class="title">
                                     <i class="fa-solid fa-dove"></i>
                                 </p>
-                                <p class="subtitle">This user's friend list is empty</p>
-                                <p>Be their first, by sending a friend request!</p>
+                                <p class="subtitle">@Model.LangData.profile.friendListEmpty.title</p>
+                                <p>@Model.LangData.profile.friendListEmpty.subtitle</p>
                             </div>
                         }
                     }

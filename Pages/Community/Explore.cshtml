@@ -2,28 +2,28 @@
 @model KampongTalk.Pages.Community.Explore
 
 @{
-    ViewData["Title"] = "Explore communities";
+    ViewData["Title"] = @Model.LangData.community.exploreCommunities;
 }
 
 <section class="section">
     <div class="container">
-        <h1 class="title" data-title="@Model.LangData.walkthrough.communities.title1" data-intro="@Model.LangData.walkthrough.communities.intro1">Explore communities</h1>
+        <h1 class="title" data-title="@Model.LangData.walkthrough.communities.title1" data-intro="@Model.LangData.walkthrough.communities.intro1">@Model.LangData.community.exploreCommunities</h1>
 
         <div>
             @if (Model.myCommunity == null)
             {
-                <a href="/Community/New" class="button is-medium is-primary" data-title="@Model.LangData.walkthrough.communities.title2" data-intro="@Model.LangData.walkthrough.communities.intro2"><i class="fa-solid fa-plus"></i>&emsp;Create Community</a>
+                <a href="/Community/New" class="button is-medium is-primary" data-title="@Model.LangData.walkthrough.communities.title2" data-intro="@Model.LangData.walkthrough.communities.intro2"><i class="fa-solid fa-plus"></i>&emsp;@Model.LangData.community.createCommunity</a>
             }
             else
             {
                 <div class="buttons has-addons" data-title="@Model.LangData.walkthrough.communities.title3" data-intro="@Model.LangData.walkthrough.communities.intro3">
-                    <button class="button is-medium is-static">My Community</button>
+                    <button class="button is-medium is-static">@Model.LangData.community.myCommunity</button>
                     <a href="/Community?c=@Model.myCommunity.Cid" class="button is-medium is-primary">@Model.myCommunity.Name</a>
                 </div>
             }
         </div>
         <br />
-        <h2 class="title is-5" data-title="@Model.LangData.walkthrough.communities.title4" data-intro="@Model.LangData.walkthrough.communities.intro4">Popular communities</h2>
+        <h2 class="title is-5" data-title="@Model.LangData.walkthrough.communities.title4" data-intro="@Model.LangData.walkthrough.communities.intro4">@Model.LangData.community.popularCommunities</h2>
 
         @{
             foreach (var community in Model.CommToDisplayByPopularity)

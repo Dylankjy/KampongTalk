@@ -16,13 +16,13 @@
                     var numberOfUsers = Model.SearchResultUsers.Count;
                     if (numberOfUsers == 0)
                     {
-                        <h2 class="title is-5"><i class="fas fa-user"></i>&ensp;Users — 0 results</h2>
-                        <p>No users found</p>
-                        <small class="has-text-grey">If you have the KampongID of the user you are looking for, type @@ followed by the KampongID in the search, to go directly to the user's profile.</small>
+                        <h2 class="title is-5"><i class="fas fa-user"></i>&ensp;@Model.LangData.search.users.users — @numberOfUsers @Model.LangData.search.results</h2>
+                        <p>@Model.LangData.search.users.noResult</p>
+                        <small class="has-text-grey">@Model.LangData.search.users.hint</small>
                     }
                     else
                     {
-                        <h2 class="title is-5"><i class="fas fa-user"></i>&ensp;Users — @numberOfUsers result(s)</h2>
+                        <h2 class="title is-5"><i class="fas fa-user"></i>&ensp;@Model.LangData.search.users.users — @numberOfUsers @Model.LangData.search.results</h2>
                         foreach (var user in Model.SearchResultUsers.Take(5))
                         {
                             <a href="/Profile?u=@user.Uid2">
@@ -49,7 +49,7 @@
 
                         if (Model.SearchResultUsers.Count > 5)
                         {
-                            <a class="has-text-grey" onclick="$('#viewMore-users').fadeIn('fast')"><i class="fa-solid fa-arrow-right"></i>&ensp;View more</a>
+                            <a class="has-text-grey" onclick="$('#viewMore-users').fadeIn('fast')"><i class="fa-solid fa-arrow-right"></i>&ensp;@Model.LangData.search.viewMore</a>
                         }
                     }
                 }
@@ -60,12 +60,12 @@
                     var numberOfEvents = Model.SearchResultEvents.Count;
                     if (numberOfEvents == 0)
                     {
-                        <h2 class="title is-5"><i class="fa-solid fa-calendar-week"></i>&ensp;Events — 0 results</h2>
-                        <p>No events found</p>
+                        <h2 class="title is-5"><i class="fa-solid fa-calendar-week"></i>&ensp;@Model.LangData.search.events.events — @numberOfEvents @Model.LangData.search.results</h2>
+                        <p>@Model.LangData.search.events.noResult</p>
                     }
                     else
                     {
-                        <h2 class="title is-5"><i class="fa-solid fa-calendar-week"></i>&ensp;Events — @numberOfEvents result(s)</h2>
+                        <h2 class="title is-5"><i class="fa-solid fa-calendar-week"></i>&ensp;@Model.LangData.search.events.events — @numberOfEvents @Model.LangData.search.results</h2>
                         foreach (var eventObj in Model.SearchResultEvents.Take(5))
                         {
                             <a href="/Events/View/@eventObj.Eid">
@@ -77,7 +77,7 @@
                         
                         if (Model.SearchResultUsers.Count > 5)
                         {
-                            <a class="has-text-grey" onclick="$('#viewMore-events').fadeIn('fast')"><i class="fa-solid fa-arrow-right"></i>&ensp;View more</a>
+                            <a class="has-text-grey" onclick="$('#viewMore-events').fadeIn('fast')"><i class="fa-solid fa-arrow-right"></i>&ensp;@Model.LangData.search.results</a>
                         }
                     }
                 }
@@ -87,11 +87,11 @@
                 @{
                     if (Model.SearchResultCommunities.Count == 0)
                     {
-                        <h2 class="title is-5"><i class="fas fa-users"></i>&ensp;Communities <span class="has-text-weight-normal">— No relevant results</span></h2>
+                        <h2 class="title is-5"><i class="fas fa-users"></i>&ensp;@Model.LangData.search.communities.communities <span class="has-text-weight-normal">— @Model.LangData.search.noRelResult</span></h2>
                     }
                     else
                     {
-                        <h2 class="title is-5"><i class="fas fa-users"></i>&ensp;Communities</h2>
+                        <h2 class="title is-5"><i class="fas fa-users"></i>&ensp;@Model.LangData.search.communities.communities</h2>
                         <div class="communities-container">
                             @foreach (var community in Model.SearchResultCommunities)
                             {
@@ -122,7 +122,7 @@
                 @{
                     if (Model.SearchResultPosts.Count == 0)
                     {
-                        <h2 class="title is-5"><i class="fas fa-sticky-note"></i>&ensp;Posts <span class="has-text-weight-normal">— No relevant results</span></h2>
+                        <h2 class="title is-5"><i class="fas fa-sticky-note"></i>&ensp;@Model.LangData.search.posts.posts <span class="has-text-weight-normal">— @Model.LangData.search.noRelResult</span></h2>
                     }
                     else
                     {
@@ -143,8 +143,8 @@
     <div class="modal-content">
         <div class="card">
             <div class="card-content has-background-light">
-                <p class="title is-4"><i class="fas fa-user"></i>&ensp;Users</p>
-                <p class="subtitle is-6">Showing @Model.SearchResultUsers.Count users</p>
+                <p class="title is-4"><i class="fas fa-user"></i>&ensp;@Model.LangData.search.users.users</p>
+                <p class="subtitle is-6">@Model.LangData.showing @Model.SearchResultUsers.Count @Model.LangData.search.results</p>
             </div>
             <div class="card-content">
                 @foreach (var user in Model.SearchResultUsers)
@@ -180,8 +180,8 @@
     <div class="modal-content">
         <div class="card">
             <div class="card-content has-background-light">
-                <p class="title is-4"><i class="fa-solid fa-calendar-week"></i>&ensp;Events</p>
-                <p class="subtitle is-6">Showing @Model.SearchResultUsers.Count events</p>
+                <p class="title is-4"><i class="fa-solid fa-calendar-week"></i>&ensp;@Model.LangData.search.events.events</p>
+                <p class="subtitle is-6">@Model.LangData.showing @Model.SearchResultUsers.Count @Model.LangData.search.results</p>
             </div>
             <div class="card-content">
                 @foreach (var eventObj in Model.SearchResultEvents)

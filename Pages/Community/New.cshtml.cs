@@ -34,11 +34,17 @@ namespace KampongTalk.Pages.Community
         public dynamic ExistingCommunity { get; set; }
         public string CommunityNameClass { get; set; }
         [BindProperty] public IFormFile IconImage { get; set; }
+        
+        // Language 
+        public dynamic LangData { get; set; }
 
         public IActionResult OnGet()
         {
             // Get current user
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
+            
+            // Get user preferences
+            LangData = UserPrefApi.GetLangByUid(CurrentUser);
 
             // If the current user is verified, naturally, the object is present, so just redirect them.
             if (CurrentUser is null) return RedirectToPage("/Accounts/Login");
@@ -72,6 +78,9 @@ namespace KampongTalk.Pages.Community
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
 
             if (CurrentUser == null) return RedirectToPage("/Accounts/Login");
+            
+            // Get user preferences
+            LangData = UserPrefApi.GetLangByUid(CurrentUser);
 
             // Database declarations
             var dbCommunities =
