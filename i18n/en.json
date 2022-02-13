@@ -233,9 +233,10 @@
 
     "successmessage": "You have successfully submitted your enquiry!",
     "homebutton": "Back to home page"
+  },
 
-
-
+  "dm": {
+    "yourchats": "Your Chats"
   },
 
 
