@@ -107,13 +107,11 @@
                                     @comment.Content
                                     <br>
                                     <small class="has-text-grey-light">@comment.Timestamp.ToString("dd/MM/yy hh:mm tt")</small>
-                                    @*<small class="has-text-grey-light">@comment.Timestamp.ToString("dd/MM/yy hh:mm tt")</small>*@
                                 </p>
                             </div>
                         </div>
                         <figure class="media-right">
 
-                            <!--insert form here-->
                             <button class="button is-medium is-rounded is-danger is-outlined" type="button" onclick="likePost(this)">
                                 @if (LikesApi.IsLiked(@comment.Pid, Convert.ToInt64(ViewData["currentUid"])))
                                 {
@@ -175,15 +173,12 @@
             success: function (likeResp) {
                 var likeRespArr = likeResp.toString().split(",")
                 if (likeRespArr[0] == '1') {
-                    //likeBtn.classList.remove('is-outlined')
                     likeBtn.firstElementChild.innerHTML = '<i class="fas fa-thumbs-up"></i>';
                 }
                 else {
-                    //likeBtn.classList.add('is-outlined')
                     likeBtn.firstElementChild.innerHTML = '<i class="far fa-thumbs-up"></i>';
                 }
                 likeBtn.children[1].innerText = likeRespArr[1]
-                //likeBtn.lastElementChild.innerHTML = likeRespArr[1]
 
             },
             error: function () {

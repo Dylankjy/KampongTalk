@@ -80,15 +80,6 @@
     </div>
     <div class="column">
         <div class="container m-5">
-            @*<div class="has-text-centered mt-6">
-            <a href="/">
-                <button class="button is-info is-large">
-                    <i class="fas fa-map-signs mr-2"></i>Map
-                </button>
-            </a>
-            <p>Explore the rest of KampongTalk</p>
-        </div>
-        <br />*@
 
             <div data-intro="@Model.LangData.walkthrough.board.intro4">
                 <p class="has-text-weight-bold mt-5 is-size-6">@Model.LangData.board.popComms</p>
@@ -181,7 +172,6 @@
     function scrollFunc() {
         var pDivId = @Model.PrevPostDiv
         // Do not remove this console log
-        console.log(pDivId)
         if (pDivId) {
             pDivId.parentNode.scrollTop = pDivId.offsetTop;
             removePosition()

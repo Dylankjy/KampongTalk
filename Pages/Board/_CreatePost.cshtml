@@ -151,10 +151,6 @@
                     $("#suggestedComms").append("<li><hr />" + item + '<button class="button is-link is-outlined is-pulled-right commButton" type="button" onclick="selectComms(this)">@Model.LangData.board.createPost.select</button></li>')
                 })
 
-
-                    //< ul id = "suggestedComms" >
-                    //            <li><hr />Community 1 <button class="button is-link is-outlined is-pulled-right" type="button">Select</button></li>
-                    //        </ul >
             },
             failure: function (response) {
                 alert('failed')
@@ -267,13 +263,10 @@
             else {
                 counter.classList.add("is-hidden")
             }
-            //console.log(maxLimit - contentInput.value.length)
-            //counter.innerText = maxLimit - contentInput.value.length;
         }
     }
 
     function checkEmpty() {
-        console.log('here')
         if ($("#contentInput").val().length != 0) {
             $("#post_submit").attr('disabled', false)
         }

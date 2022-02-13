@@ -62,15 +62,9 @@ namespace KampongTalk.Pages.Board
 
         [BindProperty] public IEnumerable<dynamic> likesList { get; set; } = likesDB.All();
 
-        //[BindProperty] public IEnumerable<dynamic> communityList { get; set; } = communitiesDB.All();
-        //[BindProperty] public IEnumerable<dynamic> pList { get; set; } = Enumerable.Empty<dynamic>();
-
         [BindProperty] public IFormFile postImg { get; set; }
 
         // Posts to display on board
-        // public dynamic PostsToDisplay { get; set; }
-        //public IEnumerable<dynamic> PostsToDisplay { get; set; }
-        // public dynamic PostsToDisplay { get; set; }
         public PagedResults<dynamic> PostsToDisplay { get; set; }
 
         public List<string> commsByPopularity = new List<string>();
@@ -78,12 +72,6 @@ namespace KampongTalk.Pages.Board
         public List<string> eventsByPopularity = new List<string>();
 
         private int postPage { get; set; }
-        //public string postType { get; set; }
-
-        //public IActionResult OnGet()
-        //{
-        //    return Redirect("/Board/All");
-        //}
 
         public IActionResult OnGet()
         {
@@ -93,7 +81,6 @@ namespace KampongTalk.Pages.Board
                 return Redirect("/Accounts/Login");
             }
             LangData = UserPrefApi.GetLangByUid(CurrentUser);
-            //postType = "";
             HttpContext.Session.SetString("PostPage", "1");
             PostsToDisplay = GetPosts("");
             GetPopularCommunities();
@@ -111,7 +98,6 @@ namespace KampongTalk.Pages.Board
                 return Redirect("/Accounts/Login");
             }
             LangData = UserPrefApi.GetLangByUid(CurrentUser);
-            //postType = "Friends";
             HttpContext.Session.SetString("PostPage", "1");
             PostsToDisplay = GetPosts("Friends");
             GetPopularCommunities();
@@ -121,31 +107,17 @@ namespace KampongTalk.Pages.Board
             return Page();
         }
 
-        //public IActionResult OnGetRecommended()
-        //{
-        //    if (needLogin()) return Redirect("/Accounts/Login");
-        //    // postType = "Recommended";
-        //    HttpContext.Session.SetString("PostPage", "1");
-        //    PostsToDisplay = GetPosts("Recommended");
-        //    GetPopularCommunities();
-        //    GetPopularEvents();
-
-        //    return Page();
-        //}
 
         // Inititalise posts
         public dynamic GetPosts(string postType)
         {
-            //IEnumerable<dynamic> allPosts = Enumerable.Empty<dynamic>();
             PagedResults<dynamic> allPosts = new PagedResults<dynamic>();
-            //dynamic allPosts;
             if (postType == "Friends")
             {
                 // Generating friends list in format (Uid, Uid, Uid)
                 MightyOrm relationsDB = new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"], "Relationships");
                 dynamic friendsList1 = relationsDB.All(where: $"(UserA = {CurrentUser.Uid} AND Status = 'friends')", columns: "UserB");
                 dynamic friendsList2 = relationsDB.All(where: $"(UserB = {CurrentUser.Uid} AND Status = 'friends')", columns: "UserA");
-                //List<dynamic>? friendsList2 = Enumerable.ToList(relationsDB.All(where: $"(UserB = {CurrentUser.Uid} AND Status = 'friends')", columns: "UserA"));
                 string friendIDsStr = "";
 
                 if ( (!string.IsNullOrEmpty(Convert.ToString(friendsList1))) || (!string.IsNullOrEmpty(Convert.ToString(friendsList2))))
@@ -173,7 +145,6 @@ namespace KampongTalk.Pages.Board
                     {
                         friendIDsStr = friendIDsStr[0..^2];
                         friendIDsStr = friendIDsStr + ")";
-                        //allPosts = postDB.All(where: $"IsComment = 0 AND Author IN {friendIDsStr}", orderBy: "Timestamp DESC");
                         allPosts = postDB.Paged(orderBy: "Timestamp DESC", where: $"IsComment = 0 AND Author IN {friendIDsStr}", pageSize: 5, currentPage: 0);
 
                     }
@@ -181,21 +152,11 @@ namespace KampongTalk.Pages.Board
                 }
 
             }
-            else if(postType == "Recommended")
-            {
-                // Recommended Posts
-                //allPosts = postDB.All(where: "IsComment = 0 AND Author != '0'", orderBy: "Timestamp DESC", limit: 2);
-                allPosts = postDB.Paged(orderBy: "Timestamp DESC", where: "IsComment = 0 AND Author != '0'", pageSize: 1, currentPage: 0);
-            }
             else
             {
                 // Whole Kampong, All posts
-                // allPosts = postDB.All(where: "IsComment = 0 AND Author != '0'", orderBy: "Timestamp DESC", limit: 5);
-                // allPosts = postDB.All(where: "IsComment = 0 AND Author != '0'", orderBy: "Timestamp DESC", limit: 5, args: pageNum);
                 allPosts = postDB.Paged(orderBy: "Timestamp DESC", where: "IsComment = 0 AND Author != '0'", pageSize: 5, currentPage: 0);
             }
-            //var allPosts = postDB.All(new { IsComment = 0});
-            //PostsToDisplay = allPosts;
             return allPosts;
         }
 
@@ -233,16 +194,6 @@ namespace KampongTalk.Pages.Board
                         postImg.CopyTo(fileStream);
                     }
 
-                    //using (var image = Image.Load(filePath))
-                    //{
-                    //    var ratio = Convert.ToDouble(image.Height) / Convert.ToDouble(image.Width);
-                    //    var width = 384;
-                    //    var height = (int)Math.Round(384 * ratio, 0);
-                    //    image.Mutate(x => x.Resize(width, height));
-                    //    image.Save(uploadFolder);
-
-                    //}
-
                     newPost.AttachmentImg = attachmentImg;
                 }
                 else
@@ -278,7 +229,6 @@ namespace KampongTalk.Pages.Board
                 if (existLike != null)
                 {
                     likesDB.Delete($"EntityId = '{newLike.EntityId}' && Uid = '{CurrentUser.Uid}'");
-                    //isLiked = true;
                 }
                 else
                 {
@@ -294,12 +244,10 @@ namespace KampongTalk.Pages.Board
                     isLiked.ToString(),
                     likeCount.ToString()
                 };
-                //return Page();
                 return new JsonResult(likeResp);
             }
             catch
             {
-                Debug.WriteLine("Error");
                 return Redirect("/Board");
             }
         }
@@ -341,7 +289,6 @@ namespace KampongTalk.Pages.Board
                 var eventsDB = new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"], "Events");
 
                 var allEvents = eventsDB.All(where: $"Attendees != '' AND Date >= CURDATE()");
-                //var allEvents = eventsDB.All();
 
                 var eventsByPopularityObj = allEvents
                     .Select(e => new

@@ -31,7 +31,6 @@ namespace KampongTalk.Pages.Board
             try
             {
                 var allPosts = postDB.Paged(orderBy: "Timestamp DESC", where: "IsComment = 0 AND Author != '0'", pageSize: 1, currentPage: pPage + 5);
-                //nPost = allPosts.Items.First();
                 nPost = GetPost(postType, pPage);
             }
             catch
@@ -97,7 +96,6 @@ namespace KampongTalk.Pages.Board
             }
             finally { }
 
-            //return Page();
             return new JsonResult(communityResp);
         }
 

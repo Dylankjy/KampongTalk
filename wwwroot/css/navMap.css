@@ -1,22 +1,4 @@
-﻿/*@media all and (max-width: 1120px) {
-    #fullview {
-        display: none;
-    }
-    #halfview {
-        display: block;
-    }
-}
-
-@media all and (min-width: 1121px) {
-    #halfview {
-        display: none;
-    }
-    #fullview {
-        display:block;
-    }
-}*/
-
-body{
+﻿body{
     min-width: 450px;
 }
 

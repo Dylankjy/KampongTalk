@@ -61,7 +61,6 @@ namespace KampongTalk.Pages.Board
             if (CurrentUser == null) return Redirect("/Accounts/Login");
             LangData = UserPrefApi.GetLangByUid(CurrentUser);
             Postid = Convert.ToInt64(Pid);
-            // commentList = postDB.All($"IsComment = '{Pid}'");
             commentList = GetComments(Postid);
             thisPost = postDB.Single($"Pid = '{Pid}'");
             var authorId = thisPost.Author;

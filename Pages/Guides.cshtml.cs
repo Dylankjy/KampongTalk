@@ -23,7 +23,6 @@ namespace KampongTalk.Pages
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
             if (CurrentUser == null)
             {
-                //CurrentUser = new User();
                 return Redirect("/Accounts/Login");
             }
             LangData = UserPrefApi.GetLangByUid(CurrentUser);
