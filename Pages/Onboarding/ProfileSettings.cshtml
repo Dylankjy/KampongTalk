@@ -90,49 +90,29 @@
 </section>
 
 <script>
-    //var pfpUploadField = document.getElementById("pfpUploadField")
-    //$("#pfpUploadField").on('change', () => {
-    //    //$("#profileEditForm").submit()
-    //    const [file] = pfpUploadField.files
-    //    if (file) {
-    //        console.log(URL.createObjectURL(file))
-    //        document.getElementById("pfp-small").background = URL.createObjectURL(file)
-    //        //$("#pfp-small") = URL.createObjectURL(file)
-    //    }
-    //})
 
     var pfpUploadField = document.getElementById("pfpUploadField")
     pfpUploadField.onchange = function () {
-        //$("#profileEditForm").submit()
         const [file] = pfpUploadField.files
         if (file) {
-            console.log(URL.createObjectURL(file))
-            //document.getElementById("pfp-small").background = URL.createObjectURL(file)
             $("#pfp-small").css("background-image", "url(" + URL.createObjectURL(file) + ")");
             $("#pfp-small").css("background-repeat", "no-repeat");
             $("#pfp-small").css("background-position", "center");
             $("#pfp-small").css("background-size", "cover");
-            //$("#pfp-small") = URL.createObjectURL(file)
         }
     }
 
     var bannerUploadField = document.getElementById("bannerUploadField")
     bannerUploadField.onchange = function () {
-        //$("#profileEditForm").submit()
         const [file] = bannerUploadField.files
         if (file) {
-            console.log(URL.createObjectURL(file))
-            //document.getElementById("card-hero-user").background = URL.createObjectURL(file)
             $("#card-hero-user").css("background-image", "url(" + URL.createObjectURL(file) + ")");
             $("#card-hero-user").css("background-repeat", "no-repeat");
             $("#card-hero-user").css("background-position", "center");
             $("#card-hero-user").css("background-size", "cover");
-            //$("#pfp-small") = URL.createObjectURL(file)
         }
     }
-    //$("#bannerUploadField").on('change', () => {
-    //    $("#profileEditForm").submit()
-    //})
+
 </script>
 
 <script defer>

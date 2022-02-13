@@ -13,6 +13,7 @@ namespace KampongTalk.Pages
     public class GuidesModel : PageModel
     {
         public User CurrentUser { get; set; }
+        public dynamic LangData { get; set; }
 
         public IActionResult OnGet()
         {
@@ -25,6 +26,7 @@ namespace KampongTalk.Pages
                 //CurrentUser = new User();
                 return Redirect("/Accounts/Login");
             }
+            LangData = UserPrefApi.GetLangByUid(CurrentUser);
             return Page();
         }
     }

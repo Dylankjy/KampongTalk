@@ -55,7 +55,6 @@
 
                     <div class="field">
                         <label class="label is-size-5 mb-0"><i class="fas fa-language"></i>&ensp;@Model.LangData.onboarding.preferences.language</label>
-                        @*<span class="is-size-6">Switch to your preferred language.</span>*@
                         <div class="control has-icons-left is-size-5 select">
                             <select value="@Model.currentUserPreference.Language" asp-items="Model.LangPrefList" asp-for="newUserPreference.Language" class="form-control" style="width:250px;"></select>
                         </div>
@@ -80,9 +79,7 @@
                                         <span style="font-size: 110%">@Model.LangData.onboarding.preferences.largest</span>
                                     </div>
                                 </div>
-                                @*<span class="is-pulled-left">Large</span>
-                    <span class="is-centere" style="font-size: 105%">Larger</span>
-                    <span class="is-pulled-right" style="font-size: 110%">Largest</span>*@
+
                             </div>
                         </div>
                     </div>
@@ -97,10 +94,6 @@
                     </div>
                     <br />
 
-                    @*<div class="has-text-centered">
-                        <button class="mt-5 mb-3 button is-primary is-dark is-fullwidth" type="submit">@Model.LangData.next</button>
-                        <a href="/Onboarding/ProfileSettings">@Model.LangData.onboarding.skip</a>
-                    </div>*@
                     <button class="button is-light mt-3 mb-3" type="button" style="width:49%" onclick="location.href='/Onboarding/ProfileSettings';">
                         @Model.LangData.onboarding.skip
                     </button>

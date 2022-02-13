@@ -205,41 +205,6 @@
         }
     }
 
-    @*function getPostData() {
-        var postType = window.location.pathname.split("/")[1];
-
-            $.ajax({
-                type: "POST",
-                url: "/Board/fetchposts",
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("XSRF-TOKEN",
-                        $('input:hidden[name="__RequestVerificationToken"]').val());
-                },
-                data: {
-                    postType: postType
-                },
-                success: function (resp) {
-                    //$('#mainBoard').append(resp)
-                    var pList = resp.items
-                    for (var i = 0; i < pList.length; i++) {
-                        var post = pList[i]
-                        console.log(postObj)
-
-                        var newPost = "<p>"+ post.Content + "</p><br>"
-                        $('#mainBoard').append(newPost)
-                        //appendPost(post)
-                        //$('#mainBoard').append(@Html.PartialAsync("_Post"),post)
-                    }
-
-                },
-                error: function () {
-                    return "error";
-                },
-
-            })
-    }*@
-
-
     function infiniteScroll() {
         var arr = window.location.pathname.split("/")
         var postType = arr[arr.length - 1];
