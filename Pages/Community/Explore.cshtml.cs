@@ -22,10 +22,15 @@ namespace KampongTalk.Pages.Community
         // Current user prop
         public User CurrentUser { get; set; }
 
+        // User preferences prop
+        public dynamic LangData { get; set; }
+
         public dynamic myCommunity { get; set; }
 
         public void OnGet(int p)
         {
+            CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
+            LangData = UserPrefApi.GetLangByUid(CurrentUser);
             // Database declarations
             //var dbCommunities =
             //    new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
