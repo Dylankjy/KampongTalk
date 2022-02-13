@@ -20,7 +20,7 @@
         <div class="columns">
 
             <!-- START: Main Column -->
-            <div class="column is-four-fifths-desktop" data-title="Welcome to KampongTalk's map." data-intro="This is where you can access all the features of KampongTalk.">
+            <div class="column is-four-fifths-desktop" data-title="Welcome to KampongTalk's map!" data-intro="This is where you can access all the features of KampongTalk.">
                 @*<div class="container mb-3 has-text-centered">
                     <h1 class="subtitle has-text-weight-bold">Welcome to Kampong Talk</h1>
                 </div>*@
@@ -31,7 +31,7 @@
 
                     <!-- ChatIcon -->
                     <a href="/Dms/ChatList">
-                        <div class="iconDiv expandDiv" style="top: 2vh; left: 14vw;" data-title="Chat" data-intro="Here, you can access your private messages and create chats.">
+                        <div class="iconDiv expandDiv" style="top: 2vh; left: 14vw;" data-title="Chat" data-intro="Here, you can access your private messages.">
                             <img src="~/imgs/NavMap/Chat_Icon.png" class="navMapIcon"/>
                             <p>
                                 <span class="tag is-dark is-large has-text-weight-bold">@Model.LangData.features.chats</span>
@@ -52,7 +52,7 @@
 
                     <!-- VoidDeckIcon -->
                     <a href="/DigitalVoidDeck/Lobby">
-                        <div class="iconDiv expandDiv" style="top:2vh; left:51vw;" data-title="Void Deck" data-intro="Find and meet new people in your neighbourhood.">
+                        <div class="iconDiv expandDiv" style="top:2vh; left:51vw;" data-title="Void Deck" data-intro="At the Void Deck, you can find and meet new people in the neighbourhood.">
                             <img src="~/imgs/NavMap/Void_Deck.png" class="navMapIcon"/>
                             <p>
                                 <span class="tag is-dark is-large has-text-weight-bold">@Model.LangData.features.voidDeck</span>
@@ -132,7 +132,7 @@
                     <br/>
 
                     <div class="has-text-centered expandDiv" data-title="Settings" data-intro="Change your account settings here.">
-                        <a href="/Settings">
+                        <a href="/Settings#walkthrough">
                             <button class="button is-large is-primary">
                                 <span class="icon is-medium">
                                     <i class="fas fa-cog"></i>
@@ -302,14 +302,17 @@
     </script>
 }
 
-    <script defer>
-    if (window.location.hash === '#walkthrough') {
-        introJs().start()
-    }
+<script defer>
+    setTimeout(function () {
+        if (window.location.hash === '#walkthrough') {
+            introJs().start()
+        }
+    }, 10);
     var mapBtn = document.getElementById("mapButton")
     mapBtn.classList.remove("is-light")
     mapBtn.classList.add("is-dark")
 </script>
+
 }
 else
 {

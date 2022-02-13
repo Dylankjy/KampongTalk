@@ -14,8 +14,8 @@
 
     ViewData["currentUid"] = Model.CurrentUser.Uid;
 }
-
-<section id="profileHeader" class="hero is-medium has-background-primary-dark is-dark" data-intro="This is the profile banner and profile picture.">
+<div data-title="Welcome to the Profile!" data-intro="Here users can show off their personality."></div>
+<section id="profileHeader" class="hero is-medium has-background-primary-dark is-dark" data-title="Profile picture and banner" data-intro="Posts are given colours based on this banner.">
     <div class="hero-body">
         <div class="container">
             <div id="profileImage" class="pfp"></div>
@@ -34,12 +34,13 @@
             <div class="container">
                 <div class="columns mt-5">
                     <div class="column is-one-quarter">
-                        <div data-intro="This is this user's information.">
+                        <div data-title="User Information" data-intro="Here you can view basic user information.">
                             <h1 class="title is-1 has-text-black">@Model.ViewingUser.Name</h1>
-                            <p class="subtitle has-text-page-color-light">&#64;@Model.ViewingUser.Uid2</p>
+                            <p data-intro="This is the KampongID, which is unique to every user. You can use this to search for a specific user." 
+                               class="subtitle has-text-page-color-light">&#64;@Model.ViewingUser.Uid2</p>
                             <br/>
                             <div class="level">
-                                <div class="level-item has-text-centered">
+                                <div class="level-item has-text-centered" data-title="Friends" data-intro="Click here to view the Friends list.">
                                     <a onclick="$('#friendListModal').fadeIn('fast')">
                                         <p class="heading">Friends</p>
                                         <p class="title">@Model.FriendCount</p>
@@ -56,11 +57,11 @@
                                 @{
                                     if (Model.IsCurrentUserOwnPage)
                                     {
-                                        <a class="has-text-grey" onclick="$('#editProfileModal').fadeIn('fast')" data-intro="Click here to edit your profile."><i class="fas fa-user-edit"></i>&ensp;Edit Profile</a>
+                                        <a class="has-text-grey" onclick="$('#editProfileModal').fadeIn('fast')" data-title="Edit Profile" data-intro="Click here to customise your profile."><i class="fas fa-user-edit"></i>&ensp;Edit Profile</a>
                                     }
                                     else
                                     {
-                                        <div class="has-text-centered">
+                                        <div class="has-text-centered" data-title="Send a message" data-intro="Click here to message this user.">
                                             <a class="has-text-grey" href="/Dms/Dm?to=@Model.ViewingUser.Uid"><i class="fa-solid fa-message"></i>&ensp;Send message</a>
                                         </div>
                                         <br/>
@@ -161,7 +162,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="column is-three-quarters" data-title="Posts" data-intro="These are this user's most recent posts.">
+                    <div class="column is-three-quarters">
                         @{
                             @if (!Model.IsAccountPrivateAccessible && !Model.IsCurrentUserOwnPage)
                             {
@@ -188,7 +189,7 @@
                             }
                             else
                             {
-                                <h2 class="title is-5">Recent posts by this user</h2>
+                                <h2 class="title is-5" data-title="Posts" data-intro="These are the most recent posts.">Recent posts by this user</h2>
                                 foreach (var post in Model.PostsToDisplay.Reverse())
                                 {
                                     <partial name="Partials/_Post" model="post" view-data="ViewData"/>
@@ -319,9 +320,11 @@
 </script>
 
 <script defer>
-    if (window.location.hash === '#walkthrough') {
-        introJs().start()
-    }
+    setTimeout(function () {
+        if (window.location.hash === '#walkthrough') {
+            introJs().start()
+        }
+    }, 10);
 </script>
 
 @{

@@ -10,7 +10,7 @@
        style="width: 100%;">
 </audio>
 
-<section class="section">
+<section class="section" data-title="Welcome to the Void Deck!" data-intro="Here, you can find and meet new people in the neighbourhood.">
     <div class="iconDiv">
         <a href="/index">
             <img src="~/imgs/BackButton.png" style=" height: 3vh; right: 5px;" />
@@ -30,7 +30,8 @@
 
 
         <!-- Chatrooms-->
-        <div class="iconDiv" style="top:32vh; left:20vw;">
+        <div class="iconDiv" style="top:32vh; left:20vw;" 
+             data-title="Chatrooms" data-intro="Each chatroom represents a different neighbourhood. Click one to enter it and chat with those inside!">
             <a href="/DigitalVoidDeck/Chatroom3">
                 <img src="~/imgs/ButtonIcon.png" style="height:10vh;" />
                 <p class="iconTitle is-size-5">Chatroom 3</p>
@@ -109,4 +110,12 @@
         }
     })
 
+</script>
+
+<script defer>
+    setTimeout(function () {
+        if (window.location.hash === '#walkthrough') {
+            introJs().start()
+        }
+    }, 10);
 </script>
