@@ -23,7 +23,7 @@ namespace KampongTalk.Pages.Accounts
 
         // OTP prop
         [BindProperty] public string NewUserPassword { get; set; }
-        public string PasswordWarn { get; set; } = LangDataStatic.accounts.register.passwordHint;
+        public string PasswordWarn { get; set; }
 
         public string PasswordInputClass { get; set; } = string.Empty;
 
@@ -43,6 +43,7 @@ namespace KampongTalk.Pages.Accounts
             LangData = Internationalisation.LoadLanguage(HttpContext.Request.GetTypedHeaders().AcceptLanguage
                 .First().ToString().Split("-").First());
             LangDataStatic = LangData;
+            PasswordWarn = LangDataStatic.accounts.register.passwordHint;
 
             // If current user is already logged in or phone number missing, clear the session. This session is malformed.
             if (CurrentUser != null || PhoneNumber == null)
@@ -58,7 +59,9 @@ namespace KampongTalk.Pages.Accounts
         {
             LangData = Internationalisation.LoadLanguage(HttpContext.Request.GetTypedHeaders().AcceptLanguage
                 .First().ToString().Split("-").First());
-            LangDataStatic = LangData;
+            LangDataStatic = Internationalisation.LoadLanguage(HttpContext.Request.GetTypedHeaders().AcceptLanguage
+                .First().ToString().Split("-").First());
+            
             // Get current user
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
             // Get phone number attribute
