@@ -5,6 +5,9 @@
 
 @*<link rel="stylesheet" href="~/css/Support.css">*@
 
+@section scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
 
 &nbsp;
 <section id="contact-form" class="section">
@@ -12,12 +15,12 @@
         <div class="column"></div>
 
         <!--Form column-->
-        <div class="column is-half" 
+        <div class="column is-half"
              data-title="@Model.LangData.walkthrough.support.title1" data-intro="@Model.LangData.walkthrough.support.intro1">
             <h2 class="title">@Model.LangData.support.contact</h2>
             <form id="contact" name="contact" accept-charset="utf-8" method="post">
 
-               
+
 
 
                 <!--Subject field-->
@@ -25,7 +28,8 @@
                     <label class="label">@Model.LangData.support.subject</label>
                     <div class="control">
                         <!--Name input-->
-                        <input class="input" name="subject" type="text" asp-for="sendmail.Subject" placeholder="@Model.LangData.support.contact">
+                        <input class="input" name="subject" type="text" asp-for="sendmail.Subject"  placeholder="@Model.LangData.support.contact">
+                        
                     </div>
                 </div>
 
@@ -36,14 +40,15 @@
                     <label class="label">@Model.LangData.support.message</label>
                     <div class="control">
                         <!--Message input-->
-                        <textarea class="textarea" name="body" asp-for="sendmail.Body" placeholder="@Model.LangData.support.messageplaceholder"></textarea>
+                        <textarea class="textarea" name="body" asp-for="sendmail.Body"  placeholder="@Model.LangData.support.messageplaceholder"></textarea>
+                        
                     </div>
                 </div>
                 <br />
 
                 <!--Submit button-->
                 <button class="button is-fullwidth is-info" name="submit" type="submit" value="Send Mail">@Model.LangData.support.submit</button>
-                
+
 
             </form>
         </div>
