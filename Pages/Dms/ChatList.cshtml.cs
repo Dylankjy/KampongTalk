@@ -54,6 +54,23 @@ namespace KampongTalk.Pages.Dms
 
             ChatList = ChatList.GroupBy(c => c.OUid).Select(g => g.First()).OrderByDescending(c => c.Timestamp).ToList();
 
+            foreach(dynamic c in ChatList)
+            {
+                if(c.Timestamp >= DateTime.UtcNow.Date)
+                {
+                    // Message is from today
+                    c.Timestamp = c.Timestamp.ToString("hh:mm tt");
+                }
+                else if( c.Timestamp >= DateTime.UtcNow.Date.AddDays(-1))
+                {
+                    // Message is from yesterday
+                    c.Timestamp = "Yesterday";
+                }
+                else
+                {
+                    c.Timestamp = c.Timestamp.ToString("dd/MM/yy");
+                }
+            }
         }
 
     }
