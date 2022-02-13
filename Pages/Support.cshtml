@@ -14,30 +14,36 @@
         <!--Form column-->
         <div class="column is-half" 
              data-title="Contact Us" data-intro="Here, you can connect with KampongTalk staff. Submit a question, report a user or suggest a feature. 🙂">
-            <h2 class="title">Contact</h2>
-            <form id="contact" name="contact" accept-charset="utf-8">
+            <h2 class="title">Contact </h2>
+            <form id="contact" name="contact" accept-charset="utf-8" method="post">
 
-                <!--Name field-->
+               
+
+
+                <!--Subject field-->
                 <div class="field">
-                    <label class="label">Name</label>
+                    <label class="label">Subject</label>
                     <div class="control">
                         <!--Name input-->
-                        <input class="input" name="name" type="text" placeholder="Name">
+                        <input class="input" name="subject" type="text" asp-for="sendmail.Subject" placeholder="Subject">
                     </div>
                 </div>
+
+
 
                 <!--Message field-->
                 <div class="field">
                     <label class="label">Message</label>
                     <div class="control">
                         <!--Message input-->
-                        <textarea class="textarea" name="message" placeholder="Enter your message"></textarea>
+                        <textarea class="textarea" name="body" asp-for="sendmail.Body" placeholder="Enter your message"></textarea>
                     </div>
                 </div>
                 <br />
 
                 <!--Submit button-->
-                <button class="button is-fullwidth is-info" name="submit" type="submit">Submit</button>
+                <button class="button is-fullwidth is-info" name="submit" type="submit" value="Send Mail">Submit</button>
+                
 
             </form>
         </div>
