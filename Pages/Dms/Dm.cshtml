@@ -65,7 +65,7 @@
                                 <div class="message-box">
                                     @message.Content
                                 </div>
-                                <div class="message-sender">
+                                <div class="timestamp">
                                     <p class="subtitle is-size-8">@message.Timestamp</p>
                                 </div>
                             </div>
@@ -102,3 +102,26 @@
     </div>
 
 </div>
+
+
+
+<style>
+
+    .iconDiv {
+        position: absolute;
+        z-index: 2;
+        padding: 10px;
+        padding-left: 30px;
+    }
+
+        .iconDiv:hover {
+            transform: scale(1.5);
+            filter: brightness(85%);
+        }
+
+    .iconTitle {
+        font-weight: bold;
+        color: #FF6E17;
+    }
+
+</style>

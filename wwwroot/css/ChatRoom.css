@@ -24,6 +24,15 @@
     align-items: flex-end;
 }
 
+
+.timestamp {
+    font-size: 17px;
+    margin: 0 0 15px;
+    color: #30649c;
+}
+
+
+
 .message-sender {
     font-size: 17px;
     margin: 0 0 15px;
