@@ -20,7 +20,7 @@
         <div class="columns">
 
             <!-- START: Main Column -->
-            <div class="column is-four-fifths-desktop" data-title="Welcome to KampongTalk's map!" data-intro="This is where you can access all the features of KampongTalk.">
+            <div class="column is-four-fifths-desktop" data-title="@Model.LangData.walkthrough.map.title1" data-intro="@Model.LangData.walkthrough.map.intro1">
 
                 <!-- START: KT Nav Map-->
                 <div class="container has-text-centered" style="position:relative;">
@@ -28,7 +28,7 @@
 
                     <!-- ChatIcon -->
                     <a href="/Dms/ChatList">
-                        <div class="iconDiv expandDiv" style="top: 2vh; left: 14vw;" data-title="Chat" data-intro="Here, you can access your private messages.">
+                        <div class="iconDiv expandDiv" style="top: 2vh; left: 14vw;" data-title="@Model.LangData.features.chats" data-intro="@Model.LangData.walkthrough.map.intro2">
                             <img src="~/imgs/NavMap/Chat_Icon.png" class="navMapIcon"/>
                             <p>
                                 <span class="tag is-dark is-large has-text-weight-bold">@Model.LangData.features.chats</span>
@@ -38,7 +38,7 @@
 
                     <!-- CommunitiesIcon -->
                     <a href="/Community/Explore">
-                        <div class="iconDiv expandDiv" style="top:0vh; left:38vw;" data-title="Communities" data-intro="Have a specific interest or hobby? Find posts grouped by topics here.">
+                        <div class="iconDiv expandDiv" style="top:0vh; left:38vw;" data-title="@Model.LangData.features.communities" data-intro="@Model.LangData.walkthrough.map.intro3">
                             <img src="~/imgs/NavMap/Communities_Icon.png" class="navMapIcon" style="height:25vh;"/>
                             <p>
                                 <span class="tag is-dark is-large has-text-weight-bold">@Model.LangData.features.communities</span>
@@ -49,7 +49,7 @@
 
                     <!-- VoidDeckIcon -->
                     <a href="/DigitalVoidDeck/Lobby">
-                        <div class="iconDiv expandDiv" style="top:2vh; left:51vw;" data-title="Void Deck" data-intro="At the Void Deck, you can find and meet new people in the neighbourhood.">
+                        <div class="iconDiv expandDiv" style="top:2vh; left:51vw;" data-title="@Model.LangData.features.voidDeck" data-intro="@Model.LangData.walkthrough.map.intro4">
                             <img src="~/imgs/NavMap/Void_Deck.png" class="navMapIcon"/>
                             <p>
                                 <span class="tag is-dark is-large has-text-weight-bold">@Model.LangData.features.voidDeck</span>
@@ -59,7 +59,7 @@
 
                     <!-- BoardIcon -->
                     <a href="/Board">
-                        <div class="iconDiv expandDiv" style="top:21vh; left:25vw;" data-title="Board" data-intro="Here, you can view and create posts. Share about your day, or catch up with friends.">
+                        <div class="iconDiv expandDiv" style="top:21vh; left:25vw;" data-title="@Model.LangData.features.board" data-intro="@Model.LangData.walkthrough.map.intro5">
                             <img src="~/imgs/NavMap/Board_Icon.png" class="navMapIcon"/>
                             <p>
                                 <span class="tag is-dark is-large has-text-weight-bold">@Model.LangData.features.board</span>
@@ -69,7 +69,7 @@
 
                     <!-- SupportIcon -->
                     <a href="/Support">
-                        <div class="iconDiv expandDiv" style="top:47vh; left:14vw;" data-title="Support" data-intro="Contact KampongTalk staff here.">
+                        <div class="iconDiv expandDiv" style="top:47vh; left:14vw;" data-title="@Model.LangData.features.support" data-intro="@Model.LangData.walkthrough.map.intro6">
                             <!--SupportLink-->
                             <img src="~/imgs/NavMap/Support_Icon.png" class="navMapIcon"/>
                             <p>
@@ -80,7 +80,7 @@
 
                     <!-- EventsIcon -->
                     <a href="/Events">
-                        <div class="iconDiv expandDiv" style="top:42vh; left:40vw;" data-title="Events" data-intro="Looking for a way to pass the time? Browse and create engaging events here.">
+                        <div class="iconDiv expandDiv" style="top:42vh; left:40vw;" data-title="@Model.LangData.features.events" data-intro="@Model.LangData.walkthrough.map.intro7">
                             <img src="~/imgs/NavMap/Events_Icon.png" class="navMapIcon" style="height:25vh;"/>
                             <p>
                                 <span class="tag is-dark is-large has-text-weight-bold">@Model.LangData.features.events</span>
@@ -98,13 +98,13 @@
             <div class="column">
 
                 <p>
-                    <button class="button is-light" onclick="history.back()" data-title="Close the map" data-intro="Click here to close the map and return to your previous page."><i class="fas fa-times"></i>&ensp;@Model.LangData.navMap.closeMap</button>
+                    <button class="button is-light" onclick="history.back()" data-title="@Model.LangData.walkthrough.map.title8" data-intro="@Model.LangData.walkthrough.map.intro8"><i class="fas fa-times"></i>&ensp;@Model.LangData.navMap.closeMap</button>
                 </p>
                 <br/>
 
                 <div class="is-pulled-left">
 
-                    <div class="has-text-centered expandDiv" data-title="Friends" data-intro="Access your friends list here.">
+                    <div class="has-text-centered expandDiv" data-title="@Model.LangData.features.friends" data-intro="@Model.LangData.walkthrough.map.intro9">
                         <a href="/Profile?u=@Model.CurrentUser.Uid2&showFriendsModal=1">
                             <button class="button is-large is-primary">
                                 <span class="icon is-medium">
@@ -116,7 +116,7 @@
                     </div>
                     <br/>
 
-                    <div class="has-text-centered expandDiv" data-title="Profile" data-intro="View and customise your profile here.">
+                    <div class="has-text-centered expandDiv" data-title="@Model.LangData.features.profile" data-intro="@Model.LangData.walkthrough.map.intro10">
                         <a href="/Profile?u=@Model.CurrentUser.Uid2">
                             <button class="button is-large is-primary">
                                 <span class="icon is-medium">
@@ -128,7 +128,7 @@
                     </div>
                     <br/>
 
-                    <div class="has-text-centered expandDiv" data-title="Settings" data-intro="Change your account settings here.">
+                    <div class="has-text-centered expandDiv" data-title="@Model.LangData.features.settings" data-intro="@Model.LangData.walkthrough.map.intro11">
                         <a href="/Settings">
                             <button class="button is-large is-primary">
                                 <span class="icon is-medium">
@@ -140,7 +140,7 @@
                     </div>
                     <br/>
 
-                    <div class="has-text-centered expandDiv" data-title="Log Out" data-intro="Click this button to exit Kampong Talk.">
+                    <div class="has-text-centered expandDiv" data-title="@Model.LangData.logout" data-intro="@Model.LangData.walkthrough.map.intro12">
                         <form method="post">
                             <button class="button is-large is-primary" type="submit" value="LOGOUT" formaction="/Accounts/Logout">
                                 <span class="icon is-medium">

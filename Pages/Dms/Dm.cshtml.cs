@@ -21,8 +21,9 @@ namespace KampongTalk.Pages.Dms
 
         public dynamic ReceivingUser { get; set; }
 
+        public dynamic LangData { get; set; }
 
-       // public bool ShowUserNotFoundError { get; set; }
+        // public bool ShowUserNotFoundError { get; set; }
 
 
         public MightyOrm dbChat{get; set; } =
@@ -44,6 +45,8 @@ namespace KampongTalk.Pages.Dms
             //Get current user
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
             if (CurrentUser == null) return Redirect("/Accounts/Login");
+
+            LangData = UserPrefApi.GetLangByUid(CurrentUser);
 
             myChat = dbChat.All($"(SenderID = '{CurrentUser.Uid}' AND RecipientId = '{Convert.ToInt64(to)}') OR (SenderID = '{Convert.ToInt64(to)}' AND RecipientId = '{CurrentUser.Uid}')");
 

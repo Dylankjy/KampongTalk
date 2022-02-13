@@ -236,7 +236,9 @@
   },
 
   "dm": {
-    "yourchats": "Your Chats"
+    "yourchats": "Your Chats",
+    "messageplaceholder": "Enter your message",
+    "startchat": "Start chatting with "
   },
 
 
@@ -254,6 +256,26 @@
     "supportDesc": "Contact KampongTalk staff.",
     "profDesc": "Show off your personality.",
     "settingsDesc": "Customise the app to fit your needs."
+  },
+
+  "walkthrough": {
+    "map": {
+      "title1": "Welcome to KampongTalk's map!",
+      "intro1": "This is where you can access all the features of KampongTalk.",
+      "intro2": "Here, you can access your private messages.",
+      "intro3": "Have a specific interest or hobby? Find posts grouped by topics here.",
+      "intro4": "At the Void Deck, you can find and meet new people in the neighbourhood.",
+      "intro5": "Here, you can view and create posts. Share about your day, or catch up with friends.",
+      "intro6": "Contact KampongTalk staff here.",
+      "intro7": "Looking for a way to pass the time? Browse and create engaging events here.",
+      "title8": "Close the map",
+      "intro8": "Click here to close the map and return to your previous page.",
+      "intro9": "Access your friends list here.",
+      "intro10": "View and customise your profile here.",
+      "intro11": "Change your account settings here.",
+      "intro12": "Click this button to exit Kampong Talk."
+
+    }
   }
 
 }
