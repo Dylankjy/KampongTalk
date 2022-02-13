@@ -306,15 +306,15 @@ else
         <div class="container">
             <div class="columns is-vcentered">
                 <div class="column">
-                    <h1 class="title is-1">KampongTalk</h1>
-                    <p class="subtitle is-4">Connect with your close friends and those close to heart.<br/><span class="has-text-primary">Come talk with KampongTalk.</span></p>
+                    <h1 class="title is-1">@Model.LangData.kampongTalk</h1>
+                    <p class="subtitle is-4">@Model.LangData.accounts.register.brandingSlogan<br/><span class="has-text-primary">@Model.LangData.accounts.register.brandingSlogan2</span></p>
                     <img src="/imgs/welcome.svg" class="mt-3" style="height: 25rem; width: auto"/>
                 </div>
                 <div class="column">
                     <div class="card" style="width: 70%; margin: 0 auto;">
                         <div class="card-content">
                             <div>
-                                <h1 class="title">Welcome back</h1>
+                                <h1 class="title">@Model.LangData.accounts.login.welcomeBack</h1>
                                 <p class="subtitle">@Model.LangData.accounts.login.loginToAccount</p>
                             </div>
                             <br/>
@@ -353,7 +353,7 @@ else
                             </form>
                         </div>
                         <div class="card-content has-background-primary-light">
-                            <a class="button is-success is-fullwidth is-medium" href="/Accounts/Register"><i class="fa-solid fa-plus"></i>&ensp;Create new account</a>
+                            <a class="button is-success is-fullwidth is-medium" href="/Accounts/Register"><i class="fa-solid fa-plus"></i>&ensp;@Model.LangData.registerAlt</a>
                         </div>
                     </div>
                 </div>

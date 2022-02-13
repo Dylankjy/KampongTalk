@@ -7,6 +7,7 @@
   "close": "关闭",
   "login": "登录",
   "register": "注册",
+  "registerAlt": "创建新账户",
   "logout": "登出",
   "cancel": "取消",
 
@@ -43,6 +44,7 @@
     "otp": "验证码",
 
     "login": {
+      "welcomeBack": "欢迎回来",
       "kampongTalkAccount": "甘榜话 账户",
       "loginToAccount": "登录",
       "wrongPassword": "您的电话或密码不正确",
@@ -51,6 +53,7 @@
     "register": {
       "createYourAccount": "欢迎注册",
       "brandingSlogan": "跟您的亲朋好友联络",
+      "brandingSlogan2": "来与甘榜话聊天吧",
       "passwordHint": "<i class='fas fa-info-circle'></i>&ensp;您的密码至少需要八个字符和一个数字。",
       "passwordNotSufficient": "<span class='has-text-danger'><i class='fas fa-exclamation-triangle'></i>&ensp;您的密码至少需要八个字符和一个数字。</span>",
       "whyPhoneNumber": "忘了密码时，会用到您的电话号码来回复您的账户",
