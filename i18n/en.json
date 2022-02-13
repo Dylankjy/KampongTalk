@@ -316,6 +316,12 @@
       "intro1": "Here, you can access your private messages. Click on a row to open that chat.",
       "title2": "To start a chat with a user,",
       "intro2": "Message them from their profile or one of their posts. Happy messaging! 💬"
+    },
+    "support": {
+      "title1": "Contact Us",
+      "intro1": "Here, you can connect with KampongTalk staff. Submit a question, report a user or suggest a feature. 🙂",
+      "title2": "Contact Information",
+      "intro2": "Here are other ways you can contact us."
     }
   }
 
