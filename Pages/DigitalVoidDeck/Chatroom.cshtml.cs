@@ -14,14 +14,16 @@ namespace KampongTalk.Pages.DigitalVoidDeck
 
         public User CurrentUser { get; set; }
 
-        
-            public IActionResult OnGet()
+        public dynamic LangData { get; set; }
+        public IActionResult OnGet()
             {
                 // Get current user
                 CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
                 if (CurrentUser == null) return Redirect("/Accounts/Login");
 
-                return Page();
+            LangData = UserPrefApi.GetLangByUid(CurrentUser);
+
+            return Page();
             }
         
     }

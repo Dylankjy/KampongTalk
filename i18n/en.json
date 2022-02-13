@@ -211,15 +211,17 @@
   "digimap": {
 
     "name": "Digital Void deck",
-    "chatone": "chatroom 1",
-    "chattwo": "chatroom 2",
-    "chatthree": "chatroom 3",
-    "chatfour": "chatroom 4",
-    "chatfive": "chatroom 5",
-    "chatsix": "chatroom 6"
+    "chatone": "Chatroom 1",
+    "chattwo": "Chatroom 2",
+    "chatthree": "Chatroom 3",
+    "chatfour": "Chatroom 4",
+    "chatfive": "Chatroom 5",
+    "chatsix": "Chatroom 6",
+    "chatsuccess": "You have successfully entered the chat!"
 
 
   },
+
 
   "guides": {
     "guidedTours": "Guided Tours",
