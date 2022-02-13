@@ -190,7 +190,7 @@ namespace KampongTalk.Pages.Search
 
             foreach (var word in keywordResults)
             foreach (var row in dbRel.All())
-                if (word.Contains(row.Keyword))
+                if (row.Keyword.Contains(word))
                     search.Add(row);
 
             return search;

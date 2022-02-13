@@ -18,6 +18,8 @@ namespace KampongTalk.Pages.Settings
         // Saved in the db. Use this to render the current attributes
         public dynamic CurrentUserPreference { get; set; }
 
+        public dynamic LangData { get; set; }
+
         public string DisplayLang { get; set; }
 
         public string DisplayTextSize { get; set; }
@@ -58,6 +60,7 @@ namespace KampongTalk.Pages.Settings
         {
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
             if (CurrentUser == null) return Redirect("/Accounts/Login");
+            LangData = UserPrefApi.GetLangByUid(CurrentUser);
 
             CurrentUserPreference = prefDb.Single($"Uid = {CurrentUser.Uid}");
 
@@ -138,7 +141,8 @@ namespace KampongTalk.Pages.Settings
         {
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
             if (CurrentUser == null) return Redirect("/Accounts/Login");
-            
+            LangData = UserPrefApi.GetLangByUid(CurrentUser);
+
             var dbUsers =
                 new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"],
                     "Users", "Uid");
