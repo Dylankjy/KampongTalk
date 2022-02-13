@@ -327,6 +327,38 @@
     }, 10);
 </script>
 
+<script>
+    function likePost(postSpan, likeBtn) {
+        var Pid = postSpan.innerText
+        $.ajax({
+            type: "POST",
+            url: "/Board/like",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("XSRF-TOKEN",
+                    $('input:hidden[name="__RequestVerificationToken"]').val());
+            },
+            data: {
+                EntityId: Pid
+            },
+            success: function (likeResp) {
+                var likeRespArr = likeResp.toString().split(",")
+                if (likeRespArr[0] == '1') {
+                    likeBtn.firstElementChild.innerHTML = '<i class="fas fa-thumbs-up"></i>&ensp; @Model.LangData.post.like';
+                }
+                else {
+                    likeBtn.firstElementChild.innerHTML = '<i class="far fa-thumbs-up"></i>&ensp; @Model.LangData.post.like';
+                }
+                likeBtn.lastElementChild.innerHTML = likeRespArr[1]
+
+            },
+            error: function () {
+                return "error";
+            }
+
+        })
+    }
+</script>
+
 @{
     if (Model.ViewingUser != null)
     {
