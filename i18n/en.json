@@ -9,7 +9,7 @@
   "register": "Register",
   "logout": "Log Out",
   "cancel": "Cancel",
-  
+
   "your": "Your",
   "you": "You",
   "yes": "Yes",
@@ -75,7 +75,8 @@
 
   "navMap": {
     "closeMap": "Close Map",
-    "social":  "Social"
+    "social": "Social",
+    "myAccount": "My Account"
   },
 
   "events": {
@@ -91,9 +92,9 @@
       "Edit": "Update Event"
     },
     "index": {
-      "explore":"Explore Event",
-      "my":"My Events",
-      "create":"Create an Event"
+      "explore": "Explore Event",
+      "my": "My Events",
+      "create": "Create an Event"
     },
     "detail": {
       "Organized": "Organized By",
@@ -191,6 +192,7 @@
       "noSuggComms": "There are no communities to display."
     },
     "detail": {
+      "replies": "Replies",
       "replyToPost": "Reply to post...",
       "sendReply": "Send Reply",
       "noComms": "No comments have been left on this post."
@@ -217,6 +219,22 @@
     "chatsix": "chatroom 6"
 
 
+  },
+
+  "guides": {
+    "guidedTours": "Guided Tours",
+    "tip": "Tip: If you're stuck on a page, help is just a click away",
+    "howToUse": "How To Use",
+    "yourProfile": "Your Profile",
+    "mapDesc": "An Overview of KampongTalk.",
+    "boardDesc": "Share about yourself. Engage with others.",
+    "commsDesc": "Find posts by topics and interests.",
+    "voidDeckDesc": "Meet new people in your neighbourhood.",
+    "eventsDesc": "Participate in and create fun events.",
+    "chatDesc": "Your private conversations.",
+    "supportDesc": "Contact KampongTalk staff.",
+    "profDesc": "Show off your personality.",
+    "settingsDesc": "Customise the app to fit your needs."
   }
 
 }
