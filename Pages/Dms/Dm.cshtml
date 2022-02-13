@@ -34,7 +34,7 @@
     <h1 class="display title is-8 ml-30"> @Model.ReceivingUser.Name </h1>
     <hr />
     <div id="messagearea" class="row" style="overflow-y: scroll; height: 530px">
-        <div><b>Start chatting with @Model.ReceivingUser.Name !</b></div>
+        <div><b>@Model.LangData.dm.startchat @Model.ReceivingUser.Name !</b></div>
 
 
         <div class="row">
@@ -94,7 +94,7 @@
             <div class="field">
 
                 <div class="control">
-                    <input class="input form-input-50" type="text" asp-for="newChat.Content" placeholder="Enter your message" style='width: 89%; height: 50px; font-size: 20pt;'> <button class="button is-warning is-blue" id="sendButton" style='width:10%; height: 50px; font-size: 20pt;'>Send</button>
+                    <input class="input form-input-50" type="text" asp-for="newChat.Content" placeholder="@Model.LangData.dm.messageplaceholder" style='width: 89%; height: 50px; font-size: 20pt;'> <button class="button is-warning is-blue" id="sendButton" style='width:10%; height: 50px; font-size: 20pt;'>Send</button>
 
                 </div>
             </div>

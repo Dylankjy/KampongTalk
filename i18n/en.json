@@ -236,7 +236,9 @@
   },
 
   "dm": {
-    "yourchats": "Your Chats"
+    "yourchats": "Your Chats",
+    "messageplaceholder": "Enter your message",
+    "startchat": "Start chatting with "
   },
 
 
