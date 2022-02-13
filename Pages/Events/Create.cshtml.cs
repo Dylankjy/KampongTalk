@@ -63,8 +63,8 @@ namespace KampongTalk.Pages.Events
                     myEvent.CreatorId = CurrentUser.Uid;
                     myEvent.Attendees = $"{myEvent.CreatorId};";
                     myEvent.Duration = Convert.ToString(endTimeSpan.TotalHours - startTimeSpan.TotalHours);
-                    // SearchApi.PutKeyword(myEvent.Name, 5, myEvent.Eid);
-                    // SearchApi.PutRelevancy(myEvent.Description, myEvent.Eid);
+                    SearchApi.PutKeyword(myEvent.Name, 5, myEvent.Eid);
+                    SearchApi.PutRelevancy(myEvent.Description, myEvent.Eid);
                     eventDb.Insert(myEvent);
                     return Redirect("/Events/MyEvents");
                 }
