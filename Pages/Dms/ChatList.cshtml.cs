@@ -37,11 +37,11 @@ namespace KampongTalk.Pages.Dms
         {
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
 
-            dynamic subList1 = chatDB.All(where: $"SenderId = {CurrentUser.Uid}", orderBy: "Timestamp", columns: "RecipientId, Content, Timestamp")
+            dynamic subList1 = chatDB.All(where: $"SenderId = {CurrentUser.Uid}", orderBy: "Timestamp DESC", columns: "RecipientId, Content, Timestamp")
                 .GroupBy(c => c.RecipientId)
                 .Select(g => g.First())
                 .ToList(); 
-            dynamic subList2 = chatDB.All(where: $"RecipientId = {CurrentUser.Uid}", orderBy: "Timestamp", columns: "SenderId, Content, Timestamp")
+            dynamic subList2 = chatDB.All(where: $"RecipientId = {CurrentUser.Uid}", orderBy: "Timestamp DESC", columns: "SenderId, Content, Timestamp")
                 .GroupBy(c => c.SenderId)
                 .Select(g => g.First())
                 .ToList();
@@ -52,7 +52,7 @@ namespace KampongTalk.Pages.Dms
             if (subList1 != null) { ChatList.AddRange(subList1); }
             if (subList2 != null) { ChatList.AddRange(subList2); }
 
-            ChatList = ChatList.GroupBy(c => c.OUid).Select(g => g.First()).OrderBy(c => c.Timestamp).ToList();
+            ChatList = ChatList.GroupBy(c => c.OUid).Select(g => g.First()).OrderByDescending(c => c.Timestamp).ToList();
 
         }
 
