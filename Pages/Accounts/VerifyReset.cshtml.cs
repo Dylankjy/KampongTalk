@@ -58,7 +58,9 @@ namespace KampongTalk.Pages.Accounts
         {
             LangData = Internationalisation.LoadLanguage(HttpContext.Request.GetTypedHeaders().AcceptLanguage
                 .First().ToString().Split("-").First());
-            LangDataStatic = LangData;
+            LangDataStatic = Internationalisation.LoadLanguage(HttpContext.Request.GetTypedHeaders().AcceptLanguage
+                .First().ToString().Split("-").First());
+            
             // Get current user
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
             // Get phone number attribute
