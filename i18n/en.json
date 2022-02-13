@@ -209,7 +209,6 @@
   },
 
   "digimap": {
-
     "name": "Digital Void deck",
     "chatone": "Chatroom 1",
     "chattwo": "Chatroom 2",
@@ -218,6 +217,22 @@
     "chatfive": "Chatroom 5",
     "chatsix": "Chatroom 6",
     "chatsuccess": "You have successfully entered the chat!"
+  },
+
+  "support": {
+    "contact": "Contact",
+    "subject": "Subject",
+    "message": "Message",
+    "messageplaceholder": "Enter your message",
+    "submit": "Submit",
+    "contacthotline": "Contact Hotline:",
+    "contacthotlinenumber": " +65 9000 9000",
+    "address": "Address: ",
+    "addressaddress": " 180 Ang Mo Kio Ave 8, Singapore 569830",
+
+    "successmessage": "You have successfully submitted your enquiry!",
+    "homebutton": "Back to home page"
+
 
 
   },

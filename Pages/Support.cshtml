@@ -14,7 +14,7 @@
         <!--Form column-->
         <div class="column is-half" 
              data-title="Contact Us" data-intro="Here, you can connect with KampongTalk staff. Submit a question, report a user or suggest a feature. 🙂">
-            <h2 class="title">Contact </h2>
+            <h2 class="title">@Model.LangData.support.contact</h2>
             <form id="contact" name="contact" accept-charset="utf-8" method="post">
 
                
@@ -22,10 +22,10 @@
 
                 <!--Subject field-->
                 <div class="field">
-                    <label class="label">Subject</label>
+                    <label class="label">@Model.LangData.support.subject</label>
                     <div class="control">
                         <!--Name input-->
-                        <input class="input" name="subject" type="text" asp-for="sendmail.Subject" placeholder="Subject">
+                        <input class="input" name="subject" type="text" asp-for="sendmail.Subject" placeholder="@Model.LangData.support.contact">
                     </div>
                 </div>
 
@@ -33,16 +33,16 @@
 
                 <!--Message field-->
                 <div class="field">
-                    <label class="label">Message</label>
+                    <label class="label">@Model.LangData.support.message</label>
                     <div class="control">
                         <!--Message input-->
-                        <textarea class="textarea" name="body" asp-for="sendmail.Body" placeholder="Enter your message"></textarea>
+                        <textarea class="textarea" name="body" asp-for="sendmail.Body" placeholder="@Model.LangData.support.messageplaceholder"></textarea>
                     </div>
                 </div>
                 <br />
 
                 <!--Submit button-->
-                <button class="button is-fullwidth is-info" name="submit" type="submit" value="Send Mail">Submit</button>
+                <button class="button is-fullwidth is-info" name="submit" type="submit" value="Send Mail">@Model.LangData.support.submit</button>
                 
 
             </form>
@@ -50,9 +50,9 @@
 
         <!--Information column-->
         <div class="column is-one-third has-text-centered" data-title="Contact Information" data-intro="Here are other ways you can contact us.">
-            <p class="is-size-5"><strong>Contact Hotline: </strong> +65 9000 9000</p>
+            <p class="is-size-5"><strong>@Model.LangData.support.contacthotline</strong>@Model.LangData.support.contacthotlinenumber</p>
             <br />
-            <p class="is-size-5"><strong> Address: </strong> 180 Ang Mo Kio Ave 8, Singapore 569830</p>
+            <p class="is-size-5"><strong>@Model.LangData.support.address</strong>@Model.LangData.support.addressaddress</p>
         </div>
 
         <div class="column"></div>
