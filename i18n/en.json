@@ -297,7 +297,12 @@
       "intro3": "View your community's details here.",
       "title4": "Popular communities",
       "intro4": "Browse the most popular communities on KampongTalk."
-
+    },
+    "voidDeck": {
+      "title1": "Welcome to the Void Deck!",
+      "intro1": "Here, you can find and meet new people in the neighbourhood.",
+      "title2": "Chatrooms",
+      "intro2": "Each chatroom represents a different neighbourhood. Enter one and chat with those inside."
     }
   }
 
