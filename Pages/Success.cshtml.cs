@@ -14,11 +14,16 @@ namespace KampongTalk.Pages
 
         public User CurrentUser { get; set; }
 
+        public dynamic LangData { get; set; }
+
+
         public IActionResult OnGet()
         {
             //Get current user
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
             if (CurrentUser == null) return Redirect("/Accounts/Login");
+
+            LangData = UserPrefApi.GetLangByUid(CurrentUser);
 
             return Page();
         }

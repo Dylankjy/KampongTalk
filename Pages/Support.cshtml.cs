@@ -15,6 +15,8 @@ namespace KampongTalk.Pages
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
             if (CurrentUser == null) return Redirect("/Accounts/Login");
 
+            LangData = UserPrefApi.GetLangByUid(CurrentUser);
+
             return Page();
         }
 
@@ -23,6 +25,8 @@ namespace KampongTalk.Pages
         public Email sendmail { get; set; }
 
         public User CurrentUser { get; set; }
+
+        public dynamic LangData { get; set; }
 
         public IActionResult OnPost()
         {
