@@ -14,8 +14,8 @@
 
     ViewData["currentUid"] = Model.CurrentUser.Uid;
 }
-<div data-title="Welcome to the Profile!" data-intro="Here users can show off their personality."></div>
-<section id="profileHeader" class="hero is-medium has-background-primary-dark is-dark" data-title="Profile picture and banner" data-intro="Posts are given colours based on this banner.">
+<div data-title="@Model.LangData.walkthrough.profile.title1" data-intro="@Model.LangData.walkthrough.profile.intro1"></div>
+<section id="profileHeader" class="hero is-medium has-background-primary-dark is-dark" data-title="@Model.LangData.walkthrough.profile.title2" data-intro="@Model.LangData.walkthrough.profile.intro2">
     <div class="hero-body">
         <div class="container">
             <div id="profileImage" class="pfp"></div>
@@ -34,13 +34,13 @@
             <div class="container">
                 <div class="columns mt-5">
                     <div class="column is-one-quarter">
-                        <div data-title="User Information" data-intro="Here you can view basic user information.">
+                        <div data-title="@Model.LangData.walkthrough.profile.title3" data-intro="@Model.LangData.walkthrough.profile.intro3">
                             <h1 class="title is-1 has-text-black">@Model.ViewingUser.Name</h1>
-                            <p data-intro="This is the KampongID, which is unique to every user. You can use this to search for a specific user." 
+                            <p data-intro="@Model.LangData.walkthrough.profile.intro4" 
                                class="subtitle has-text-page-color-light">&#64;@Model.ViewingUser.Uid2</p>
                             <br/>
                             <div class="level">
-                                <div class="level-item has-text-centered" data-title="Friends" data-intro="Click here to view the Friends list.">
+                                <div class="level-item has-text-centered" data-title="@Model.LangData.features.friends" data-intro="@Model.LangData.walkthrough.profile.intro5">
                                     <a onclick="$('#friendListModal').fadeIn('fast')">
                                         <p class="heading">Friends</p>
                                         <p class="title">@Model.FriendCount</p>
@@ -57,11 +57,11 @@
                                 @{
                                     if (Model.IsCurrentUserOwnPage)
                                     {
-                                        <a class="has-text-grey" onclick="$('#editProfileModal').fadeIn('fast')" data-title="Edit Profile" data-intro="Click here to customise your profile."><i class="fas fa-user-edit"></i>&ensp;Edit Profile</a>
+                                        <a class="has-text-grey" onclick="$('#editProfileModal').fadeIn('fast')" data-title="@Model.LangData.walkthrough.profile.title6" data-intro="@Model.LangData.walkthrough.profile.intro6"><i class="fas fa-user-edit"></i>&ensp;Edit Profile</a>
                                     }
                                     else
                                     {
-                                        <div class="has-text-centered" data-title="Send a message" data-intro="Click here to message this user.">
+                                        <div class="has-text-centered" data-title="@Model.LangData.walkthrough.profile.title7" data-intro="@Model.LangData.walkthrough.profile.intro7">
                                             <a class="has-text-grey" href="/Dms/Dm?to=@Model.ViewingUser.Uid"><i class="fa-solid fa-message"></i>&ensp;Send message</a>
                                         </div>
                                         <br/>
@@ -73,7 +73,7 @@
                                             {
                                                 <div>
                                                     <input type="hidden" asp-for="FriendAction" value="ADD"/>
-                                                    <button class="button is-success" data-intro="Click here to send a friend request to this user."><i class="fa-solid fa-user-plus"></i>&ensp;Send friend request</button>
+                                                    <button class="button is-success" data-intro="@Model.LangData.walkthrough.profile.intro8"><i class="fa-solid fa-user-plus"></i>&ensp;Send friend request</button>
                                                 </div>
                                             }
 
@@ -189,7 +189,7 @@
                             }
                             else
                             {
-                                <h2 class="title is-5" data-title="Posts" data-intro="These are the most recent posts.">Recent posts by this user</h2>
+                                <h2 class="title is-5" data-title="@Model.LangData.walkthrough.profile.title9" data-intro="@Model.LangData.walkthrough.profile.intro9">Recent posts by this user</h2>
                                 foreach (var post in Model.PostsToDisplay.Reverse())
                                 {
                                     <partial name="Partials/_Post" model="post" view-data="ViewData"/>

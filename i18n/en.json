@@ -322,6 +322,33 @@
       "intro1": "Here, you can connect with KampongTalk staff. Submit a question, report a user or suggest a feature. 🙂",
       "title2": "Contact Information",
       "intro2": "Here are other ways you can contact us."
+    },
+    "profile": {
+      "title1": "Welcome to the Profile!",
+      "intro1": "Here users can show off their personality.",
+      "title2": "Profile picture and banner",
+      "intro2": "Posts are given colours based on this banner.",
+      "title3": "User Information",
+      "intro3": "Here you can view basic user information.",
+      "intro4": "This is the KampongID, which is unique to every user. You can use this to search for a specific user.",
+      "intro5": "Click here to view the Friends list.",
+      "title6": "Edit Profile",
+      "intro6": "Click here to customise your profile.",
+      "title7": "Send a message",
+      "intro7": "Click here to message this user.",
+      "intro8": "Click here to send a friend request to this user.",
+      "title9": "Posts",
+      "intro9": "These are the most recent posts."
+    },
+    "settings": {
+      "title1": "Welcome to your Settings",
+      "intro1": "Here you can customise KampongTalk to fit your needs.",
+      "title2": "Changing your KampongID",
+      "intro2": "You can change your unique KampongID so that family and friends may find you easily.",
+      "title3": "Manage your Account Privacy and Security",
+      "intro3": "Change your password or Control the visibility of your account.",
+      "title4": "Set Language and Accessibility features",
+      "intro4": "Customise the app just the way you want it. Change your language, text size, and more."
     }
   }
 
