@@ -5,7 +5,8 @@
 @{
     string pDivId = "pDiv_" + @Model.Pid.ToString();
     string postID = "pid_" + @Model.Pid.ToString();
-
+    dynamic CurrentUser = UserApi.GetUserById(Convert.ToInt64(ViewData["currentUid"]));
+    dynamic LangData = UserPrefApi.GetLangByUid(CurrentUser);
 }
 
 
@@ -14,7 +15,7 @@
         if (@Model.InCommunity != null)
         {
             <div class="card-content card-meta">
-                <p class="has-text-weight-medium"><i class="fas fa-arrow-right"></i>&ensp;Posted in <a href="/Community?c=@Model.InCommunity" class="has-text-weight-bold has-text-black">@CommunityApi.GetCommunityById(@Model.InCommunity).Name</a></p>
+                <p class="has-text-weight-medium"><i class="fas fa-arrow-right"></i>&ensp;@LangData.post.postedIn <a href="/Community?c=@Model.InCommunity" class="has-text-weight-bold has-text-black">@CommunityApi.GetCommunityById(@Model.InCommunity).Name</a></p>
             </div>
         }
     }
@@ -52,10 +53,10 @@
                     <div class="dropdown-menu" id="dropdown-menu" role="menu">
                         <div class="dropdown-content">
                             <a href="/Dms/Dm?to=@UserApi.GetUserById(@Model.Author).Uid" class="dropdown-item">
-                                Message User
+                                @LangData.post.messageUser
                             </a>
                             <a href="/Support" class="dropdown-item">
-                                Report Post
+                                @LangData.post.reportPost
                             </a>
                         </div>
                     </div>
@@ -85,11 +86,11 @@
                     <div class="tags has-addons are-medium" onclick="likePost(@postID, this)">
                         @if (LikesApi.IsLiked(@Model.Pid, Convert.ToInt64(ViewData["currentUid"])))
                         {
-                            <span class="tag is-primary"><i class="fas fa-thumbs-up"></i>&ensp; Like</span>
+                            <span class="tag is-primary"><i class="fas fa-thumbs-up"></i>&ensp; @LangData.post.like</span>
                         }
                         else
                         {
-                            <span class="tag is-primary"><i class="far fa-thumbs-up"></i>&ensp; Like</span>
+                            <span class="tag is-primary"><i class="far fa-thumbs-up"></i>&ensp; @LangData.post.like</span>
                         }
                         <span class="tag is-link is-hidden" id="@postID">@Model.Pid</span>
                         <span class="tag is-dark">@LikesApi.GetLikesByPid(@Model.Pid)</span>
@@ -97,7 +98,7 @@
                 </a>
                 <a class="level-item" href="/Board/Detail/@Model.Pid" onclick="savePosition(@pDivId);">
                     <div class="tags has-addons are-medium">
-                        <span class="tag is-info"><i class="fas fa-comments"></i>&ensp; Reply</span>
+                        <span class="tag is-info"><i class="fas fa-comments"></i>&ensp; @LangData.post.reply</span>
                         <span class="tag is-dark">@PostApi.GetCommentCountByPid(@Model.Pid)</span>
                     </div>
                 </a>

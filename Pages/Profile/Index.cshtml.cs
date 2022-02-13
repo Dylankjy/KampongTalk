@@ -27,6 +27,9 @@ namespace KampongTalk.Pages.Profile
         // Current user prop
         public User CurrentUser { get; set; }
 
+        // User preferences prop
+        public dynamic LangData { get; set; }
+
         // Profile props
         public dynamic ViewingUser { get; set; }
         public string JoinDate { get; set; }
@@ -71,6 +74,9 @@ namespace KampongTalk.Pages.Profile
         {
             // Get current user
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
+
+            // Get user preferences
+            LangData = UserPrefApi.GetLangByUid(CurrentUser);
 
             // Database declarations
             var dbUsers =

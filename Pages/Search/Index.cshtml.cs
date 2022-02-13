@@ -12,7 +12,10 @@ namespace KampongTalk.Pages.Search
     {
         // Current user prop
         public User CurrentUser { get; set; }
-        
+
+        // User preferences prop
+        public dynamic LangData { get; set; }
+
         // Search result prop
         public List<dynamic> SearchResultPosts { get; set; } = new List<dynamic>();
         public List<dynamic> SearchResultCommunities { get; set; } = new List<dynamic>();
@@ -24,7 +27,10 @@ namespace KampongTalk.Pages.Search
         {
             // Get current user
             CurrentUser = new User().FromJson(HttpContext.Session.GetString("CurrentUser"));
-            
+
+            // Get user preferences
+            LangData = UserPrefApi.GetLangByUid(CurrentUser);
+
             SearchField = q;
             
             // If searchfield null
