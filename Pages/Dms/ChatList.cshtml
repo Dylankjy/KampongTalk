@@ -1,0 +1,48 @@
+﻿@page
+@using KampongTalk.Models
+@model KampongTalk.Pages.Dms.ChatListModel
+@{
+}
+
+<section class="section">
+        <div class="columns">
+            <div class="column"></div>
+            <div class="column is-half box">
+                <br />
+                <h1 class="title has-text-weight-bold">Your Chats</h1>
+
+                @foreach (var chat in Model.ChatList)
+                {
+                    <a href="/Dms/Dm?to=@UserApi.GetUserById(@chat.OUid).Uid" class="view-more-item">
+                        <div class="pt-4 pb-4">
+                            <div class="level">
+                                <div class="level-left">
+                                    <div class="level-item">
+                                        <div class="pfp-post" style="background: url('/userdata/@UserApi.GetUserById(@chat.OUid).AvatarImg') center no-repeat; background-size: cover"></div>
+                                    </div>
+                                    <div class="level-item">
+                                        <div>
+                                            <p class="title is-5" style="overflow-wrap: break-word; hyphens: auto;">
+                                                @UserApi.GetUserById(@chat.OUid).Name
+                                                <span class="is-size-6 has-text-grey has-text-weight-light">&#64;@UserApi.GetUserById(@chat.OUid).Uid2</span>
+                                            </p>
+                                            <p class="has-text-grey">@chat.Content</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="level-right">
+                                    <div class="level-item">
+                                        <span class="is-size-6 has-text-grey has-text-weight-light is-pulled-right">@chat.Timestamp</span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                }
+
+            </div>
+            <div class="column"></div>
+        </div>
+
+</section>

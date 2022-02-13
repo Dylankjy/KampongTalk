@@ -16,7 +16,10 @@
 <link rel="stylesheet" href="~/css/ChatRoom.css">
 
 <div class="iconDiv">
-    <a href="/Profile?u=@Model.ReceivingUser.Uid2">
+    @*<a href="/Profile?u=@Model.ReceivingUser.Uid2">
+        <img src="~/imgs/BackButton.png" style=" height: 3vh; right: 100px;" />
+    </a>*@
+    <a onclick="history.back()">
         <img src="~/imgs/BackButton.png" style=" height: 3vh; right: 100px;" />
     </a>
 </div>
