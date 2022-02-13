@@ -275,6 +275,34 @@
       "intro11": "Change your account settings here.",
       "intro12": "Click this button to exit Kampong Talk."
 
+    },
+    "board": {
+      "title1": "Welcome to the Board!",
+      "intro1": "Here, you can share about your day, or catch up with friends.",
+      "title2": "Type of Posts",
+      "intro2": "Select which type of posts you would like to see - All of them, or just those from friends.",
+      "title3": "Posts",
+      "intro3": "View the posts here. Click 'Like' if you enjoy the content, and 'Reply' to view replies or leave your own.",
+      "intro4": "Here are the most popular communities currently.",
+      "intro5": "Here are the most popular upcoming events.",
+      "title6": "Create a Post",
+      "intro6": "Click here to write a post."
+    },
+    "communities": {
+      "title1": "Welcome to Communities!",
+      "intro1": "Find posts grouped by topics here.",
+      "title2": "Create your own",
+      "intro2": "If your ideal community does not exist yet, you could start your own.",
+      "title3": "My Community",
+      "intro3": "View your community's details here.",
+      "title4": "Popular communities",
+      "intro4": "Browse the most popular communities on KampongTalk."
+    },
+    "voidDeck": {
+      "title1": "Welcome to the Void Deck!",
+      "intro1": "Here, you can find and meet new people in the neighbourhood.",
+      "title2": "Chatrooms",
+      "intro2": "Each chatroom represents a different neighbourhood. Enter one and chat with those inside."
     }
   }
 
