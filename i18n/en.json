@@ -275,6 +275,18 @@
       "intro11": "Change your account settings here.",
       "intro12": "Click this button to exit Kampong Talk."
 
+    },
+    "board": {
+      "title1": "Welcome to the Board!",
+      "intro1": "Here, you can share about your day, or catch up with friends.",
+      "title2": "Type of Posts",
+      "intro2": "Select which type of posts you would like to see - All of them, or just those from friends.",
+      "title3": "Posts",
+      "intro3": "View the posts here. Click 'Like' if you enjoy the content, and 'Reply' to view replies or leave your own.",
+      "intro4": "Here are the most popular communities currently.",
+      "intro5": "Here are the most popular upcoming events.",
+      "title6": "Create a Post",
+      "intro6": "Click here to write a post."
     }
   }
 
