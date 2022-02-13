@@ -92,7 +92,7 @@
       "Edit": "Update Event"
     },
     "index": {
-      "explore": "Explore Event",
+      "explore": "Explore Events",
       "my": "My Events",
       "create": "Create an Event"
     },
@@ -303,6 +303,13 @@
       "intro1": "Here, you can find and meet new people in the neighbourhood.",
       "title2": "Chatrooms",
       "intro2": "Each chatroom represents a different neighbourhood. Enter one and chat with those inside."
+    },
+    "events": {
+      "title1": "Welcome to Events",
+      "intro1": "Looking for a way to pass the time? Browse and create engaging events here.",
+      "intro2": "Explore all the fun events KampongTalk has to offer.",
+      "intro3": "Here you can create and host your own events.",
+      "intro4": "Here you can view the events you signed up for, past events, and the events you created."
     }
   }
 
