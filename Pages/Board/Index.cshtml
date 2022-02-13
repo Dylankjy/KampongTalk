@@ -46,7 +46,9 @@
 
                 @foreach (var post in Model.PostsToDisplay.Items)
                 {
-                    <partial name="_Post" model="post" view-data="ViewData" />
+                    @if(RelApi.IsAccessible(Model.CurrentUser.Uid, post.Author)) {
+                        <partial name="_Post" model="post" view-data="ViewData" />
+                    }
                 }
 
 
