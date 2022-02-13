@@ -9,7 +9,6 @@
     dynamic LangData = UserPrefApi.GetLangByUid(CurrentUser);
 }
 
-@*@if(RelApi.IsAccessible(CurrentUser.Uid, @Model.Author)) {*@
 
 <div class="card mt-4" id="@pDivId">
     @{
@@ -132,5 +131,3 @@
         </div>
     </div>
 </div>
-
-@*}*@
