@@ -61,19 +61,43 @@ namespace KampongTalk.Tools
         {
             var target_texts = new List<String>();
             var target_text_ids = new List<long>();
+            var backup_strList = new List<String>();
+            var scoreStrList = new List<String>();
+
+            var addCounter = 0;
 
             foreach (var myEvent in allEvents)
             {
                 target_texts.Add($"{myEvent.Name} {myEvent.Description}");
                 target_text_ids.Add(myEvent.Eid);
+                addCounter += 1;
+                if (addCounter > 3)
+                {
+                    continue;
+                }
+                else
+                {
+                    backup_strList.Add(Convert.ToString(myEvent.Eid));
+                }
             }
 
             // Get the list of scores
-            Task<dynamic> respTask = GetEventRecommendation(source_text, target_texts);
-            var result = await respTask;
-            var resultStripped = result.Substring(1, result.Length - 2);
-            List<String> scoreStrList = new List<String>(resultStripped.Split(','));
-            // Contains the scores (In float format)
+            try
+            {
+                Task<dynamic> respTask = GetEventRecommendation(source_text, target_texts);
+                var result = await respTask;
+                var resultStripped = result.Substring(1, result.Length - 2);
+                scoreStrList = new List<String>(resultStripped.Split(','));
+            }
+            catch
+            {
+                scoreStrList = backup_strList;
+            }
+            //Task<dynamic> respTask = GetEventRecommendation(source_text, target_texts);
+            //var result = await respTask;
+            //var resultStripped = result.Substring(1, result.Length - 2);
+            //List<String> scoreStrList = new List<String>(resultStripped.Split(','));
+            //// Contains the scores (In float format)
             List<float> scoreList = new List<float>();
             foreach (var elem in scoreStrList)
             {
