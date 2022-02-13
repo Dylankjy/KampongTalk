@@ -35,15 +35,14 @@ namespace KampongTalk.Models
         {
             var accountSid = ConfigurationManager.AppSetting["APIKeys:Twilio:SID"];
             var authToken = ConfigurationManager.AppSetting["APIKeys:Twilio:Secret"];
+            
+            TwilioClient.Init(accountSid, authToken);
 
-            // TODO: Uncomment during production
-            //TwilioClient.Init(accountSid, authToken);
-
-            //var message = MessageResource.Create(
-            //    body: $"[KampongTalk]\n{messageContent}",
-            //    from: new PhoneNumber("+19377876066"),
-            //    to: new PhoneNumber($"+65{PhoneNumber}")
-            //);
+            var message = MessageResource.Create(
+                body: $"[KampongTalk]\n{messageContent}",
+                from: new PhoneNumber("+19377876066"),
+                to: new PhoneNumber($"+65{PhoneNumber}")
+            );
         }
 
         public void SetNewUid2(string name)
