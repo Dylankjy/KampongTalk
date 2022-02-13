@@ -204,6 +204,19 @@
     "postedIn": "Posted in",
     "messageUser": "Message User",
     "reportPost": "Report Post"
+  },
+
+  "digimap": {
+
+    "name": "Digital Void deck",
+    "chatone": "chatroom 1",
+    "chattwo": "chatroom 2",
+    "chatthree": "chatroom 3",
+    "chatfour": "chatroom 4",
+    "chatfive": "chatroom 5",
+    "chatsix": "chatroom 6"
+
+
   }
 
 }
