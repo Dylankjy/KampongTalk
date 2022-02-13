@@ -172,6 +172,7 @@
     function scrollFunc() {
         var pDivId = @Model.PrevPostDiv
         // Do not remove this console log
+        console.log(pDivId)
         if (pDivId) {
             pDivId.parentNode.scrollTop = pDivId.offsetTop;
             removePosition()
@@ -181,7 +182,7 @@
     function chk_scroll(e) {
 
         var elem = $(e.currentTarget);
-        if ((elem[0].scrollHeight - elem.scrollTop() -0.2) <= elem.outerHeight()) {
+        if ((elem[0].scrollHeight - elem.scrollTop() - 0.4) <= elem.outerHeight()) {
             infiniteScroll()
         }
     }
