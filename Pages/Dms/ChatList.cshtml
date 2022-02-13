@@ -4,6 +4,13 @@
 @{
 }
 
+<div class="iconDiv">
+    <a href="/index">
+        <img src="~/imgs/BackButton.png" style=" height: 3vh; right: 100px;" />
+    </a>
+</div>
+
+
 <section class="section">
         <div class="columns">
             <div class="column"></div>
@@ -55,3 +62,23 @@
         }
     }, 10);
 </script>
+
+<style>
+
+    .iconDiv {
+        position: absolute;
+        z-index: 2;
+        padding: 10px;
+        padding-left: 30px;
+    }
+
+        .iconDiv:hover {
+            transform: scale(1.5);
+            filter: brightness(85%);
+        }
+
+    .iconTitle {
+        font-weight: bold;
+        color: #FF6E17;
+    }
+</style>
