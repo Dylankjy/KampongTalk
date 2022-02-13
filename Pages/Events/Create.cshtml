@@ -24,65 +24,69 @@
 
 }
 
-<div class="container">
-    <form method="post">
-        <div class="field">
-            <label class="label">@Model.LangData.events.create.Name</label>
-            <div class="control">
-                <input class="input form-input-50" type="text" asp-for="myEvent.Name">
-            </div>
-        </div>
-
-        <div class="field">
-            <label class="label">@Model.LangData.events.create.Description</label>
-            <div class="control form-input-50">
-                <textarea id="eventDesc" class="textarea" asp-for="myEvent.Description"></textarea>
-            </div>
-        </div>
-
-        <div class="field">
-            <label class="label">@Model.LangData.events.create.Date</label>
-            <div class="control">
-                <input class="input form-input-50" id="eventDate" type="date" id="eventDate" asp-for="myEvent.Date"/>
-            </div>
-        </div>
-
-        <div class="field is-grouped">
-            <div class="control">
-                <label class="label">@Model.LangData.events.create.Start</label>
+<section class="section">
+    <div class="container">
+        <h1 class="title">@Model.LangData.events.index.create</h1>
+        <form method="post">
+            <div class="field">
+                <label class="label">@Model.LangData.events.create.Name</label>
                 <div class="control">
-                    <div class="select">
-                        <select id="startTime" asp-for="myEvent.StartTime" asp-items="Model.ListOfStartTimeIntervals" class="form-control"></select>
-                    </div>
+                    <input class="input form-input-50" type="text" asp-for="myEvent.Name">
                 </div>
             </div>
 
-            <div class="control">
-                <label class="label">@Model.LangData.events.create.End</label>
+            <div class="field">
+                <label class="label">@Model.LangData.events.create.Description</label>
+                <div class="control form-input-50">
+                    <textarea id="eventDesc" class="textarea" asp-for="myEvent.Description"></textarea>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">@Model.LangData.events.create.Date</label>
                 <div class="control">
-                    <div class="select">
-                        <select id="endTime" asp-for="myEvent.EndTime" asp-items="Model.ListOfEndTimeIntervals" class="form-control"></select>
+                    <input class="input form-input-50" id="eventDate" type="date" id="eventDate" asp-for="myEvent.Date"/>
+                </div>
+            </div>
+
+            <div class="field is-grouped">
+                <div class="control">
+                    <label class="label">@Model.LangData.events.create.Start</label>
+                    <div class="control">
+                        <div class="select">
+                            <select id="startTime" asp-for="myEvent.StartTime" asp-items="Model.ListOfStartTimeIntervals" class="form-control"></select>
+                        </div>
                     </div>
                 </div>
-                <p class="help is-danger">@Model.timeErrMsg</p>
+
+                <div class="control">
+                    <label class="label">@Model.LangData.events.create.End</label>
+                    <div class="control">
+                        <div class="select">
+                            <select id="endTime" asp-for="myEvent.EndTime" asp-items="Model.ListOfEndTimeIntervals" class="form-control"></select>
+                        </div>
+                    </div>
+                    <p class="help is-danger">@Model.timeErrMsg</p>
+                </div>
             </div>
-        </div>
 
 
-        <div class="field">
-            <label class="label">@Model.LangData.events.create.Location</label>
-            <div class="control">
-                <input class="input form-input-50" asp-for="myEvent.Location"></input>
-                <br/>
-                <a class="has-text-success" href="https://www.skype.com/en/free-conference-call/" target="_blank">@Model.LangData.events.create.MeetingLink</a>
+            <div class="field">
+                <label class="label">@Model.LangData.events.create.Location</label>
+                <div class="control">
+                    <input class="input form-input-50" asp-for="myEvent.Location"></input>
+                    <br/>
+                    <a class="has-text-success" href="https://www.skype.com/en/free-conference-call/" target="_blank">@Model.LangData.events.create.MeetingLink</a>
+                </div>
             </div>
-        </div>
 
-        <div class="field">
-            <div class="control">
-                <button class="button is-warning is-light">@Model.LangData.events.create.Create</button>
+            <div class="field">
+                <div class="control buttons">
+                    <button class="button is-light" onclick="location.href='/Events';">@Model.LangData.cancel</button>
+                    <button class="button is-warning is-light">@Model.LangData.events.create.Create</button>
+                </div>
             </div>
-        </div>
 
-    </form>
-</div>
+        </form>
+    </div>
+</section>
