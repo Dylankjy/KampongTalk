@@ -7,6 +7,7 @@
   "close": "Close",
   "login": "Login",
   "register": "Register",
+  "registerAlt": "Create new account",
   "logout": "Log Out",
   "cancel": "Cancel",
 
@@ -44,6 +45,7 @@
     "otp": "6 Digit Code",
 
     "login": {
+      "welcomeBack": "Welcome back",
       "kampongTalkAccount": "KampongTalk Account",
       "loginToAccount": "Login to your account",
       "wrongPassword": "Your phone number or password is incorrect",
@@ -52,6 +54,7 @@
     "register": {
       "createYourAccount": "Create your KampongTalk Account",
       "brandingSlogan": "Connect with your close friends and those close to heart.",
+      "brandingSlogan2": "Come talk with KampongTalk.",
       "passwordHint": "<i class='fas fa-info-circle'></i>&ensp;Your password needs to contain at least 8 characters and a number.",
       "passwordNotSufficient": "<span class='has-text-danger'><i class='fas fa-exclamation-triangle'></i>&ensp;Your password needs to contain at least 8 characters with a number.</span>",
       "whyPhoneNumber": "We will use your phone number to recover your account in the event you forget your password.",
