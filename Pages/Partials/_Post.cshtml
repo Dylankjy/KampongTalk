@@ -9,6 +9,7 @@
     dynamic LangData = UserPrefApi.GetLangByUid(CurrentUser);
 }
 
+@*@if(RelApi.IsAccessible(CurrentUser.Uid, @Model.Author)) {*@
 
 <div class="card mt-4" id="@pDivId">
     @{
@@ -40,28 +41,28 @@
 
             @if (UserApi.GetUserById(@Model.Author).Uid != Convert.ToInt64(ViewData["currentUid"]))
             {
-            <div class="level-right">
-                <div class="dropdown is-right" onclick="this.classList.toggle('is-active');">
-                    <div class="dropdown-trigger">
-                        <button class="button is-white" aria-haspopup="true" aria-controls="dropdown-menu">
-                            <span class="has-text-weight-bold">...</span>
-                            @*<span class="icon is-small">
-                                    <i class="fas fa-angle-down" aria-hidden="true"></i>
-                                </span>*@
-                        </button>
-                    </div>
-                    <div class="dropdown-menu" id="dropdown-menu" role="menu">
-                        <div class="dropdown-content">
-                            <a href="/Dms/Dm?to=@UserApi.GetUserById(@Model.Author).Uid" class="dropdown-item">
-                                @LangData.post.messageUser
-                            </a>
-                            <a href="/Support" class="dropdown-item">
-                                @LangData.post.reportPost
-                            </a>
+                <div class="level-right">
+                    <div class="dropdown is-right" onclick="this.classList.toggle('is-active');">
+                        <div class="dropdown-trigger">
+                            <button class="button is-white" aria-haspopup="true" aria-controls="dropdown-menu">
+                                <span class="has-text-weight-bold">...</span>
+                                @*<span class="icon is-small">
+                                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                    </span>*@
+                            </button>
+                        </div>
+                        <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                            <div class="dropdown-content">
+                                <a href="/Dms/Dm?to=@UserApi.GetUserById(@Model.Author).Uid" class="dropdown-item">
+                                    @LangData.post.messageUser
+                                </a>
+                                <a href="/Support" class="dropdown-item">
+                                    @LangData.post.reportPost
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             }
         </div>
     </div>
@@ -69,10 +70,10 @@
         <p class="is-size-5" style="overflow-wrap: break-word; hyphens: auto;">@Model.Content</p>
 
         <div class="has-text-centered">
-        @if (Model.AttachmentImg != null)
-        {
-            <img id="attachmentImg" class="postImg mt-2 mb-2" src="~/userdata/posts/@Model.AttachmentImg" onclick="expandImg(this)"/>
-        }
+            @if (Model.AttachmentImg != null)
+            {
+                <img id="attachmentImg" class="postImg mt-2 mb-2" src="~/userdata/posts/@Model.AttachmentImg" onclick="expandImg(this)" />
+            }
         </div>
         <div class="has-text-grey-light minorInfo mt-2">
             <span>@Model.Timestamp.ToString("dd/MM/yyyy hh:mm tt")</span>
@@ -120,7 +121,7 @@
             <audio id="audio" controls hidden>
                 <source type="audio/mp3">
             </audio>
-            
+
             <script defer="defer">
                 Vibrant.from('/userdata/@UserApi.GetUserById(@Model.Author).BannerImg').getPalette((err, palette) => {
                     $('#@pDivId .card-top').css({ 'background': `linear-gradient(180deg, rgba(${palette.LightMuted._rgb}, 0.8) 0%, rgba(${palette.LightMuted._rgb},0.0) 100%)` })
@@ -131,3 +132,5 @@
         </div>
     </div>
 </div>
+
+@*}*@
