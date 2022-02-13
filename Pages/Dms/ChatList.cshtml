@@ -14,10 +14,10 @@
 <section class="section">
         <div class="columns">
             <div class="column"></div>
-            <div class="column is-half box" data-title="Welcome to your chats." data-intro="Here, you can access your private messages. Click on a row to open that chat.">
+            <div class="column is-half box" data-title="@Model.LangData.walkthrough.chats.title1" data-intro="@Model.LangData.walkthrough.chats.intro1">
                 <br />
                 <h1 class="title has-text-weight-bold" 
-                    data-title="To start a chat with a user," data-intro="Message them from their profile or one of their posts. Happy messaging! 💬">@Model.LangData.dm.yourchats</h1>
+                    data-title="@Model.LangData.walkthrough.chats.title2" data-intro="@Model.LangData.walkthrough.chats.intro2">@Model.LangData.dm.yourchats</h1>
 
                 @foreach (var chat in Model.ChatList)
                 {

@@ -310,6 +310,12 @@
       "intro2": "Explore all the fun events KampongTalk has to offer.",
       "intro3": "Here you can create and host your own events.",
       "intro4": "Here you can view the events you signed up for, past events, and the events you created."
+    },
+    "chats": {
+      "title1": "Welcome to your chats.",
+      "intro1": "Here, you can access your private messages. Click on a row to open that chat.",
+      "title2": "To start a chat with a user,",
+      "intro2": "Message them from their profile or one of their posts. Happy messaging! 💬"
     }
   }
 
