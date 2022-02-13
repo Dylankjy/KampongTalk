@@ -7,16 +7,16 @@
 
 <section class="section">
     <div class="container">
-        <h1 class="title">Explore communities</h1>
+        <h1 class="title" data-title="Welcome to Communities!" data-intro="Find posts grouped by topics here.">Explore communities</h1>
 
         <div>
             @if (Model.myCommunity == null)
             {
-                <a href="/Community/New" class="button is-medium is-primary" data-title="Create your own community" data-intro="If your ideal community does not exist yet, you could start your own."><i class="fa-solid fa-plus"></i>&emsp;Create Community</a>
+                <a href="/Community/New" class="button is-medium is-primary" data-title="Create your own" data-intro="If your ideal community does not exist yet, you could start your own."><i class="fa-solid fa-plus"></i>&emsp;Create Community</a>
             }
             else
             {
-                <div class="buttons has-addons" data-title="My Community" data-intro="View your community's details here.'">
+                <div class="buttons has-addons" data-title="My Community" data-intro="View your community's details here.">
                     <button class="button is-medium is-static">My Community</button>
                     <a href="/Community?c=@Model.myCommunity.Cid" class="button is-medium is-primary">@Model.myCommunity.Name</a>
                 </div>
@@ -53,7 +53,9 @@
 </section>
 
 <script defer>
-    if (window.location.hash === '#walkthrough') {
-        introJs().start()
-    }
+    setTimeout(function () {
+        if (window.location.hash === '#walkthrough') {
+            introJs().start()
+        }
+    }, 10);
 </script>

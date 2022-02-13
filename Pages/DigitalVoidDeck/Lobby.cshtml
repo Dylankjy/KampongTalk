@@ -10,7 +10,7 @@
        style="width: 100%;">
 </audio>
 
-<section class="section">
+<section class="section" data-title="Welcome to the Void Deck!" data-intro="Here, you can find and meet new people in the neighbourhood.">
     <div class="iconDiv">
         <a href="/index">
             <img src="~/imgs/BackButton.png" style=" height: 3vh; right: 5px;" />
@@ -126,4 +126,12 @@
         }
     })
 
+</script>
+
+<script defer>
+    setTimeout(function () {
+        if (window.location.hash === '#walkthrough') {
+            introJs().start()
+        }
+    }, 10);
 </script>

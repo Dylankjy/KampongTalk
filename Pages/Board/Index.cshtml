@@ -12,7 +12,7 @@
 
 <div class="columns is-centered">
     <div class="column pt-5 pl-5">
-        <h1 class="title has-text-centered" data-title="Welcome to the Board 👋">@Model.LangData.board.kampongBoard</h1>
+        <h1 class="title has-text-centered" data-title="Welcome to the Board!" data-intro="Here, you can share about your day, or catch up with friends.">@Model.LangData.board.kampongBoard</h1>
         <aside class="menu" data-title="Type of Posts" data-intro="Select which type of posts you would like to see - All of them, or just those from friends.">
             <ul class="menu-list">
                 @if (HttpContext.Request.Path == "/Board")
@@ -48,7 +48,7 @@
     </div>
     <div class="column is-three-fifths">
         <div id="mainBoard" class="hero is-fullheight-with-navbar has-background-white-ter" style="overflow-y: auto; height:80vh; padding-left: 1em; padding-right:  1rem; overflow-x:hidden;" 
-             data-title="Posts" data-intro="View the posts here. Click 'Like' if you enjoy the content, and 'Reply' to view replies and leave your own.">
+             data-title="Posts" data-intro="View the posts here. Click 'Like' if you enjoy the content, and 'Reply' to view replies or leave your own.">
 
             @if (Model.PostsToDisplay.TotalPages > 0)
             {
@@ -99,7 +99,7 @@
         </div>
         <br />*@
 
-            <div data-intro="Here are the most popular communities now.">
+            <div data-intro="Here are the most popular communities currently.">
                 <p class="has-text-weight-bold mt-5 is-size-6">@Model.LangData.board.popComms</p>
             <ul class="minorInfo">
                 @if (Model.commsByPopularity != null && Model.commsByPopularity.Count() > 0)
@@ -360,7 +360,9 @@
     </script>
 
 <script defer>
-    if (window.location.hash === '#walkthrough') {
-        introJs().start()
-    }
+    setTimeout(function () {
+        if (window.location.hash === '#walkthrough') {
+            introJs().start()
+        }
+    }, 10);
 </script>

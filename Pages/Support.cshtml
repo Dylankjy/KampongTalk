@@ -63,7 +63,9 @@
 
 <!--This is for the walkthrough-->
 <script defer>
-    if (window.location.hash === '#walkthrough') {
-        introJs().start()
-    }
-</script> 
+    setTimeout(function () {
+        if (window.location.hash === '#walkthrough') {
+            introJs().start()
+        }
+    }, 10);
+</script>
