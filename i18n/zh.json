@@ -1,0 +1,547 @@
+{
+  "kampongTalk": "甘榜话",
+
+  "back": "退后",
+  "continue": "继续",
+  "next": "下一个",
+  "close": "关闭",
+  "login": "登录",
+  "register": "注册",
+  "logout": "登出",
+  "cancel": "取消",
+
+  "your": "你的",
+  "you": "你",
+  "yes": "是",
+  "no": "否",
+
+  "previousPage": "上一页",
+  "nextPage": "下一页",
+
+  "saveChanges": "保存更改",
+
+  "takeNote": "注意",
+
+  "features": {
+    "chats": "讯息",
+    "communities": "社区",
+    "board": "布告栏",
+    "voidDeck": "在线聊天室",
+    "events": "活动",
+    "support": "服务台",
+    "friends": "朋友",
+    "profile": "帐户",
+    "settings": "设置",
+    "map": "地图",
+    "help": "帮助"
+  },
+
+  "accounts": {
+    "fullName": "名字",
+    "phoneNumber": "电话号码",
+    "password": "密码",
+    "otp": "验证码",
+
+    "login": {
+      "kampongTalkAccount": "甘榜话 账户",
+      "loginToAccount": "登录",
+      "wrongPassword": "您的电话或密码不正确",
+      "forgottenPasswordLink": "忘了您的密码？"
+    },
+    "register": {
+      "createYourAccount": "欢迎注册",
+      "brandingSlogan": "跟您的亲朋好友联络",
+      "passwordHint": "<i class='fas fa-info-circle'></i>&ensp;您的密码至少需要八个字符和一个数字。",
+      "passwordNotSufficient": "<span class='has-text-danger'><i class='fas fa-exclamation-triangle'></i>&ensp;您的密码至少需要八个字符和一个数字。</span>",
+      "whyPhoneNumber": "忘了密码时，会用到您的电话号码来回复您的账户",
+      "phoneInvalid": "<i class='fas fa-exclamation-triangle'></i>&ensp;您提供的电话号码无效。<br>",
+      "phoneAlreadyInUse": "<i class='fas fa-exclamation-triangle'></i>&ensp;这个号码已被链接了。 <a href='/Accounts/Login'>登录？</a><br>",
+      "phoneVerifyHint": "下一步，我们以短信验证您的账户",
+      "placeholders": {
+        "fullName": "明华"
+      }
+    },
+    "verify": {
+      "almostThere": "快要完成了。。。",
+      "verifyYourPhone": "验证您的电话号码",
+      "checkPhone": "请查看您的电话信息",
+      "sentCode": "我们已发送个六-长度验证码 ",
+      "otpInvalid": "<i class='fas fa-exclamation-triangle'></i>&ensp;这个验证码不可用了，请要求个新的"
+    },
+    "recover": {
+      "recoverAccount": "回复账户",
+      "subtitle": "用您链接的电话号码来重启您的密码。",
+      "setNewPasswordSubtitle": "设置个新的密码",
+      "phoneNumberNoExist": "这个电话号码以无连接",
+      "newPassword": "新密码",
+      "otpInvalid": "<i class='fas fa-exclamation-triangle'></i>&ensp;这个回复号码无效，请要求个新的。"
+    }
+  },
+
+  "community": {
+    "exploreCommunities": "寻找社区",
+    "createCommunity": "创建社区",
+    "myCommunity": "我的社区",
+    "popularCommunities": "流行的社区",
+    "posts": "帖子",
+    "editCommunity": "编辑社区",
+    "aboutCommunity": "社区信息",
+    "owner": "管理者",
+    "created": "创建者",
+    "postsInCommunity": "社区的帖子",
+    "nothingToDisplay": "没东西展览",
+    "communityNoPost": "这个社区没有帖子",
+    "edit": {
+      "name": "社区名称",
+      "nameHint": "社区名称不可更新",
+      "about": "社区信息"
+    },
+    "empty": {
+      "title": "这不是一个聊天室, 只是无天室。",
+      "subtitle": "这个社区并不存在。请确保你没有输入错误的社区名称。"
+    },
+    "create": {
+      "title": "创建一个新的社区",
+      "subtitle": "为兴趣相投的人开辟一个享受的空间",
+      "alreadyExist": {
+        "title": "不能创建新的社区",
+        "subtitle": "这个账户已经拥有一个社区。"
+      },
+      "alreadyExistSameName": "已经有一个具有相同或类似名称的社区。",
+      "chooseCarefully": "谨慎选择! 这在创建后不能改变。",
+      "beDescriptive": "尽可能地进行描述，以便更多的人能够找到你的社区。",
+      "takeNote": {
+        "a": "你的社区和它的内容不能包含任何不适当的东西",
+        "b": "不要在甘榜话上做任何违法的事情",
+        "c": "你要对你社区的帖子负责",
+        "d": "你不能在你的社区创建后删除它",
+        "e": "你的账户在未来不能创建任何新的社区"
+      },
+      "create": "创建社区",
+      "changedYourMind": "改变主意了吗？",
+      "returnHome": "返回到地图"
+    }
+  },
+
+  "profile": {
+    "friends": "朋友",
+    "posts": "帖子",
+    "editProfile": "编辑帐户",
+    "sendMessage": "请输入您的信息",
+    "friendReq": {
+      "send": "发送好友请求",
+      "accept": "接受好友请求",
+      "pending": "朋友请求待定",
+      "undoReq": "再次点击以撤销请求",
+      "added": "加为好友",
+      "remove": "再次点击，将用户从好友列表中删除"
+    },
+    "aboutMe": "用户的描述",
+    "joined": "加入了",
+    "privateAcc": {
+      "title": "这是一个私人账户",
+      "subtitle": "如果你想看这个用户的帖子, 你需要当{ViewingUser.Name}的朋友。"
+    },
+    "empty": {
+      "title": "这里没有什么",
+      "subtitle": "该用户没有创建任何帖子"
+    },
+    "edit": {
+      "name": "名字",
+      "kampongId": "KampongID",
+      "kampongIdHint": "出于安全考虑，请使用 <a href='/Settings?openModal=kampongId'>户设置</a> 来更改您的KampongID。",
+      "aboutMe": "我的描述"
+    },
+    "notExist": {
+      "title": "我们到处寻找，但我们无法找到这个账户。",
+      "subtitle": "该用户可能已经改变了他们的用户标签，删除了他们的账户，或者该用户根本就不存在。<br/>请确保你没有犯任何打字错误。"
+    },
+    "privateAccountFriendsList": {
+      "title": "这个用户的帐户没有公开",
+      "subtitle": "如果要看到这个用户的朋友列表，你需要成为他们的朋友。"
+    },
+    "friendList": {
+      "requests": "请求",
+      "users": "用户",
+      "incoming": "收到的朋友请求",
+      "outgoing": "发出的朋友请求",
+      "friends": "朋友"
+    },
+    "friendListEmpty": {
+      "title": "这个用户的好友列表是空的",
+      "subtitle": "试着发送一个朋友请求!"
+    }
+  },
+
+  "search": {
+    "results": "结果",
+    "viewMore": "看更多",
+    "noRelResult": "没有相关结果",
+    "showing": "正在展示",
+    "users": {
+      "users": "用户",
+      "noResult": "无法找到用户",
+      "hint": "如果你有你要找的用户的KampongID，在搜索中输入@，然后放KampongID，就可以直接进入该用户的资料。"
+    },
+    "events": {
+      "events": "活动",
+      "noResult": "无法找到活动"
+    },
+    "communities": {
+      "communities": "社区"
+    },
+    "posts": {
+      "posts": "帖子"
+    }
+  },
+
+  "settings": {
+    "kampongId": {
+      "title": "你的KampongID",
+      "subtitle": "朋友和家人可以通过你的KampongID轻松找到你。",
+      "currentId": "您当前的KampongID",
+      "hint": "你可以与你的朋友和家人分享你的KampongID，让他们只需在搜索栏中输入该ID就能轻松找到你的资料页面。"
+    },
+    "accountPrivacySecurity": {
+      "title": "帐户隐私和安全",
+      "subtitle": "保持你的账户安全并控制它的可见度。",
+      "password": "密码",
+      "passwordDesc": "经常改变你的密码以保持你的账户安全。",
+      "profileVisibility": "帐户可见性",
+      "accountIs": "你的账户是",
+      "profilePrivacy": {
+        "privateLabel": "私下里。",
+        "privateDesc": "你的帐户页只能由你的朋友查看。",
+        "publicLabel": "公众。",
+        "publicDesc": "任何人都可以查看你的帐户页面。",
+        "button": "更改帐户隐私"
+      }
+    },
+    "accessibilityLanguage": {
+      "title": "无障碍和语言",
+      "subtitle": "改变甘榜话的外观，让您更舒适。",
+      "displayLang": "显示语言",
+      "displayTextSize": "显示文字大小",
+      "gender": "文字转语音 性别",
+      "useAudio": "使用音频提示",
+      "button": "切换配置文件的偏好"
+    },
+    "changeId": {
+      "changeIdText": "更改KampongID",
+      "currId": "您目前的KampongID",
+      "takeNote": "注意",
+      "afterChange": "改变你的KampongID后",
+      "afterChange1": "用户只能使用你的新的KampongID来找到你。",
+      "afterChange2": "你的个人资料页的网址将被改变。",
+      "afterChange3": "你的旧的KampongID将可供其他用户更换使用。",
+      "friendsFam": "确保你给你的朋友和家人提个醒，以便他们能用你的新KampongID找到你。",
+      "newKampongId":"新KampongID",
+      "idUsed": "这个KampongID目前正被另一个用户使用。",
+      "idBelongs": "这个KampongID已经属于你了。不需要更改。",
+      "pw": "密码",
+      "pwErr": "密码不正确",
+      "change1": "对你的账户进行重大更改需要你的密码。",
+      "change2": "保存更改"
+    },
+    "changePassword": {
+      "changePw": "改变你的密码",
+      "currentPw": "当前密码",
+      "incorrectPw": "当前密码不正确",
+      "newPw": "新密码",
+      "newPwMsg": "你的新密码需要至少包含8个字符和一个数字。",
+      "updatePw": "更新密码"
+    },
+    "changePrivacy": {
+      "title": "个人隐私设置",
+      "whatIsPrivate": "什么是私人档案？",
+      "whenYouSet": "当你把你的个人资料设置为隐私时:",
+      "noticeList": {
+        "a": "只有你的朋友可以看到你的个人资料页和在你的个人资料上发表的帖子。",
+        "b": "对社区的帖子仍将保持公开。",
+        "c": "你的朋友名单将只有你和你的朋友可以查看。",
+        "d": "你需要将用户添加为好友，使他们能够访问你的个人资料页面。"
+      },
+      "makePrivate": "将个人资料隐私改为隐私"
+    }
+  },
+
+
+  "navMap": {
+    "closeMap": "关地图",
+    "social": "社交",
+    "myAccount": "我的账户"
+  },
+  "events": {
+    "create": {
+      "Name": "活动名称",
+      "Description": "活动描述",
+      "Date": "活动日期",
+      "Start": "起动",
+      "End": "结束",
+      "Location": "地点",
+      "MeetingLink": "在此创建会议链接",
+      "Create": "创建活动",
+      "Edit": "编辑活动"
+    },
+    "index": {
+      "explore": "寻找活动",
+      "my": "我的活动",
+      "create": "创建活动"
+    },
+    "detail": {
+      "Organized": "组织者",
+      "Date": "日期",
+      "Duration": "期间",
+      "Time": "时间",
+      "Location": "地点",
+      "Recommended": "相似的活动",
+      "viewOnly": "只能观察",
+      "Archive": "已档案",
+      "Edit": "编辑",
+      "Attend": "我会参加",
+      "Remove": "清除"
+    },
+    "myEvents": {
+      "Upcoming": "未来活动",
+      "Past": "过其活动",
+      "My": "我创建的活动",
+      "Add": "增加活动！",
+      "emptyCreate": "你还没创建活动"
+    }
+  },
+
+  "smsMessages": {
+    "verifyPhone": "您好 {selectedUser.Name}. 您快要完成注册的过程.\n\n我们必要证实您的电话号码，已创建您的账户。\n\n请输入您的验证码:\n{otpRecord.Metadata} (十分钟有效)",
+    "recoverAccount": "您好 {selectedUser.Name} (@{selectedUser.Uid2}). 密码重启已被请求.\n\n如果是被您请求的，输入以下的验证码\n{otpRecord.Metadata} (十分钟有效)\n\n如果你没要求这个讯息，不要慌张。别给您的验证码。"
+  },
+
+  "onboarding": {
+    "pref": "偏好",
+    "prof": "帐户",
+    "done": "完毕",
+    "skip": "暂时跳过这一步",
+
+    "preferences": {
+      "welcome": "欢迎来甘榜话!",
+      "getStarted": "让我们开始吧。",
+      "setPrefs": "设置你的偏好",
+      "language": "语言",
+      "textSize": "字体大小",
+      "large": "小",
+      "larger": "中",
+      "largest": "大",
+      "audioCues": "音频提示",
+      "audioCuesDesc": "在使用甘榜话时将会使用声音。"
+    },
+    "profileSettings": {
+      "customProfile": "定制你的帐户",
+      "aboutMe": "我的描述",
+      "introYourself": "自我介绍 :)",
+      "birthday": "生日"
+    },
+    "doneStep": {
+      "accountSetup": "你的账户设置好了!",
+      "guidedTourQn": "您是否希望参加一次导游活动？",
+      "yesLetsGo": "是的，我们走吧",
+      "reccForFirstTime": "(推荐给首次使用的用户)",
+      "takeToKTDirectly": "直接带我去甘榜"
+    }
+  },
+
+  "board": {
+    "kampongBoard": "甘榜板",
+    "wholeKampong": "整个甘榜",
+    "popComms": "热门社区",
+    "viewMoreComms": "看更多社区",
+    "popEvents": "热门活动",
+    "viewMoreEvents": "看更多事件",
+    "writePost": "撰写帖子",
+    "empty": {
+      "noFriends": "你的朋友名单是空的。",
+      "suggestion": "我们建议在在线聊天室找到一些朋友",
+      "takeMeToVD": "带我到在线聊天室",
+      "KtIsEmpty": "甘榜是空的..",
+      "bringKtToLife": "写一个新的帖子来填补甘榜。",
+      "noComms": "没有任何社区可供展示。",
+      "noEvents": "没有显示活动。",
+      "scrollToEnd": "看来你已经滚动到布告栏的底部了！",
+      "checkNewPosts": "加载新的帖子"
+    },
+    "createPost": {
+      "writeNew": "写一个新的帖子",
+      "whatOnYourMind": "你在想什么？",
+      "addImage": "添加图片",
+      "chooseComm": "选择一个社区",
+      "chosenComm": "被选中的社区:",
+      "post": "提交",
+      "findComm": "找社区",
+      "search": "搜索",
+      "searchrs": "搜索结果",
+      "suggComms": "建议的社区",
+      "select": "挑选",
+      "selected": "精选",
+      "noSearchComms": "我们找不到任何有这个名字的社区。",
+      "noSuggComms": "没有任何社区可供展示。"
+    },
+    "detail": {
+      "replies": "答复",
+      "replyToPost": "回复帖子...",
+      "sendReply": "发送回复",
+      "noComms": "这个帖子没有留下任何回复。"
+
+    }
+  },
+
+  "post": {
+    "like": "喜欢",
+    "reply": "回复",
+    "postedIn": "发布在",
+    "messageUser": "留言作者",
+    "reportPost": "举报帖"
+  },
+
+  "digimap": {
+    "name": "在线聊天室",
+    "chatone": "聊天室一",
+    "chattwo": "聊天室二",
+    "chatthree": "聊天室三",
+    "chatfour": "聊天室四",
+    "chatfive": "聊天室五",
+    "chatsix": "聊天室六",
+    "entermessage": "请输入您的信息",
+    "chatsuccess": "您已成功进入聊天室!"
+  },
+
+  "support": {
+    "contact": "跟我们的职员联络",
+    "subject": "主题",
+    "message": "信息",
+    "messageplaceholder": "请输入您的信息",
+    "submit": "提交",
+    "contacthotline": "联系热线:",
+    "contacthotlinenumber": " +65 9000 9000",
+    "address": "地址: ",
+    "addressaddress": " 180 Ang Mo Kio Ave 8, Singapore 569830",
+
+    "successmessage": "您已成功提交您的信息!",
+    "homebutton": "返回主页"
+  },
+
+  "dm": {
+    "yourchats": "你的聊天对话",
+    "messageplaceholder": "请输入您的信息",
+    "startchat": "您可以开始聊天 "
+  },
+
+
+  "guides": {
+    "guidedTours": "导游服务",
+    "tip": "帮助提示: 如果你被困在一个页面上，你可以点击这里",
+    "howToUse": "如何使用",
+    "yourProfile": "您的帐户",
+    "mapDesc": "甘榜话的概述。",
+    "boardDesc": "分享你的一天。与他人互动。",
+    "commsDesc": "按主题和兴趣查找帖子。",
+    "voidDeckDesc": "跟你社区的人士交流谈话，做朋友.",
+    "eventsDesc": "参与并创造有趣的活动。",
+    "chatDesc": "你的私人谈话。",
+    "supportDesc": "跟我们的职员联络.",
+    "profDesc": "彰显你的个性。",
+    "settingsDesc": "定制应用程序以适应你的需求。"
+  },
+
+  "walkthrough": {
+    "map": {
+      "title1": "欢迎来到地图!",
+      "intro1": "在这里你可以找到甘榜话的所有功能。",
+      "intro2": "在这里，你可以看你的私人信息。",
+      "intro3": "有具体的兴趣或爱好吗? 在这里找到按主题分类的帖子。",
+      "intro4": "在聊天室，你可以找到并认识附近的新朋友。",
+      "intro5": "在这里，你可以看和写帖子. 分享你的一天，或与朋友叙旧。",
+      "intro6": "在此联系甘榜话的工作人员。",
+      "intro7": "寻找娱乐？在这里浏览和创建吸引人的活动。",
+      "title8": "关闭地图",
+      "intro8": "点击这里，关闭地图，返回到前一页。",
+      "intro9": "在这里看你的朋友名单。",
+      "intro10": "在这里看和定制你的帐户。",
+      "intro11": "在这里改变你的账户设置。",
+      "intro12": "点击这个按钮可以退出甘榜话。"
+
+    },
+    "board": {
+      "title1": "欢迎来到布告栏!",
+      "intro1": "在这里，你可以分享你的一天，或与朋友叙旧。",
+      "title2": "帖子的类型",
+      "intro2": "选择你想看到的帖子类型 - 所有这些，或只是来自朋友的那些。",
+      "title3": "帖子",
+      "intro3": "在此看这些帖子。如果你喜欢这些内容，请点击'喜欢'。点击'回复'，查看回复或留下回复。",
+      "intro4": "以下是目前最受欢迎的社区。",
+      "intro5": "以下是最受欢迎的近期活动。",
+      "title6": "写一个帖子",
+      "intro6": "点击这里写一个帖子。"
+    },
+    "communities": {
+      "title1": "欢迎来到社区!",
+      "intro1": "在这里找到按主题分类的帖子。",
+      "title2": "创建你自己的社区",
+      "intro2": "如果你的理想社区还不存在，你可以建立自己的社区。",
+      "title3": "我的社区",
+      "intro3": "在此查看您的社区信息。",
+      "title4": "热门社区",
+      "intro4": "浏览甘榜话上最受欢迎的社区。"
+    },
+    "voidDeck": {
+      "title1": "欢迎来到聊天室!",
+      "intro1": "在这里，你可以找到并认识附近的新朋友。",
+      "title2": "聊天室",
+      "intro2": "每个聊天室代表一个不同的社区。进入一个聊天室，你可以与里面的人交谈。"
+    },
+    "events": {
+      "title1": "欢迎来到活动!",
+      "intro1": "寻找娱乐？在这里浏览和创建吸引人的活动。",
+      "intro2": "探索甘榜话所提供的所有有趣活动。",
+      "intro3": "在这里，你可以创建和主持你自己的活动。",
+      "intro4": "在这里，你可以看你报名参加的活动、过去的活动和你创建的活动。"
+    },
+    "chats": {
+      "title1": "欢迎来到讯息!",
+      "intro1": "在这里，你可以看你的私人信息。点击某一行以打开该信息。",
+      "title2": "开始与一个人聊天:",
+      "intro2": "从他们的帐户或他们的帖子中给他们留言。快乐的信息传递! 💬"
+    },
+    "support": {
+      "title1": "跟我们的职员联络",
+      "intro1": "在这里，您可以跟我们联系. 请提出任何问题或建议. 🙂",
+      "title2": "联系信息",
+      "intro2": "以下是您可以联系我们的其他方式."
+    },
+    "profile": {
+      "title1": "欢迎来到帐户!",
+      "intro1": "在这里，用户可以炫耀他们的个性。",
+      "title2": "简介图片和横幅",
+      "intro2": "帖子的颜色是根据这个横幅来决定的。",
+      "title3": "个人信息",
+      "intro3": "在这里，你可以查看用户的基本信息。",
+      "intro4": "这是KampongID，对每个用户都是独一无二的。你可以用它来搜索一个特定的用户。",
+      "intro5": "点击这里查看朋友名单。",
+      "title6": "编辑资料",
+      "intro6": "点击这里定制你的帐户。",
+      "title7": "给这个人发信息",
+      "intro7": "点击这里给该用户留言。",
+      "intro8": "点击这里，向该用户发送好友请求。",
+      "title9": "帖子",
+      "intro9": "这些是最新的帖子。"
+    },
+    "settings": {
+      "title1": "欢迎来到设置",
+      "intro1": "在这里，你可以定制甘榜话，以满足你的需求。",
+      "title2": "改变你的KampongID",
+      "intro2": "你可以改变你独特的KampongID，以便家人和朋友可以轻松找到你。",
+      "title3": "管理您的账户隐私和安全",
+      "intro3": "改变你的密码或控制你账户的可见性。",
+      "title4": "设置语言和无障碍功能",
+      "intro4": "按你想要的方式定制该应用程序。改变你的语言，文字大小，以及更多。"
+    }
+  }
+
+}

@@ -15,6 +15,13 @@
   "yes": "Yes",
   "no": "No",
 
+  "previousPage": "Previous page",
+  "nextPage": "Next page",
+
+  "saveChanges": "Save changes",
+
+  "takeNote": "Things to take note",
+
   "features": {
     "chats": "Chats",
     "communities": "Communities",
@@ -31,7 +38,6 @@
   },
 
   "accounts": {
-
     "fullName": "Full name",
     "phoneNumber": "Phone number",
     "password": "Password",
@@ -70,6 +76,193 @@
       "phoneNumberNoExist": "This phone number doesn't match any existing account.",
       "newPassword": "New Password",
       "otpInvalid": "<i class='fas fa-exclamation-triangle'></i>&ensp;This recovery code has either expired or is invalid. Please request for a new one."
+    }
+  },
+
+  "community": {
+    "exploreCommunities": "Explore communities",
+    "createCommunity": "Create Community",
+    "myCommunity": "My Community",
+    "popularCommunities": "Popular communities",
+    "posts": "Posts",
+    "editCommunity": "Edit community",
+    "aboutCommunity": "About this community",
+    "owner": "Owner",
+    "created": "Created",
+    "postsInCommunity": "Posts in this community",
+    "nothingToDisplay": "Nothing to display",
+    "communityNoPost": "This community does not have any posts",
+    "edit": {
+      "name": "Community Name",
+      "nameHint": "Community names cannot be changed.",
+      "about": "About this community"
+    },
+    "empty": {
+      "title": "This isn't a void deck, it's just a void.",
+      "subtitle": "This community does not exist. Please ensure that you did not type the name of the community wrongly."
+    },
+    "create": {
+      "title": "Create a new community",
+      "subtitle": "Start a space where people of similar interests can enjoy",
+      "alreadyExist": {
+        "title": "No new communities can be created",
+        "subtitle": "This account already owns a community."
+      },
+      "alreadyExistSameName": "There is already a community with the same or similar name.",
+      "chooseCarefully": "Choose carefully! This cannot be changed after creation.",
+      "beDescriptive": "Be descriptive as possible so that more people can find your community.",
+      "takeNote": {
+        "a": "Your community and it's contents cannot contain anything inappropriate",
+        "b": "Don't do anything illegal on KampongTalk",
+        "c": "You are responsible for the posts on your community",
+        "d": "You cannot delete your community after it has been created",
+        "e": "Your account cannot create any new communities in the future"
+      },
+      "create": "Create community",
+      "changedYourMind": "Changed your mind?",
+      "returnHome": "Return to homepage"
+    }
+  },
+
+  "profile": {
+    "friends": "Friends",
+    "posts": "Posts",
+    "editProfile": "Edit Profile",
+    "sendMessage": "Send message",
+    "friendReq": {
+      "send": "Send friend request",
+      "accept": "Accept friend request",
+      "pending": "Friend request pending",
+      "undoReq": "Click again to undo request",
+      "added": "Added as friend",
+      "remove": "Click again to remove friend"
+    },
+    "aboutMe": "About me",
+    "joined": "Joined",
+    "privateAcc": {
+      "title": "This is a private account",
+      "subtitle": "You need to be {ViewingUser.Name}'s friend to see their post."
+    },
+    "empty": {
+      "title": "Hmm, there's nothing here",
+      "subtitle": "This user has not created any posts"
+    },
+    "edit": {
+      "name": "Name",
+      "kampongId": "KampongID",
+      "kampongIdHint": "For security reasons, please visit <a href='/Settings?openModal=kampongId'>account settings</a> to change your KampongID.",
+      "aboutMe": "About me"
+    },
+    "notExist": {
+      "title": "We searched high and low, but we weren't able to find this account.",
+      "subtitle": "The user may have changed their user tag, deleted their account, or the user simply didn't exist to begin with.<br/>Please ensure that you did not make any typing mistakes."
+    },
+    "privateAccountFriendsList": {
+      "title": "This user's profile is not public",
+      "subtitle": "To see this user's friend list, you need to be their friend."
+    },
+    "friendList": {
+      "requests": "request(s)",
+      "users": "user(s)",
+      "incoming": "Incoming friend requests",
+      "outgoing": "Outgoing friend requests",
+      "friends": "Friends"
+    },
+    "friendListEmpty": {
+      "title": "This user's friend list is empty",
+      "subtitle": "Try sending a friend request!"
+    }
+  },
+
+  "search": {
+    "results": "result(s)",
+    "viewMore": "View More",
+    "noRelResult": "No relevant results",
+    "showing": "Showing",
+    "users": {
+      "users": "Users",
+      "noResult": "No users found",
+      "hint": "If you have the KampongID of the user you are looking for, type @ followed by the KampongID in the search, to go directly to the user's profile."
+    },
+    "events": {
+      "events": "Events",
+      "noResult": "No events found"
+    },
+    "communities": {
+      "communities": "Communities"
+    },
+    "posts": {
+      "posts": "Posts"
+    }
+  },
+
+  "settings": {
+    "kampongId": {
+      "title": "Your KampongID",
+      "subtitle": "Help friends and family easily find you using your KampongID.",
+      "currentId": "Your current KampongID",
+      "hint": "You can share your KampongID with your friends and family for them to easily locate your profile page just by typing it into the search bar."
+    },
+    "accountPrivacySecurity": {
+      "title": "Account Privacy & Security",
+      "subtitle": "Keep your account secured and control it's visibility.",
+      "password": "Password",
+      "passwordDesc": "Change your password often to keep your account secure.",
+      "profileVisibility": "Profile Visibility",
+      "accountIs": "Your account is",
+      "profilePrivacy": {
+        "privateLabel": "private.",
+        "privateDesc": "Your profile page can only be viewed by your friends.",
+        "publicLabel": "public.",
+        "publicDesc": "Your profile page can be viewed by anyone.",
+        "button": "Change profile privacy"
+      }
+    },
+    "accessibilityLanguage": {
+      "title": "Accessibility & Language",
+      "subtitle": "Change the way KampongTalk looks for your comfort.",
+      "displayLang": "Display Language",
+      "displayTextSize": "Display Text Size",
+      "gender": "Text-to-speech Gender",
+      "useAudio": "Use audio cues",
+      "button": "Toggle profile preferences"
+    },
+    "changeId": {
+      "changeIdText": "Change your KampongID",
+      "currId": "Your current KampongTalk ID",
+      "takeNote": "Things to take note",
+      "afterChange": "After changing your KampongID",
+      "afterChange1": "Users can only use your new KampongID to find you.",
+      "afterChange2": "The web address to your profile page will be changed.",
+      "afterChange3": "Your old KampongID will be available for other users to change to.",
+      "friendsFam": "Make sure you give your friends &amp; family a heads up so that they can find you using your new KampongID.",
+      "newKampongId":"New KampongID",
+      "idUsed": "This KampongID is currently being used by another user.",
+      "idBelongs": "This KampongID already belongs to you. No changes required.",
+      "pw": "Password",
+      "pwErr": "Password is incorrect",
+      "change1": "As you are performing a major change to your account, we will need your password to continue.",
+      "change2": "Save changes"
+    },
+    "changePassword": {
+      "changePw": "Change your password",
+      "currentPw": "Current password",
+      "incorrectPw": "The password is incorrect",
+      "newPw": "New password",
+      "newPwMsg": "Your new password needs to contain at least 8 characters and a number",
+      "updatePw": "Update password"
+    },
+    "changePrivacy": {
+      "title": "Profile privacy",
+      "whatIsPrivate": "What is a private profile?",
+      "whenYouSet": "When you set your profile to private,",
+      "noticeList": {
+        "a": "Only your friends can see your profile page and posts published on your profile.",
+        "b": "Posts to communities will still remain public.",
+        "c": "Your friend list will only be viewable by you and your friends.",
+        "d": "You will need to add users as friends to give them access to your profile page."
+      },
+      "makePrivate": "Make this profile private"
     }
   },
 
@@ -165,7 +358,7 @@
     "viewMoreEvents": "View more Events",
     "writePost": "Write Post",
     "empty": {
-      "noFriends": "You have no friends :(",
+      "noFriends": "Your Friends List is empty.",
       "suggestion": "We suggest finding some friends at the Void Deck",
       "takeMeToVD": "Take me to the Void Deck",
       "KtIsEmpty": "The Kampong is empty..",
