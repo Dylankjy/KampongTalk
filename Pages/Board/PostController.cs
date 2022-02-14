@@ -156,7 +156,32 @@ namespace KampongTalk.Pages.Board
             else
             {
                 // Whole Kampong, All posts
-                nPosts = postDB.Paged(orderBy: "Timestamp DESC", where: "IsComment = 0 AND Author != '0'", pageSize: 1, currentPage: postPage + 5);
+                var prefsDB = new MightyOrm(ConfigurationManager.AppSetting["ConnectionStrings:KampongTalkDbConnection"], "UserPreferences");
+                try
+                {
+                    var allPublicUsers = prefsDB.All(where: "IsPublic = 1");
+                    if (allPublicUsers != null)
+                    {
+                        string allPublicUsersStr = "(";
+                        foreach (var u in allPublicUsers)
+                        {
+                            string UID = u.Uid.ToString();
+                            allPublicUsersStr = allPublicUsersStr + UID + ", ";
+                        }
+                        allPublicUsersStr = allPublicUsersStr[0..^2];
+                        allPublicUsersStr = allPublicUsersStr + ")";
+
+                        nPosts = postDB.Paged(orderBy: "Timestamp DESC", where: $"IsComment = 0 AND Author IN {allPublicUsersStr}", pageSize: 1, currentPage: postPage + 5);
+
+                    }
+                    else
+                    {
+                        nPosts = postDB.Paged(orderBy: "Timestamp DESC", where: "IsComment = 0 AND Author != '0'", pageSize: 1, currentPage: postPage + 5);
+                    }
+                }
+                catch {
+                    nPosts = postDB.Paged(orderBy: "Timestamp DESC", where: "IsComment = 0 AND Author != '0'", pageSize: 1, currentPage: postPage + 5);
+                }
             }
             return nPosts.Items.First();
         }

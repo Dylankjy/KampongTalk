@@ -192,7 +192,7 @@
 
     function selectComms(commLi) {
         $(".commButton").each(function (i, item) {
-            item.innerText = "@Model.LangData.board.createPost.select"
+            item.innerHTML = "@Model.LangData.board.createPost.select"
             item.classList.add("is-outlined")
         })
 
@@ -215,7 +215,7 @@
         $("#chosenCommTagName").innerText = ""
 
         $(".commButton").each(function (i, item) {
-            item.innerText = "@Model.LangData.board.createPost.select"
+            item.innerHTML = "@Model.LangData.board.createPost.select"
             item.classList.add("is-outlined")
         })
 
