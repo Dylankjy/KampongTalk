@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using KampongTalk.Models;
 using Microsoft.AspNetCore.Http;
@@ -56,7 +57,10 @@ namespace KampongTalk.Pages.Search
                 if (thisObjectType == "post")
                 {
                     var thisPost = PostApi.GetPostByPid(long.Parse(entityObj.EntityId));
-                    if (RelApi.IsAccessible(CurrentUser.Uid, thisPost.Author) && thisPost.InCommunity != null)
+                    if (thisPost.InCommunity != null)
+                    {
+                        SearchResultPosts.Add(thisPost);
+                    } else if (RelApi.IsAccessible(CurrentUser.Uid, thisPost.Author))
                     {
                         SearchResultPosts.Add(thisPost);
                     }
